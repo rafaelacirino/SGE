@@ -24,7 +24,6 @@
         </createTable>
 
         <addPrimaryKey tableName="pre_inscricao" columnNames="id_pre" constraintName="pk_pre_inscricao"/>
-        <createSequence sequenceName="sq_pre_inscricao" cycle="false" cacheSize="20" incrementBy="1" startValue="1"/>
 
         <addForeignKeyConstraint baseTableName="pre_inscricao" baseColumnNames="id_usuario"
                                  constraintName="fk_id_usuario" referencedTableName="usuario"
