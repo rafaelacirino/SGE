@@ -3,34 +3,60 @@
                    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
-    <changeSet id="1" author="ital.galdino">
+
+    <!-- CHANGESET TABELA USUARIO  -->
+    <changeSet id="1" author="italo.galdino">
         <createTable tableName="usuario">
+            <!-- ID  -->
             <column name="id_usuario" type="NUMBER">
-                <constraints nullable="false" primaryKey="true"></constraints>
+                <constraints nullable="false" />
             </column>
-
+            <!-- CHAVE UNICA  -->
             <column name="chave_unica" type="VARCHAR(255)">
-                <constraints nullable="false"></constraints>
+                <constraints nullable="false"/>
 
             </column>
-
+            <!-- CPF  -->
             <column name="cpf" type="VARCHAR(11)">
-                <constraints nullable="false" unique="true"></constraints>
+                <constraints nullable="false" unique="true"/>
             </column>
-
+            <!-- NOME  -->
             <column name="nome" type="VARCHAR">
-                <constraints nullable="false"></constraints>
+                <constraints nullable="false"/>
             </column>
-
+            <!-- EMAIL  -->
             <column name="email" type="VARCHAR">
-                <constraints nullable="false"></constraints>
+                <constraints nullable="false"/>
             </column>
-
+            <!-- TELEFONE  -->
             <column name="telefone" type="VARCHAR(14)">
             </column>
-            <column name="dt_nasc" type="DATE"></column>
+            <!-- DATA DE NASCIMENTO  -->
+            <column name="dt_nasc" type="DATE"/>
         </createTable>
-    </changeSet>
 
+        <!-- PRIMARY KEY  -->
+        <addPrimaryKey tableName="usuario" columnNames="id_usuario" constraintName="pk_usuario"/>
+        <!-- SEQUENCIA  -->
+        <createSequence sequenceName="sq_usuario" cycle="false"  incrementBy="1" startValue="1"/>
+
+
+    </changeSet>
+    <!-- TABELA SITUACAO-PREINSCRICAO -->
+    <changeSet id="2" author="italo.galdino">
+        <createTable tableName="situacao_preinscricao">
+            <!-- ID -->
+            <column name="situacao_id" type="number">
+                <constraints nullable="false"/>
+            </column>
+            <!-- SITUACAO  -->
+            <column name="situacao" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <!-- PRIMARY KEY  -->
+        <addPrimaryKey tableName="situacao_preinscricao" columnNames="situacao_id" constraintName="pk_situacao"/>
+
+    </changeSet>
 
 </databaseChangeLog>
