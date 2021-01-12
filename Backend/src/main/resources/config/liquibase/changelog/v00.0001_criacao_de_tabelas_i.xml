@@ -1,0 +1,36 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet id="1" author="ital.galdino">
+        <createTable tableName="usuario">
+            <column name="id_usuario" type="NUMBER">
+                <constraints nullable="false" primaryKey="true"></constraints>
+            </column>
+
+            <column name="chave_unica" type="VARCHAR(255)">
+                <constraints nullable="false"></constraints>
+
+            </column>
+
+            <column name="cpf" type="VARCHAR(11)">
+                <constraints nullable="false" unique="true"></constraints>
+            </column>
+
+            <column name="nome" type="VARCHAR">
+                <constraints nullable="false"></constraints>
+            </column>
+
+            <column name="email" type="VARCHAR">
+                <constraints nullable="false"></constraints>
+            </column>
+
+            <column name="telefone" type="VARCHAR(14)">
+            </column>
+            <column name="dt_nasc" type="DATE"></column>
+        </createTable>
+    </changeSet>
+
+
+</databaseChangeLog>
