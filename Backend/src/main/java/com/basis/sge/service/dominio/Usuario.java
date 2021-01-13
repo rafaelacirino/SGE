@@ -1,0 +1,44 @@
+package com.basis.sge.service.dominio;
+
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.io.Serializable;
+import java.util.Date;
+
+@Entity
+@Table(name = "tipo_evento")
+@Getter
+@Setter
+public class Usuario implements Serializable {
+
+    @Id
+    @Column(name = "id_usuario")
+    private Integer idUsuario;
+
+    @Column(name = "chave_unica")
+    private  String ChaveUnica;
+
+    @Column(name = "cpf")
+    private  String cpf;
+
+    @Column(name = "nome")
+    private  String nome;
+
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "telefone")
+    private  String telefone;
+
+    @Column(name = "dt_nasc")
+    private Date dataNascimento;
+
+
+
+
+}
