@@ -28,10 +28,18 @@
 
         <addForeignKeyConstraint baseTableName="pre_inscricao" baseColumnNames="id_usuario"
                                  constraintName="fk_id_usuario" referencedTableName="usuario"
-                                 referencedColumnNames="usuario_id"/>
+                                 referencedColumnNames="id_usuario"/>
         <addForeignKeyConstraint baseTableName="pre_inscricao" baseColumnNames="id_evento"
                                  constraintName="fk_id_evento" referencedTableName="evento"
                                  referencedColumnNames="evento_id"/>
+    </changeSet>
+
+    <changeSet id="2" author="italo.galdino">
+        <addColumn tableName="pre_inscricao">
+            <column name="id_situacao" type="NUMBER"></column>
+        </addColumn>
+        <addForeignKeyConstraint baseTableName="pre_inscricao" baseColumnNames="id_situacao" constraintName="fk_id_situacao" referencedTableName="situacao_preinscricao"
+                                 referencedColumnNames="situacao_id"/>
     </changeSet>
 
 </databaseChangeLog>

@@ -52,4 +52,9 @@
                                  referencedColumnNames="evento_id"/>
     </changeSet>
 
+    <changeSet id="3" author="italo.galdino">
+        <addForeignKeyConstraint baseTableName="evento" baseColumnNames="tipo_evento" constraintName="fk_tipo_evento" referencedTableName="tipo_evento"
+                                 referencedColumnNames="tipo_id"/>
+    </changeSet>
+
 </databaseChangeLog>

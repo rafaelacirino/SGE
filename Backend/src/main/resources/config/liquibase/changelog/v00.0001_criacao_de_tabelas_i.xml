@@ -59,4 +59,46 @@
 
     </changeSet>
 
+    <!-- TABELA TIPO DE EVENTO -->
+    <changeSet id="3" author="italo.galdino">
+        <createTable tableName="tipo_evento">
+            <!-- ID -->
+            <column name="tipo_id" type="NUMBER">
+                <constraints nullable="false"/>
+            </column>
+            <!-- TIPO -->
+            <column name="tipo" type="VARCHAR">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <!-- PRIMARY KEY -->
+        <addPrimaryKey tableName="tipo_evento" columnNames="tipo_id" constraintName="pk_tipo"/>
+        <!-- SEQUENCIA -->
+        <createSequence sequenceName="sq_tipo" cycle="false"  incrementBy="1" startValue="1"/>
+    </changeSet>
+    
+    <changeSet id="4" author="italo.galdino">
+        <createTable tableName="pergunta">
+
+            <column name="id_pergunta" type="NUMBER">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="titulo" type="VARCHAR">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="obrigatorio" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey tableName="pergunta" columnNames="id_pergunta" constraintName="pk_pergunta"/>
+        <createSequence sequenceName="sq_pergunta" cycle="false"  incrementBy="1" startValue="1"/>
+    </changeSet>
+    
+
+
+
+
 </databaseChangeLog>
