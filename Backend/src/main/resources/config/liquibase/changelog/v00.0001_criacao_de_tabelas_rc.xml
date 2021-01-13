@@ -1,0 +1,51 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+        <changeSet id="1" author="rafaela.cirino">
+            <createTable tableName="pergunta">
+
+                <column name="titulo" type="text">
+                    <constraints nullable="false"/>
+                </column>
+
+                <column name="obrigatoriedade" type="boolean">
+                    <constraints nullable="false"/>
+                </column>
+
+                <column name="id_pergunta" type="int">
+                    <constraints nullable="true"/>
+                </column>
+            </createTable>
+            <addPrimaryKey tableName="perguntas" columnNames="id_usuario" constraintName="pk_perguntas"/>
+
+
+        </changeSet>
+
+        <changeSet id="2" author="rafaela.cirino">
+            <createTable tableName="respostas_pergunta_evento">
+
+                <column name="id_pergunta" type="number">
+                    <constraints nullable="false"/>
+                </column>
+
+                <column name="id_evento" type="number">
+                    <constraints nullable="false"/>
+                </column>
+
+                <column name="id_usuario" type="number">
+                    <constraints nullable="false"/>
+                </column>
+            </createTable>
+            <addPrimaryKey tableName="respostas_pergunta_evento" columnNames="id_pergunta, id_evento, id_usuario" constraintName="pk_respostas_pergunta_evento"/>
+            <addForeignKeyConstraint baseTableName="respostas_pergunta_evento" baseColumnNames="id_pergunta"
+                                     constraintName="fk_id_pergunta" referencedTableName="pergunta"
+                                     referencedColumnNames="id_pergunta"/>
+            <addForeignKeyConstraint baseTableName="respostas_pergunta_evento" baseColumnNames="id_evento"
+                                     constraintName="fk_id_evento" referencedTableName="evento"
+                                     referencedColumnNames="evento_id"/>
+            <addForeignKeyConstraint baseTableName="respostas_pergunta_evento" baseColumnNames="id_usuario"
+                                     constraintName="fk_id_usuario" referencedTableName="usuario"
+                                     referencedColumnNames="usuario_id"/>
+        </changeSet>
+</databaseChangeLog>
