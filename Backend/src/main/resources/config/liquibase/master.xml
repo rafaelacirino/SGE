@@ -11,10 +11,10 @@
 
 
 
-    <include file="config/liquibase/changelog/v00.0001_criacao_de_tabelas_i.xml"
-             relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/v00.0001_criacao_de_tabelas_evento_perguntaEvento.xml"
-             relativeToChangelogFile="false"/>
+
+
+
+
     <include file="config/liquibase/changelog/pre_inscricao_tipo_evento.xml"
              relativeToChangelogFile="false"/>
 
