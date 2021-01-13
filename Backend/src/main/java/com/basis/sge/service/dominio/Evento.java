@@ -10,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -49,11 +51,17 @@ public class Evento implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "id_tipo_evento", nullable = true, referencedColumnName = "id_tipo")
-    private Integer id_tipo_evento;
+    private TipoEvento id_tipo_evento;
 
     @Column(name = "valor", nullable = true)
     private Double valor;
 
     @Column(name = "local", nullable = true)
     private String local;
+
+    @ManyToMany
+    @JoinTable(name="pergunta_evento",
+            joinColumns={@JoinColumn(name="id_pergunta")},
+            inverseJoinColumns={@JoinColumn(name="id_evento")})
+    private List<Pergunta> perguntas;
 }
