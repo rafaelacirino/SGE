@@ -1,0 +1,37 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+
+    <changeSet id="1" author="rennan.aguiar">
+        <createTable tableName="pre_inscricao">
+            <column name="id_pre" type="number">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cod_verificacao" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="verificado" type="boolean">
+                <constraints nullable="false"/>
+            </column>
+            <column name="id_usuario" type="number">
+                <constraints nullable="false"/>
+            </column>
+            <column name="id_evento" type="number">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey tableName="pre_inscricao" columnNames="id_pre" constraintName="pk_pre_inscricao"/>
+
+        <addForeignKeyConstraint baseTableName="pre_inscricao" baseColumnNames="id_usuario"
+                                 constraintName="fk_id_usuario" referencedTableName="usuario"
+                                 referencedColumnNames="usuario_id"/>
+        <addForeignKeyConstraint baseTableName="pre_inscricao" baseColumnNames="id_evento"
+                                 constraintName="fk_id_evento" referencedTableName="evento"
+                                 referencedColumnNames="evento_id"/>
+    </changeSet>
+
+</databaseChangeLog>
