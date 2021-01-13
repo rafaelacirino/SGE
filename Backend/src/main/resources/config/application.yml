@@ -3,7 +3,7 @@ application:
 
 spring:
     application:
-        name: sgeservice
+        name: srsservice
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
         url: jdbc:postgresql://localhost:5432/sge
@@ -14,7 +14,7 @@ spring:
         deserialization:
             fail-on-unknown-properties: false
     jpa:
-        #database-platform: io.github.jhipster.domain.util.FixedPostgreSQL95Dialect
+   #     database-platform: io.github.jhipster.domain.util.FixedPostgreSQL95Dialect
         database: POSTGRESQL
         show-sql: true
         open-in-view: false
