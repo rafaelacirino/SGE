@@ -14,6 +14,7 @@ import java.util.Date;
 @Table(name = "tipo_evento")
 @Getter
 @Setter
+/* CLASSE USUARIO*/
 public class Usuario implements Serializable {
 
     @Id
@@ -34,11 +35,9 @@ public class Usuario implements Serializable {
 
     @Column(name = "telefone")
     private  String telefone;
-
+    /* Date.Java*/
     @Column(name = "dt_nasc")
     private Date dataNascimento;
-
-
 
 
 }
