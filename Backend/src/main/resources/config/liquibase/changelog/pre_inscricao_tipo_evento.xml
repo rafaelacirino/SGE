@@ -34,36 +34,4 @@
                                  referencedColumnNames="evento_id"/>
     </changeSet>
 
-    <changeSet id="2" author="rennan.aguiar">
-        <createTable tableName="tipo_evento">
-            <column name="tipo_id" type="NUMBER">
-                <constraints nullable="false"/>
-            </column>
-            <column name="descricao" type="VARCHAR(255)">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-        <addPrimaryKey tableName="tipo_evento" columnNames="tipo_id" constraintName="pk_tipo_evento"/>
-
-        <insert tableName="tipo_id">
-            <column name="id">1</column>
-            <column name="descricao">Workshop</column>
-        </insert>
-
-        <insert tableName="tipo_id">
-            <column name="id">2</column>
-            <column name="descricao">Palestra</column>
-        </insert>
-
-        <insert tableName="tipo_id">
-            <column name="id">3</column>
-            <column name="descricao">Mini Curso</column>
-        </insert>
-
-        <insert tableName="tipo_id">
-            <column name="id">4</column>
-            <column name="descricao">Treinamento</column>
-        </insert>
-    </changeSet>
-
 </databaseChangeLog>
