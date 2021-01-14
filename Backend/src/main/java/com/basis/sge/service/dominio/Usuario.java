@@ -49,7 +49,4 @@ public class Usuario implements Serializable {
     @OneToMany(mappedBy = "usuario")
     private List<PreInscricao> preInscricao;
 
-
-
-
 }

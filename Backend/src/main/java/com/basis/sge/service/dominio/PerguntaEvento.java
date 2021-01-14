@@ -8,9 +8,11 @@ import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table (name = "pergunta_evento")
@@ -24,12 +26,12 @@ public class PerguntaEvento implements Serializable {
     IdPerguntaEvento id;
 
     @Column(name = "id_pergunta")
-    @ManyToOne
+    @ManyToMany
     @JoinColumn(name = "id_pergunta", referencedColumnName = "id_pergunta")
-    private Pergunta pergunta;
+    private List<Pergunta> pergunta;
 
     @Column(name = "id_evento")
-    @ManyToOne
+    @ManyToMany
     @JoinColumn(name = "id_evento", referencedColumnName = "id_evento")
-    private Evento evento;
+    private List<Evento> evento;
 }
