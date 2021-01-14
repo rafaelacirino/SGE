@@ -5,5 +5,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class UsuarioDTO {
+public class PerguntaDTO {
+
+    private Integer id;
+    private String titulo;
 }
