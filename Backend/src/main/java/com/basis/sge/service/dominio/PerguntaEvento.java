@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.List;
@@ -25,13 +26,13 @@ public class PerguntaEvento implements Serializable {
     @EmbeddedId
     IdPerguntaEvento id;
 
-    @Column(name = "id_pergunta")
     @ManyToMany
+    @MapsId("idPergunta")
     @JoinColumn(name = "id_pergunta", referencedColumnName = "id_pergunta")
     private List<Pergunta> pergunta;
 
-    @Column(name = "id_evento")
     @ManyToMany
+    @MapsId("idEvento")
     @JoinColumn(name = "id_evento", referencedColumnName = "id_evento")
-    private List<Evento> evento;
+    private List<Evento>     evento;
 }

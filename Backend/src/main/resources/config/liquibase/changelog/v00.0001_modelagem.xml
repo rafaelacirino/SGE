@@ -132,7 +132,7 @@
     </changeSet>
 
     <changeSet id="7" author="rennan.aguiar">
-        <createTable tableName="Fcricao">
+        <createTable tableName="pre_inscricao">
             <column name="id_pre" type="number" remarks="Criacao da coluna id_pre">
                 <constraints nullable="false"/>
             </column>
