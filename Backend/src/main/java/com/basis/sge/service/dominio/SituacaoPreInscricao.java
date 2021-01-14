@@ -30,7 +30,4 @@ public class SituacaoPreInscricao {
     @Column(name = "descricao")
     private String descricao;
 
-    @OneToMany(mappedBy = "situacaoPreInscricao")
-    private List<PreInscricao> preInscricao;
-
 }
