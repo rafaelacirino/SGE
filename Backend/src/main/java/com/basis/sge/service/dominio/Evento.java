@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.io.Serializable;
@@ -29,35 +30,35 @@ public class Evento implements Serializable {
     @Id
     @Column(name="id_evento")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "evento")
-    @SequenceGenerator(name = "evento", sequenceName = "sq_evento", initialValue = 1,allocationSize = 1)
-    private Integer id_evento;
+    @SequenceGenerator(name = "evento",sequenceName = "sq_evento",initialValue = 1,allocationSize = 1)
+    private Integer id;
 
     @Column(name = "titulo", nullable = false)
     private String titulo;
 
     @Column(name = "periodo_inicio", nullable = false)
-    private Timestamp periodo_inicio;
+    private Timestamp periodoInicio;
 
     @Column(name = "periodo_fim", nullable = false)
-    private Timestamp periodo_fim;
+    private Timestamp periodoFim;
 
     @Column(name = "tipo_insc", nullable = false)
-    private Boolean tipo_insc;
+    private Boolean tipoInsc;
 
-    @Column(name = "descricao", nullable = true)
+    @Column(name = "descricao")
     private String descricao;
 
-    @Column(name = "qtd_vagas", nullable = true)
-    private Integer qtd_vagas;
+    @Column(name = "qtd_vagas")
+    private Integer qtdVagas;
 
     @ManyToOne
-    @JoinColumn(name = "id_tipo_evento", nullable = true, referencedColumnName = "id_tipo")
-    private TipoEvento id_tipo_evento;
+    @JoinColumn(name = "id_tipo_evento", referencedColumnName = "id_tipo")
+    private TipoEvento tipoEvento;
 
-    @Column(name = "valor", nullable = true)
+    @Column(name = "valor")
     private Double valor;
 
-    @Column(name = "local", nullable = true)
+    @Column(name = "local")
     private String local;
 
     @ManyToMany
@@ -66,7 +67,6 @@ public class Evento implements Serializable {
             inverseJoinColumns={@JoinColumn(name="id_evento")})
     private List<Pergunta> perguntas;
 
-    @Column (name = "usuarios")
-    @ManyToMany(mappedBy = "eventos")
-    private List<Usuario> usuarios;
+    @OneToMany(mappedBy = "evento")
+    private List<PreInscricao> preInscricao;
 }

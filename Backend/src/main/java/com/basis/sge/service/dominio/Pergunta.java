@@ -12,20 +12,24 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.io.Serializable;
 
-@Entity
-@Table(name = "pergunta")
 @Getter
 @Setter
+@Entity
+@Table (name = "pergunta")
+
 public class Pergunta implements Serializable {
+
     @Id
-    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pergunta")
-    @SequenceGenerator(name = "pergunta",sequenceName = "sq_pergunta" ,initialValue = 1,allocationSize = 1)
+    @SequenceGenerator(name = "pergunta", sequenceName = "sq_pergunta", allocationSize = 1)
+
+    @Column(name = "id_pergunta")
     private Integer id;
 
-    @Column(name = "titulo")
+    @Column(name = "titulo", nullable = false)
     private String titulo;
 
-    @Column(name = "obrigatorio")
-    private Integer obrigatorio;
+    @Column(name = "obrigatorio", nullable = false)
+    private Boolean obrigatorio;
+
 }

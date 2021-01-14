@@ -17,7 +17,7 @@ public class TipoEvento implements Serializable {
 
     @Id
     @Column(name = "id_tipo")
-    private Integer id_tipo;
+    private Integer id;
 
     @Column(name = "descricao")
     private String descricao;
