@@ -168,6 +168,10 @@
     <changeSet id="8" author="rafaela.cirino">
         <createTable tableName="respostas_pergunta_evento">
 
+            <column name="id_resposta" type="NUMBER" remarks="Criacao da coluna id_resposta">
+                <constraints nullable="false"/>
+            </column>
+
             <column name="id_pergunta" type="number" remarks="Criacao da coluna id_pergunta">
                 <constraints nullable="false"/>
             </column>
@@ -183,13 +187,14 @@
                 <constraints nullable="false" />
             </column>
         </createTable>
-        <addPrimaryKey tableName="respostas_pergunta_evento" columnNames="id_pergunta, id_evento, id_inscricao" constraintName="pk_respostas_pergunta_evento"/>
+        <addPrimaryKey tableName="respostas_pergunta_evento" columnNames="id_resposta" constraintName="pk_respostas_pergunta_evento"/>
         <addForeignKeyConstraint baseTableName="respostas_pergunta_evento" baseColumnNames="id_evento, id_pergunta"
                                  constraintName="fk_id_evento" referencedTableName="pergunta_evento"
                                  referencedColumnNames="id_evento, id_pergunta"/>
         <addForeignKeyConstraint baseTableName="respostas_pergunta_evento" baseColumnNames="id_inscricao"
                                  constraintName="fk_id_inscricao" referencedTableName="pre_inscricao"
                                  referencedColumnNames="id_pre"/>
+        <createSequence sequenceName="sq_resposta" incrementBy="1" startValue="1"/>
     </changeSet>
 
 
