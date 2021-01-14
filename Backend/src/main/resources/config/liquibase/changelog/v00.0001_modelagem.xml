@@ -6,6 +6,7 @@
 
 
         <changeSet id="1" author="italo.galdino">
+            <!-- USUARIO -->
             <createTable tableName="usuario">
                 <column name="id_usuario" type="NUMBER" remarks="Criacao da coluna id_usuario" >
                     <constraints nullable="false" />
