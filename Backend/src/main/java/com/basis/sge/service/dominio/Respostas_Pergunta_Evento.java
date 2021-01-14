@@ -19,17 +19,17 @@ public class Respostas_Pergunta_Evento {
     private Integer id;
 
     @Column(name = "id_pergunta")
-    @OneToOne()
-    @JoinColumn(name = "id_pergunta", referencedColumnName = "id_pergunta")
-    private Integer id_pergunta;
+    //@OneToOne()
+    //@JoinColumn(name = "id_pergunta", referencedColumnName = "id_pergunta")
+    private Integer idPergunta;
 
     @Column(name = "id_usuario")
-    @OneToOne()
-    @JoinColumn(name = "id_usuario", referencedColumnName = "usuario")
-    private Integer id_usuario;
+    //@OneToOne()
+    //@JoinColumn(name = "id_usuario", referencedColumnName = "usuario")
+    private Integer idUsuario;
 
     @Column(name = "id_evento")
-    @OneToOne()
-    @JoinColumn(name = "id_evento", referencedColumnName = "id_evento")
-    private Integer id_evento;
+    //@OneToOne()
+    //@JoinColumn(name = "id_evento", referencedColumnName = "id_evento")
+    private Integer idEvento;
 }
