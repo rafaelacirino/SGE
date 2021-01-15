@@ -23,10 +23,7 @@ public class PerguntaServico {
     // GET (LISTA)
     public List<PerguntaDTO> listar(){
         List<Pergunta> perguntas = perguntaRepositorio.findAll();
-
-        if(perguntas.size() <= 0){
-            throw new RegraNegocioException("Não existem perguntas");
-        }
+        
         return perguntaMapper.toDto(perguntas);
     }
 
