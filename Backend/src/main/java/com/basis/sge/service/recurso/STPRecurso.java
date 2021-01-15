@@ -1,6 +1,5 @@
 package com.basis.sge.service.recurso;
 
-import com.basis.sge.service.servico.DTO.PreInsDTO;
 import com.basis.sge.service.servico.DTO.STPDTO;
 import com.basis.sge.service.servico.STPServico;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +18,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/situacaopreinscricao")
 @RequiredArgsConstructor
-
 public class STPRecurso {
     private final STPServico stpServico;
 

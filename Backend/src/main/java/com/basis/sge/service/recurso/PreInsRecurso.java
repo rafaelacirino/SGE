@@ -1,10 +1,8 @@
 package com.basis.sge.service.recurso;
 
 import com.basis.sge.service.servico.DTO.PreInsDTO;
-import com.basis.sge.service.servico.DTO.STPDTO;
 import com.basis.sge.service.servico.PreInsServico;
 import lombok.RequiredArgsConstructor;
-import org.mapstruct.Mapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
