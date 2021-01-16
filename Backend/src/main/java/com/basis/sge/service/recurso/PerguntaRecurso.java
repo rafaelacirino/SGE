@@ -38,7 +38,8 @@ public class PerguntaRecurso {
     @PostMapping
     public ResponseEntity<PerguntaDTO> salvar(@RequestBody PerguntaDTO perguntaDto){
 
-        return ResponseEntity.ok(perguntaDto);
+        perguntaServico.salvar(perguntaDto);
+        return ResponseEntity.ok( perguntaServico.salvar(perguntaDto));
     }
 
     @PutMapping("/{id}")

@@ -33,15 +33,6 @@ public class UsuarioServico {
 
     public UsuarioDTO salvar(UsuarioDTO usuarioDTO){
 
-        Usuario usuarioEmail = usuarioRepositorio.findByEmail(usuarioDTO.getEmail());
-        Usuario usuarioCpf = usuarioRepositorio.findByCpf(usuarioDTO.getCpf());
-
-        if(usuarioEmail != null){
-            throw new RegraNegocioException("Email já cadastrado");
-        }
-        if(usuarioCpf != null){
-            throw new RegraNegocioException("CPF já cadastrado");
-        }
         Usuario usuario = usuarioRepositorio.save(usuarioMapper.toEntity(usuarioDTO));
         return usuarioMapper.toDto(usuario);
     }

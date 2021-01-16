@@ -37,11 +37,6 @@ public class PerguntaServico {
 
     // POST
     public PerguntaDTO salvar(PerguntaDTO perguntaDto){
-        Integer perguntaId = perguntaDto.getId();
-
-        if(perguntaRepositorio.findById(perguntaId) != null){
-            throw new RegraNegocioException("Pergunta já cadastrada");
-        }
         if (perguntaDto == null){
             throw new RegraNegocioException("A pergunta é nula");
         }
@@ -51,34 +46,36 @@ public class PerguntaServico {
         if (perguntaDto.getObrigatorio() == null){
             throw new RegraNegocioException("A obrigatoriedade não existe");
         }
-        Pergunta pergunta = perguntaMapper.toEntity(perguntaDto);
 
-        return perguntaDto;
+        Pergunta pergunta = perguntaRepositorio.save(perguntaMapper.toEntity(perguntaDto));
+
+        return perguntaMapper.toDto(pergunta);
+
     }
 
     //PUT
     public PerguntaDTO editar (Integer id, PerguntaDTO perguntaDto){
 
-        Pergunta pergunta = perguntaRepositorio.findById(id)
-                .orElseThrow(() -> new RegraNegocioException("Pergunta não existe"));
+        if(!perguntaRepositorio.existsById(id)){
+            throw  new RegraNegocioException("Pergunta de id" + id + " não existe");
+        }
         if(perguntaDto == null){
             throw new RegraNegocioException("A pergunta é nula");
         }
 
-        //DELETA
-        perguntaRepositorio.delete(pergunta);
-        //SUBSTITUIÇÃO
-        pergunta = perguntaMapper.toEntity(perguntaDto);
-        //SALVO
-        perguntaRepositorio.save(pergunta);
+        Pergunta pergunta = perguntaRepositorio.findById(id)
+                .orElseThrow(()-> new RegraNegocioException("Pergunta não encontrada"));
 
-        return null;
+        pergunta.setTitulo(perguntaDto.getTitulo());
+        pergunta.setObrigatorio(perguntaDto.getObrigatorio());
+
+        return perguntaMapper.toDto(pergunta);
     }
 
     // DELETE
     public void remover(Integer id){
 
-        if(perguntaRepositorio.findById(id) == null){
+        if(!perguntaRepositorio.existsById(id)){
             throw new RegraNegocioException("Pergunta não existe");
         }
         perguntaRepositorio.deleteById(id);
