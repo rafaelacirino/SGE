@@ -31,8 +31,8 @@ public class PerguntaServico {
         Pergunta pergunta = perguntaRepositorio.findById(id)
                 .orElseThrow(()-> new RegraNegocioException("Pergunta não encontrado"));
         // Conversão para DTO
-        PerguntaDTO perguntaDTO = perguntaMapper.toDto(pergunta);
-        return perguntaDTO;
+        return perguntaMapper.toDto(pergunta);
+
     }
 
     // POST
@@ -55,16 +55,12 @@ public class PerguntaServico {
 
     //PUT
     public PerguntaDTO editar (Integer id, PerguntaDTO perguntaDto){
+        Pergunta pergunta = perguntaRepositorio.findById(id)
+                .orElseThrow(()-> new RegraNegocioException("Pergunta não encontrada"));
 
-        if(!perguntaRepositorio.existsById(id)){
-            throw  new RegraNegocioException("Pergunta de id" + id + " não existe");
-        }
         if(perguntaDto == null){
             throw new RegraNegocioException("A pergunta é nula");
         }
-
-        Pergunta pergunta = perguntaRepositorio.findById(id)
-                .orElseThrow(()-> new RegraNegocioException("Pergunta não encontrada"));
 
         pergunta.setTitulo(perguntaDto.getTitulo());
         pergunta.setObrigatorio(perguntaDto.getObrigatorio());

@@ -24,9 +24,10 @@ public class UsuarioRecurso {
 
     @GetMapping
     private ResponseEntity<List<UsuarioDTO>> listar(){
-        List list = usuarioServico.listar();
-        return ResponseEntity.ok(list);
+
+        return ResponseEntity.ok( usuarioServico.listar());
     }
+
     @GetMapping("/{id}")
     public ResponseEntity<UsuarioDTO>obterPorID(@PathVariable Integer id){
         return ResponseEntity.ok(usuarioServico.obterPorID(id));
@@ -34,14 +35,12 @@ public class UsuarioRecurso {
 
     @PostMapping
     public ResponseEntity<UsuarioDTO>salvar(@RequestBody UsuarioDTO usuarioDTO){
-        UsuarioDTO usuario = usuarioServico.salvar(usuarioDTO);
-        return ResponseEntity.ok(usuario);
+        return ResponseEntity.ok(usuarioServico.salvar(usuarioDTO));
     }
 
-    @PutMapping
-    public ResponseEntity<UsuarioDTO> editar(@RequestBody UsuarioDTO usuarioDTO){
-        UsuarioDTO usuario = usuarioServico.editar(usuarioDTO);
-        return ResponseEntity.ok(usuario);
+    @PutMapping("/{id}")
+    public ResponseEntity<UsuarioDTO> editar(@PathVariable Integer id, @RequestBody UsuarioDTO usuarioDTO ){
+        return ResponseEntity.ok(usuarioServico.editar(id, usuarioDTO));
     }
 
     @DeleteMapping("/{id}")

@@ -38,7 +38,6 @@ public class PerguntaRecurso {
     @PostMapping
     public ResponseEntity<PerguntaDTO> salvar(@RequestBody PerguntaDTO perguntaDto){
 
-        perguntaServico.salvar(perguntaDto);
         return ResponseEntity.ok( perguntaServico.salvar(perguntaDto));
     }
 
@@ -49,9 +48,9 @@ public class PerguntaRecurso {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<List<PerguntaDTO>> remover (@PathVariable Integer id){
+    public ResponseEntity<Void> remover (@PathVariable Integer id){
         perguntaServico.remover(id);
-        return ResponseEntity.ok(perguntaServico.listar());
+        return ResponseEntity.ok().build();
 
     }
 }
