@@ -20,17 +20,29 @@ public class PerguntaServico {
     private final PerguntaMapper perguntaMapper;
 
 
+    public boolean verificarDuplicacao(String titulo){
+        List<Pergunta> perguntas = perguntaRepositorio.findAll();
+        if(!perguntas.isEmpty()){
+            for (int i = 0; i < perguntas.size(); i++){
+                if(perguntas.get(i).getTitulo() == titulo){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     // GET (LISTA)
     public List<PerguntaDTO> listar(){
         List<Pergunta> perguntas = perguntaRepositorio.findAll();
-        
+
         return perguntaMapper.toDto(perguntas);
     }
 
     // GET (ID)
     public PerguntaDTO obterPorId(Integer id){
         Pergunta pergunta = perguntaRepositorio.findById(id)
-                .orElseThrow(()-> new RegraNegocioException("Pergunta não encontrado"));
+                .orElseThrow(()-> new RegraNegocioException("Pergunta não encontrada"));
         // Conversão para DTO
         PerguntaDTO perguntaDTO = perguntaMapper.toDto(pergunta);
         return perguntaDTO;
@@ -38,11 +50,12 @@ public class PerguntaServico {
 
     // POST
     public PerguntaDTO salvar(PerguntaDTO perguntaDto){
-        Integer perguntaId = perguntaDto.getId();
 
-        if(perguntaRepositorio.findById(perguntaId) != null){
-            throw new RegraNegocioException("Pergunta já cadastrada");
+
+        if (verificarDuplicacao(perguntaDto.getTitulo()) == true){
+            throw new RegraNegocioException("Pergunta duplicada");
         }
+
         if (perguntaDto == null){
             throw new RegraNegocioException("A pergunta é nula");
         }
@@ -52,34 +65,37 @@ public class PerguntaServico {
         if (perguntaDto.getObrigatorio() == null){
             throw new RegraNegocioException("A obrigatoriedade não existe");
         }
-        Pergunta pergunta = perguntaMapper.toEntity(perguntaDto);
+        Pergunta pergunta = perguntaRepositorio.save(perguntaMapper.toEntity(perguntaDto));
 
-        return perguntaDto;
+
+        return perguntaMapper.toDto(pergunta);
     }
 
     //PUT
     public PerguntaDTO editar (Integer id, PerguntaDTO perguntaDto){
 
-        Pergunta pergunta = perguntaRepositorio.findById(id)
-                .orElseThrow(() -> new RegraNegocioException("Pergunta não existe"));
+        if(!perguntaRepositorio.existsById(id)){
+            throw new RegraNegocioException("Pergunta não encontrada");
+        }
+
         if(perguntaDto == null){
             throw new RegraNegocioException("A pergunta é nula");
         }
 
-        //DELETA
-        perguntaRepositorio.delete(pergunta);
-        //SUBSTITUIÇÃO
-        pergunta = perguntaMapper.toEntity(perguntaDto);
-        //SALVO
-        perguntaRepositorio.save(pergunta);
+        Pergunta pergunta = perguntaRepositorio.findById(id)
+                .orElseThrow(()-> new RegraNegocioException("Pergunta não encontrada"));
 
-        return null;
+        pergunta.setTitulo(perguntaDto.getTitulo());
+        pergunta.setObrigatorio(perguntaDto.getObrigatorio());
+
+
+        return perguntaMapper.toDto(pergunta);
     }
 
     // DELETE
     public void remover(Integer id){
 
-        if(perguntaRepositorio.findById(id) == null){
+        if(!perguntaRepositorio.existsById(id)){
             throw new RegraNegocioException("Pergunta não existe");
         }
         perguntaRepositorio.deleteById(id);
