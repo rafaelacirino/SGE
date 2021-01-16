@@ -46,5 +46,5 @@ public class EventoDTO implements Serializable {
 
     private List<Pergunta> perguntas;
 
-    private List<PreInscricao> preInscricao;
+    private List<PreInscricao> preInscricoes;
 }
