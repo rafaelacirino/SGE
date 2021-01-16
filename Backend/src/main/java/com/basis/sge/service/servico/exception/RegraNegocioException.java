@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> featureRafaela
 package com.basis.sge.service.servico.exception;
 
 import org.springframework.http.HttpStatus;
