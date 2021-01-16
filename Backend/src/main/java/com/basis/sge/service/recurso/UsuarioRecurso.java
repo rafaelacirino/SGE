@@ -1,13 +1,9 @@
 package com.basis.sge.service.recurso;
-
-<<<<<<< HEAD
-public class UsuarioRecurso {
-=======
 import com.basis.sge.service.dominio.Usuario;
 import com.basis.sge.service.servico.DTO.UsuarioDTO;
 import com.basis.sge.service.servico.UsuarioServico;
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.autoconfigure.info.ProjectInfoProperties;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,8 +13,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -55,5 +49,5 @@ public class UsuarioRecurso {
         usuarioServico.remover(id);
         return ResponseEntity.ok().build();
     }
->>>>>>> featureRafaela
+
 }

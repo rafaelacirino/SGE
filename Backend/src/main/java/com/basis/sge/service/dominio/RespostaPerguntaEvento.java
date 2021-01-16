@@ -21,10 +21,7 @@ import java.io.Serializable;
 @Setter
 @Entity
 @Table(name = "respostas_pergunta_evento")
-<<<<<<< HEAD
 
-=======
->>>>>>> featureRafaela
 public class RespostaPerguntaEvento implements Serializable {
 
 
