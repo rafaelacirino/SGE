@@ -26,7 +26,7 @@ public class UsuarioServico {
 
         for(int i = 0; i < list.size(); i++ ){
             if (list.get(i).getEmail() == email){
-                return list.get(1);
+                return list.get(i);
             }
         }
         return null;
