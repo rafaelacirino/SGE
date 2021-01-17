@@ -18,13 +18,12 @@ import java.io.Serializable;
 @Table(name = "pre_inscricao")
 @Getter
 @Setter
-
 public class PreInscricao implements Serializable {
 
+    @Id
+    @Column(name = "id_preinscricao")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pre_inscricao")
     @SequenceGenerator(name = "pre_inscricao", sequenceName = "sq_pre", allocationSize = 1)
-    @Id
-    @Column(name = "id_pre")
     private Integer id;
 
     @ManyToOne
@@ -32,11 +31,6 @@ public class PreInscricao implements Serializable {
     private Usuario usuario;
 
     @ManyToOne
-    @JoinColumn(name = "id_evento", referencedColumnName = "id_evento")
-    private Evento evento;
-
-    @ManyToOne
     @JoinColumn(name = "id_tipo_situacao", referencedColumnName = "id_situacao")
     private SituacaoPreInscricao situacaoPreInscricao;
-
 }

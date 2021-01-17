@@ -15,7 +15,6 @@ import javax.persistence.Table;
 @Table(name = "situacao_preinscricao")
 @Getter
 @Setter
-
 public class SituacaoPreInscricao {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "situacao_preinscricao")
