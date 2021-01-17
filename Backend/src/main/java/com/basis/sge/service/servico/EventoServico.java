@@ -9,6 +9,7 @@ import com.basis.sge.service.servico.DTO.PreInsDTO;
 import com.basis.sge.service.servico.DTO.UsuarioDTO;
 import com.basis.sge.service.servico.exception.RegraNegocioException;
 import com.basis.sge.service.servico.mapper.EventoMapper;
+import com.basis.sge.service.servico.mapper.UsuarioMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +26,7 @@ public class EventoServico {
     private final EventoMapper eventoMapper;
     private final EmailServico emailServico;
     private final PreInsServico preInsServico;
-    private final UsuarioServico usuarioServico;
+    private final UsuarioMapper usuarioMapper;
 
     public List<EventoDTO> listar(){
         List<Evento> eventos = eventoRepositorio.findAll();
@@ -64,7 +65,7 @@ public class EventoServico {
         List<UsuarioDTO> usuariosDtos = new ArrayList<UsuarioDTO>();
 
         for (PreInsDTO preInsDTO: preInsDTOS) {
-            usuariosDtos.add(usuarioServico.obterPorID(preInsDTO.getUsuario().getId()));
+            usuariosDtos.add(usuarioMapper.toDto(preInsDTO.getUsuario()));
         }
 
         enviarEmail(usuariosDtos, eventoDTO.getTitulo());
