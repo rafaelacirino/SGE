@@ -4,6 +4,7 @@ import com.basis.sge.service.dominio.PreInscricao;
 import com.basis.sge.service.repositorio.PreInsRepositorio;
 import com.basis.sge.service.servico.DTO.PreInsDTO;
 import com.basis.sge.service.servico.mapper.PreInsMapper;
+import com.basis.sge.service.servico.exception.RegraNegocioException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
