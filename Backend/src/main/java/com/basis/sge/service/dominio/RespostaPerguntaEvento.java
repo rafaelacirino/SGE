@@ -8,7 +8,9 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.SequenceGenerator;
@@ -19,28 +21,25 @@ import java.io.Serializable;
 @Setter
 @Entity
 @Table(name = "respostas_pergunta_evento")
-
 public class RespostaPerguntaEvento implements Serializable {
 
 
-    @EmbeddedId
+    @Id
+    @Column(name = "id_reposta")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "resposta")
     @SequenceGenerator(name = "resposta", sequenceName = "sq_resposta", allocationSize = 1,initialValue = 1)
-    IdPerguntaEventoInscricao id;
+    private Integer id;
 
     @ManyToOne
-    @MapsId("id_pergunta")
     @JoinColumn(name = "id_pergunta", referencedColumnName = "id_pergunta")
     private Pergunta pergunta;
 
     @ManyToOne
-    @MapsId("id_evento")
     @JoinColumn(name = "id_evento", referencedColumnName = "id_evento")
     private Evento evento;
 
     @ManyToOne
-    @MapsId("id_inscricao")
-    @JoinColumn(name = "id_inscricao", referencedColumnName = "id_pre")
+    @JoinColumn(name = "id_inscricao", referencedColumnName = "id_preinscricao")
     private PreInscricao preInscricao;
 
     @Column(name = "resposta")

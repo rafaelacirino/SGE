@@ -133,7 +133,7 @@
 
     <changeSet id="7" author="rennan.aguiar">
         <createTable tableName="pre_inscricao">
-            <column name="id_pre" type="number" remarks="Criacao da coluna id_pre">
+            <column name="id_preinscricao" type="number" remarks="Criacao da coluna id_preinscricao">
                 <constraints nullable="false"/>
             </column>
             <column name="id_usuario" type="number" remarks="Criacao da coluna id_usuario">
@@ -148,7 +148,7 @@
 
         </createTable>
 
-        <addPrimaryKey tableName="pre_inscricao" columnNames="id_pre" constraintName="pk_pre_inscricao"/>
+        <addPrimaryKey tableName="pre_inscricao" columnNames="id_preinscricao" constraintName="pk_pre_inscricao"/>
 
         <addForeignKeyConstraint baseTableName="pre_inscricao" baseColumnNames="id_usuario"
                                  constraintName="fk_id_usuario" referencedTableName="usuario"
@@ -188,7 +188,7 @@
                                  referencedColumnNames="id_evento, id_pergunta"/>
         <addForeignKeyConstraint baseTableName="respostas_pergunta_evento" baseColumnNames="id_inscricao"
                                  constraintName="fk_id_inscricao" referencedTableName="pre_inscricao"
-                                 referencedColumnNames="id_pre"/>
+                                 referencedColumnNames="id_preinscricao"/>
         <createSequence sequenceName="sq_resposta" incrementBy="1" startValue="1"/>
     </changeSet>
 
@@ -232,5 +232,15 @@
             <column name="id_tipo">4</column>
             <column name="descricao">Treinamento</column>
         </insert>
+    </changeSet>
+
+    <changeSet id="11" author="matheus.rodrigues">
+
+        <insert tableName="pergunta">
+            <column name="id_pergunta">1</column>
+            <column name="titulo">porque?</column>
+            <column name="obrigatorio">true</column>
+        </insert>
+
     </changeSet>
 </databaseChangeLog>
