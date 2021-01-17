@@ -13,6 +13,7 @@ spring:
         username: sge
         password: sge
         hikari:
+            poolName: hikari
             auto-commit: false
     jackson:
         date-format: yyyy-MM-dd
