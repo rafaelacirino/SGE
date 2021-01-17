@@ -1,8 +1,11 @@
 package com.basis.sge.service.dominio;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Generated;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -60,6 +63,7 @@ public class Evento implements Serializable {
     @Column(name = "local")
     private String local;
 
+    @Fetch(FetchMode.JOIN)
     @ManyToMany
     @JoinTable(name="pergunta_evento",
             joinColumns={@JoinColumn(name="id_evento")},

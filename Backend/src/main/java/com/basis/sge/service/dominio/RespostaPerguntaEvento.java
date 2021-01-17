@@ -35,11 +35,6 @@ public class RespostaPerguntaEvento implements Serializable {
     @JoinColumn(name = "id_evento", referencedColumnName = "id_evento")
     private Evento evento;
 
-    @ManyToOne
-    @MapsId("id_inscricao")
-    @JoinColumn(name = "id_inscricao", referencedColumnName = "id_preinscricao")
-    private PreInscricao preInscricao;
-
     @Column(name = "resposta")
     private String resposta;
 
