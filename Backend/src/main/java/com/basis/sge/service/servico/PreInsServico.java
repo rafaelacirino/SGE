@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -44,6 +45,17 @@ public class PreInsServico {
         PreInscricao preInscricao = preInsRepositorio.save(preInsMapper.toEntity(preInsDTO));
         return preInsMapper.toDto(preInscricao);
 
+    }
+
+    public List<PreInsDTO> buscarPreinscricaoPorIdEvento(Integer id){
+        List<PreInsDTO> preInscricoesPorIdEvento = new ArrayList<PreInsDTO>();
+        List<PreInsDTO> preInscricoes = preInsMapper.toDto(preInsRepositorio.findAll());
+        for (PreInsDTO preInscricao: preInscricoes) {
+            if(preInscricao.getEvento().getId() == id){
+                preInscricoesPorIdEvento.add(preInscricao);
+            }
+        }
+        return preInscricoesPorIdEvento;
     }
 
     public void delete(Integer id){
