@@ -40,7 +40,7 @@ public class RespostaPerguntaEvento implements Serializable {
 
     @ManyToOne
     @MapsId("id_inscricao")
-    @JoinColumn(name = "id_inscricao", referencedColumnName = "id_pre")
+    @JoinColumn(name = "id_inscricao", referencedColumnName = "id_preinscricao")
     private PreInscricao preInscricao;
 
     @Column(name = "resposta")
