@@ -21,6 +21,17 @@ public class UsuarioServico {
     private final UsuarioRepositorio usuarioRepositorio;
     private final UsuarioMapper usuarioMapper;
 
+    public Usuario findByEmail(String email){
+        List<Usuario> list = usuarioRepositorio.findAll();
+
+        for(int i = 0; i < list.size(); i++ ){
+            if (list.get(i).getEmail() == email){
+                return list.get(1);
+            }
+        }
+        return null;
+    }
+
     // GET LISTA
     public List<UsuarioDTO> listar(){
         List<Usuario> usuarios = usuarioRepositorio.findAll();
@@ -38,25 +49,32 @@ public class UsuarioServico {
 
     public UsuarioDTO salvar(UsuarioDTO usuarioDTO){
         // EXCEPTION CAMPOS NULOS
+        String email = usuarioDTO.getEmail();
+
+
         if (usuarioDTO == null){
             throw new RegraNegocioException("O usuario é nulo");
         }
-
+        // EXCEPTION EMAIL
         if(usuarioDTO.getEmail() == null){
             throw new RegraNegocioException("O usuario não possui email");
         }
+        else if (findByEmail(usuarioDTO.getEmail()) != null){
+            throw new RegraNegocioException("email já cadastrado");
+        }
+        /////////
 
         if(usuarioDTO.getCpf() == null){
             throw new RegraNegocioException("O usuario não possui cpf");
         }
 
-        if (usuarioDTO.getNome() == null){
+        else if (usuarioDTO.getNome() == null){
             throw new RegraNegocioException("O usuario não possui nome");
         }
-        if (usuarioDTO.getDataNascimento() == null){
+        else if (usuarioDTO.getDataNascimento() == null){
             throw new RegraNegocioException("O usuario não possui data de nascimento");
         }
-        if (usuarioDTO.getChaveUnica() == null){
+        else if (usuarioDTO.getChaveUnica() == null){
             throw new RegraNegocioException("O usuario não possui data de nascimento");
         }
 
@@ -66,7 +84,7 @@ public class UsuarioServico {
             throw new RegraNegocioException("Data de nascimento invalida");
         }
         //EXCEPTION CPF INVALIDO
-        if (usuarioDTO.getCpf().length() < 11 || usuarioDTO.getCpf().length() > 11){
+        else if (usuarioDTO.getCpf().length() < 11 || usuarioDTO.getCpf().length() > 11){
             throw new RegraNegocioException("CPF invalido");
         }
 
