@@ -5,7 +5,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface UsuarioRepositorio extends JpaRepository<Usuario, Integer> {
+    Usuario findByEmail(String email);
+    Usuario findByCpf(String cpf);
+    Usuario findByChaveUnica(String chaveUnica);
 
 }
