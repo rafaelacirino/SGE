@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/situacaopreinscricao")
+@RequestMapping("/api/situacaopreinscricao")
 @RequiredArgsConstructor
 public class STPRecurso {
     private final STPServico stpServico;
