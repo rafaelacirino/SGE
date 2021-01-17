@@ -7,6 +7,7 @@ import lombok.Setter;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,6 +22,7 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
+
 
 @Entity
 @Table(name="evento")
@@ -68,7 +70,7 @@ public class Evento implements Serializable {
     @JoinColumn(name = "id_tipo_evento", referencedColumnName = "id_tipo")
     private TipoEvento tipoEvento;
 
-    @OneToMany
-    @JoinColumn(name = "id_evento", referencedColumnName = "id_evento")
-    private List<PreInscricao> preInscricoes;
+/*    @OneToMany(mappedBy = "evento")
+    //@JoinColumn(name = "id_evento", referencedColumnName = "id_evento")
+    private List<PreInscricao> preInscricoes;*/
 }

@@ -8,9 +8,11 @@ import com.basis.sge.service.servico.exception.RegraNegocioException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class PreInsServico {
 
@@ -32,14 +34,8 @@ public class PreInsServico {
         if (preInsDTO == null){
             throw new RegraNegocioException("A pré inscrição não pode ser criada");
         }
-        if (preInsDTO.getId() == null){
-            throw new RegraNegocioException("A pré inscrição não tem id");
-        }
         if (preInsDTO.getUsuario() == null){
             throw new RegraNegocioException("A pré inscrição não tem usuário");
-        }
-        if (preInsDTO.getEvento() == null){
-            throw new RegraNegocioException("A pré inscrição não tem Evento");
         }
         if (preInsDTO.getSituacaoPreInscricao() == null){
             throw new RegraNegocioException("A pré inscrição não tem situação");

@@ -25,5 +25,5 @@ public class UsuarioDTO {
 
     private Date dataNascimento;
 
-    private List<PreInscricao> preInscricao;
+//    private List<PreInscricao> preInscricao;
 }

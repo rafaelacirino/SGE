@@ -16,10 +16,8 @@ import javax.persistence.Table;
 @Getter
 @Setter
 public class SituacaoPreInscricao {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "situacao_preinscricao")
-    @SequenceGenerator(name = "situacao_preinscricao", sequenceName = "sq_pre", allocationSize = 1)
 
+    @Id
     @Column(name = "id_situacao")
     private Integer idSituacao;
 

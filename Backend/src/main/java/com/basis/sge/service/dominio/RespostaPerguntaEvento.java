@@ -19,13 +19,10 @@ import java.io.Serializable;
 @Setter
 @Entity
 @Table(name = "respostas_pergunta_evento")
-
 public class RespostaPerguntaEvento implements Serializable {
 
 
     @EmbeddedId
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "resposta")
-    @SequenceGenerator(name = "resposta", sequenceName = "sq_resposta", allocationSize = 1,initialValue = 1)
     IdPerguntaEventoInscricao id;
 
     @ManyToOne

@@ -46,7 +46,4 @@ public class Usuario implements Serializable {
     @Column(name = "dt_nasc")
     private Date dataNascimento;
 
-    @OneToMany(mappedBy = "usuario")
-    private List<PreInscricao> preInscricao;
-
 }
