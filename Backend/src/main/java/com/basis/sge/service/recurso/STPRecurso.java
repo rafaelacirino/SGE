@@ -37,8 +37,8 @@ public class STPRecurso {
     }
 
     @PutMapping
-    public ResponseEntity<STPDTO> atulizar(@RequestBody STPDTO stpdto){
-        return ResponseEntity.ok(stpServico.atualizar(stpdto));
+    public ResponseEntity<STPDTO> atulizar(@PathVariable Integer id, @RequestBody STPDTO stpdto){
+        return ResponseEntity.ok(stpServico.atualizar(id, stpdto));
     }
 
     @DeleteMapping

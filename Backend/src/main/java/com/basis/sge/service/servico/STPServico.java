@@ -22,19 +22,43 @@ public class STPServico {
     }
 
     public STPDTO buscarPorId(Integer id){
-        SituacaoPreInscricao situacaoPreInscricao = stpRepositorio.findById(id).get();
+        SituacaoPreInscricao situacaoPreInscricao = stpRepositorio.findById(id)
+                .orElseThrow(()-> new RegraNegocioException("Situação não encontrado"));
         return stpMapper.toDto(situacaoPreInscricao);
     }
 
     public STPDTO salvar (STPDTO stpdto){
-        return stpMapper.toDto(stpRepositorio.save(stpMapper.toEntity(stpdto)));
+        if (stpdto == null){
+            throw new RegraNegocioException("A situação é nula");
+        }
+        if (stpdto.getIdSituacao() == null){
+            throw new RegraNegocioException("A situação não existe");
+        }
+        if (stpdto.getDescricao() == null){
+            throw new RegraNegocioException("A descrição não existe");
+        }
+        SituacaoPreInscricao situacaoPreInscricao = stpRepositorio.save(stpMapper.toEntity(stpdto));
+        return stpMapper.toDto(situacaoPreInscricao);
     }
 
-    public STPDTO atualizar (STPDTO stpdto){
-        return stpMapper.toDto(stpRepositorio.save(stpMapper.toEntity(stpdto)));
+    public STPDTO atualizar (Integer id, STPDTO stpdto){
+        SituacaoPreInscricao situacaoPreInscricao = stpRepositorio.findById(id)
+                .orElseThrow(()-> new RegraNegocioException("Situação não encontrada"));
+
+        if (stpdto == null){
+            throw new RegraNegocioException("A situação é nula");
+        }
+
+        situacaoPreInscricao.setDescricao(stpdto.getDescricao());
+
+        return stpMapper.toDto(situacaoPreInscricao);
     }
 
     public void delete(Integer id){
+
+        if(!stpRepositorio.existsById(id)){
+            throw new RegraNegocioException("Situação não existe");
+        }
         stpRepositorio.deleteById(id);
     }
 }

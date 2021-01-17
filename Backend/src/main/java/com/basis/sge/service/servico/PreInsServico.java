@@ -22,19 +22,37 @@ public class PreInsServico {
     }
 
     public PreInsDTO buscarPorId(Integer id){
-        PreInscricao preInscricao = preInsRepositorio.findById(id).get();
+        PreInscricao preInscricao = preInsRepositorio.findById(id)
+                .orElseThrow(()-> new RegraNegocioException("Pré Inscrição não encontrado"));
         return preInsMapper.toDto(preInscricao);
     }
 
     public PreInsDTO salvar (PreInsDTO preInsDTO){
-        return preInsMapper.toDto(preInsRepositorio.save(preInsMapper.toEntity(preInsDTO)));
-    }
+        if (preInsDTO == null){
+            throw new RegraNegocioException("A pré inscrição não pode ser criada");
+        }
+        if (preInsDTO.getId() == null){
+            throw new RegraNegocioException("A pré inscrição não tem id");
+        }
+        if (preInsDTO.getUsuario() == null){
+            throw new RegraNegocioException("A pré inscrição não tem usuário");
+        }
+        if (preInsDTO.getEvento() == null){
+            throw new RegraNegocioException("A pré inscrição não tem Evento");
+        }
+        if (preInsDTO.getSituacaoPreInscricao() == null){
+            throw new RegraNegocioException("A pré inscrição não tem situação");
+        }
 
-    public PreInsDTO atualizar (PreInsDTO preInsDTO){
-        return preInsMapper.toDto(preInsRepositorio.save(preInsMapper.toEntity(preInsDTO)));
+        PreInscricao preInscricao = preInsRepositorio.save(preInsMapper.toEntity(preInsDTO));
+        return preInsMapper.toDto(preInscricao);
+
     }
 
     public void delete(Integer id){
+        if (!preInsRepositorio.existsById(id)){
+            throw new RegraNegocioException("Pré Inscrição não existe");
+        }
         preInsRepositorio.deleteById(id);
     }
 }

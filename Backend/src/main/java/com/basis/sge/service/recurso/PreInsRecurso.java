@@ -37,11 +37,6 @@ public class PreInsRecurso {
         return ResponseEntity.ok(preInsServico.salvar(preInsDTO));
     }
 
-    @PutMapping
-    public ResponseEntity<PreInsDTO> atulizar(@RequestBody PreInsDTO preInsDTO){
-        return ResponseEntity.ok(preInsServico.atualizar(preInsDTO));
-    }
-
     @DeleteMapping
     public ResponseEntity<Void> remover(@PathVariable Integer id){
         return ResponseEntity.ok().build();
