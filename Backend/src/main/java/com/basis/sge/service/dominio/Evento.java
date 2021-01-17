@@ -4,7 +4,6 @@ import lombok.Generated;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -52,6 +51,10 @@ public class Evento implements Serializable {
     @Column(name = "qtd_vagas")
     private Integer qtdVagas;
 
+    @ManyToOne
+    @JoinColumn(name = "id_tipo_evento", referencedColumnName = "id_tipo")
+    private TipoEvento tipoEvento;
+
     @Column(name = "valor")
     private Double valor;
 
@@ -60,15 +63,10 @@ public class Evento implements Serializable {
 
     @ManyToMany
     @JoinTable(name="pergunta_evento",
-            joinColumns={@JoinColumn(name="id_evento")},
-            inverseJoinColumns={@JoinColumn(name="id_pergunta")})
+            joinColumns={@JoinColumn(name="id_pergunta")},
+            inverseJoinColumns={@JoinColumn(name="id_evento")})
     private List<Pergunta> perguntas;
 
-    @ManyToOne
-    @JoinColumn(name = "id_tipo_evento", referencedColumnName = "id_tipo")
-    private TipoEvento tipoEvento;
-
-    @OneToMany
-    @JoinColumn(name = "id_evento", referencedColumnName = "id_evento")
-    private List<PreInscricao> preInscricoes;
+    @OneToMany(mappedBy = "evento")
+    private List<PreInscricao> preInscricao;
 }
