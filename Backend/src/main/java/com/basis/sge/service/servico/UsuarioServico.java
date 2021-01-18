@@ -87,12 +87,12 @@ public class UsuarioServico {
         ///////
 
         // EXCEPTIONS CHAVE UNICA
-        if (usuarioDTO.getChaveUnica() == null){
-            throw new RegraNegocioException("O usuario não chave unica");
-        }
-        else if(usuarioRepositorio.findByChaveUnica(usuarioDTO.getChaveUnica()) != null){
-            throw new RegraNegocioException("Chave Unica já cadastrada");
-        }
+//        if (usuarioDTO.getChaveUnica() == null){
+//            throw new RegraNegocioException("O usuario não chave unica");
+//        }
+//        else if(usuarioRepositorio.findByChaveUnica(usuarioDTO.getChaveUnica()) != null){
+//            throw new RegraNegocioException("Chave Unica já cadastrada");
+//        }
 
         //EXCEPTIONS TELEFONE
         if (usuarioDTO.getTelefone() == null){

@@ -7,8 +7,7 @@ import java.io.Serializable;
 
 @Getter
 @Setter
-public class PerguntaDTO implements Serializable {
-    private Integer id;
-    private String titulo;
-    private Boolean obrigatorio;
+public class EventoPerguntaDTO implements Serializable {
+    private Integer evento;
+    private Integer pergunta;
 }

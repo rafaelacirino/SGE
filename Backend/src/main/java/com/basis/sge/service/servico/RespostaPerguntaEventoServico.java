@@ -40,13 +40,13 @@ public class RespostaPerguntaEventoServico {
         if (respostaPerguntaEventoDTO.getId() == null){
             throw new RegraNegocioException("Não tem id");
         }
-        if (respostaPerguntaEventoDTO.getPergunta() == null){
+        if (respostaPerguntaEventoDTO.getIdPergunta() == null){
             throw new RegraNegocioException("Não tem pergunta");
         }
-        if (respostaPerguntaEventoDTO.getEvento() == null){
+        if (respostaPerguntaEventoDTO.getIdEvento() == null){
             throw new RegraNegocioException("Não tem evento");
         }
-        if (respostaPerguntaEventoDTO.getPreInscricao() == null){
+        if (respostaPerguntaEventoDTO.getIdPreInscricao() == null){
             throw new RegraNegocioException("Não tem Pré Inscrição");
         }
         if (respostaPerguntaEventoDTO.getResposta() == null){

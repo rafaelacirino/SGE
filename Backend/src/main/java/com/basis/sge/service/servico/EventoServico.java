@@ -64,9 +64,9 @@ public class EventoServico {
         List<PreInsDTO> preInsDTOS = preInsServico.buscarPreinscricaoPorIdEvento(eventoDTO.getId());
         List<UsuarioDTO> usuariosDtos = new ArrayList<UsuarioDTO>();
 
-        for (PreInsDTO preInsDTO: preInsDTOS) {
-            usuariosDtos.add(usuarioMapper.toDto(preInsDTO.getUsuario()));
-        }
+//        for (PreInsDTO preInsDTO: preInsDTOS) {
+//            usuariosDtos.add(usuarioMapper.toDto(preInsDTO.getUsuario()));
+//        }
 
         enviarEmail(usuariosDtos, eventoDTO.getTitulo());
 

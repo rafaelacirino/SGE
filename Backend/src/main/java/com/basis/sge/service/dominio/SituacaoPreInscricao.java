@@ -10,16 +10,17 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "situacao_preinscricao")
 @Getter
 @Setter
-public class SituacaoPreInscricao {
+public class SituacaoPreInscricao implements Serializable {
 
     @Id
     @Column(name = "id_situacao")
-    private Integer idSituacao;
+    private Integer id;
 
     @Column(name = "descricao")
     private String descricao;

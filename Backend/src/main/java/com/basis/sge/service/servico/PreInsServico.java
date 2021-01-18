@@ -35,10 +35,10 @@ public class PreInsServico {
         if (preInsDTO == null){
             throw new RegraNegocioException("A pré inscrição não pode ser criada");
         }
-        if (preInsDTO.getUsuario() == null){
+        if (preInsDTO.getIdUsuario() == null){
             throw new RegraNegocioException("A pré inscrição não tem usuário");
         }
-        if (preInsDTO.getSituacaoPreInscricao() == null){
+        if (preInsDTO.getIdSituacaoPreInscricao() == null){
             throw new RegraNegocioException("A pré inscrição não tem situação");
         }
 
@@ -51,7 +51,7 @@ public class PreInsServico {
         List<PreInsDTO> preInscricoesPorIdEvento = new ArrayList<PreInsDTO>();
         List<PreInsDTO> preInscricoes = preInsMapper.toDto(preInsRepositorio.findAll());
         for (PreInsDTO preInscricao: preInscricoes) {
-            if(preInscricao.getEvento().getId() == id){
+            if(preInscricao.getIdEvento() == id){
                 preInscricoesPorIdEvento.add(preInscricao);
             }
         }
