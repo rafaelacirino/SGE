@@ -4,6 +4,7 @@ package com.basis.sge.service.recurso;
 import com.basis.sge.service.servico.DTO.PerguntaDTO;
 import com.basis.sge.service.servico.PerguntaServico;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -35,9 +37,10 @@ public class PerguntaRecurso {
         return ResponseEntity.ok(perguntaServico.obterPorId(id));
     }
 
+    @SneakyThrows
     @PostMapping
-    public ResponseEntity<PerguntaDTO> salvar(@RequestBody PerguntaDTO perguntaDto){
-        return ResponseEntity.ok( perguntaServico.salvar(perguntaDto));
+    public ResponseEntity<PerguntaDTO> salvar( @RequestBody PerguntaDTO perguntaDto){
+        return ResponseEntity.created(new URI("/api/evento")).body(perguntaServico.salvar(perguntaDto));
     }
 
     @PutMapping("/{id}")

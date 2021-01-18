@@ -37,12 +37,22 @@ public class PerguntaServico {
 
     // POST
     public PerguntaDTO salvar(PerguntaDTO perguntaDto){
+        // EXCEPTION PERGUNTA NULA
         if (perguntaDto == null){
             throw new RegraNegocioException("A pergunta é nula");
         }
+        ////////
+
+
+        //EXCEPTION TITULO
         if(perguntaDto.getTitulo() == null){
             throw new RegraNegocioException("A pergunta não possui titulo");
         }
+        else if( perguntaRepositorio.findByTitulo(perguntaDto.getTitulo()) != null){
+            throw new RegraNegocioException("A pergunta já foi cadastrada");
+        }
+        ////////
+
         if (perguntaDto.getObrigatorio() == null){
             throw new RegraNegocioException("A obrigatoriedade não existe");
         }
@@ -57,12 +67,30 @@ public class PerguntaServico {
     public PerguntaDTO editar (Integer id, PerguntaDTO perguntaDto){
         Pergunta pergunta = perguntaRepositorio.findById(id)
                 .orElseThrow(()-> new RegraNegocioException("Pergunta não encontrada"));
-
+        // EXCEPTION PERGUNTA NULA
         if(perguntaDto == null){
             throw new RegraNegocioException("A pergunta é nula");
         }
 
-        pergunta.setTitulo(perguntaDto.getTitulo());
+        //EXCEPTION TITULO
+        List<Pergunta> list = perguntaRepositorio.findByTitulo(perguntaDto.getTitulo());
+        list.remove(pergunta);
+
+        if (perguntaDto.getTitulo() == null){
+            throw new RegraNegocioException("A pergunta não possui titulo");
+        }
+
+        else if(list.isEmpty() != true){
+            throw new RegraNegocioException("Pergunta já existe");
+        }
+        else{
+             pergunta.setTitulo(perguntaDto.getTitulo());
+        }
+        //EXCEPTION OBRIGATORIO
+        if (perguntaDto.getObrigatorio() == null){
+            throw new RegraNegocioException("A obrigatoriedade é nula");
+        }
+
         pergunta.setObrigatorio(perguntaDto.getObrigatorio());
 
         return perguntaMapper.toDto(pergunta);

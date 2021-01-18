@@ -7,6 +7,7 @@ import com.basis.sge.service.servico.DTO.UsuarioDTO;
 import com.basis.sge.service.servico.exception.RegraNegocioException;
 import com.basis.sge.service.servico.mapper.UsuarioMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -111,33 +112,17 @@ public class UsuarioServico {
     //EDITAR
     public UsuarioDTO editar(Integer id, UsuarioDTO usuarioDTO){
 
-        List<Usuario> list = usuarioRepositorio.findAll();
 
         Usuario usuario = usuarioRepositorio.findById(id)
                 .orElseThrow(()-> new RegraNegocioException("Usuario de id" + id + "não existe"));
-       list.remove(usuario);
-
 
 
       //SET
 
-        // VERIFICAR CPF
-        if(usuario.getCpf() == usuarioDTO.getCpf()){
-            usuario.setCpf(usuario.getCpf());
+        // VERIFICAR CPF()
+        if (usuarioDTO.getCpf().length() > 11){
+            throw new RegraNegocioException("CPF invalido");
         }
-        else if(usuarioRepositorio.findByCpf(usuarioDTO.getCpf()) != null){
-           throw new RegraNegocioException("Cpf já cadastrado");
-        }
-
-        //VERIFICAR EMAIL
-        if(usuario.getEmail() == usuarioDTO.getEmail()){
-            usuario.setEmail(usuario.getEmail());
-        }
-        else if(usuarioRepositorio.findByEmail(usuarioDTO.getEmail())!= null){
-
-            throw new RegraNegocioException("Email já cadastrado");
-        }
-
 
         //EXCEPTION IDADE ERRADA (OBS: EVENTUALMENTE MUDAR PARA LOCALDATE)
         Date date = new Date(System.currentTimeMillis());
@@ -150,8 +135,22 @@ public class UsuarioServico {
         if (usuarioDTO.getTelefone().length() > 14){
             throw new RegraNegocioException("Numero invalido");
         }
-        usuario.setEmail(usuarioDTO.getEmail());
-        usuario.setCpf(usuarioDTO.getCpf());
+
+        //EXCEPTION EMAIL
+        try {
+            usuario.setEmail(usuario.getEmail());
+        }
+        catch (RegraNegocioException e){
+            throw new RegraNegocioException("Email já cadastrado");
+        }
+
+        //EXCEPTION CPF
+        try {
+            usuario.setCpf(usuarioDTO.getCpf());
+        }
+        catch (DataIntegrityViolationException e){
+            throw new RegraNegocioException("Cpf já cadastrado");
+        }
         usuario.setNome(usuarioDTO.getNome());
         usuario.setDataNascimento(usuarioDTO.getDataNascimento());
         usuario.setTelefone(usuarioDTO.getTelefone());
