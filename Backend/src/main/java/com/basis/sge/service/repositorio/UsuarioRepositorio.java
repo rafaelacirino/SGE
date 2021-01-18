@@ -9,8 +9,8 @@ import java.util.List;
 
 @Repository
 public interface UsuarioRepositorio extends JpaRepository<Usuario, Integer> {
-    Usuario findByEmail(String email);
-    Usuario findByCpf(String cpf);
-    Usuario findByChaveUnica(String chaveUnica);
+    List<Usuario> findByEmail(String email);
+    List<Usuario> findByCpf(String cpf);
+    List<Usuario> findByChaveUnica(String chaveUnica);
 
 }

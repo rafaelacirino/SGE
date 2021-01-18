@@ -51,8 +51,8 @@ public class UsuarioServico {
         if(usuarioDTO.getEmail() == null){
             throw new RegraNegocioException("O usuario não possui email");
         }
-        else if (usuarioRepositorio.findByEmail(usuarioDTO.getEmail()) != null){
-            throw new RegraNegocioException("email já cadastrado");
+        else if( !usuarioRepositorio.findByEmail(usuarioDTO.getEmail()).isEmpty() ){
+            throw new RegraNegocioException("O email já foi cadastrado");
         }
         /////////
 
@@ -60,7 +60,7 @@ public class UsuarioServico {
         if(usuarioDTO.getCpf() == null){
             throw new RegraNegocioException("O usuario não possui cpf");
         }
-        else if(usuarioRepositorio.findByCpf(usuarioDTO.getCpf()) != null){
+        else if(!usuarioRepositorio.findByCpf(usuarioDTO.getCpf()).isEmpty()){
             throw new RegraNegocioException("Cpf já cadastrado");
         }
         //EXCEPTION CPF INVALIDO
@@ -90,7 +90,7 @@ public class UsuarioServico {
         if (usuarioDTO.getChaveUnica() == null){
             throw new RegraNegocioException("O usuario não chave unica");
         }
-        else if(usuarioRepositorio.findByChaveUnica(usuarioDTO.getChaveUnica()) != null){
+        else if(!usuarioRepositorio.findByChaveUnica(usuarioDTO.getChaveUnica()).isEmpty()){
             throw new RegraNegocioException("Chave Unica já cadastrada");
         }
 
@@ -137,20 +137,27 @@ public class UsuarioServico {
         }
 
         //EXCEPTION EMAIL
-        try {
-            usuario.setEmail(usuario.getEmail());
-        }
-        catch (RegraNegocioException e){
+        List<Usuario> listEmail = usuarioRepositorio.findByEmail(usuarioDTO.getEmail());
+        listEmail.remove(usuario);
+
+        if (!listEmail.isEmpty()){
             throw new RegraNegocioException("Email já cadastrado");
+        }
+        else if(usuarioDTO.getEmail() == null){
+            throw new RegraNegocioException("O email é nulo");
         }
 
         //EXCEPTION CPF
-        try {
-            usuario.setCpf(usuarioDTO.getCpf());
+        List<Usuario> listCpf = usuarioRepositorio.findByCpf(usuarioDTO.getCpf());
+        listCpf.remove(usuario);
+
+        if (!listCpf.isEmpty()){
+            throw new RegraNegocioException("O cpf já está cadastrado");
         }
-        catch (DataIntegrityViolationException e){
-            throw new RegraNegocioException("Cpf já cadastrado");
+        else if(usuarioDTO.getCpf() == null){
+            throw new RegraNegocioException("O cpf é nulo");
         }
+        usuario.setCpf(usuarioDTO.getCpf());
         usuario.setNome(usuarioDTO.getNome());
         usuario.setDataNascimento(usuarioDTO.getDataNascimento());
         usuario.setTelefone(usuarioDTO.getTelefone());
