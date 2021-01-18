@@ -1,7 +1,6 @@
 package com.basis.sge.service.servico;
 
 import com.basis.sge.service.dominio.Evento;
-import com.basis.sge.service.dominio.Usuario;
 import com.basis.sge.service.repositorio.EventoRepositorio;
 import com.basis.sge.service.servico.DTO.EmailDTO;
 import com.basis.sge.service.servico.DTO.EventoDTO;

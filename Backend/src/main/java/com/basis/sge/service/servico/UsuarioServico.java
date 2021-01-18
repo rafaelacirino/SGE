@@ -1,19 +1,15 @@
 package com.basis.sge.service.servico;
-
 import com.basis.sge.service.dominio.Usuario;
 import com.basis.sge.service.repositorio.UsuarioRepositorio;
 import com.basis.sge.service.servico.DTO.UsuarioDTO;
-
 import com.basis.sge.service.servico.exception.RegraNegocioException;
 import com.basis.sge.service.servico.mapper.UsuarioMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
-
 import javax.transaction.Transactional;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -87,10 +83,8 @@ public class UsuarioServico {
         ///////
 
         // EXCEPTIONS CHAVE UNICA
-        if (usuarioDTO.getChaveUnica() == null){
-            throw new RegraNegocioException("O usuario não chave unica");
-        }
-        else if(!usuarioRepositorio.findByChaveUnica(usuarioDTO.getChaveUnica()).isEmpty()){
+
+       if(!usuarioRepositorio.findByChaveUnica(usuarioDTO.getChaveUnica()).isEmpty()){
             throw new RegraNegocioException("Chave Unica já cadastrada");
         }
 
@@ -103,7 +97,8 @@ public class UsuarioServico {
         }
 
 
-        Usuario usuario = usuarioRepositorio.save(usuarioMapper.toEntity(usuarioDTO));
+        Usuario usuario = usuarioMapper.toEntity(usuarioDTO);
+        usuario.setChaveUnica(UUID.randomUUID().toString());
 
         return usuarioMapper.toDto(usuario);
     }

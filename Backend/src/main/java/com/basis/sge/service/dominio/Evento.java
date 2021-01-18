@@ -41,10 +41,11 @@ public class Evento implements Serializable {
 
     @Column(name = "titulo", nullable = false)
     private String titulo;
-
+    //LocalDateTime
     @Column(name = "periodo_inicio", nullable = false)
     private Timestamp periodoInicio;
 
+    //LocalDateTime
     @Column(name = "periodo_fim", nullable = false)
     private Timestamp periodoFim;
 
