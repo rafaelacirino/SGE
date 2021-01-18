@@ -30,6 +30,7 @@ public class Evento implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "evento")
     @SequenceGenerator(name = "evento",sequenceName = "sq_evento",initialValue = 1,allocationSize = 1)
+    @Column(name = "id_evento")
     private Integer id;
 
     @Column(name = "titulo", nullable = false)
@@ -56,7 +57,7 @@ public class Evento implements Serializable {
     @Column(name = "local")
     private String local;
 
-    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, mappedBy = "evento")
+    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, targetEntity = EventoPergunta.class, mappedBy = "evento")
     private List<EventoPergunta> perguntas;
 
     @ManyToOne(fetch = FetchType.LAZY)

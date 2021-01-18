@@ -27,7 +27,7 @@ public class RespostaPerguntaEventoServico {
         return respostaPerguntaEventoMapper.toDto(respostaPerguntaEventos);
     }
 
-    public RespostaPerguntaEventoDTO buscarPorId(Integer id){
+    public RespostaPerguntaEventoDTO buscarPorId(IdPerguntaEventoInscricao id){
         RespostaPerguntaEvento respostaPerguntaEvento = respostaPerguntaEventoRepositorio.findById(id)
                 .orElseThrow(()-> new com.basis.sge.service.servico.exception.RegraNegocioException("Não encontrado"));
         return respostaPerguntaEventoMapper.toDto(respostaPerguntaEvento);
@@ -58,7 +58,7 @@ public class RespostaPerguntaEventoServico {
 
     }
 
-    public void delete (Integer id){
+    public void delete (IdPerguntaEventoInscricao id){
         if (!respostaPerguntaEventoRepositorio.existsById(id)){
             throw new RegraNegocioException("Não existe");
         }

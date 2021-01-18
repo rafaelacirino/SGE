@@ -20,8 +20,8 @@ import java.io.Serializable;
 public class Pergunta implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pergunta")
-    @SequenceGenerator(name = "pergunta", sequenceName = "sq_pergunta", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_pergunta")
+    @SequenceGenerator(name = "sq_pergunta", sequenceName = "sq_pergunta", allocationSize = 1)
     @Column(name = "id_pergunta")
     private Integer id;
 
