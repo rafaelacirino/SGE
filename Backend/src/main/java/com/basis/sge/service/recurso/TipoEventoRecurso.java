@@ -3,6 +3,7 @@ package com.basis.sge.service.recurso;
 import com.basis.sge.service.servico.DTO.TipoEventoDTO;
 import com.basis.sge.service.servico.TipoEventoServico;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/tipoevento")
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class TipoEventoRecurso {
 
     private final TipoEventoServico tipoEventoServico;

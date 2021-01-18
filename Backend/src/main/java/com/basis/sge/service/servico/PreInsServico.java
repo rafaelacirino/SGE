@@ -8,9 +8,12 @@ import com.basis.sge.service.servico.exception.RegraNegocioException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class PreInsServico {
 
@@ -32,14 +35,8 @@ public class PreInsServico {
         if (preInsDTO == null){
             throw new RegraNegocioException("A pré inscrição não pode ser criada");
         }
-        if (preInsDTO.getId() == null){
-            throw new RegraNegocioException("A pré inscrição não tem id");
-        }
         if (preInsDTO.getUsuario() == null){
             throw new RegraNegocioException("A pré inscrição não tem usuário");
-        }
-        if (preInsDTO.getEvento() == null){
-            throw new RegraNegocioException("A pré inscrição não tem Evento");
         }
         if (preInsDTO.getSituacaoPreInscricao() == null){
             throw new RegraNegocioException("A pré inscrição não tem situação");
@@ -48,6 +45,17 @@ public class PreInsServico {
         PreInscricao preInscricao = preInsRepositorio.save(preInsMapper.toEntity(preInsDTO));
         return preInsMapper.toDto(preInscricao);
 
+    }
+
+    public List<PreInsDTO> buscarPreinscricaoPorIdEvento(Integer id){
+        List<PreInsDTO> preInscricoesPorIdEvento = new ArrayList<PreInsDTO>();
+        List<PreInsDTO> preInscricoes = preInsMapper.toDto(preInsRepositorio.findAll());
+        for (PreInsDTO preInscricao: preInscricoes) {
+            if(preInscricao.getEvento().getId() == id){
+                preInscricoesPorIdEvento.add(preInscricao);
+            }
+        }
+        return preInscricoesPorIdEvento;
     }
 
     public void delete(Integer id){

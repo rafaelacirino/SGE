@@ -19,7 +19,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/respostaperguntaeventorecurso")
 @RequiredArgsConstructor
-
 public class RespostaPerguntaEventoRecurso {
     private final RespostaPerguntaEventoServico respostaPerguntaEventoServico;
 

@@ -8,11 +8,12 @@ import com.basis.sge.service.servico.exception.RegraNegocioException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-
+@Transactional
 public class STPServico {
     private final STPRepositorio stpRepositorio;
     private final STPMapper stpMapper;

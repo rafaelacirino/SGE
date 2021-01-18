@@ -10,9 +10,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.criteria.CriteriaBuilder;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "pre_inscricao")
@@ -27,10 +30,14 @@ public class PreInscricao implements Serializable {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")
+    @JoinColumn(name = "id_usuario")
     private Usuario usuario;
 
     @ManyToOne
-    @JoinColumn(name = "id_tipo_situacao", referencedColumnName = "id_situacao")
+    @JoinColumn(name = "id_evento")
+    private Evento evento;
+
+    @ManyToOne
+    @JoinColumn(name = "id_tipo_situacao")
     private SituacaoPreInscricao situacaoPreInscricao;
 }
