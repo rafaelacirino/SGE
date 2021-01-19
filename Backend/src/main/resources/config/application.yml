@@ -1,8 +1,8 @@
 application:
     appName: sge
     mail:
-        endereco-remetente: ancine-mailer@basis.com.br
-        nome-remetente: Ancine
+        endereco-remetente: sge.basis@gmail.com
+        nome-remetente: SGE
 
 spring:
     application:
@@ -35,8 +35,8 @@ spring:
     mail:
         host: smtp.gmail.com
         port: 587
-        username: sapedteste@gmail.com
-        password: sapedteste123
+        username: sge.basis@gmail.com
+        password: sge12345
         properties:
             mail:
                 smtp:
