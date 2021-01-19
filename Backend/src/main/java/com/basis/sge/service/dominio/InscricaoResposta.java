@@ -18,11 +18,11 @@ import java.io.Serializable;
 @Setter
 @Entity
 @Table(name = "respostas_pergunta_evento")
-public class RespostaPerguntaEvento implements Serializable {
+public class InscricaoResposta implements Serializable {
 
 
     @EmbeddedId
-    private IdPerguntaEventoInscricao id;
+    private IdInscricaoResposta id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("idPergunta")

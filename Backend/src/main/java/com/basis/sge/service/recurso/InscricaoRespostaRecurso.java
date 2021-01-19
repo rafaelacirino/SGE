@@ -1,8 +1,8 @@
 package com.basis.sge.service.recurso;
 
-import com.basis.sge.service.dominio.IdPerguntaEventoInscricao;
-import com.basis.sge.service.servico.DTO.RespostaPerguntaEventoDTO;
-import com.basis.sge.service.servico.RespostaPerguntaEventoServico;
+import com.basis.sge.service.dominio.IdInscricaoResposta;
+import com.basis.sge.service.servico.DTO.InscricaoRespostaDTO;
+import com.basis.sge.service.servico.InscricaoRespostaServico;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,22 +18,22 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/respostaperguntaeventorecurso")
 @RequiredArgsConstructor
-public class RespostaPerguntaEventoRecurso {
-    private final RespostaPerguntaEventoServico respostaPerguntaEventoServico;
+public class InscricaoRespostaRecurso {
+    private final InscricaoRespostaServico inscricaoRespostaServico;
 
     @GetMapping
-    public ResponseEntity<List<RespostaPerguntaEventoDTO>> listar(){
-        return  ResponseEntity.ok(respostaPerguntaEventoServico.listar());
+    public ResponseEntity<List<InscricaoRespostaDTO>> listar(){
+        return  ResponseEntity.ok(inscricaoRespostaServico.listar());
     }
 
     @GetMapping ("/{id}")
-    public ResponseEntity<RespostaPerguntaEventoDTO> buscarPorId(@PathVariable IdPerguntaEventoInscricao id){
-        return ResponseEntity.ok(respostaPerguntaEventoServico.buscarPorId(id));
+    public ResponseEntity<InscricaoRespostaDTO> buscarPorId(@PathVariable IdInscricaoResposta id){
+        return ResponseEntity.ok(inscricaoRespostaServico.buscarPorId(id));
     }
 
     @PostMapping
-    public ResponseEntity<RespostaPerguntaEventoDTO> salvar (@RequestBody RespostaPerguntaEventoDTO respostaPerguntaEventoDTO){
-        return ResponseEntity.ok(respostaPerguntaEventoServico.salvar(respostaPerguntaEventoDTO));
+    public ResponseEntity<InscricaoRespostaDTO> salvar (@RequestBody InscricaoRespostaDTO inscricaoRespostaDTO){
+        return ResponseEntity.ok(inscricaoRespostaServico.salvar(inscricaoRespostaDTO));
     }
 
     @DeleteMapping

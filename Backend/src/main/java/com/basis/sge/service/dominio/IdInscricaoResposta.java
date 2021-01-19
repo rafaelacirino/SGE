@@ -8,7 +8,7 @@ import java.io.Serializable;
 @Embeddable
 @Getter
 @Setter
-public class IdPerguntaEventoInscricao implements Serializable {
+public class IdInscricaoResposta implements Serializable {
 
     private Integer idPergunta;
     private Integer idEvento;
