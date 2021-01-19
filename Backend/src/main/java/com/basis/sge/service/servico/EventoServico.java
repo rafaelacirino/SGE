@@ -1,6 +1,7 @@
 package com.basis.sge.service.servico;
 
 import com.basis.sge.service.dominio.Evento;
+import com.basis.sge.service.dominio.PreInscricao;
 import com.basis.sge.service.dominio.Usuario;
 import com.basis.sge.service.repositorio.EventoRepositorio;
 import com.basis.sge.service.servico.DTO.EmailDTO;
@@ -9,6 +10,7 @@ import com.basis.sge.service.servico.DTO.PreInsDTO;
 import com.basis.sge.service.servico.DTO.UsuarioDTO;
 import com.basis.sge.service.servico.exception.RegraNegocioException;
 import com.basis.sge.service.servico.mapper.EventoMapper;
+import com.basis.sge.service.servico.mapper.PreInsMapper;
 import com.basis.sge.service.servico.mapper.UsuarioMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -27,6 +29,7 @@ public class EventoServico {
     private final EmailServico emailServico;
     private final PreInsServico preInsServico;
     private final UsuarioMapper usuarioMapper;
+    private final PreInsMapper preInsMapper;
 
     public List<EventoDTO> listar(){
         List<Evento> eventos = eventoRepositorio.findAll();
@@ -52,7 +55,8 @@ public class EventoServico {
         if(eventoDTO.getTipoInsc() == null){
             throw new RegraNegocioException("Tipo Inscricao não pode ser vazio");
         }
-        return eventoMapper.toDto(eventoRepositorio.save(eventoMapper.toEntity(eventoDTO)));
+        Evento evento = eventoMapper.toEntity(eventoDTO);
+        return eventoMapper.toDto(eventoRepositorio.save(evento));
     }
 
     public EventoDTO atualizar(EventoDTO eventoDTO){
@@ -64,9 +68,9 @@ public class EventoServico {
         List<PreInsDTO> preInsDTOS = preInsServico.buscarPreinscricaoPorIdEvento(eventoDTO.getId());
         List<UsuarioDTO> usuariosDtos = new ArrayList<UsuarioDTO>();
 
-//        for (PreInsDTO preInsDTO: preInsDTOS) {
-//            usuariosDtos.add(usuarioMapper.toDto(preInsDTO.getUsuario()));
-//        }
+        for (PreInscricao preInscricao: preInsMapper.toEntiy(preInsDTOS)) {
+            usuariosDtos.add(usuarioMapper.toDto(preInscricao.getUsuario()));
+        }
 
         enviarEmail(usuariosDtos, eventoDTO.getTitulo());
 

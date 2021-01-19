@@ -28,8 +28,8 @@ import java.util.List;
 public class Evento implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "evento")
-    @SequenceGenerator(name = "evento",sequenceName = "sq_evento",initialValue = 1,allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_evento")
+    @SequenceGenerator(name = "sq_evento",sequenceName = "sq_evento",initialValue = 1,allocationSize = 1)
     @Column(name = "id_evento")
     private Integer id;
 
@@ -57,11 +57,11 @@ public class Evento implements Serializable {
     @Column(name = "local")
     private String local;
 
-    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, targetEntity = EventoPergunta.class, mappedBy = "evento")
+    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, mappedBy = "evento")
     private List<EventoPergunta> perguntas;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_tipo")
+    @JoinColumn(name = "id_tipo_evento")
     private TipoEvento tipoEvento;
 
 }
