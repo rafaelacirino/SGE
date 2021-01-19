@@ -28,6 +28,7 @@ import java.util.List;
 public class Evento implements Serializable {
 
     @Id
+    @Column (name = "id_evento")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "evento")
     @SequenceGenerator(name = "evento",sequenceName = "sq_evento",initialValue = 1,allocationSize = 1)
     @Column(name = "id_evento")
