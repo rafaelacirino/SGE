@@ -24,7 +24,7 @@ public class EmailServico {
             MimeMessage mimeMessage = javaMailSender.createMimeMessage();
             MimeMessageHelper message = new MimeMessageHelper(mimeMessage, false, "UTF-8");
             message.setTo(emailDTO.getDestinatario());
-            message.setFrom("ancine-mailer@basis.com.br", "Ancine");
+            message.setFrom("sge.basis@gmail.com", "SGE");
             message.setSubject(emailDTO.getAssunto());
             for (String s : emailDTO.getCopias()) {
                 message.addCc(s);

@@ -1,13 +1,14 @@
 package com.basis.sge.service.servico.DTO;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.List;
 
-@Getter
-@Setter
+
+@Data
 public class EmailDTO implements Serializable {
 
     private String destinatario;
