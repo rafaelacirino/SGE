@@ -57,7 +57,7 @@ public class Evento implements Serializable {
     @Column(name = "local")
     private String local;
 
-    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, mappedBy = "evento")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "evento")
     private List<EventoPergunta> perguntas;
 
     @ManyToOne(fetch = FetchType.LAZY)
