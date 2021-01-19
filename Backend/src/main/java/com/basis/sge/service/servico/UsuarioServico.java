@@ -14,6 +14,7 @@ import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -84,15 +85,6 @@ public class UsuarioServico {
         if (usuarioDTO.getDataNascimento().after(date)){
             throw new RegraNegocioException("Data de nascimento invalida");
         }
-        ///////
-
-        // EXCEPTIONS CHAVE UNICA
-//        if (usuarioDTO.getChaveUnica() == null){
-//            throw new RegraNegocioException("O usuario não chave unica");
-//        }
-//        else if(usuarioRepositorio.findByChaveUnica(usuarioDTO.getChaveUnica()) != null){
-//            throw new RegraNegocioException("Chave Unica já cadastrada");
-//        }
 
         //EXCEPTIONS TELEFONE
         if (usuarioDTO.getTelefone() == null){
@@ -102,10 +94,10 @@ public class UsuarioServico {
             throw new RegraNegocioException("Numero invalido");
         }
 
+        Usuario usuario = usuarioMapper.toEntity(usuarioDTO);
+        usuario.setChaveUnica(UUID.randomUUID().toString());
 
-        Usuario usuario = usuarioRepositorio.save(usuarioMapper.toEntity(usuarioDTO));
-
-        return usuarioMapper.toDto(usuario);
+        return usuarioMapper.toDto(usuarioRepositorio.save(usuario));
     }
 
 
