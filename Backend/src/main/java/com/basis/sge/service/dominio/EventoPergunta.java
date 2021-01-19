@@ -3,7 +3,7 @@ package com.basis.sge.service.dominio;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
+import javax.persistence.Embeddable;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,16 +13,14 @@ import javax.persistence.MapsId;
 import javax.persistence.Table;
 import java.io.Serializable;
 
-
+@Entity
+@Table(name = "pergunta_evento")
 @Getter
 @Setter
-@Entity
-@Table(name = "respostas_pergunta_evento")
-public class RespostaPerguntaEvento implements Serializable {
-
+public class EventoPergunta implements Serializable {
 
     @EmbeddedId
-    private IdPerguntaEventoInscricao id;
+    private IdEventoPergunta id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("idPergunta")
@@ -33,15 +31,4 @@ public class RespostaPerguntaEvento implements Serializable {
     @MapsId("idEvento")
     @JoinColumn(name = "id_evento")
     private Evento evento;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId("idInscricao")
-    @JoinColumn(name = "id_inscricao")
-    private PreInscricao preInscricao;
-
-    @Column(name = "resposta")
-    private String resposta;
-
-
-
 }

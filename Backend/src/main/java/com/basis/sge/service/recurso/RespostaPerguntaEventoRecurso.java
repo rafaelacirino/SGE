@@ -1,5 +1,6 @@
 package com.basis.sge.service.recurso;
 
+import com.basis.sge.service.dominio.IdPerguntaEventoInscricao;
 import com.basis.sge.service.dominio.RespostaPerguntaEvento;
 import com.basis.sge.service.servico.DTO.PreInsDTO;
 import com.basis.sge.service.servico.DTO.RespostaPerguntaEventoDTO;
@@ -28,7 +29,7 @@ public class RespostaPerguntaEventoRecurso {
     }
 
     @GetMapping ("/{id}")
-    public ResponseEntity<RespostaPerguntaEventoDTO> buscarPorId(@PathVariable Integer id){
+    public ResponseEntity<RespostaPerguntaEventoDTO> buscarPorId(@PathVariable IdPerguntaEventoInscricao id){
         return ResponseEntity.ok(respostaPerguntaEventoServico.buscarPorId(id));
     }
 

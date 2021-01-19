@@ -80,6 +80,7 @@ public class UsuarioServico {
         if (usuarioDTO.getDataNascimento().after(date)){
             throw new RegraNegocioException("Data de nascimento invalida");
         }
+<<<<<<< HEAD
         ///////
 
         // EXCEPTIONS CHAVE UNICA
@@ -87,6 +88,8 @@ public class UsuarioServico {
        if(!usuarioRepositorio.findByChaveUnica(usuarioDTO.getChaveUnica()).isEmpty()){
             throw new RegraNegocioException("Chave Unica já cadastrada");
         }
+=======
+>>>>>>> 3965892889d371b82f2ce79921d2ce2191a10d98
 
         //EXCEPTIONS TELEFONE
         if (usuarioDTO.getTelefone() == null){
@@ -96,11 +99,17 @@ public class UsuarioServico {
             throw new RegraNegocioException("Numero invalido");
         }
 
+        Usuario usuario = usuarioMapper.toEntity(usuarioDTO);
+        usuario.setChaveUnica(UUID.randomUUID().toString());
 
+<<<<<<< HEAD
         Usuario usuario = usuarioMapper.toEntity(usuarioDTO);
         usuario.setChaveUnica(UUID.randomUUID().toString());
 
         return usuarioMapper.toDto(usuario);
+=======
+        return usuarioMapper.toDto(usuarioRepositorio.save(usuario));
+>>>>>>> 3965892889d371b82f2ce79921d2ce2191a10d98
     }
 
 
