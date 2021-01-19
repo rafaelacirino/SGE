@@ -46,7 +46,7 @@
             </column>
         </createTable>
 
-        <addPrimaryKey tableName="pergunta_evento" columnNames="id_pergunta, id_evento" constraintName="pk_sala_equipamento"/>
+        <addPrimaryKey tableName="pergunta_evento" columnNames="id_pergunta, id_evento" constraintName="pk_pergunta_evento"/>
         <addForeignKeyConstraint baseTableName="pergunta_evento" baseColumnNames="id_pergunta"
                                  constraintName="fk_pergunta_evento_pergunta" referencedTableName="pergunta"
                                  referencedColumnNames="id_pergunta"/>
