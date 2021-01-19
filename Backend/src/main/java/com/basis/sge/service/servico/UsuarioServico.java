@@ -155,6 +155,8 @@ public class UsuarioServico {
         usuario.setDataNascimento(usuarioDTO.getDataNascimento());
         usuario.setTelefone(usuarioDTO.getTelefone());
 
+        criarEmailUsuarioEditado(usuario.getEmail());
+
        return usuarioMapper.toDto(usuario);
     }
 
@@ -162,10 +164,12 @@ public class UsuarioServico {
     //REMOVER
 
     public void remover(Integer id){
-        usuarioRepositorio.findById(id)
+        Usuario usuario = usuarioRepositorio.findById(id)
                 .orElseThrow(() -> new RegraNegocioException("O usuário não existe"));
 
         usuarioRepositorio.deleteById(id);
+        criarEmailUsuarioRemovido(usuario.getEmail());
+
     }
     public void criarEmailCadastro(String email){
 
@@ -177,6 +181,28 @@ public class UsuarioServico {
         emailDTO.getCopias().add(emailDTO.getDestinatario());
         emailServico.sendMail(emailDTO);
 
+    }
+
+    public void criarEmailUsuarioRemovido(String email){
+
+        EmailDTO emailDTO = new EmailDTO();
+        emailDTO.setAssunto("Remoção de cadastro no SGE");
+        emailDTO.setCorpo("Você foi removido do cadastro do SGE!");
+        emailDTO.setDestinatario(email);
+        emailDTO.setCopias(new ArrayList<String>());
+        emailDTO.getCopias().add(emailDTO.getDestinatario());
+        emailServico.sendMail(emailDTO);
+    }
+
+    public void criarEmailUsuarioEditado(String email){
+
+        EmailDTO emailDTO = new EmailDTO();
+        emailDTO.setAssunto("Alteração de cadastro no SGE");
+        emailDTO.setCorpo("Seu cadastro foi alterado no SGE!");
+        emailDTO.setDestinatario(email);
+        emailDTO.setCopias(new ArrayList<String>());
+        emailDTO.getCopias().add(emailDTO.getDestinatario());
+        emailServico.sendMail(emailDTO);
     }
 
 
