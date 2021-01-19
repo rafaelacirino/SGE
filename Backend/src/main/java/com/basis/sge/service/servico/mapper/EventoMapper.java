@@ -7,7 +7,7 @@ import org.mapstruct.Mapping;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring", uses = {})
+@Mapper(componentModel = "spring", uses = {EventoPerguntaMapper.class})
 public interface EventoMapper extends EntityMapper<EventoDTO, Evento> {
 
     @Override
