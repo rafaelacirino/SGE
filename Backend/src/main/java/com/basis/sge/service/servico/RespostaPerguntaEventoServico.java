@@ -27,7 +27,7 @@ public class RespostaPerguntaEventoServico {
         return respostaPerguntaEventoMapper.toDto(respostaPerguntaEventos);
     }
 
-    public RespostaPerguntaEventoDTO buscarPorId(Integer id){
+    public RespostaPerguntaEventoDTO buscarPorId(IdPerguntaEventoInscricao id){
         RespostaPerguntaEvento respostaPerguntaEvento = respostaPerguntaEventoRepositorio.findById(id)
                 .orElseThrow(()-> new com.basis.sge.service.servico.exception.RegraNegocioException("Não encontrado"));
         return respostaPerguntaEventoMapper.toDto(respostaPerguntaEvento);
@@ -40,13 +40,13 @@ public class RespostaPerguntaEventoServico {
         if (respostaPerguntaEventoDTO.getId() == null){
             throw new RegraNegocioException("Não tem id");
         }
-        if (respostaPerguntaEventoDTO.getPergunta() == null){
+        if (respostaPerguntaEventoDTO.getIdPergunta() == null){
             throw new RegraNegocioException("Não tem pergunta");
         }
-        if (respostaPerguntaEventoDTO.getEvento() == null){
+        if (respostaPerguntaEventoDTO.getIdEvento() == null){
             throw new RegraNegocioException("Não tem evento");
         }
-        if (respostaPerguntaEventoDTO.getPreInscricao() == null){
+        if (respostaPerguntaEventoDTO.getIdPreInscricao() == null){
             throw new RegraNegocioException("Não tem Pré Inscrição");
         }
         if (respostaPerguntaEventoDTO.getResposta() == null){
@@ -58,7 +58,7 @@ public class RespostaPerguntaEventoServico {
 
     }
 
-    public void delete (Integer id){
+    public void delete (IdPerguntaEventoInscricao id){
         if (!respostaPerguntaEventoRepositorio.existsById(id)){
             throw new RegraNegocioException("Não existe");
         }

@@ -14,6 +14,7 @@ import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -86,13 +87,6 @@ public class UsuarioServico {
         }
         ///////
 
-        // EXCEPTIONS CHAVE UNICA
-        if (usuarioDTO.getChaveUnica() == null){
-            throw new RegraNegocioException("O usuario não chave unica");
-        }
-        else if(!usuarioRepositorio.findByChaveUnica(usuarioDTO.getChaveUnica()).isEmpty()){
-            throw new RegraNegocioException("Chave Unica já cadastrada");
-        }
 
         //EXCEPTIONS TELEFONE
         if (usuarioDTO.getTelefone() == null){
@@ -104,6 +98,9 @@ public class UsuarioServico {
 
 
         Usuario usuario = usuarioRepositorio.save(usuarioMapper.toEntity(usuarioDTO));
+
+        usuario.setChaveUnica(UUID.randomUUID().toString());
+        
 
         return usuarioMapper.toDto(usuario);
     }

@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,15 +30,18 @@ public class PreInscricao implements Serializable {
     @SequenceGenerator(name = "pre_inscricao", sequenceName = "sq_pre", allocationSize = 1)
     private Integer id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_usuario")
     private Usuario usuario;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_evento")
     private Evento evento;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_tipo_situacao")
     private SituacaoPreInscricao situacaoPreInscricao;
+
+    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, targetEntity = RespostaPerguntaEvento.class, mappedBy = "preInscricao")
+    private List<RespostaPerguntaEvento> respostaPerguntaEventos;
 }
