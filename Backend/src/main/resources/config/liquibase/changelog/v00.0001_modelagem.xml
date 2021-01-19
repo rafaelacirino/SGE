@@ -108,7 +108,8 @@
         <addPrimaryKey tableName="evento" columnNames="id_evento" constraintName="pk_evento"/>
         <createSequence sequenceName="sq_evento" incrementBy="1" startValue="1"/>
 
-        <addForeignKeyConstraint baseTableName="evento" baseColumnNames="id_tipo_evento" constraintName="fk_tipo_evento" referencedTableName="tipo_evento"
+        <addForeignKeyConstraint baseTableName="evento" baseColumnNames="id_tipo_evento"
+                                 constraintName="fk_tipo_evento" referencedTableName="tipo_evento"
                                  referencedColumnNames="id_tipo"/>
     </changeSet>
 
@@ -122,7 +123,7 @@
             </column>
         </createTable>
 
-        <addPrimaryKey tableName="pergunta_evento" columnNames="id_pergunta, id_evento" constraintName="pk_sala_equipamento"/>
+        <addPrimaryKey tableName="pergunta_evento" columnNames="id_pergunta, id_evento" constraintName="pk_evento_pergunta"/>
         <addForeignKeyConstraint baseTableName="pergunta_evento" baseColumnNames="id_pergunta"
                                  constraintName="fk_pergunta_evento_pergunta" referencedTableName="pergunta"
                                  referencedColumnNames="id_pergunta"/>
