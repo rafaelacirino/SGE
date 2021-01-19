@@ -90,11 +90,10 @@ public class UsuarioServico {
         if (usuarioDTO.getDataNascimento().after(date)){
             throw new RegraNegocioException("Data de nascimento invalida");
         }
-<<<<<<< HEAD
+
         ///////
 
-=======
->>>>>>> 8408c63725035e98e25e512ee4d3405138e04eaa
+
 
         //EXCEPTIONS TELEFONE
         if (usuarioDTO.getTelefone() == null){
@@ -107,15 +106,8 @@ public class UsuarioServico {
         Usuario usuario = usuarioMapper.toEntity(usuarioDTO);
         usuario.setChaveUnica(UUID.randomUUID().toString());
         usuarioRepositorio.save(usuario);
-
-
-<<<<<<< HEAD
-        usuario.setChaveUnica(UUID.randomUUID().toString());
-        
-
-=======
         criarEmailCadastro(usuario.getEmail());
->>>>>>> 8408c63725035e98e25e512ee4d3405138e04eaa
+
         return usuarioMapper.toDto(usuario);
     }
 
