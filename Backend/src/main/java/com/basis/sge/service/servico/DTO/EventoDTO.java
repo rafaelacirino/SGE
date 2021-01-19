@@ -20,6 +20,6 @@ public class EventoDTO implements Serializable {
     private Integer idTipoEvento;
     private Double valor;
     private String local;
-    private List<EventoPergunta> perguntas;
+    private List<EventoPerguntaDTO> perguntas;
 
 }
