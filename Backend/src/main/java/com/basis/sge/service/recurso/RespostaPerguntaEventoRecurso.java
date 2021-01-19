@@ -1,8 +1,6 @@
 package com.basis.sge.service.recurso;
 
 import com.basis.sge.service.dominio.IdPerguntaEventoInscricao;
-import com.basis.sge.service.dominio.RespostaPerguntaEvento;
-import com.basis.sge.service.servico.DTO.PreInsDTO;
 import com.basis.sge.service.servico.DTO.RespostaPerguntaEventoDTO;
 import com.basis.sge.service.servico.RespostaPerguntaEventoServico;
 import lombok.RequiredArgsConstructor;

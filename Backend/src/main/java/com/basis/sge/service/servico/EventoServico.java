@@ -4,11 +4,11 @@ import com.basis.sge.service.dominio.Evento;
 import com.basis.sge.service.repositorio.EventoRepositorio;
 import com.basis.sge.service.servico.DTO.EmailDTO;
 import com.basis.sge.service.servico.DTO.EventoDTO;
-import com.basis.sge.service.servico.DTO.PreInsDTO;
+import com.basis.sge.service.servico.DTO.PreInscricaoDTO;
 import com.basis.sge.service.servico.DTO.UsuarioDTO;
 import com.basis.sge.service.servico.exception.RegraNegocioException;
 import com.basis.sge.service.servico.mapper.EventoMapper;
-import com.basis.sge.service.servico.mapper.PreInsMapper;
+import com.basis.sge.service.servico.mapper.PreInscricaoMapper;
 import com.basis.sge.service.servico.mapper.UsuarioMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,10 +25,10 @@ public class EventoServico {
     private final EventoRepositorio eventoRepositorio;
     private final EventoMapper eventoMapper;
     private final EmailServico emailServico;
-    private final PreInsServico preInsServico;
+    private final PreInscricaoServico preInscricaoServico;
     private final UsuarioServico usuarioServico;
     private final UsuarioMapper usuarioMapper;
-    private final PreInsMapper preInsMapper;
+    private final PreInscricaoMapper preInscricaoMapper;
 
     public List<EventoDTO> listar(){
         List<Evento> eventos = eventoRepositorio.findAll();
@@ -64,10 +64,10 @@ public class EventoServico {
             throw new RegraNegocioException("Evento não existe na base de dados");
         }
         Evento evento = eventoRepositorio.save(eventoMapper.toEntity(eventoDTO));
-        List<PreInsDTO> preInsDTOS = preInsServico.buscarPreinscricaoPorIdEvento(eventoDTO.getId());
+        List<PreInscricaoDTO> preInscricaoDTOS = preInscricaoServico.buscarPreinscricaoPorIdEvento(eventoDTO.getId());
         List<UsuarioDTO> usuariosDtos = new ArrayList<>();
 
-        for (PreInsDTO preInscricao: preInsDTOS) {
+        for (PreInscricaoDTO preInscricao: preInscricaoDTOS) {
              usuariosDtos.add(usuarioServico.obterPorID(preInscricao.getIdUsuario()));;
         }
 

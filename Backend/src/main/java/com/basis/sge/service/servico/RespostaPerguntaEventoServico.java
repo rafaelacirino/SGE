@@ -1,10 +1,8 @@
 package com.basis.sge.service.servico;
 
 import com.basis.sge.service.dominio.IdPerguntaEventoInscricao;
-import com.basis.sge.service.dominio.PreInscricao;
 import com.basis.sge.service.dominio.RespostaPerguntaEvento;
 import com.basis.sge.service.repositorio.RespostaPerguntaEventoRepositorio;
-import com.basis.sge.service.servico.DTO.PreInsDTO;
 import com.basis.sge.service.servico.DTO.RespostaPerguntaEventoDTO;
 import com.basis.sge.service.servico.exception.RegraNegocioException;
 import com.basis.sge.service.servico.mapper.RespostaPerguntaEventoMapper;
