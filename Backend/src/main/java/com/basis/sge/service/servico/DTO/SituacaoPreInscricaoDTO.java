@@ -7,7 +7,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 
-public class STPDTO implements Serializable {
+public class SituacaoPreInscricaoDTO implements Serializable {
     private Integer idSituacao;
     private String descricao;
 

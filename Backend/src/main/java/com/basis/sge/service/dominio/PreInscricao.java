@@ -14,7 +14,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.criteria.CriteriaBuilder;
 import java.io.Serializable;
 import java.util.List;
 
@@ -42,6 +41,6 @@ public class PreInscricao implements Serializable {
     @JoinColumn(name = "id_tipo_situacao")
     private SituacaoPreInscricao situacaoPreInscricao;
 
-    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, targetEntity = RespostaPerguntaEvento.class, mappedBy = "preInscricao")
-    private List<RespostaPerguntaEvento> respostaPerguntaEventos;
+    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, targetEntity = InscricaoResposta.class, mappedBy = "preInscricao")
+    private List<InscricaoResposta> inscricaoRespostas;
 }

@@ -4,82 +4,6 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 
-
-    <changeSet id="1" author="italo.galdino">
-        <!-- USUARIO -->
-        <createTable tableName="usuario">
-            <column name="id_usuario" type="NUMBER" remarks="Criacao da coluna id_usuario" >
-                <constraints nullable="false" />
-            </column>
-            <column name="chave_unica" type="VARCHAR(255)" remarks="Criacao da coluna chave_unica" >
-                <constraints nullable="false"/>
-            </column>
-            <column name="cpf" type="VARCHAR(11)" remarks="Criacao da coluna cpf" >
-                <constraints nullable="false" unique="true"/>
-            </column>
-            <column name="nome" type="VARCHAR(255)" remarks="Criacao da coluna nome" >
-                <constraints nullable="false"/>
-            </column>
-            <column name="email" type="VARCHAR(255)" remarks="Criacao da coluna email" >
-                <constraints nullable="false" unique="true"/>
-            </column>
-            <column name="telefone" type="VARCHAR(14)" remarks="Criacao da coluna telefone" >
-            </column>
-            <column name="dt_nasc" type="DATE" remarks="Criacao da coluna dt_nasc" >
-                <constraints nullable="false" />
-            </column>
-        </createTable>
-
-        <addPrimaryKey tableName="usuario" columnNames="id_usuario" constraintName="pk_usuario"/>
-        <createSequence sequenceName="sq_usuario" incrementBy="1" startValue="1"/>
-
-    </changeSet>
-
-    <changeSet id="2" author="italo.galdino">
-        <createTable tableName="situacao_preinscricao">
-            <column name="id_situacao" type="number" remarks="Criacao da coluna id_situacao" >
-                <constraints nullable="false"/>
-            </column>
-            <column name="descricao" type="varchar(255)" remarks="Criacao da coluna descricao">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-        <addPrimaryKey tableName="situacao_preinscricao" columnNames="id_situacao" constraintName="pk_situacao"/>
-
-    </changeSet>
-
-    <changeSet id="3" author="italo.galdino">
-        <createTable tableName="tipo_evento">
-            <column name="id_tipo" type="NUMBER" remarks="Criacao da coluna id_tipo">
-                <constraints nullable="false"/>
-            </column>
-            <column name="descricao" type="VARCHAR" remarks="Criacao da coluna descricao">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-        <addPrimaryKey tableName="tipo_evento" columnNames="id_tipo" constraintName="pk_tipo"/>
-    </changeSet>
-
-    <changeSet id="4" author="italo.galdino">
-        <createTable tableName="pergunta">
-
-            <column name="id_pergunta" type="NUMBER" remarks="Criacao da coluna id_pergunta">
-                <constraints nullable="false"/>
-            </column>
-
-            <column name="titulo" type="VARCHAR(255)" remarks="Criacao da coluna titulo">
-                <constraints nullable="false" />
-            </column>
-
-            <column name="obrigatorio" type="BOOLEAN" remarks="Criacao da coluna obrigatorio">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-
-        <addPrimaryKey tableName="pergunta" columnNames="id_pergunta" constraintName="pk_pergunta"/>
-        <createSequence sequenceName="sq_pergunta" cycle="false"  incrementBy="1" startValue="1"/>
-    </changeSet>
-
     <changeSet id="5" author="matheus.rodrigues">
         <createTable tableName="evento">
             <column name="id_evento" type="NUMBER" remarks="Criacao da coluna id_evento">
@@ -122,7 +46,7 @@
             </column>
         </createTable>
 
-        <addPrimaryKey tableName="pergunta_evento" columnNames="id_pergunta, id_evento" constraintName="pk_sala_equipamento"/>
+        <addPrimaryKey tableName="pergunta_evento" columnNames="id_pergunta, id_evento" constraintName="pk_pergunta_evento"/>
         <addForeignKeyConstraint baseTableName="pergunta_evento" baseColumnNames="id_pergunta"
                                  constraintName="fk_pergunta_evento_pergunta" referencedTableName="pergunta"
                                  referencedColumnNames="id_pergunta"/>
@@ -145,23 +69,18 @@
             <column name="id_tipo_situacao" type="number" remarks="Criacao da coluna id_tipo_situacao">
                 <constraints nullable="false"/>
             </column>
-
         </createTable>
 
         <addPrimaryKey tableName="pre_inscricao" columnNames="id_preinscricao" constraintName="pk_pre_inscricao"/>
-
         <addForeignKeyConstraint baseTableName="pre_inscricao" baseColumnNames="id_usuario"
                                  constraintName="fk_id_usuario" referencedTableName="usuario"
                                  referencedColumnNames="id_usuario"/>
-
         <addForeignKeyConstraint baseTableName="pre_inscricao" baseColumnNames="id_evento"
                                  constraintName="fk_id_evento" referencedTableName="evento"
                                  referencedColumnNames="id_evento"/>
-
         <addForeignKeyConstraint baseTableName="pre_inscricao" baseColumnNames="id_tipo_situacao"
                                  constraintName="fk_id_tipo_situacao" referencedTableName="situacao_preinscricao"
                                  referencedColumnNames="id_situacao"/>
-
         <createSequence sequenceName="sq_pre" cycle="false"  incrementBy="1" startValue="1"/>
     </changeSet>
 
@@ -182,6 +101,7 @@
                 <constraints nullable="false" />
             </column>
         </createTable>
+
         <addPrimaryKey tableName="respostas_pergunta_evento" columnNames="id_inscricao, id_evento, id_pergunta" constraintName="pk_respostas_pergunta_evento"/>
         <addForeignKeyConstraint baseTableName="respostas_pergunta_evento" baseColumnNames="id_evento, id_pergunta"
                                  constraintName="fk_id_evento" referencedTableName="pergunta_evento"
@@ -192,57 +112,4 @@
         <createSequence sequenceName="sq_resposta" incrementBy="1" startValue="1"/>
     </changeSet>
 
-
-
-
-
-
-    <changeSet id="9" author="matheus.rodrigues">
-        <insert tableName="situacao_preinscricao">
-            <column name="id_situacao">1</column>
-            <column name="descricao">Aguardando Aprovação</column>
-        </insert>
-        <insert tableName="situacao_preinscricao">
-            <column name="id_situacao">2</column>
-            <column name="descricao">Aprovado</column>
-        </insert>
-        <insert tableName="situacao_preinscricao">
-            <column name="id_situacao">3</column>
-            <column name="descricao">Recusado</column>
-        </insert>
-        <insert tableName="situacao_preinscricao">
-            <column name="id_situacao">4</column>
-            <column name="descricao">Cancelado</column>
-        </insert>
-    </changeSet>
-
-    <changeSet id="10" author="matheus.rodrigues">
-
-        <insert tableName="tipo_evento">
-            <column name="id_tipo">1</column>
-            <column name="descricao">Workshop</column>
-        </insert>
-        <insert tableName="tipo_evento">
-            <column name="id_tipo">2</column>
-            <column name="descricao">Palestra</column>
-        </insert>
-        <insert tableName="tipo_evento">
-            <column name="id_tipo">3</column>
-            <column name="descricao">Mini Curso</column>
-        </insert>
-        <insert tableName="tipo_evento">
-            <column name="id_tipo">4</column>
-            <column name="descricao">Treinamento</column>
-        </insert>
-    </changeSet>
-
-    <changeSet id="11" author="matheus.rodrigues">
-
-        <insert tableName="pergunta">
-            <column name="id_pergunta">1</column>
-            <column name="titulo">porque?</column>
-            <column name="obrigatorio">true</column>
-        </insert>
-
-    </changeSet>
 </databaseChangeLog>

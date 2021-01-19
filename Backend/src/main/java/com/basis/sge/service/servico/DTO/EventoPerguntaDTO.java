@@ -7,10 +7,8 @@ import java.io.Serializable;
 
 @Getter
 @Setter
+public class EventoPerguntaDTO implements Serializable {
 
-public class PreInsDTO implements Serializable {
-    private Integer id;
-    private Integer idUsuario;
     private Integer idEvento;
-    private Integer idSituacaoPreInscricao;
+    private Integer idPergunta;
 }

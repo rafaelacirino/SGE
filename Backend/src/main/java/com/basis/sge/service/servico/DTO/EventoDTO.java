@@ -1,7 +1,6 @@
 package com.basis.sge.service.servico.DTO;
 
 import com.basis.sge.service.dominio.EventoPergunta;
-import com.basis.sge.service.dominio.Pergunta;
 import lombok.Getter;
 import lombok.Setter;
 import java.io.Serializable;

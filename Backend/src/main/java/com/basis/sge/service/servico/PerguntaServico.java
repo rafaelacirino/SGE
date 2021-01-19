@@ -48,10 +48,6 @@ public class PerguntaServico {
         if(perguntaDto.getTitulo() == null){
             throw new RegraNegocioException("A pergunta não possui titulo");
         }
-        else if( perguntaRepositorio.findByTitulo(perguntaDto.getTitulo()) != null){
-            throw new RegraNegocioException("A pergunta já foi cadastrada");
-        }
-        ////////
 
         if (perguntaDto.getObrigatorio() == null){
             throw new RegraNegocioException("A obrigatoriedade não existe");

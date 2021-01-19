@@ -13,15 +13,16 @@ import javax.persistence.MapsId;
 import javax.persistence.Table;
 import java.io.Serializable;
 
+
 @Getter
 @Setter
 @Entity
 @Table(name = "respostas_pergunta_evento")
-public class RespostaPerguntaEvento implements Serializable {
+public class InscricaoResposta implements Serializable {
 
 
     @EmbeddedId
-    private IdPerguntaEventoInscricao id;
+    private IdInscricaoResposta id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("idPergunta")

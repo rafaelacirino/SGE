@@ -2,8 +2,8 @@ package com.basis.sge.service.servico;
 
 import com.basis.sge.service.dominio.Usuario;
 import com.basis.sge.service.repositorio.UsuarioRepositorio;
+import com.basis.sge.service.servico.DTO.EmailDTO;
 import com.basis.sge.service.servico.DTO.UsuarioDTO;
-
 import com.basis.sge.service.servico.exception.RegraNegocioException;
 import com.basis.sge.service.servico.mapper.UsuarioMapper;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +11,10 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.time.LocalDate;
+
+import com.basis.sge.service.util.EmailUtil;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -22,6 +25,8 @@ import java.util.UUID;
 public class UsuarioServico {
     private final UsuarioRepositorio usuarioRepositorio;
     private final UsuarioMapper usuarioMapper;
+    private final EmailServico emailServico;
+
 
 
     // GET LISTA
@@ -85,8 +90,11 @@ public class UsuarioServico {
         if (usuarioDTO.getDataNascimento().after(date)){
             throw new RegraNegocioException("Data de nascimento invalida");
         }
+<<<<<<< HEAD
         ///////
 
+=======
+>>>>>>> 8408c63725035e98e25e512ee4d3405138e04eaa
 
         //EXCEPTIONS TELEFONE
         if (usuarioDTO.getTelefone() == null){
@@ -96,12 +104,18 @@ public class UsuarioServico {
             throw new RegraNegocioException("Numero invalido");
         }
 
+        Usuario usuario = usuarioMapper.toEntity(usuarioDTO);
+        usuario.setChaveUnica(UUID.randomUUID().toString());
+        usuarioRepositorio.save(usuario);
 
-        Usuario usuario = usuarioRepositorio.save(usuarioMapper.toEntity(usuarioDTO));
 
+<<<<<<< HEAD
         usuario.setChaveUnica(UUID.randomUUID().toString());
         
 
+=======
+        criarEmailCadastro(usuario.getEmail());
+>>>>>>> 8408c63725035e98e25e512ee4d3405138e04eaa
         return usuarioMapper.toDto(usuario);
     }
 
@@ -171,4 +185,17 @@ public class UsuarioServico {
 
         usuarioRepositorio.deleteById(id);
     }
+    public void criarEmailCadastro(String email){
+
+        EmailDTO emailDTO = new EmailDTO();
+        emailDTO.setAssunto("Cadastro SGE");
+        emailDTO.setCorpo("Parabéns você se cadastrou no SGE com SUCESSO!");
+        emailDTO.setDestinatario(email);
+        emailDTO.setCopias(new ArrayList<String>());
+        emailDTO.getCopias().add(emailDTO.getDestinatario());
+        emailServico.sendMail(emailDTO);
+
+    }
+
+
 }
