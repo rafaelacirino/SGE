@@ -55,7 +55,21 @@ public class EventoServico {
             throw new RegraNegocioException("Tipo Inscricao não pode ser vazio");
         }
         Evento evento = eventoMapper.toEntity(eventoDTO);
+<<<<<<< HEAD
         return eventoMapper.toDto(eventoRepositorio.save(evento));
+=======
+        List<EventoPergunta> perguntas = evento.getPerguntas();
+
+        evento.setPerguntas(new ArrayList<>());
+        eventoRepositorio.save(evento);
+
+        perguntas.forEach(pergunta -> {
+            pergunta.setEvento(evento);
+        });
+
+        eventoPerguntaRepositorio.saveAll(perguntas);
+        return eventoMapper.toDto(evento);
+>>>>>>> featureMatheus
     }
 
     public EventoDTO atualizar(EventoDTO eventoDTO){
