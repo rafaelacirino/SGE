@@ -1,9 +1,6 @@
 package com.basis.sge.service.servico;
 
 import com.basis.sge.service.dominio.Evento;
-import com.basis.sge.service.dominio.EventoPergunta;
-import com.basis.sge.service.dominio.Pergunta;
-import com.basis.sge.service.repositorio.EventoPerguntaRepositorio;
 import com.basis.sge.service.repositorio.EventoRepositorio;
 import com.basis.sge.service.servico.DTO.EmailDTO;
 import com.basis.sge.service.servico.DTO.EventoDTO;
@@ -30,7 +27,8 @@ public class EventoServico {
     private final EmailServico emailServico;
     private final PreInscricaoServico preInscricaoServico;
     private final UsuarioServico usuarioServico;
-    private final EventoPerguntaRepositorio eventoPerguntaRepositorio;
+    private final UsuarioMapper usuarioMapper;
+    private final PreInscricaoMapper preInscricaoMapper;
 
     public List<EventoDTO> listar(){
         List<Evento> eventos = eventoRepositorio.findAll();
@@ -57,18 +55,7 @@ public class EventoServico {
             throw new RegraNegocioException("Tipo Inscricao não pode ser vazio");
         }
         Evento evento = eventoMapper.toEntity(eventoDTO);
-        List<EventoPergunta> perguntas = evento.getPerguntas();
-
-        evento.setPerguntas(new ArrayList<>());
-        eventoRepositorio.save(evento);
-
-        perguntas.forEach(pergunta -> {
-            pergunta.setEvento(evento);
-        });
-
-        eventoPerguntaRepositorio.saveAll(perguntas);
- /*       evento.setPerguntas(perguntas);*/
-        return eventoMapper.toDto(evento);
+        return eventoMapper.toDto(eventoRepositorio.save(evento));
     }
 
     public EventoDTO atualizar(EventoDTO eventoDTO){
@@ -76,17 +63,15 @@ public class EventoServico {
         if(!eventoRepositorio.existsById(eventoDTO.getId())){
             throw new RegraNegocioException("Evento não existe na base de dados");
         }
-//        List<PreInscricaoDTO> preInscricaoDTOS = preInscricaoServico.buscarPreinscricaoPorIdEvento(eventoDTO.getId());
-//        List<UsuarioDTO> usuariosDtos = new ArrayList<>();
-//
-//        for (PreInscricaoDTO preInscricao: preInscricaoDTOS) {
-//             usuariosDtos.add(usuarioServico.obterPorID(preInscricao.getIdUsuario()));;
-//        }
+        Evento evento = eventoRepositorio.save(eventoMapper.toEntity(eventoDTO));
+        List<PreInscricaoDTO> preInscricaoDTOS = preInscricaoServico.buscarPreinscricaoPorIdEvento(eventoDTO.getId());
+        List<UsuarioDTO> usuariosDtos = new ArrayList<>();
 
-          Evento evento = eventoMapper.toEntity(eventoDTO);
-          eventoRepositorio.save(evento);
+        for (PreInscricaoDTO preInscricao: preInscricaoDTOS) {
+            usuariosDtos.add(usuarioServico.obterPorID(preInscricao.getIdUsuario()));;
+        }
 
-//        enviarEmail(usuariosDtos, eventoDTO.getTitulo());
+        enviarEmail(usuariosDtos, eventoDTO.getTitulo());
 
         return eventoMapper.toDto(evento);
     }
@@ -108,5 +93,16 @@ public class EventoServico {
             emailDTO.setDestinatario(usuarioDTO.getEmail());
             emailServico.sendMail(emailDTO);
         }
+    }
+
+    public void criarEmailEventoEditar(String email, Evento evento){
+
+        EmailDTO emailDTO = new EmailDTO();
+        emailDTO.setAssunto("Alteração do Evento");
+        emailDTO.setCorpo("O Evento " + evento.getTitulo() + "sofreu alteração, confira demais informações no sistema.");
+        emailDTO.setDestinatario(email);
+        emailDTO.setCopias(new ArrayList<String>());
+        emailDTO.getCopias().add(emailDTO.getDestinatario());
+        emailServico.sendMail(emailDTO);
     }
 }

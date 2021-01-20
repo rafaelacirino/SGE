@@ -12,8 +12,6 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 
-import com.basis.sge.service.util.EmailUtil;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -57,8 +55,8 @@ public class UsuarioServico {
         if(usuarioDTO.getEmail() == null){
             throw new RegraNegocioException("O usuario não possui email");
         }
-        else if (usuarioRepositorio.findByEmail(usuarioDTO.getEmail()) != null){
-            throw new RegraNegocioException("email já cadastrado");
+        else if( !usuarioRepositorio.findByEmail(usuarioDTO.getEmail()).isEmpty() ){
+            throw new RegraNegocioException("O email já foi cadastrado");
         }
         /////////
 
@@ -66,7 +64,7 @@ public class UsuarioServico {
         if(usuarioDTO.getCpf() == null){
             throw new RegraNegocioException("O usuario não possui cpf");
         }
-        else if(usuarioRepositorio.findByCpf(usuarioDTO.getCpf()) != null){
+        else if(!usuarioRepositorio.findByCpf(usuarioDTO.getCpf()).isEmpty()){
             throw new RegraNegocioException("Cpf já cadastrado");
         }
         //EXCEPTION CPF INVALIDO
@@ -76,13 +74,13 @@ public class UsuarioServico {
         /////////
 
         // EXCEPTIONS NOME
-         if (usuarioDTO.getNome() == null){
+        if (usuarioDTO.getNome() == null){
             throw new RegraNegocioException("O usuario não possui nome");
         }
         /////
 
         // EXCEPTIONS DATA NASCIMENTO
-         if (usuarioDTO.getDataNascimento() == null){
+        if (usuarioDTO.getDataNascimento() == null){
             throw new RegraNegocioException("O usuario não possui data de nascimento");
         }
         //EXCEPTION IDADE ERRADA (OBS: EVENTUALMENTE MUDAR PARA LOCALDATE)
@@ -90,7 +88,6 @@ public class UsuarioServico {
         if (usuarioDTO.getDataNascimento().after(date)){
             throw new RegraNegocioException("Data de nascimento invalida");
         }
-
         //EXCEPTIONS TELEFONE
         if (usuarioDTO.getTelefone() == null){
             throw new RegraNegocioException("Telefone nulo");
@@ -102,25 +99,27 @@ public class UsuarioServico {
         Usuario usuario = usuarioMapper.toEntity(usuarioDTO);
         usuario.setChaveUnica(UUID.randomUUID().toString());
         usuarioRepositorio.save(usuario);
-
-
-        criarEmailCadastro(usuario.getEmail());
+        criarEmailCadastro(usuario.getEmail(),usuario.getChaveUnica());
         return usuarioMapper.toDto(usuario);
     }
 
 
     //EDITAR
-    public UsuarioDTO editar(UsuarioDTO usuarioDTO){
+    public UsuarioDTO editar( UsuarioDTO usuarioDTO){
 
 
         Usuario usuario = usuarioRepositorio.findById(usuarioDTO.getId())
                 .orElseThrow(()-> new RegraNegocioException("Usuario de id" + usuarioDTO.getId() + "não existe"));
+        List<Usuario> listaCpf = usuarioRepositorio.findByCpf(usuarioDTO.getCpf());
+        List<Usuario> listaEmail = usuarioRepositorio.findByEmail(usuarioDTO.getEmail());
+        listaCpf.remove(usuario);
+        listaEmail.remove(usuario);
 
 
-      //SET
+        //SET
 
         // VERIFICAR CPF()
-        if (usuarioDTO.getCpf().length() > 11){
+        if (usuarioDTO.getCpf().length() > 11 || usuarioDTO.getCpf().length() < 11){
             throw new RegraNegocioException("CPF invalido");
         }
 
@@ -137,46 +136,65 @@ public class UsuarioServico {
         }
 
         //EXCEPTION EMAIL
-        try {
-            usuario.setEmail(usuario.getEmail());
-        }
-        catch (RegraNegocioException e){
+        if(!listaEmail.isEmpty()){
             throw new RegraNegocioException("Email já cadastrado");
         }
 
         //EXCEPTION CPF
-        try {
-            usuario.setCpf(usuarioDTO.getCpf());
+        if(!listaCpf.isEmpty()){
+            throw new RegraNegocioException("CPF já cadastrado");
         }
-        catch (DataIntegrityViolationException e){
-            throw new RegraNegocioException("Cpf já cadastrado");
-        }
-        usuario.setNome(usuarioDTO.getNome());
-        usuario.setDataNascimento(usuarioDTO.getDataNascimento());
-        usuario.setTelefone(usuarioDTO.getTelefone());
+        Usuario usuarioTemp = usuarioMapper.toEntity(usuarioDTO);
+        usuarioTemp.setChaveUnica(usuario.getChaveUnica());
+        usuarioRepositorio.save(usuarioTemp);
+        criarEmailUsuarioEditado(usuario.getEmail());
 
-       return usuarioMapper.toDto(usuario);
+        return usuarioMapper.toDto(usuario);
     }
 
 
     //REMOVER
 
     public void remover(Integer id){
-        usuarioRepositorio.findById(id)
+        Usuario usuario = usuarioRepositorio.findById(id)
                 .orElseThrow(() -> new RegraNegocioException("O usuário não existe"));
 
         usuarioRepositorio.deleteById(id);
+        criarEmailUsuarioRemovido(usuario.getEmail());
+
     }
-    public void criarEmailCadastro(String email){
+    public void criarEmailCadastro(String email,String chave){
 
         EmailDTO emailDTO = new EmailDTO();
         emailDTO.setAssunto("Cadastro SGE");
-        emailDTO.setCorpo("Parabéns você se cadastrou no SGE com SUCESSO!");
+        emailDTO.setCorpo("Parabéns você se cadastrou no SGE com SUCESSO! Sua chave e " + chave +".");
         emailDTO.setDestinatario(email);
         emailDTO.setCopias(new ArrayList<String>());
         emailDTO.getCopias().add(emailDTO.getDestinatario());
         emailServico.sendMail(emailDTO);
 
+    }
+
+    public void criarEmailUsuarioRemovido(String email){
+
+        EmailDTO emailDTO = new EmailDTO();
+        emailDTO.setAssunto("Remoção de cadastro no SGE");
+        emailDTO.setCorpo("Você foi removido do cadastro do SGE!");
+        emailDTO.setDestinatario(email);
+        emailDTO.setCopias(new ArrayList<String>());
+        emailDTO.getCopias().add(emailDTO.getDestinatario());
+        emailServico.sendMail(emailDTO);
+    }
+
+    public void criarEmailUsuarioEditado(String email){
+
+        EmailDTO emailDTO = new EmailDTO();
+        emailDTO.setAssunto("Alteração de cadastro no SGE");
+        emailDTO.setCorpo("Seu cadastro foi alterado no SGE!");
+        emailDTO.setDestinatario(email);
+        emailDTO.setCopias(new ArrayList<String>());
+        emailDTO.getCopias().add(emailDTO.getDestinatario());
+        emailServico.sendMail(emailDTO);
     }
 
 

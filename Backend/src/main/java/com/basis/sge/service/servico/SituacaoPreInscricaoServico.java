@@ -20,7 +20,8 @@ public class SituacaoPreInscricaoServico {
 
     public List<SituacaoPreInscricaoDTO> listar(){
         List<SituacaoPreInscricao> situacaoPreInscricaos = situacaoPreInscricaoRepositorio.findAll();
-        return situacaoPreInscricaoMapper.toDto(situacaoPreInscricaos);
+        List<SituacaoPreInscricaoDTO> situacaoPreInscricaoDTO = situacaoPreInscricaoMapper.toDto(situacaoPreInscricaos);
+        return situacaoPreInscricaoDTO;
     }
 
     public SituacaoPreInscricaoDTO buscarPorId(Integer id){

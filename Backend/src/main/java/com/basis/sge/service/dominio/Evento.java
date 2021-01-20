@@ -29,16 +29,17 @@ public class Evento implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_evento")
-    @SequenceGenerator(name = "sq_evento",sequenceName = "sq_evento",initialValue = 1,allocationSize = 1)
+    @SequenceGenerator(name = "sq_evento",sequenceName = "sq_evento",allocationSize = 1)
     @Column(name = "id_evento")
     private Integer id;
 
     @Column(name = "titulo", nullable = false)
     private String titulo;
-
+    //LocalDateTime
     @Column(name = "periodo_inicio", nullable = false)
     private LocalDateTime periodoInicio;
 
+    //LocalDateTime
     @Column(name = "periodo_fim", nullable = false)
     private LocalDateTime periodoFim;
 
