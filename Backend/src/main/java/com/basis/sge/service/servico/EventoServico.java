@@ -1,6 +1,8 @@
 package com.basis.sge.service.servico;
 
 import com.basis.sge.service.dominio.Evento;
+import com.basis.sge.service.dominio.EventoPergunta;
+import com.basis.sge.service.repositorio.EventoPerguntaRepositorio;
 import com.basis.sge.service.repositorio.EventoRepositorio;
 import com.basis.sge.service.servico.DTO.EmailDTO;
 import com.basis.sge.service.servico.DTO.EventoDTO;
@@ -27,8 +29,7 @@ public class EventoServico {
     private final EmailServico emailServico;
     private final PreInscricaoServico preInscricaoServico;
     private final UsuarioServico usuarioServico;
-    private final UsuarioMapper usuarioMapper;
-    private final PreInscricaoMapper preInscricaoMapper;
+    private final EventoPerguntaRepositorio eventoPerguntaRepositorio;
 
     public List<EventoDTO> listar(){
         List<Evento> eventos = eventoRepositorio.findAll();
@@ -55,7 +56,17 @@ public class EventoServico {
             throw new RegraNegocioException("Tipo Inscricao não pode ser vazio");
         }
         Evento evento = eventoMapper.toEntity(eventoDTO);
-        return eventoMapper.toDto(eventoRepositorio.save(evento));
+        List<EventoPergunta> perguntas = evento.getPerguntas();
+
+        evento.setPerguntas(new ArrayList<>());
+        eventoRepositorio.save(evento);
+
+        perguntas.forEach(pergunta -> {
+            pergunta.setEvento(evento);
+        });
+
+        eventoPerguntaRepositorio.saveAll(perguntas);
+        return eventoMapper.toDto(evento);
     }
 
     public EventoDTO atualizar(EventoDTO eventoDTO){

@@ -5,6 +5,5 @@ import com.basis.sge.service.servico.DTO.SituacaoPreInscricaoDTO;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring", uses = {})
-
 public interface SituacaoPreInscricaoMapper extends EntityMapper<SituacaoPreInscricaoDTO, SituacaoPreInscricao> {
 }
