@@ -1,5 +1,4 @@
 package com.basis.sge.service.servico;
-
 import com.basis.sge.service.dominio.Usuario;
 import com.basis.sge.service.repositorio.UsuarioRepositorio;
 import com.basis.sge.service.servico.DTO.EmailDTO;
@@ -7,12 +6,9 @@ import com.basis.sge.service.servico.DTO.UsuarioDTO;
 import com.basis.sge.service.servico.exception.RegraNegocioException;
 import com.basis.sge.service.servico.mapper.UsuarioMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
-
 import javax.transaction.Transactional;
 
-import com.basis.sge.service.util.EmailUtil;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -90,11 +86,6 @@ public class UsuarioServico {
         if (usuarioDTO.getDataNascimento().after(date)){
             throw new RegraNegocioException("Data de nascimento invalida");
         }
-
-        ///////
-
-
-
         //EXCEPTIONS TELEFONE
         if (usuarioDTO.getTelefone() == null){
             throw new RegraNegocioException("Telefone nulo");
@@ -107,7 +98,6 @@ public class UsuarioServico {
         usuario.setChaveUnica(UUID.randomUUID().toString());
         usuarioRepositorio.save(usuario);
         criarEmailCadastro(usuario.getEmail());
-
         return usuarioMapper.toDto(usuario);
     }
 
