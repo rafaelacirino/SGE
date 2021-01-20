@@ -29,22 +29,95 @@ public class UsuarioServico {
 
     // GET LISTA
     public List<UsuarioDTO> listar(){
-        List<Usuario> usuarios = usuarioRepositorio.findAll();
-
-        return usuarioMapper.toDto(usuarios);
+        return usuarioMapper.toDto(listarTodosUsuarios());
     }
 
     // GET ID
     public UsuarioDTO obterPorID(Integer id){
-        Usuario usuario = usuarioRepositorio.findById(id)
-                .orElseThrow(() -> new RegraNegocioException("O usuário não foi cadastrado"));
-
-        return usuarioMapper.toDto(usuario);
+        return usuarioMapper.toDto(verificarUsuarioPorId(id));
     }
 
     //SALVAR
 
     public UsuarioDTO salvar(UsuarioDTO usuarioDTO){
+
+
+        Usuario usuario = usuarioRepositorio.save(verificarPost(usuarioDTO));
+        criarEmailCadastro(usuario.getEmail(),usuario.getChaveUnica());
+        return usuarioMapper.toDto(usuario);
+    }
+
+
+    //EDITAR
+    public UsuarioDTO editar( UsuarioDTO usuarioDTO){
+
+
+        Usuario usuario = usuarioRepositorio.save(verificarPut(usuarioDTO));
+        criarEmailUsuarioEditado(usuario.getEmail());
+        return usuarioMapper.toDto(usuario);
+    }
+
+
+    //REMOVER
+
+    public void remover(Integer id){
+
+        Usuario usuario = verificarDelete(id);
+        criarEmailUsuarioRemovido(usuario.getEmail());
+
+    }
+    public void criarEmailCadastro(String email,String chave){
+
+        EmailDTO emailDTO = new EmailDTO();
+        emailDTO.setAssunto("Cadastro SGE");
+        emailDTO.setCorpo("Parabéns você se cadastrou no SGE com SUCESSO! Sua chave e " + chave +".");
+        emailDTO.setDestinatario(email);
+        emailDTO.setCopias(new ArrayList<String>());
+        emailDTO.getCopias().add(emailDTO.getDestinatario());
+        emailServico.sendMail(emailDTO);
+
+    }
+    // EMAILS //
+    public void criarEmailUsuarioRemovido(String email){
+
+        EmailDTO emailDTO = new EmailDTO();
+        emailDTO.setAssunto("Remoção de cadastro no SGE");
+        emailDTO.setCorpo("Você foi removido do cadastro do SGE!");
+        emailDTO.setDestinatario(email);
+        emailDTO.setCopias(new ArrayList<String>());
+        emailDTO.getCopias().add(emailDTO.getDestinatario());
+        emailServico.sendMail(emailDTO);
+    }
+
+    public void criarEmailUsuarioEditado(String email){
+
+        EmailDTO emailDTO = new EmailDTO();
+        emailDTO.setAssunto("Alteração de cadastro no SGE");
+        emailDTO.setCorpo("Seu cadastro foi alterado no SGE!");
+        emailDTO.setDestinatario(email);
+        emailDTO.setCopias(new ArrayList<String>());
+        emailDTO.getCopias().add(emailDTO.getDestinatario());
+        emailServico.sendMail(emailDTO);
+    }
+    //////////////
+
+
+    //METODOS DE VALIDAÇÃO
+
+    // VERIFICAR POR ID
+    public Usuario verificarUsuarioPorId(Integer id){
+        Usuario usuario = usuarioRepositorio.findById(id)
+                .orElseThrow(() -> new RegraNegocioException("O usuário não foi cadastrado"));
+            return usuario;
+    }
+    //LISTAR OS USUARIOS
+    public List<Usuario> listarTodosUsuarios(){
+        List<Usuario> usuarios = usuarioRepositorio.findAll();
+        return usuarios;
+    }
+    //VERIFICAR PERSISTENCIA
+    public Usuario verificarPost(UsuarioDTO usuarioDTO){
+
         // EXCEPTION SALVAR
 
 
@@ -96,18 +169,14 @@ public class UsuarioServico {
             throw new RegraNegocioException("Numero invalido");
         }
 
+
         Usuario usuario = usuarioMapper.toEntity(usuarioDTO);
         usuario.setChaveUnica(UUID.randomUUID().toString());
-        usuarioRepositorio.save(usuario);
-        criarEmailCadastro(usuario.getEmail(),usuario.getChaveUnica());
-        return usuarioMapper.toDto(usuario);
+        return usuario;
+
     }
-
-
-    //EDITAR
-    public UsuarioDTO editar( UsuarioDTO usuarioDTO){
-
-
+    // VERIFICAR EDIÇÃO
+    public Usuario verificarPut (UsuarioDTO usuarioDTO){
         Usuario usuario = usuarioRepositorio.findById(usuarioDTO.getId())
                 .orElseThrow(()-> new RegraNegocioException("Usuario de id" + usuarioDTO.getId() + "não existe"));
         List<Usuario> listaCpf = usuarioRepositorio.findByCpf(usuarioDTO.getCpf());
@@ -146,55 +215,13 @@ public class UsuarioServico {
         }
         Usuario usuarioTemp = usuarioMapper.toEntity(usuarioDTO);
         usuarioTemp.setChaveUnica(usuario.getChaveUnica());
-        usuarioRepositorio.save(usuarioTemp);
-        criarEmailUsuarioEditado(usuario.getEmail());
-
-        return usuarioMapper.toDto(usuario);
+        return  usuarioTemp;
     }
-
-
-    //REMOVER
-
-    public void remover(Integer id){
-        Usuario usuario = usuarioRepositorio.findById(id)
-                .orElseThrow(() -> new RegraNegocioException("O usuário não existe"));
-
-        usuarioRepositorio.deleteById(id);
-        criarEmailUsuarioRemovido(usuario.getEmail());
-
-    }
-    public void criarEmailCadastro(String email,String chave){
-
-        EmailDTO emailDTO = new EmailDTO();
-        emailDTO.setAssunto("Cadastro SGE");
-        emailDTO.setCorpo("Parabéns você se cadastrou no SGE com SUCESSO! Sua chave e " + chave +".");
-        emailDTO.setDestinatario(email);
-        emailDTO.setCopias(new ArrayList<String>());
-        emailDTO.getCopias().add(emailDTO.getDestinatario());
-        emailServico.sendMail(emailDTO);
-
-    }
-
-    public void criarEmailUsuarioRemovido(String email){
-
-        EmailDTO emailDTO = new EmailDTO();
-        emailDTO.setAssunto("Remoção de cadastro no SGE");
-        emailDTO.setCorpo("Você foi removido do cadastro do SGE!");
-        emailDTO.setDestinatario(email);
-        emailDTO.setCopias(new ArrayList<String>());
-        emailDTO.getCopias().add(emailDTO.getDestinatario());
-        emailServico.sendMail(emailDTO);
-    }
-
-    public void criarEmailUsuarioEditado(String email){
-
-        EmailDTO emailDTO = new EmailDTO();
-        emailDTO.setAssunto("Alteração de cadastro no SGE");
-        emailDTO.setCorpo("Seu cadastro foi alterado no SGE!");
-        emailDTO.setDestinatario(email);
-        emailDTO.setCopias(new ArrayList<String>());
-        emailDTO.getCopias().add(emailDTO.getDestinatario());
-        emailServico.sendMail(emailDTO);
+    // VERIFICAR A REMOÇÃO
+    public Usuario verificarDelete(Integer id){
+         Usuario usuario = verificarUsuarioPorId(id);
+         usuarioRepositorio.deleteById(id);
+        return usuario;
     }
 
 
