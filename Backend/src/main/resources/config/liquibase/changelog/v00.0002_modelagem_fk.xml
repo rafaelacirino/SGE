@@ -32,7 +32,8 @@
         <addPrimaryKey tableName="evento" columnNames="id_evento" constraintName="pk_evento"/>
         <createSequence sequenceName="sq_evento" incrementBy="1" startValue="1"/>
 
-        <addForeignKeyConstraint baseTableName="evento" baseColumnNames="id_tipo_evento" constraintName="fk_tipo_evento" referencedTableName="tipo_evento"
+        <addForeignKeyConstraint baseTableName="evento" baseColumnNames="id_tipo_evento"
+                                 constraintName="fk_tipo_evento" referencedTableName="tipo_evento"
                                  referencedColumnNames="id_tipo"/>
     </changeSet>
 
@@ -46,7 +47,11 @@
             </column>
         </createTable>
 
+<<<<<<< HEAD:Backend/src/main/resources/config/liquibase/changelog/v00.0002_modelagem_fk.xml
         <addPrimaryKey tableName="pergunta_evento" columnNames="id_pergunta, id_evento" constraintName="pk_pergunta_evento"/>
+=======
+        <addPrimaryKey tableName="pergunta_evento" columnNames="id_pergunta, id_evento" constraintName="pk_evento_pergunta"/>
+>>>>>>> 985b8c39b29c6a7e2e21f4eb3a52d7c91852453a:Backend/src/main/resources/config/liquibase/changelog/v00.0001_modelagem.xml
         <addForeignKeyConstraint baseTableName="pergunta_evento" baseColumnNames="id_pergunta"
                                  constraintName="fk_pergunta_evento_pergunta" referencedTableName="pergunta"
                                  referencedColumnNames="id_pergunta"/>
