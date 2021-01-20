@@ -18,9 +18,9 @@ public interface EventoMapper extends EntityMapper<EventoDTO, Evento> {
     @Mapping(source = "tipoEvento.id", target = "idTipoEvento")
     EventoDTO toDto(Evento evento);
 
-    @AfterMapping
+/*    @AfterMapping
     default void atualizarRelacionamentos(@MappingTarget Evento evento) {
         evento.getPerguntas().forEach(eventoPergunta -> eventoPergunta.setEvento(evento));
-    }
+    }*/
 
 }

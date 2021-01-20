@@ -12,7 +12,7 @@ public class InscricaoRespostaDTO implements Serializable {
     IdInscricaoResposta id;
     private Integer idPergunta;
     private Integer idEvento;
-    private Integer idPreInscricao;
+    private Integer idInscricao;
     private String resposta;
 
 }

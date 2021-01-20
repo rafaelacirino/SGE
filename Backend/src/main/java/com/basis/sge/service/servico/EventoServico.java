@@ -2,6 +2,7 @@ package com.basis.sge.service.servico;
 
 import com.basis.sge.service.dominio.Evento;
 import com.basis.sge.service.dominio.EventoPergunta;
+import com.basis.sge.service.dominio.Pergunta;
 import com.basis.sge.service.repositorio.EventoPerguntaRepositorio;
 import com.basis.sge.service.repositorio.EventoRepositorio;
 import com.basis.sge.service.servico.DTO.EmailDTO;
@@ -66,7 +67,7 @@ public class EventoServico {
         });
 
         eventoPerguntaRepositorio.saveAll(perguntas);
-
+ /*       evento.setPerguntas(perguntas);*/
         return eventoMapper.toDto(evento);
     }
 
@@ -75,15 +76,17 @@ public class EventoServico {
         if(!eventoRepositorio.existsById(eventoDTO.getId())){
             throw new RegraNegocioException("Evento não existe na base de dados");
         }
-        Evento evento = eventoRepositorio.save(eventoMapper.toEntity(eventoDTO));
-        List<PreInscricaoDTO> preInscricaoDTOS = preInscricaoServico.buscarPreinscricaoPorIdEvento(eventoDTO.getId());
-        List<UsuarioDTO> usuariosDtos = new ArrayList<>();
+//        List<PreInscricaoDTO> preInscricaoDTOS = preInscricaoServico.buscarPreinscricaoPorIdEvento(eventoDTO.getId());
+//        List<UsuarioDTO> usuariosDtos = new ArrayList<>();
+//
+//        for (PreInscricaoDTO preInscricao: preInscricaoDTOS) {
+//             usuariosDtos.add(usuarioServico.obterPorID(preInscricao.getIdUsuario()));;
+//        }
 
-        for (PreInscricaoDTO preInscricao: preInscricaoDTOS) {
-             usuariosDtos.add(usuarioServico.obterPorID(preInscricao.getIdUsuario()));;
-        }
+          Evento evento = eventoMapper.toEntity(eventoDTO);
+          eventoRepositorio.save(evento);
 
-        enviarEmail(usuariosDtos, eventoDTO.getTitulo());
+//        enviarEmail(usuariosDtos, eventoDTO.getTitulo());
 
         return eventoMapper.toDto(evento);
     }
