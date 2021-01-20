@@ -28,39 +28,4 @@ public class SituacaoPreInscricaoServico {
                 .orElseThrow(()-> new RegraNegocioException("Situação não encontrado"));
         return situacaoPreInscricaoMapper.toDto(situacaoPreInscricao);
     }
-
-    public SituacaoPreInscricaoDTO salvar (SituacaoPreInscricaoDTO situacaoPreInscricaoDTO){
-        if (situacaoPreInscricaoDTO == null){
-            throw new RegraNegocioException("A situação é nula");
-        }
-        if (situacaoPreInscricaoDTO.getIdSituacao() == null){
-            throw new RegraNegocioException("A situação não existe");
-        }
-        if (situacaoPreInscricaoDTO.getDescricao() == null){
-            throw new RegraNegocioException("A descrição não existe");
-        }
-        SituacaoPreInscricao situacaoPreInscricao = situacaoPreInscricaoRepositorio.save(situacaoPreInscricaoMapper.toEntity(situacaoPreInscricaoDTO));
-        return situacaoPreInscricaoMapper.toDto(situacaoPreInscricao);
-    }
-
-    public SituacaoPreInscricaoDTO atualizar (Integer id, SituacaoPreInscricaoDTO situacaoPreInscricaoDTO){
-        SituacaoPreInscricao situacaoPreInscricao = situacaoPreInscricaoRepositorio.findById(id)
-                .orElseThrow(()-> new RegraNegocioException("Situação não encontrada"));
-
-        if (situacaoPreInscricaoDTO == null){
-            throw new RegraNegocioException("A situação é nula");
-        }
-
-        situacaoPreInscricao.setDescricao(situacaoPreInscricaoDTO.getDescricao());
-
-        return situacaoPreInscricaoMapper.toDto(situacaoPreInscricao);
-    }
-
-    public void delete(Integer id){
-
-        if(!situacaoPreInscricaoRepositorio.existsById(id)){
-            throw new RegraNegocioException("Situação não existe");
-        }
-        situacaoPreInscricaoRepositorio.deleteById(id);
-    }
 }

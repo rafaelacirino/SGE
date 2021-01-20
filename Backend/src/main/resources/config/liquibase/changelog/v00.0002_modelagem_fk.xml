@@ -46,9 +46,8 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-        
-        <addPrimaryKey tableName="pergunta_evento" columnNames="id_pergunta, id_evento" constraintName="pk_pergunta_evento"/>
 
+        <addPrimaryKey tableName="pergunta_evento" columnNames="id_pergunta, id_evento" constraintName="pk_pergunta_evento"/>
         <addForeignKeyConstraint baseTableName="pergunta_evento" baseColumnNames="id_pergunta"
                                  constraintName="fk_pergunta_evento_pergunta" referencedTableName="pergunta"
                                  referencedColumnNames="id_pergunta"/>
@@ -99,7 +98,7 @@
             <column name="id_inscricao" type="number" remarks="Criacao da coluna id_inscricao">
                 <constraints nullable="false"/>
             </column>
-            <column name="resposta" type="number" remarks="Criacao da coluna resposta">
+            <column name="resposta" type="text" remarks="Criacao da coluna resposta">
                 <constraints nullable="false" />
             </column>
         </createTable>

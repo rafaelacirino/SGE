@@ -15,5 +15,5 @@ public class PreInscricaoDTO implements Serializable {
     private Integer idUsuario;
     private Integer idEvento;
     private Integer idSituacaoPreInscricao;
-    private List<InscricaoResposta> inscricaoRespostas;
+    private List<InscricaoRespostaDTO> inscricaoRespostas;
 }
