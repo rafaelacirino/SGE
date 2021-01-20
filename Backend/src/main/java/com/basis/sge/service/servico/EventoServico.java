@@ -94,4 +94,15 @@ public class EventoServico {
             emailServico.sendMail(emailDTO);
         }
     }
+
+    public void criarEmailEventoEditar(String email, Evento evento){
+
+        EmailDTO emailDTO = new EmailDTO();
+        emailDTO.setAssunto("Alteração do Evento");
+        emailDTO.setCorpo("O Evento " + evento.getTitulo() + "sofreu alteração, confira demais informações no sistema.");
+        emailDTO.setDestinatario(email);
+        emailDTO.setCopias(new ArrayList<String>());
+        emailDTO.getCopias().add(emailDTO.getDestinatario());
+        emailServico.sendMail(emailDTO);
+    }
 }
