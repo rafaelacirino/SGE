@@ -119,7 +119,7 @@ public class UsuarioServico {
         //SET
 
         // VERIFICAR CPF()
-        if (usuarioDTO.getCpf().length() > 11 && usuarioDTO.getCpf().length() < 11){
+        if (usuarioDTO.getCpf().length() > 11 || usuarioDTO.getCpf().length() < 11){
             throw new RegraNegocioException("CPF invalido");
         }
 
