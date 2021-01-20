@@ -1,4 +1,5 @@
 package com.basis.sge.service.servico;
+
 import com.basis.sge.service.dominio.Usuario;
 import com.basis.sge.service.repositorio.UsuarioRepositorio;
 import com.basis.sge.service.servico.DTO.EmailDTO;
@@ -6,9 +7,10 @@ import com.basis.sge.service.servico.DTO.UsuarioDTO;
 import com.basis.sge.service.servico.exception.RegraNegocioException;
 import com.basis.sge.service.servico.mapper.UsuarioMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
-import javax.transaction.Transactional;
 
+import javax.transaction.Transactional;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -72,13 +74,13 @@ public class UsuarioServico {
         /////////
 
         // EXCEPTIONS NOME
-         if (usuarioDTO.getNome() == null){
+        if (usuarioDTO.getNome() == null){
             throw new RegraNegocioException("O usuario não possui nome");
         }
         /////
 
         // EXCEPTIONS DATA NASCIMENTO
-         if (usuarioDTO.getDataNascimento() == null){
+        if (usuarioDTO.getDataNascimento() == null){
             throw new RegraNegocioException("O usuario não possui data de nascimento");
         }
         //EXCEPTION IDADE ERRADA (OBS: EVENTUALMENTE MUDAR PARA LOCALDATE)
@@ -97,23 +99,27 @@ public class UsuarioServico {
         Usuario usuario = usuarioMapper.toEntity(usuarioDTO);
         usuario.setChaveUnica(UUID.randomUUID().toString());
         usuarioRepositorio.save(usuario);
-        criarEmailCadastro(usuario.getEmail());
+        criarEmailCadastro(usuario.getEmail(),usuario.getChaveUnica());
         return usuarioMapper.toDto(usuario);
     }
 
 
     //EDITAR
-    public UsuarioDTO editar(UsuarioDTO usuarioDTO){
+    public UsuarioDTO editar( UsuarioDTO usuarioDTO){
 
 
         Usuario usuario = usuarioRepositorio.findById(usuarioDTO.getId())
                 .orElseThrow(()-> new RegraNegocioException("Usuario de id" + usuarioDTO.getId() + "não existe"));
+        List<Usuario> listaCpf = usuarioRepositorio.findByCpf(usuarioDTO.getCpf());
+        List<Usuario> listaEmail = usuarioRepositorio.findByEmail(usuarioDTO.getEmail());
+        listaCpf.remove(usuario);
+        listaEmail.remove(usuario);
 
 
-      //SET
+        //SET
 
         // VERIFICAR CPF()
-        if (usuarioDTO.getCpf().length() > 11){
+        if (usuarioDTO.getCpf().length() > 11 && usuarioDTO.getCpf().length() < 11){
             throw new RegraNegocioException("CPF invalido");
         }
 
@@ -130,34 +136,20 @@ public class UsuarioServico {
         }
 
         //EXCEPTION EMAIL
-        List<Usuario> listEmail = usuarioRepositorio.findByEmail(usuarioDTO.getEmail());
-        listEmail.remove(usuario);
-
-        if (!listEmail.isEmpty()){
+        if(!listaEmail.isEmpty()){
             throw new RegraNegocioException("Email já cadastrado");
-        }
-        else if(usuarioDTO.getEmail() == null){
-            throw new RegraNegocioException("O email é nulo");
         }
 
         //EXCEPTION CPF
-        List<Usuario> listCpf = usuarioRepositorio.findByCpf(usuarioDTO.getCpf());
-        listCpf.remove(usuario);
-
-        if (!listCpf.isEmpty()){
-            throw new RegraNegocioException("O cpf já está cadastrado");
+        if(!listaCpf.isEmpty()){
+            throw new RegraNegocioException("CPF já cadastrado");
         }
-        else if(usuarioDTO.getCpf() == null){
-            throw new RegraNegocioException("O cpf é nulo");
-        }
-        usuario.setCpf(usuarioDTO.getCpf());
-        usuario.setNome(usuarioDTO.getNome());
-        usuario.setDataNascimento(usuarioDTO.getDataNascimento());
-        usuario.setTelefone(usuarioDTO.getTelefone());
-
+        Usuario usuarioTemp = usuarioMapper.toEntity(usuarioDTO);
+        usuarioTemp.setChaveUnica(usuario.getChaveUnica());
+        usuarioRepositorio.save(usuarioTemp);
         criarEmailUsuarioEditado(usuario.getEmail());
 
-       return usuarioMapper.toDto(usuario);
+        return usuarioMapper.toDto(usuario);
     }
 
 
@@ -171,11 +163,11 @@ public class UsuarioServico {
         criarEmailUsuarioRemovido(usuario.getEmail());
 
     }
-    public void criarEmailCadastro(String email){
+    public void criarEmailCadastro(String email,String chave){
 
         EmailDTO emailDTO = new EmailDTO();
         emailDTO.setAssunto("Cadastro SGE");
-        emailDTO.setCorpo("Parabéns você se cadastrou no SGE com SUCESSO!");
+        emailDTO.setCorpo("Parabéns você se cadastrou no SGE com SUCESSO! Sua chave e " + chave +".");
         emailDTO.setDestinatario(email);
         emailDTO.setCopias(new ArrayList<String>());
         emailDTO.getCopias().add(emailDTO.getDestinatario());
