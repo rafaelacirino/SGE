@@ -3,6 +3,7 @@ package com.basis.sge.service.dominio;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -25,8 +26,8 @@ public class PreInscricao implements Serializable {
 
     @Id
     @Column(name = "id_preinscricao")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pre_inscricao")
-    @SequenceGenerator(name = "pre_inscricao", sequenceName = "sq_pre", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_pre")
+    @SequenceGenerator(name = "sq_pre", sequenceName = "sq_pre", allocationSize = 1)
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -41,6 +42,6 @@ public class PreInscricao implements Serializable {
     @JoinColumn(name = "id_tipo_situacao")
     private SituacaoPreInscricao situacaoPreInscricao;
 
-    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, targetEntity = RespostaPerguntaEvento.class, mappedBy = "preInscricao")
-    private List<RespostaPerguntaEvento> respostaPerguntaEventos;
+    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL, mappedBy = "preInscricao")
+    private List<InscricaoResposta> inscricaoRespostas;
 }

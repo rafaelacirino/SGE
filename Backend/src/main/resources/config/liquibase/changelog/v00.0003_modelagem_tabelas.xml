@@ -1,0 +1,45 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <changeSet id="9" author="matheus.rodrigues">
+        <insert tableName="situacao_preinscricao">
+            <column name="id_situacao">1</column>
+            <column name="descricao">Aguardando Aprovação</column>
+        </insert>
+        <insert tableName="situacao_preinscricao">
+            <column name="id_situacao">2</column>
+            <column name="descricao">Aprovado</column>
+        </insert>
+        <insert tableName="situacao_preinscricao">
+            <column name="id_situacao">3</column>
+            <column name="descricao">Recusado</column>
+        </insert>
+        <insert tableName="situacao_preinscricao">
+            <column name="id_situacao">4</column>
+            <column name="descricao">Cancelado</column>
+        </insert>
+    </changeSet>
+
+    <changeSet id="10" author="matheus.rodrigues">
+        <insert tableName="tipo_evento">
+            <column name="id_tipo">1</column>
+            <column name="descricao">Workshop</column>
+        </insert>
+        <insert tableName="tipo_evento">
+            <column name="id_tipo">2</column>
+            <column name="descricao">Palestra</column>
+        </insert>
+        <insert tableName="tipo_evento">
+            <column name="id_tipo">3</column>
+            <column name="descricao">Mini Curso</column>
+        </insert>
+        <insert tableName="tipo_evento">
+            <column name="id_tipo">4</column>
+            <column name="descricao">Treinamento</column>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

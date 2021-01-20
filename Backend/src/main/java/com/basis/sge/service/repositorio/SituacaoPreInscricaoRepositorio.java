@@ -1,9 +1,10 @@
 package com.basis.sge.service.repositorio;
 
-import com.basis.sge.service.dominio.PreInscricao;
+import com.basis.sge.service.dominio.SituacaoPreInscricao;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface PreInsRepositorio extends JpaRepository<PreInscricao, Integer> {
+public interface SituacaoPreInscricaoRepositorio extends JpaRepository<SituacaoPreInscricao, Integer> {
+
 }
