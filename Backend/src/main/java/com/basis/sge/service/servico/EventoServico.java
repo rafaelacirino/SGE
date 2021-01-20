@@ -67,7 +67,6 @@ public class EventoServico {
         });
 
         eventoPerguntaRepositorio.saveAll(perguntas);
- /*       evento.setPerguntas(perguntas);*/
         return eventoMapper.toDto(evento);
     }
 
