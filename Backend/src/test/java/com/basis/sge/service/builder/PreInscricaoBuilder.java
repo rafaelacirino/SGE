@@ -42,17 +42,11 @@ public class PreInscricaoBuilder extends ConstrutorDeEntidade<PreInscricao> {
 
         PreInscricao preInscricao = new PreInscricao();
         Evento evento = this.eventoBuilder.construir();
-        InscricaoResposta inscricaoResposta = new InscricaoResposta();
-        inscricaoResposta.setEvento(evento);
-        inscricaoResposta.setPergunta(this.perguntaBuilder.construir());
-        inscricaoResposta.setResposta("É isso ai");
-        List<InscricaoResposta> inscricaoRespostas = new ArrayList<>();
-        inscricaoRespostas.add(inscricaoResposta);
 
         preInscricao.setUsuario(this.usuarioBuilder.construir());
         preInscricao.setEvento(evento);
         preInscricao.setSituacaoPreInscricao(this.situacaoPreInscricaoBuilder.construir());
-        preInscricao.setInscricaoRespostas(inscricaoRespostas);
+        preInscricao.setInscricaoRespostas(new ArrayList<>());
 
         return preInscricao;
     }

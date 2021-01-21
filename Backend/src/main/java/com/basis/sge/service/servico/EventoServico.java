@@ -56,6 +56,10 @@ public class EventoServico {
         if(eventoDTO.getTipoInsc() == null){
             throw new RegraNegocioException("Tipo Inscricao não pode ser vazio");
         }
+        if(eventoDTO.getIdTipoEvento() == null){
+            throw new RegraNegocioException("O tipo do evento não pode ser vazio");
+        }
+
         Evento evento = eventoMapper.toEntity(eventoDTO);
         List<EventoPergunta> perguntas = evento.getPerguntas();
 
@@ -107,5 +111,16 @@ public class EventoServico {
             emailDTO.setDestinatario(usuarioDTO.getEmail());
             emailServico.sendMail(emailDTO);
         }
+    }
+
+    public void criarEmailEventoEditar(String email, Evento evento){
+
+        EmailDTO emailDTO = new EmailDTO();
+        emailDTO.setAssunto("Alteração do Evento");
+        emailDTO.setCorpo("O Evento " + evento.getTitulo() + "sofreu alteração, confira demais informações no sistema.");
+        emailDTO.setDestinatario(email);
+        emailDTO.setCopias(new ArrayList<String>());
+        emailDTO.getCopias().add(emailDTO.getDestinatario());
+        emailServico.sendMail(emailDTO);
     }
 }
