@@ -56,6 +56,10 @@ public class EventoServico {
         if(eventoDTO.getTipoInsc() == null){
             throw new RegraNegocioException("Tipo Inscricao não pode ser vazio");
         }
+        if(eventoDTO.getIdTipoEvento() == null){
+            throw new RegraNegocioException("O tipo do evento não pode ser vazio");
+        }
+
         Evento evento = eventoMapper.toEntity(eventoDTO);
         List<EventoPergunta> perguntas = evento.getPerguntas();
 

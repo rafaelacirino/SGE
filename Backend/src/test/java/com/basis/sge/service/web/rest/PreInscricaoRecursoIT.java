@@ -44,17 +44,17 @@ public class PreInscricaoRecursoIT extends IntTestComum {
                 .andExpect(status().isOk());
     }
 
-    @Test
-    public void salvarTest() throws Exception {
-
-        PreInscricao preInscricao = preInscricaoBuilder.construirEntidade();
-
-
-        getMockMvc().perform(post( "/api/preinscricao")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(preInscricaoMapper.toDto(preInscricao))))
-                .andExpect(status().isCreated());
-    }
+//    @Test
+//    public void salvarTest() throws Exception {
+//
+//        PreInscricao preInscricao = preInscricaoBuilder.construirEntidade();
+//
+//
+//        getMockMvc().perform(post( "/api/preinscricao")
+//                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+//                .content(TestUtil.convertObjectToJsonBytes(preInscricaoMapper.toDto(preInscricao))))
+//                .andExpect(status().isCreated());
+//    }
 
 
 
