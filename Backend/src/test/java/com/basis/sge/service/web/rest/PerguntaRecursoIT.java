@@ -161,6 +161,9 @@ public class PerguntaRecursoIT extends IntTestComum {
 
         getMockMvc().perform(delete("/api/perguntas/" + pergunta.getId()))
                 .andExpect(status().isOk());
+
+
+
     }
 
     @Test
