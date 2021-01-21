@@ -193,11 +193,17 @@ public class UsuarioServico {
         if (usuarioDTO.getCpf().length() > 11 || usuarioDTO.getCpf().length() < 11){
             throw new RegraNegocioException("CPF invalido");
         }
+         if(usuarioDTO.getCpf() == null){
+            throw new RegraNegocioException("CPF Nulo");
+        }
 
         //EXCEPTION IDADE ERRADA (OBS: EVENTUALMENTE MUDAR PARA LOCALDATE)
         LocalDate date = LocalDate.now();
         if (usuarioDTO.getDataNascimento().isAfter(date)){
-            throw new RegraNegocioException("Data de nascimento invalida");
+            throw new RegraNegocioException("Data de nascimento invalida.");
+        }
+         if(usuarioDTO.getDataNascimento() == null){
+            throw new RegraNegocioException("Data de nascimento nula.");
         }
 
         //VERIFICAR TELEFONE
@@ -210,15 +216,29 @@ public class UsuarioServico {
         if(!listaEmail.isEmpty()){
             throw new RegraNegocioException("Email já cadastrado");
         }
+        else if(usuarioDTO.getEmail() == null){
+            throw new RegraNegocioException("Email nulo");
+        }
 
         //EXCEPTION CPF
         if(!listaCpf.isEmpty()){
             throw new RegraNegocioException("CPF já cadastrado");
         }
+
+
+        //VERIFICAR NOME
+        if(usuarioDTO.getNome() == null){
+            throw new RegraNegocioException("Nome nulo");
+        }
+
         Usuario usuarioTemp = usuarioMapper.toEntity(usuarioDTO);
         usuarioTemp.setChaveUnica(usuario.getChaveUnica());
         return  usuarioTemp;
+
     }
+
+
+
     // VERIFICAR A REMOÇÃO
     public Usuario verificarDelete(Integer id){
          Usuario usuario = verificarUsuarioPorId(id);

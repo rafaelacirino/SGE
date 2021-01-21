@@ -1,16 +1,14 @@
 package com.basis.sge.service.builder;
-
 import com.basis.sge.service.dominio.Usuario;
 import com.basis.sge.service.servico.DTO.UsuarioDTO;
 import com.basis.sge.service.servico.UsuarioServico;
 import com.basis.sge.service.servico.mapper.UsuarioMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.Collection;
-import java.util.Date;
+
 
 @Component
 public class UsuarioBuilder extends ConstrutorDeEntidade<Usuario>{

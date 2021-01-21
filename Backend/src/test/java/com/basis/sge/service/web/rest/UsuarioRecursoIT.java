@@ -195,9 +195,6 @@ public class UsuarioRecursoIT extends IntTestComum {
 
 
 
-
-
-
     //PUT
 
     @Test
@@ -216,6 +213,97 @@ public class UsuarioRecursoIT extends IntTestComum {
                 .content(TestUtil.convertObjectToJsonBytes(usuarioMapper.toDto(usuario))))
                 .andExpect(status().isOk());
     }
+    @Test
+    public void editarCPFNuloTest() throws Exception {
+        Usuario usuarioAntigo = usuarioBuilder.construir();
+        Usuario usuario = usuarioBuilder.construirEntidade();
+        usuario.setId(usuarioAntigo.getId());
+        usuario.setNome("CARLOS");
+        usuario.setCpf(null);
+        usuario.setEmail("batotow@gmail.com");
+        usuario.setTelefone("40028922");
+        usuario.setDataNascimento(LocalDate.of(2000,03,12));
+
+        getMockMvc().perform(put( "/api/usuarios")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(usuarioMapper.toDto(usuario))))
+                .andExpect(status().isBadRequest());
+    }
+    @Test
+    public void editarEmailNuloTest() throws Exception {
+        Usuario usuarioAntigo = usuarioBuilder.construir();
+        Usuario usuario = usuarioBuilder.construirEntidade();
+        usuario.setId(usuarioAntigo.getId());
+        usuario.setNome("CARLOS");
+        usuario.setCpf("11111111111");
+        usuario.setEmail(null);
+        usuario.setTelefone("40028922");
+        usuario.setDataNascimento(LocalDate.of(2000,03,12));
+
+        getMockMvc().perform(put( "/api/usuarios")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(usuarioMapper.toDto(usuario))))
+                .andExpect(status().isBadRequest());
+    }
+    @Test
+    public void editarNomeNuloTest() throws Exception {
+        Usuario usuarioAntigo = usuarioBuilder.construir();
+        Usuario usuario = usuarioBuilder.construirEntidade();
+        usuario.setId(usuarioAntigo.getId());
+        usuario.setNome(null);
+        usuario.setCpf("11111111111");
+        usuario.setEmail("batotow@gmail.com");
+        usuario.setTelefone("40028922");
+        usuario.setDataNascimento(LocalDate.of(2000,03,12));
+
+        getMockMvc().perform(put( "/api/usuarios")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(usuarioMapper.toDto(usuario))))
+                .andExpect(status().isBadRequest());
+    }
+    @Test
+    public void editarDtaNascNuloTest() throws Exception {
+        Usuario usuarioAntigo = usuarioBuilder.construir();
+        Usuario usuario = usuarioBuilder.construirEntidade();
+        usuario.setId(usuarioAntigo.getId());
+        usuario.setNome("Italo");
+        usuario.setCpf("11111111111");
+        usuario.setEmail("batotow@gmail.com");
+        usuario.setTelefone("40028922");
+        usuario.setDataNascimento(null);
+
+        getMockMvc().perform(put( "/api/usuarios")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(usuarioMapper.toDto(usuario))))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void editarCPFDuplicadoTest() throws Exception {
+        Usuario usuarioAntigo = usuarioBuilder.construir();
+
+        Usuario usuarioAntigo2 = usuarioBuilder.construir();
+
+
+        usuarioAntigo2.setNome("Italo");
+        usuarioAntigo2.setCpf("11111111111");
+        usuarioAntigo2.setEmail("batotow@gmail.com");
+        usuarioAntigo2.setTelefone("40028922");
+        usuarioAntigo2.setDataNascimento(LocalDate.of(2013,11,11));
+
+        Usuario usuarioNovo = usuarioBuilder.construirEntidade();
+        usuarioNovo.setCpf("11111111111");
+        usuarioNovo.setId(usuarioAntigo2.getId());
+        usuarioNovo.setEmail("italoFelipeDev@gmail.com");
+
+
+        getMockMvc().perform(put( "/api/usuarios")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(usuarioMapper.toDto(usuarioNovo))))
+                .andExpect(status().isBadRequest());
+    }
+
+
 
 
 
