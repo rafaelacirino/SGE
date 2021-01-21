@@ -110,11 +110,11 @@ public class UsuarioServico {
 
 
     //EDITAR
-    public UsuarioDTO editar(Integer id, UsuarioDTO usuarioDTO){
+    public UsuarioDTO editar(UsuarioDTO usuarioDTO){
 
 
-        Usuario usuario = usuarioRepositorio.findById(id)
-                .orElseThrow(()-> new RegraNegocioException("Usuario de id" + id + "não existe"));
+        Usuario usuario = usuarioRepositorio.findById(usuarioDTO.getId())
+                .orElseThrow(()-> new RegraNegocioException("Usuario de id" + usuarioDTO.getId() + "não existe"));
 
 
       //SET

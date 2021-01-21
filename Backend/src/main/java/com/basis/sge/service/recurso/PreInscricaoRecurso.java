@@ -35,7 +35,7 @@ public class PreInscricaoRecurso {
         return ResponseEntity.ok(preInscricaoServico.salvar(preInscricaoDTO));
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> remover(@PathVariable Integer id){
         return ResponseEntity.ok().build();
     }

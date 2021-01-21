@@ -30,20 +30,4 @@ public class SituacaoPreInscricaoRecurso {
     public ResponseEntity<SituacaoPreInscricaoDTO> buscarPorId(@PathVariable Integer id) {
         return ResponseEntity.ok(situacaoPreInscricaoServico.buscarPorId(id));
     }
-
-    @PostMapping
-    public ResponseEntity<SituacaoPreInscricaoDTO> salvar (@RequestBody SituacaoPreInscricaoDTO situacaoPreInscricaoDTO){
-        return ResponseEntity.ok(situacaoPreInscricaoServico.salvar(situacaoPreInscricaoDTO));
-    }
-
-    @PutMapping
-    public ResponseEntity<SituacaoPreInscricaoDTO> atulizar(@PathVariable Integer id, @RequestBody SituacaoPreInscricaoDTO situacaoPreInscricaoDTO){
-        return ResponseEntity.ok(situacaoPreInscricaoServico.atualizar(id, situacaoPreInscricaoDTO));
-    }
-
-    @DeleteMapping
-    public ResponseEntity<Void> remover(@PathVariable Integer id){
-        return ResponseEntity.ok().build();
-    }
-
 }

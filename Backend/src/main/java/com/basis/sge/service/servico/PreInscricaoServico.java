@@ -1,6 +1,10 @@
 package com.basis.sge.service.servico;
 
+import com.basis.sge.service.dominio.Evento;
+import com.basis.sge.service.dominio.EventoPergunta;
+import com.basis.sge.service.dominio.InscricaoResposta;
 import com.basis.sge.service.dominio.PreInscricao;
+import com.basis.sge.service.repositorio.InscricaoRespostaRepositorio;
 import com.basis.sge.service.repositorio.PreInscricaoRepositorio;
 import com.basis.sge.service.servico.DTO.PreInscricaoDTO;
 import com.basis.sge.service.servico.mapper.PreInscricaoMapper;
@@ -19,6 +23,7 @@ public class PreInscricaoServico {
 
     private final PreInscricaoRepositorio preInscricaoRepositorio;
     private final PreInscricaoMapper preInscricaoMapper;
+    private final InscricaoRespostaRepositorio inscricaoRespostaRepositorio;
 
     public List<PreInscricaoDTO> listar(){
         List<PreInscricao> preInscricaos = preInscricaoRepositorio.findAll();
@@ -42,7 +47,19 @@ public class PreInscricaoServico {
             throw new RegraNegocioException("A pré inscrição não tem situação");
         }
 
-        PreInscricao preInscricao = preInscricaoRepositorio.save(preInscricaoMapper.toEntity(preInscricaoDTO));
+        PreInscricao preInscricao = preInscricaoMapper.toEntity(preInscricaoDTO);
+        List<InscricaoResposta> inscricaoRespostas = preInscricao.getInscricaoRespostas();
+
+        preInscricao.setInscricaoRespostas(new ArrayList<>());
+        preInscricaoRepositorio.save(preInscricao);
+
+        inscricaoRespostas.forEach(inscricaoResposta -> {
+            inscricaoResposta.setPreInscricao(preInscricao);
+        });
+
+        inscricaoRespostaRepositorio.saveAll(inscricaoRespostas);
+       /* preInscricao.setInscricaoRespostas(inscricaoRespostas);*/
+
         return preInscricaoMapper.toDto(preInscricao);
 
     }

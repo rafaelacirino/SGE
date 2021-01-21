@@ -8,7 +8,7 @@ import java.io.Serializable;
 @Setter
 
 public class SituacaoPreInscricaoDTO implements Serializable {
-    private Integer idSituacao;
+    private Integer id;
     private String descricao;
 
 }
