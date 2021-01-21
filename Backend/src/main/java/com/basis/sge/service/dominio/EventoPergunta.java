@@ -22,12 +22,12 @@ public class EventoPergunta implements Serializable {
     private IdEventoPergunta id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId("idPergunta")
-    @JoinColumn(name = "id_pergunta")
-    private Pergunta pergunta;
-
-    @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("idEvento")
     @JoinColumn(name = "id_evento")
     private Evento evento;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @MapsId("idPergunta")
+    @JoinColumn(name = "id_pergunta")
+    private Pergunta pergunta;
 }

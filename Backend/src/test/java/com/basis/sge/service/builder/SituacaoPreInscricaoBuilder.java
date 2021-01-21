@@ -29,7 +29,7 @@ public class SituacaoPreInscricaoBuilder extends ConstrutorDeEntidade<SituacaoPr
     public SituacaoPreInscricao construirEntidade() throws ParseException {
 
         SituacaoPreInscricao situacaoPreInscricao = new SituacaoPreInscricao();
-        situacaoPreInscricao.setId(5);
+        situacaoPreInscricao.setId(1);
         situacaoPreInscricao.setDescricao("Descrito");
 
         return situacaoPreInscricao;

@@ -2,6 +2,7 @@ package com.basis.sge.service.builder;
 
 import com.basis.sge.service.dominio.Evento;
 import com.basis.sge.service.dominio.EventoPergunta;
+import com.basis.sge.service.dominio.Pergunta;
 import com.basis.sge.service.servico.DTO.EventoDTO;
 import com.basis.sge.service.servico.EventoServico;
 import com.basis.sge.service.servico.mapper.EventoMapper;
@@ -26,14 +27,16 @@ public class EventoBuilder extends ConstrutorDeEntidade<Evento> {
     @Autowired
     private TipoEventoBuilder tipoEventoBuilder;
 
+    @Autowired
+    private PerguntaBuilder perguntaBuilder;
+
     @Override
     public Evento construirEntidade() throws ParseException {
 
-
-        List<EventoPergunta> perguntaList = new ArrayList<>();
+        List<EventoPergunta> eventoPerguntas = new ArrayList<>();
 
         Evento evento = new Evento();
-        evento.setPerguntas(perguntaList);
+        evento.setPerguntas(eventoPerguntas);
         evento.setTitulo("Titulo");
         evento.setPeriodoInicio(LocalDateTime.now());
         evento.setPeriodoFim(LocalDateTime.now());
@@ -43,7 +46,6 @@ public class EventoBuilder extends ConstrutorDeEntidade<Evento> {
         evento.setValor(30.00);
         evento.setLocal("Casa");
         evento.setTipoEvento(this.tipoEventoBuilder.construirEntidade());
-
 
         return evento;
     }

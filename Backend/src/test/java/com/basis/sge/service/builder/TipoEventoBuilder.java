@@ -26,7 +26,7 @@ public class TipoEventoBuilder extends ConstrutorDeEntidade<TipoEvento> {
 
         TipoEvento tipoEvento = new TipoEvento();
         tipoEvento.setId(1);
-        tipoEvento.setDescricao("Evento Foda");
+        tipoEvento.setDescricao("Evento 123342234");
 
         return tipoEvento;
     }

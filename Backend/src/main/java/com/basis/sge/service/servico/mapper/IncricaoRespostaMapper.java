@@ -11,6 +11,7 @@ public interface IncricaoRespostaMapper extends EntityMapper<InscricaoRespostaDT
     @Mapping(source = "idEvento", target = "evento.id")
     @Mapping(source = "idPergunta", target = "pergunta.id")
     @Mapping(source = "idInscricao", target = "preInscricao.id")
+
     @Mapping(source = "idPergunta", target = "id.idPergunta")
     @Mapping(source = "idEvento", target = "id.idEvento")
     @Mapping(source = "idInscricao", target = "id.idInscricao")

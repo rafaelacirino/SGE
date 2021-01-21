@@ -22,12 +22,4 @@ public interface PreInscricaoMapper extends EntityMapper<PreInscricaoDTO, PreIns
     @Mapping(source = "situacaoPreInscricao.id", target = "idSituacaoPreInscricao")
     PreInscricaoDTO toDto(PreInscricao preInscricao);
 
-/*    @AfterMapping
-    default void atualizarRelacionamentos(@MappingTarget PreInscricao preInscricao) {
-        preInscricao.getInscricaoRespostas().forEach(inscricaoResposta -> {
-            inscricaoResposta.setPreInscricao(preInscricao);
-        });
-    }*/
-
-
 }
