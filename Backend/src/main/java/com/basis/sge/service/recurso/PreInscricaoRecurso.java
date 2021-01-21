@@ -8,16 +8,20 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/preinscricao")
 @RequiredArgsConstructor
 public class PreInscricaoRecurso {
+
     private final PreInscricaoServico preInscricaoServico;
 
     @GetMapping
@@ -31,12 +35,18 @@ public class PreInscricaoRecurso {
     }
 
     @PostMapping
-    public ResponseEntity<PreInscricaoDTO> salvar (@RequestBody PreInscricaoDTO preInscricaoDTO){
-        return ResponseEntity.ok(preInscricaoServico.salvar(preInscricaoDTO));
+    public ResponseEntity<PreInscricaoDTO> salvar(@RequestBody PreInscricaoDTO preInscricaoDTO) throws URISyntaxException {
+        return ResponseEntity.created( new URI("/api/preinscricao")).body(preInscricaoServico.salvar(preInscricaoDTO));
+    }
+
+    @PutMapping
+    public ResponseEntity<PreInscricaoDTO> atualizar(@RequestBody PreInscricaoDTO preInscricaoDTO){
+        return ResponseEntity.ok(preInscricaoServico.atualizar(preInscricaoDTO));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> remover(@PathVariable Integer id){
+        preInscricaoServico.remover(id);
         return ResponseEntity.ok().build();
     }
 
