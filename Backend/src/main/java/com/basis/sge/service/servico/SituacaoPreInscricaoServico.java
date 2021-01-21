@@ -1,7 +1,9 @@
 package com.basis.sge.service.servico;
 
+import com.basis.sge.service.dominio.Pergunta;
 import com.basis.sge.service.dominio.SituacaoPreInscricao;
 import com.basis.sge.service.repositorio.SituacaoPreInscricaoRepositorio;
+import com.basis.sge.service.servico.DTO.PerguntaDTO;
 import com.basis.sge.service.servico.DTO.SituacaoPreInscricaoDTO;
 import com.basis.sge.service.servico.mapper.SituacaoPreInscricaoMapper;
 import com.basis.sge.service.servico.exception.RegraNegocioException;
@@ -23,6 +25,15 @@ public class SituacaoPreInscricaoServico {
         List<SituacaoPreInscricaoDTO> situacaoPreInscricaoDTO = situacaoPreInscricaoMapper.toDto(situacaoPreInscricaos);
         return situacaoPreInscricaoDTO;
     }
+
+    public SituacaoPreInscricaoDTO salvar(SituacaoPreInscricaoDTO situacaoPreInscricaoDTO){
+
+        SituacaoPreInscricao situacaoPreInscricao = situacaoPreInscricaoRepositorio.save(situacaoPreInscricaoMapper.toEntity(situacaoPreInscricaoDTO));
+
+        return situacaoPreInscricaoMapper.toDto(situacaoPreInscricao);
+
+    }
+
 
     public SituacaoPreInscricaoDTO buscarPorId(Integer id){
         SituacaoPreInscricao situacaoPreInscricao = situacaoPreInscricaoRepositorio.findById(id)
