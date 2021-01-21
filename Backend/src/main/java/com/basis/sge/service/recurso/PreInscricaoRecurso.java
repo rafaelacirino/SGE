@@ -37,6 +37,7 @@ public class PreInscricaoRecurso {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> remover(@PathVariable Integer id){
+        preInscricaoServico.remover(id);
         return ResponseEntity.ok().build();
     }
 

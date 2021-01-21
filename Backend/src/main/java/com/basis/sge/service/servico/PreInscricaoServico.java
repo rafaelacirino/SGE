@@ -75,9 +75,9 @@ public class PreInscricaoServico {
         return preInscricoesPorIdEvento;
     }
 
-    public void delete(Integer id){
-        if (!preInscricaoRepositorio.existsById(id)){
-            throw new RegraNegocioException("Pré Inscrição não existe");
+    public void remover(Integer id){
+        if(!preInscricaoRepositorio.existsById(id)){
+            throw new RegraNegocioException("O usuario não existe");
         }
         preInscricaoRepositorio.deleteById(id);
     }
