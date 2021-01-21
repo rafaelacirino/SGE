@@ -1,7 +1,9 @@
 package com.basis.sge.service.web.rest;
 
 import com.basis.sge.service.builder.PreInscricaoBuilder;
+import com.basis.sge.service.builder.SituacaoPreInscricaoBuilder;
 import com.basis.sge.service.dominio.PreInscricao;
+import com.basis.sge.service.dominio.SituacaoPreInscricao;
 import com.basis.sge.service.repositorio.PreInscricaoRepositorio;
 import com.basis.sge.service.servico.mapper.PreInscricaoMapper;
 import com.basis.sge.service.util.IntTestComum;
@@ -32,6 +34,9 @@ public class PreInscricaoRecursoIT extends IntTestComum {
     @Autowired
     private PreInscricaoRepositorio preInscricaoRepositorio;
 
+    @Autowired
+    private SituacaoPreInscricaoBuilder situacaoPreInscricaoBuilder;
+
     @BeforeEach
     public void inicializar() {
         preInscricaoRepositorio.deleteAll();
@@ -49,14 +54,23 @@ public class PreInscricaoRecursoIT extends IntTestComum {
 
         PreInscricao preInscricao = preInscricaoBuilder.construirEntidade();
 
-
         getMockMvc().perform(post( "/api/preinscricao")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(preInscricaoMapper.toDto(preInscricao))))
                 .andExpect(status().isCreated());
     }
 
+    @Test
+    public void editarTest() throws Exception {
+        PreInscricao preInscricao = preInscricaoBuilder.construir();
+        SituacaoPreInscricao situacaoPreInscricao = situacaoPreInscricaoBuilder.construir();
+        preInscricao.setSituacaoPreInscricao(situacaoPreInscricao);
 
+        getMockMvc().perform(put( "/api/preinscricao")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(preInscricaoMapper.toDto(preInscricao))))
+                .andExpect(status().isOk());
+    }
 
     @Test
     public void deletarTest() throws Exception {

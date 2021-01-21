@@ -1,7 +1,5 @@
 package com.basis.sge.service.servico;
 
-import com.basis.sge.service.dominio.Evento;
-import com.basis.sge.service.dominio.EventoPergunta;
 import com.basis.sge.service.dominio.InscricaoResposta;
 import com.basis.sge.service.dominio.PreInscricao;
 import com.basis.sge.service.repositorio.InscricaoRespostaRepositorio;
@@ -37,31 +35,40 @@ public class PreInscricaoServico {
     }
 
     public PreInscricaoDTO salvar (PreInscricaoDTO preInscricaoDTO){
-        if (preInscricaoDTO == null){
-            throw new RegraNegocioException("A pré inscrição não pode ser criada");
-        }
-        if (preInscricaoDTO.getIdUsuario() == null){
-            throw new RegraNegocioException("A pré inscrição não tem usuário");
-        }
-        if (preInscricaoDTO.getIdSituacaoPreInscricao() == null){
-            throw new RegraNegocioException("A pré inscrição não tem situação");
-        }
+        verificaNull(preInscricaoDTO);
+        verificaNull(preInscricaoDTO.getIdUsuario());
+        verificaNull(preInscricaoDTO.getIdEvento());
+        verificaNull(preInscricaoDTO.getIdSituacaoPreInscricao());
 
         PreInscricao preInscricao = preInscricaoMapper.toEntity(preInscricaoDTO);
         List<InscricaoResposta> inscricaoRespostas = preInscricao.getInscricaoRespostas();
-
         preInscricao.setInscricaoRespostas(new ArrayList<>());
         preInscricaoRepositorio.save(preInscricao);
-
         inscricaoRespostas.forEach(inscricaoResposta -> {
             inscricaoResposta.setPreInscricao(preInscricao);
         });
 
         inscricaoRespostaRepositorio.saveAll(inscricaoRespostas);
-       /* preInscricao.setInscricaoRespostas(inscricaoRespostas);*/
+        return preInscricaoMapper.toDto(preInscricao);
+    }
+
+    public PreInscricaoDTO atualizar(PreInscricaoDTO preInscricaoDTO){
+        verificaNull(preInscricaoDTO);
+        verificaNull(preInscricaoDTO.getIdUsuario());
+        verificaNull(preInscricaoDTO.getIdEvento());
+        verificaNull(preInscricaoDTO.getIdSituacaoPreInscricao());
+
+        PreInscricao preInscricao = preInscricaoMapper.toEntity(preInscricaoDTO);
+        preInscricaoRepositorio.save(preInscricao);
 
         return preInscricaoMapper.toDto(preInscricao);
+    }
 
+    public void remover(Integer id){
+        if(!preInscricaoRepositorio.existsById(id)){
+            throw new RegraNegocioException("A inscricao com esse id não existe");
+        }
+        preInscricaoRepositorio.deleteById(id);
     }
 
     public List<PreInscricaoDTO> buscarPreinscricaoPorIdEvento(Integer id){
@@ -75,10 +82,10 @@ public class PreInscricaoServico {
         return preInscricoesPorIdEvento;
     }
 
-    public void remover(Integer id){
-        if(!preInscricaoRepositorio.existsById(id)){
-            throw new RegraNegocioException("O usuario não existe");
+    private void verificaNull(Object object){
+        if(object == null){
+            throw new RegraNegocioException("Foi passado algum parametro null que não pode ser nulo");
         }
-        preInscricaoRepositorio.deleteById(id);
     }
+
 }
