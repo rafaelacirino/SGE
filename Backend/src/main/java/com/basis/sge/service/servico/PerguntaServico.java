@@ -22,7 +22,6 @@ public class PerguntaServico {
     // GET (LISTA)
     public List<PerguntaDTO> listar(){
         List<Pergunta> perguntas = perguntaRepositorio.findAll();
-        
         return perguntaMapper.toDto(perguntas);
     }
 
@@ -32,7 +31,6 @@ public class PerguntaServico {
                 .orElseThrow(()-> new RegraNegocioException("Pergunta não encontrado"));
         // Conversão para DTO
         return perguntaMapper.toDto(pergunta);
-
     }
 
     // POST
@@ -41,9 +39,6 @@ public class PerguntaServico {
         if (perguntaDto == null){
             throw new RegraNegocioException("A pergunta é nula");
         }
-        ////////
-
-
         //EXCEPTION TITULO
         if(perguntaDto.getTitulo() == null){
             throw new RegraNegocioException("A pergunta não possui titulo");
