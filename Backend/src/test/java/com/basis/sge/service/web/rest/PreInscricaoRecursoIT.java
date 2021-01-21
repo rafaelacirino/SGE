@@ -1,7 +1,6 @@
 package com.basis.sge.service.web.rest;
 
 import com.basis.sge.service.builder.PreInscricaoBuilder;
-import com.basis.sge.service.dominio.Pergunta;
 import com.basis.sge.service.dominio.PreInscricao;
 import com.basis.sge.service.repositorio.PreInscricaoRepositorio;
 import com.basis.sge.service.servico.mapper.PreInscricaoMapper;
@@ -63,7 +62,7 @@ public class PreInscricaoRecursoIT extends IntTestComum {
     public void deletarTest() throws Exception {
         PreInscricao preInscricao = preInscricaoBuilder.construir();
 
-        getMockMvc().perform(delete("/api/preinscricao" + preInscricao.getId()))
+        getMockMvc().perform(delete("/api/preinscricao/" + preInscricao.getId()))
                 .andExpect(status().isOk());
     }
 }

@@ -162,4 +162,14 @@ public class PerguntaRecursoIT extends IntTestComum {
         getMockMvc().perform(delete("/api/perguntas/" + pergunta.getId()))
                 .andExpect(status().isOk());
     }
+
+    @Test
+    public void deletarTestIdErrado() throws Exception {
+
+        Pergunta pergunta = perguntaBuilder.construir();
+        pergunta.setId(300);
+
+        getMockMvc().perform(delete("/api/perguntas/" + pergunta.getId()))
+                .andExpect(status().isBadRequest());
+    }
 }
