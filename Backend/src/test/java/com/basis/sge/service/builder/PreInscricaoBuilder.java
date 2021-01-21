@@ -1,5 +1,6 @@
 package com.basis.sge.service.builder;
 
+import com.basis.sge.service.dominio.Evento;
 import com.basis.sge.service.dominio.InscricaoResposta;
 import com.basis.sge.service.dominio.PreInscricao;
 import com.basis.sge.service.servico.DTO.PreInscricaoDTO;
@@ -23,6 +24,9 @@ public class PreInscricaoBuilder extends ConstrutorDeEntidade<PreInscricao> {
     private PreInscricaoMapper preInscricaoMapper;
 
     @Autowired
+    private PerguntaBuilder perguntaBuilder;
+
+    @Autowired
     private EventoBuilder eventoBuilder;
 
     @Autowired
@@ -37,10 +41,18 @@ public class PreInscricaoBuilder extends ConstrutorDeEntidade<PreInscricao> {
     public PreInscricao construirEntidade() throws ParseException {
 
         PreInscricao preInscricao = new PreInscricao();
+        Evento evento = this.eventoBuilder.construir();
+        InscricaoResposta inscricaoResposta = new InscricaoResposta();
+        inscricaoResposta.setEvento(evento);
+        inscricaoResposta.setPergunta(this.perguntaBuilder.construir());
+        inscricaoResposta.setResposta("É isso ai");
+        List<InscricaoResposta> inscricaoRespostas = new ArrayList<>();
+        inscricaoRespostas.add(inscricaoResposta);
+
         preInscricao.setUsuario(this.usuarioBuilder.construir());
-        preInscricao.setEvento(this.eventoBuilder.construir());
+        preInscricao.setEvento(evento);
         preInscricao.setSituacaoPreInscricao(this.situacaoPreInscricaoBuilder.construir());
-        preInscricao.setInscricaoRespostas(new ArrayList<InscricaoResposta>());
+        preInscricao.setInscricaoRespostas(inscricaoRespostas);
 
         return preInscricao;
     }
@@ -52,7 +64,7 @@ public class PreInscricaoBuilder extends ConstrutorDeEntidade<PreInscricao> {
     }
 
     @Override
-    protected Collection<PreInscricao> obterTodos() {
+    protected List<PreInscricao> obterTodos() {
         return preInscricaoMapper.toEntity(preInscricaoServico.listar());
     }
 
