@@ -14,6 +14,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -45,6 +46,6 @@ public class Usuario implements Serializable {
     private String telefone;
 
     @Column(name = "dt_nasc")
-    private Date dataNascimento;
+    private LocalDate dataNascimento;
 
 }

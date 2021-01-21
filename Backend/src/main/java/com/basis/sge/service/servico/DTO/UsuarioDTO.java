@@ -3,6 +3,7 @@ package com.basis.sge.service.servico.DTO;
 import lombok.Getter;
 import lombok.Setter;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Getter
@@ -13,6 +14,6 @@ public class UsuarioDTO implements Serializable {
     private String nome;
     private String email;
     private String telefone;
-    private Date dataNascimento;
+    private LocalDate dataNascimento;
 
 }

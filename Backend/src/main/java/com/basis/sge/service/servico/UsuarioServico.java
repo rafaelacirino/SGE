@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -157,8 +159,8 @@ public class UsuarioServico {
             throw new RegraNegocioException("O usuario não possui data de nascimento");
         }
         //EXCEPTION IDADE ERRADA (OBS: EVENTUALMENTE MUDAR PARA LOCALDATE)
-        Date date = new Date(System.currentTimeMillis());
-        if (usuarioDTO.getDataNascimento().after(date)){
+        LocalDate date = LocalDate.now();
+        if (usuarioDTO.getDataNascimento().isAfter(date)){
             throw new RegraNegocioException("Data de nascimento invalida");
         }
         //EXCEPTIONS TELEFONE
@@ -193,8 +195,8 @@ public class UsuarioServico {
         }
 
         //EXCEPTION IDADE ERRADA (OBS: EVENTUALMENTE MUDAR PARA LOCALDATE)
-        Date date = new Date(System.currentTimeMillis());
-        if (usuarioDTO.getDataNascimento().after(date)){
+        LocalDate date = LocalDate.now();
+        if (usuarioDTO.getDataNascimento().isAfter(date)){
             throw new RegraNegocioException("Data de nascimento invalida");
         }
 

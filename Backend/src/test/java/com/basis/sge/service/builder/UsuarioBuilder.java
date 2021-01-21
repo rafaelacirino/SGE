@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Date;
 
@@ -23,10 +24,11 @@ public class UsuarioBuilder extends ConstrutorDeEntidade<Usuario>{
     @Override
     public Usuario construirEntidade() throws ParseException {
         Usuario usuario = new Usuario();
-        usuario.setCpf("123456789101");
+        usuario.setCpf("12345678901");
         usuario.setEmail("italo.galdino@maisunifacisa.com.br");
         usuario.setTelefone("40028922");
-        usuario.setDataNascimento(new Date(2018-03-12));
+        usuario.setNome("Italo");
+        usuario.setDataNascimento(LocalDate.of(2012,7,7));
 
 
 
