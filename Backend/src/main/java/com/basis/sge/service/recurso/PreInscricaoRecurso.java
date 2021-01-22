@@ -1,5 +1,6 @@
 package com.basis.sge.service.recurso;
 
+import com.basis.sge.service.servico.DTO.CancelarInscricaoDTO;
 import com.basis.sge.service.servico.DTO.PreInscricaoDTO;
 import com.basis.sge.service.servico.PreInscricaoServico;
 import lombok.RequiredArgsConstructor;
@@ -47,6 +48,12 @@ public class PreInscricaoRecurso {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> remover(@PathVariable Integer id){
         preInscricaoServico.remover(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("/cancelar")
+    public ResponseEntity<Void> cancelarIncricao(@RequestBody CancelarInscricaoDTO cancelarInscricaoDTO){
+        preInscricaoServico.editarInscricaoCancelada(cancelarInscricaoDTO);
         return ResponseEntity.ok().build();
     }
 
