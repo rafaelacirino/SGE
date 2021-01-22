@@ -1,34 +1,32 @@
 package com.basis.sge.service.web.rest;
-
 import com.basis.sge.service.builder.UsuarioBuilder;
 import com.basis.sge.service.dominio.Pergunta;
 import com.basis.sge.service.dominio.Usuario;
 import com.basis.sge.service.repositorio.UsuarioRepositorio;
+import com.basis.sge.service.servico.DTO.UsuarioDTO;
+import com.basis.sge.service.servico.UsuarioServico;
 import com.basis.sge.service.servico.mapper.UsuarioMapper;
 import com.basis.sge.service.util.IntTestComum;
 import com.basis.sge.service.util.TestUtil;
-import org.junit.Before;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.platform.commons.util.StringUtils;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.transaction.Transactional;
-import java.io.IOException;
-import java.text.ParseException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Date;
 
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @Transactional
 public class UsuarioRecursoIT extends IntTestComum {
 
@@ -40,6 +38,9 @@ public class UsuarioRecursoIT extends IntTestComum {
 
     @Autowired
     private UsuarioRepositorio usuarioRepositorio;
+
+    @Autowired
+    private UsuarioServico usuarioServico;
 
     @BeforeEach
     public void incializar(){
@@ -281,20 +282,35 @@ public class UsuarioRecursoIT extends IntTestComum {
     @Test
     public void editarCPFDuplicadoTest() throws Exception {
         Usuario usuarioAntigo = usuarioBuilder.construir();
+        Usuario usuarioAntigo2 = usuarioBuilder.construirEntidade();
 
-        Usuario usuarioAntigo2 = usuarioBuilder.construir();
-
-
-        usuarioAntigo2.setNome("Italo");
         usuarioAntigo2.setCpf("11111111111");
         usuarioAntigo2.setEmail("batotow@gmail.com");
-        usuarioAntigo2.setTelefone("40028922");
-        usuarioAntigo2.setDataNascimento(LocalDate.of(2013,11,11));
+
+        UsuarioDTO usuario = usuarioServico.salvar(usuarioMapper.toDto(usuarioAntigo2));
 
         Usuario usuarioNovo = usuarioBuilder.construirEntidade();
-        usuarioNovo.setCpf("11111111111");
-        usuarioNovo.setId(usuarioAntigo2.getId());
-        usuarioNovo.setEmail("italoFelipeDev@gmail.com");
+        usuarioNovo.setId(usuario.getId());
+        usuarioNovo.setCpf("12345678901");
+
+        getMockMvc().perform(put( "/api/usuarios")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(usuarioMapper.toDto(usuarioNovo))))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void editarEmailDuplicadoTest() throws Exception {
+        Usuario usuarioAntigo = usuarioBuilder.construir();
+        Usuario usuarioAntigo2 = usuarioBuilder.construirEntidade();
+
+        usuarioAntigo2.setCpf("11111111111");
+        usuarioAntigo2.setEmail("batotow@gmail.com");
+        UsuarioDTO usuario = usuarioServico.salvar(usuarioMapper.toDto(usuarioAntigo2));
+
+        Usuario usuarioNovo = usuarioBuilder.construirEntidade();
+        usuarioNovo.setId(usuario.getId());
+        usuarioNovo.setEmail("italo.galdino@maisunifacisa.com.br");
 
 
         getMockMvc().perform(put( "/api/usuarios")
@@ -303,7 +319,21 @@ public class UsuarioRecursoIT extends IntTestComum {
                 .andExpect(status().isBadRequest());
     }
 
+    // TESTE REMOVER
 
+    @Test
+    public void removerTest() throws Exception {
+        Usuario usuario = usuarioBuilder.construir();
+
+        getMockMvc().perform(delete("/api/usuarios/" + usuario.getId()))
+                .andExpect(status().isOk());
+    }
+    @Test
+    public void removerUsuarioInexistenteTest() throws Exception {
+
+        getMockMvc().perform(delete("/api/usuarios/200"))
+                .andExpect(status().isBadRequest());
+    }
 
 
 

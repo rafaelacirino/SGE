@@ -122,51 +122,58 @@ public class UsuarioServico {
 
         // EXCEPTION SALVAR
 
-
+        //USUARIO NULO
         if (usuarioDTO == null){
             throw new RegraNegocioException("O usuario é nulo");
         }
-        // EXCEPTION EMAIL
+        // EXCEPTION EMAIL NULL
         if(usuarioDTO.getEmail() == null){
             throw new RegraNegocioException("O usuario não possui email");
         }
-        else if( !usuarioRepositorio.findByEmail(usuarioDTO.getEmail()).isEmpty() ){
-            throw new RegraNegocioException("O email já foi cadastrado");
-        }
-        /////////
-
-        // EXCEPTIONS CPF
+        // EXCEPTION CPF NULL
         if(usuarioDTO.getCpf() == null){
             throw new RegraNegocioException("O usuario não possui cpf");
         }
-        else if(!usuarioRepositorio.findByCpf(usuarioDTO.getCpf()).isEmpty()){
-            throw new RegraNegocioException("Cpf já cadastrado");
-        }
-        //EXCEPTION CPF INVALIDO
-        else if (usuarioDTO.getCpf().length() < 11 || usuarioDTO.getCpf().length() > 11){
-            throw new RegraNegocioException("CPF invalido");
-        }
-        /////////
-
         // EXCEPTIONS NOME
         if (usuarioDTO.getNome() == null){
             throw new RegraNegocioException("O usuario não possui nome");
         }
-        /////
 
         // EXCEPTIONS DATA NASCIMENTO
         if (usuarioDTO.getDataNascimento() == null){
             throw new RegraNegocioException("O usuario não possui data de nascimento");
         }
+
+        //EXCEPTIONS TELEFONE
+        if (usuarioDTO.getTelefone() == null){
+            throw new RegraNegocioException("Telefone nulo");
+        }
+
+       //EXCEPTION EMAIL DUPLICADO
+         if( !usuarioRepositorio.findByEmail(usuarioDTO.getEmail()).isEmpty() ){
+            throw new RegraNegocioException("O email já foi cadastrado");
+         }
+         //EXCEPTIN CPF DUPLICADO
+         if(!usuarioRepositorio.findByCpf(usuarioDTO.getCpf()).isEmpty()){
+             throw new RegraNegocioException("Cpf já cadastrado");
+         }
+
+
+        //EXCEPTION CPF INVALIDO
+        if (usuarioDTO.getCpf().length() < 11 || usuarioDTO.getCpf().length() > 11){
+            throw new RegraNegocioException("CPF invalido");
+        }
+        /////////
+
+
+        /////
+
         //EXCEPTION IDADE ERRADA (OBS: EVENTUALMENTE MUDAR PARA LOCALDATE)
         LocalDate date = LocalDate.now();
         if (usuarioDTO.getDataNascimento().isAfter(date)){
             throw new RegraNegocioException("Data de nascimento invalida");
         }
-        //EXCEPTIONS TELEFONE
-        if (usuarioDTO.getTelefone() == null){
-            throw new RegraNegocioException("Telefone nulo");
-        }
+
         if (usuarioDTO.getTelefone().length() > 14){
             throw new RegraNegocioException("Numero invalido");
         }
@@ -185,39 +192,33 @@ public class UsuarioServico {
         List<Usuario> listaEmail = usuarioRepositorio.findByEmail(usuarioDTO.getEmail());
         listaCpf.remove(usuario);
         listaEmail.remove(usuario);
+        LocalDate date = LocalDate.now();
 
 
         //SET
 
-        // VERIFICAR CPF()
-        if (usuarioDTO.getCpf().length() > 11 || usuarioDTO.getCpf().length() < 11){
-            throw new RegraNegocioException("CPF invalido");
-        }
-         if(usuarioDTO.getCpf() == null){
+        // VERIFICAR CPF NULL
+        if(usuarioDTO.getCpf() == null){
             throw new RegraNegocioException("CPF Nulo");
         }
-
-        //EXCEPTION IDADE ERRADA (OBS: EVENTUALMENTE MUDAR PARA LOCALDATE)
-        LocalDate date = LocalDate.now();
-        if (usuarioDTO.getDataNascimento().isAfter(date)){
-            throw new RegraNegocioException("Data de nascimento invalida.");
-        }
-         if(usuarioDTO.getDataNascimento() == null){
+        //VERIFICAR DATA NASCIMENTO NULL
+        if(usuarioDTO.getDataNascimento() == null){
             throw new RegraNegocioException("Data de nascimento nula.");
         }
-
-        //VERIFICAR TELEFONE
-
-        if (usuarioDTO.getTelefone().length() > 14){
-            throw new RegraNegocioException("Numero invalido");
+        //VERIFICAR EMAIL NULL
+        if(usuarioDTO.getEmail() == null){
+            throw new RegraNegocioException("Email nulo");
         }
 
-        //EXCEPTION EMAIL
+        //VERIFICAR NOME
+        if(usuarioDTO.getNome() == null){
+            throw new RegraNegocioException("Nome nulo");
+        }
+
+
+        //EXCEPTION EMAIL DUPLICADO
         if(!listaEmail.isEmpty()){
             throw new RegraNegocioException("Email já cadastrado");
-        }
-        else if(usuarioDTO.getEmail() == null){
-            throw new RegraNegocioException("Email nulo");
         }
 
         //EXCEPTION CPF
@@ -225,12 +226,24 @@ public class UsuarioServico {
             throw new RegraNegocioException("CPF já cadastrado");
         }
 
-
-        //VERIFICAR NOME
-        if(usuarioDTO.getNome() == null){
-            throw new RegraNegocioException("Nome nulo");
+        // EXCEPTION CPF INVALIDO
+        if (usuarioDTO.getCpf().length() > 11 || usuarioDTO.getCpf().length() < 11){
+            throw new RegraNegocioException("CPF invalido");
         }
 
+
+        //EXCEPTION IDADE ERRADA
+
+        if (usuarioDTO.getDataNascimento().isAfter(date)){
+            throw new RegraNegocioException("Data de nascimento invalida.");
+        }
+
+
+        //VERIFICAR TELEFONE
+
+        if (usuarioDTO.getTelefone().length() > 14){
+            throw new RegraNegocioException("Numero invalido");
+        }
         Usuario usuarioTemp = usuarioMapper.toEntity(usuarioDTO);
         usuarioTemp.setChaveUnica(usuario.getChaveUnica());
         return  usuarioTemp;
