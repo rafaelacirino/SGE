@@ -63,7 +63,9 @@ public class UsuarioServico {
     //REMOVER
 
     public void remover(Integer id){
-
+        if (id == null){
+            throw new RegraNegocioException("ID nulo");
+        }
         Usuario usuario = verificarDelete(id);
         criarEmailUsuarioRemovido(usuario.getEmail());
 
@@ -163,6 +165,12 @@ public class UsuarioServico {
         if (usuarioDTO.getCpf().length() < 11 || usuarioDTO.getCpf().length() > 11){
             throw new RegraNegocioException("CPF invalido");
         }
+
+        //VERIFICAR TELEFONE
+
+        if (usuarioDTO.getTelefone().length() > 14){
+            throw new RegraNegocioException("Numero invalido");
+        }
         /////////
 
 
@@ -174,9 +182,6 @@ public class UsuarioServico {
             throw new RegraNegocioException("Data de nascimento invalida");
         }
 
-        if (usuarioDTO.getTelefone().length() > 14){
-            throw new RegraNegocioException("Numero invalido");
-        }
 
 
         Usuario usuario = usuarioMapper.toEntity(usuarioDTO);
@@ -187,7 +192,7 @@ public class UsuarioServico {
     // VERIFICAR EDIÇÃO
     public Usuario verificarPut (UsuarioDTO usuarioDTO){
         Usuario usuario = usuarioRepositorio.findById(usuarioDTO.getId())
-                .orElseThrow(()-> new RegraNegocioException("Usuario de id" + usuarioDTO.getId() + "não existe"));
+                .orElseThrow(()-> new RegraNegocioException("Usuario não existe"));
         List<Usuario> listaCpf = usuarioRepositorio.findByCpf(usuarioDTO.getCpf());
         List<Usuario> listaEmail = usuarioRepositorio.findByEmail(usuarioDTO.getEmail());
         listaCpf.remove(usuario);
@@ -197,6 +202,10 @@ public class UsuarioServico {
 
         //SET
 
+        // VERIFICAR ID NULL
+        if(usuarioDTO.getId() == null){
+            throw new RegraNegocioException("ID Nulo");
+        }
         // VERIFICAR CPF NULL
         if(usuarioDTO.getCpf() == null){
             throw new RegraNegocioException("CPF Nulo");
@@ -205,6 +214,7 @@ public class UsuarioServico {
         if(usuarioDTO.getDataNascimento() == null){
             throw new RegraNegocioException("Data de nascimento nula.");
         }
+
         //VERIFICAR EMAIL NULL
         if(usuarioDTO.getEmail() == null){
             throw new RegraNegocioException("Email nulo");
