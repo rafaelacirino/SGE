@@ -66,11 +66,10 @@ public class UsuarioServico {
     //REMOVER
 
     public void remover(Integer id){
-<<<<<<< HEAD
+
         if (id == null){
             throw new RegraNegocioException("ID nulo");
         }
-=======
 
         if(!usuarioRepositorio.existsById(id)){
             throw new RegraNegocioException("Evento com esse id não existe");
@@ -78,8 +77,6 @@ public class UsuarioServico {
 
         preInscricaoMapper.toEntity(preInscricaoServico.listar())
                 .forEach((preInscricao) -> {if(preInscricao.getUsuario().getId().equals(id)) {preInscricaoServico.remover(preInscricao.getId());}});
-
->>>>>>> featureRennan
         Usuario usuario = verificarDelete(id);
         criarEmailUsuarioRemovido(usuario.getEmail());
 

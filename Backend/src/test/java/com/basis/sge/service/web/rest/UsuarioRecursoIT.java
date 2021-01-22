@@ -74,11 +74,7 @@ public class UsuarioRecursoIT extends IntTestComum {
                 .andExpect(status().isBadRequest()).andReturn().getResolvedException().getMessage();
         Assert.assertEquals("O usuário não foi cadastrado",result);
     }
-<<<<<<< HEAD
 
-    /////
-=======
->>>>>>> featureRennan
 
     @Test
     public void salvarTest() throws Exception{

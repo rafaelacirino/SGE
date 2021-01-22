@@ -28,9 +28,6 @@ public class UsuarioBuilder extends ConstrutorDeEntidade<Usuario>{
         usuario.setNome("Italo");
         usuario.setDataNascimento(LocalDate.of(2012,7,7));
 
-
-
-
         return usuario;
     }
 
