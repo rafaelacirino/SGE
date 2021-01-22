@@ -10,8 +10,6 @@ import com.basis.sge.service.servico.DTO.PreInscricaoDTO;
 import com.basis.sge.service.servico.DTO.UsuarioDTO;
 import com.basis.sge.service.servico.exception.RegraNegocioException;
 import com.basis.sge.service.servico.mapper.EventoMapper;
-import com.basis.sge.service.servico.mapper.PreInscricaoMapper;
-import com.basis.sge.service.servico.mapper.UsuarioMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -65,9 +63,7 @@ public class EventoServico {
         evento.setPerguntas(new ArrayList<>());
         eventoRepositorio.save(evento);
 
-        perguntas.forEach(pergunta -> {
-            pergunta.setEvento(evento);
-        });
+        perguntas.forEach(pergunta -> pergunta.setEvento(evento));
 
         eventoPerguntaRepositorio.saveAll(perguntas);
         return eventoMapper.toDto(evento);
@@ -83,7 +79,7 @@ public class EventoServico {
         List<UsuarioDTO> usuariosDtos = new ArrayList<>();
 
         for (PreInscricaoDTO preInscricao: preInscricaoDTOS) {
-            usuariosDtos.add(usuarioServico.obterPorID(preInscricao.getIdUsuario()));;
+            usuariosDtos.add(usuarioServico.obterPorID(preInscricao.getIdUsuario()));
         }
 
         enviarEmail(usuariosDtos, eventoDTO.getTitulo());
@@ -102,7 +98,7 @@ public class EventoServico {
         EmailDTO emailDTO = new EmailDTO();
         emailDTO.setAssunto("Aviso");
         emailDTO.setCorpo("O evento "+ titulo +" foi editado");
-        emailDTO.setCopias(new ArrayList<String>());
+        emailDTO.setCopias(new ArrayList<>());
 
         for (UsuarioDTO usuarioDTO: usuarioDTOS) {
             emailDTO.setDestinatario(usuarioDTO.getEmail());
@@ -110,14 +106,14 @@ public class EventoServico {
         }
     }
 
-    public void criarEmailEventoEditar(String email, Evento evento){
+    /*public void criarEmailEventoEditar(String email, Evento evento){
 
         EmailDTO emailDTO = new EmailDTO();
         emailDTO.setAssunto("Alteração do Evento");
         emailDTO.setCorpo("O Evento " + evento.getTitulo() + "sofreu alteração, confira demais informações no sistema.");
         emailDTO.setDestinatario(email);
-        emailDTO.setCopias(new ArrayList<String>());
+        emailDTO.setCopias(new ArrayList<>());
         emailDTO.getCopias().add(emailDTO.getDestinatario());
         emailServico.sendMail(emailDTO);
-    }
+    }*/
 }
