@@ -5,6 +5,7 @@ import com.basis.sge.service.repositorio.UsuarioRepositorio;
 import com.basis.sge.service.servico.DTO.EmailDTO;
 import com.basis.sge.service.servico.DTO.UsuarioDTO;
 import com.basis.sge.service.servico.exception.RegraNegocioException;
+import com.basis.sge.service.servico.mapper.PreInscricaoMapper;
 import com.basis.sge.service.servico.mapper.UsuarioMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -26,6 +27,8 @@ public class UsuarioServico {
     private final UsuarioRepositorio usuarioRepositorio;
     private final UsuarioMapper usuarioMapper;
     private final EmailServico emailServico;
+    private final PreInscricaoServico preInscricaoServico;
+    private final PreInscricaoMapper preInscricaoMapper;
 
 
 
@@ -63,6 +66,9 @@ public class UsuarioServico {
     //REMOVER
 
     public void remover(Integer id){
+
+        preInscricaoMapper.toEntity(preInscricaoServico.listar())
+                .forEach((preInscricao) -> {if(preInscricao.getUsuario().getId().equals(id)) {preInscricaoServico.remover(preInscricao.getId());}});
 
         Usuario usuario = verificarDelete(id);
         criarEmailUsuarioRemovido(usuario.getEmail());

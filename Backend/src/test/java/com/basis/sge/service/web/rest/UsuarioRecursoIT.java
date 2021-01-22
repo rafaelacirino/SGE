@@ -69,10 +69,7 @@ public class UsuarioRecursoIT extends IntTestComum {
         getMockMvc().perform(get( "/api/usuarios/20"))
                 .andExpect(status().isBadRequest());
     }
-    /////
 
-
-    //POST
     @Test
     public void salvarTest() throws Exception{
         Usuario usuario = usuarioBuilder.construirEntidade();

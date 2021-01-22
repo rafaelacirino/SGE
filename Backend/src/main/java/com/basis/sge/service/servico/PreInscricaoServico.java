@@ -65,6 +65,11 @@ public class PreInscricaoServico {
     }
 
     public void remover(Integer id){
+
+        inscricaoRespostaRepositorio.findAll()
+                .forEach((inscricaoResposta) -> {if(inscricaoResposta.getPreInscricao().getId().equals(id)) inscricaoRespostaRepositorio.delete(inscricaoResposta);});
+
+
         if(!preInscricaoRepositorio.existsById(id)){
             throw new RegraNegocioException("A inscricao com esse id não existe");
         }
