@@ -72,6 +72,10 @@ public class UsuarioServico {
         }
 =======
 
+        if(!usuarioRepositorio.existsById(id)){
+            throw new RegraNegocioException("Evento com esse id não existe");
+        }
+
         preInscricaoMapper.toEntity(preInscricaoServico.listar())
                 .forEach((preInscricao) -> {if(preInscricao.getUsuario().getId().equals(id)) {preInscricaoServico.remover(preInscricao.getId());}});
 
