@@ -6,6 +6,7 @@ import com.basis.sge.service.dominio.EventoPergunta;
 import com.basis.sge.service.repositorio.EventoRepositorio;
 import com.basis.sge.service.servico.DTO.EventoDTO;
 import com.basis.sge.service.servico.DTO.EventoPerguntaDTO;
+import com.basis.sge.service.servico.PerguntaServico;
 import com.basis.sge.service.servico.mapper.EventoMapper;
 import com.basis.sge.service.util.IntTestComum;
 import com.basis.sge.service.util.TestUtil;
@@ -41,6 +42,9 @@ public class EventoRecursoIT extends IntTestComum {
 
     @Autowired
     private EventoRepositorio eventoRepositorio;
+
+    @Autowired
+    private PerguntaServico perguntaServico;
 
     @BeforeEach
     public void inicializar() {
