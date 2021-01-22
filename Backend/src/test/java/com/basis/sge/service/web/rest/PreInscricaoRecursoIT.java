@@ -5,6 +5,8 @@ import com.basis.sge.service.builder.SituacaoPreInscricaoBuilder;
 import com.basis.sge.service.dominio.PreInscricao;
 import com.basis.sge.service.dominio.SituacaoPreInscricao;
 import com.basis.sge.service.repositorio.PreInscricaoRepositorio;
+import com.basis.sge.service.servico.DTO.InscricaoRespostaDTO;
+import com.basis.sge.service.servico.DTO.PreInscricaoDTO;
 import com.basis.sge.service.servico.mapper.PreInscricaoMapper;
 import com.basis.sge.service.util.IntTestComum;
 import com.basis.sge.service.util.TestUtil;
@@ -14,6 +16,9 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -53,10 +58,14 @@ public class PreInscricaoRecursoIT extends IntTestComum {
     public void salvarTest() throws Exception {
 
         PreInscricao preInscricao = preInscricaoBuilder.construirEntidade();
+        PreInscricaoDTO preInscricaoDTO = preInscricaoMapper.toDto(preInscricao);
+        List<InscricaoRespostaDTO> inscricaoRespostaDTOList = new ArrayList<>();
+        inscricaoRespostaDTOList.add(new InscricaoRespostaDTO());
+        preInscricaoDTO.setInscricaoRespostas(inscricaoRespostaDTOList);
 
         getMockMvc().perform(post( "/api/preinscricao")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(preInscricaoMapper.toDto(preInscricao))))
+                .content(TestUtil.convertObjectToJsonBytes(preInscricaoDTO)))
                 .andExpect(status().isCreated());
     }
 

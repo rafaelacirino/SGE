@@ -2,7 +2,10 @@ package com.basis.sge.service.web.rest;
 
 import com.basis.sge.service.builder.PerguntaBuilder;
 import com.basis.sge.service.dominio.Pergunta;
+import com.basis.sge.service.dominio.Usuario;
 import com.basis.sge.service.repositorio.PerguntaRepositorio;
+import com.basis.sge.service.servico.DTO.PerguntaDTO;
+import com.basis.sge.service.servico.PerguntaServico;
 import com.basis.sge.service.servico.mapper.PerguntaMapper;
 import com.basis.sge.service.util.IntTestComum;
 import com.basis.sge.service.util.TestUtil;
@@ -31,6 +34,9 @@ public class PerguntaRecursoIT extends IntTestComum {
 
     @Autowired
     private PerguntaRepositorio perguntaRepositorio;
+
+    @Autowired
+    private PerguntaServico perguntaServico;
 
     @BeforeEach
     public void inicializar() {
@@ -83,12 +89,38 @@ public class PerguntaRecursoIT extends IntTestComum {
     }
 
     @Test
-    public void editarTestTitulo() throws Exception {
+    public void salvarTituloDuplicadoTest() throws Exception{
 
         Pergunta pergunta = perguntaBuilder.construir();
+        Pergunta perguntaDuplicada = perguntaBuilder.construirEntidade();
+        pergunta.setObrigatorio(false);
+        getMockMvc().perform(post( "/api/perguntas")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(perguntaMapper.toDto(perguntaDuplicada))))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void salvarObrigatorioDuplicadoTest() throws Exception{
+
+        Pergunta pergunta = perguntaBuilder.construir();
+        Pergunta perguntaDuplicada = perguntaBuilder.construirEntidade();
+        pergunta.setTitulo("Titulo Editado");
+        getMockMvc().perform(post( "/api/perguntas")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(perguntaMapper.toDto(perguntaDuplicada))))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void editarTestTitulo() throws Exception {
+
+        Pergunta perguntaAntiga = perguntaBuilder.construir();
+        Pergunta pergunta = perguntaBuilder.construirEntidade();
+        pergunta.setId(perguntaAntiga.getId());
         pergunta.setTitulo("Alterando pergunta");
 
-        getMockMvc().perform(put( "/api/perguntas/" + pergunta.getId())
+        getMockMvc().perform(put( "/api/perguntas")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(perguntaMapper.toDto(pergunta))))
                 .andExpect(status().isOk());
@@ -97,10 +129,12 @@ public class PerguntaRecursoIT extends IntTestComum {
     @Test
     public void editarTestObrigatoriedade() throws Exception {
 
-        Pergunta pergunta = perguntaBuilder.construir();
+        Pergunta perguntaAntiga = perguntaBuilder.construir();
+        Pergunta pergunta = perguntaBuilder.construirEntidade();
+        pergunta.setId(perguntaAntiga.getId());
         pergunta.setObrigatorio(false);
 
-        getMockMvc().perform(put( "/api/perguntas/" + pergunta.getId())
+        getMockMvc().perform(put( "/api/perguntas")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(perguntaMapper.toDto(pergunta))))
                 .andExpect(status().isOk());
@@ -109,11 +143,13 @@ public class PerguntaRecursoIT extends IntTestComum {
     @Test
     public void editarTest() throws Exception {
 
-        Pergunta pergunta = perguntaBuilder.construir();
+        Pergunta perguntaAntiga = perguntaBuilder.construir();
+        Pergunta pergunta = perguntaBuilder.construirEntidade();
+        pergunta.setId(perguntaAntiga.getId());
         pergunta.setTitulo("Alterando pergunta");
         pergunta.setObrigatorio(false);
 
-        getMockMvc().perform(put( "/api/perguntas/" + pergunta.getId())
+        getMockMvc().perform(put( "/api/perguntas")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(perguntaMapper.toDto(pergunta))))
                 .andExpect(status().isOk());
@@ -121,10 +157,12 @@ public class PerguntaRecursoIT extends IntTestComum {
 
     public void editarTestTituloNull() throws Exception {
 
-        Pergunta pergunta = perguntaBuilder.construir();
+        Pergunta perguntaAntiga = perguntaBuilder.construir();
+        Pergunta pergunta = perguntaBuilder.construirEntidade();
+        pergunta.setId(perguntaAntiga.getId());
         pergunta.setTitulo(null);
 
-        getMockMvc().perform(put( "/api/perguntas/" + pergunta.getId())
+        getMockMvc().perform(put( "/api/perguntas")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(perguntaMapper.toDto(pergunta))))
                 .andExpect(status().isBadRequest());
@@ -133,10 +171,12 @@ public class PerguntaRecursoIT extends IntTestComum {
     @Test
     public void editarTestObrigatoriedadeNull() throws Exception {
 
-        Pergunta pergunta = perguntaBuilder.construir();
+        Pergunta perguntaAntiga = perguntaBuilder.construir();
+        Pergunta pergunta = perguntaBuilder.construirEntidade();
+        pergunta.setId(perguntaAntiga.getId());
         pergunta.setObrigatorio(null);
 
-        getMockMvc().perform(put( "/api/perguntas/" + pergunta.getId())
+        getMockMvc().perform(put( "/api/perguntas")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(perguntaMapper.toDto(pergunta))))
                 .andExpect(status().isBadRequest());
@@ -145,13 +185,31 @@ public class PerguntaRecursoIT extends IntTestComum {
     @Test
     public void editarTestNull() throws Exception {
 
-        Pergunta pergunta = perguntaBuilder.construir();
+        Pergunta perguntaAntiga = perguntaBuilder.construir();
+        Pergunta pergunta = perguntaBuilder.construirEntidade();
+        pergunta.setId(perguntaAntiga.getId());
         pergunta.setTitulo(null);
         pergunta.setObrigatorio(null);
 
-        getMockMvc().perform(put( "/api/perguntas/" + pergunta.getId())
+        getMockMvc().perform(put( "/api/perguntas")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(perguntaMapper.toDto(pergunta))))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void editarTituloDuplicadoTest() throws Exception {
+        Pergunta perguntaAntes = perguntaBuilder.construir();
+        
+        Pergunta perguntaNova = perguntaBuilder.construirEntidade();
+        perguntaNova.setTitulo("Qual");
+        perguntaServico.salvar(perguntaMapper.toDto(perguntaNova));
+
+        perguntaAntes.setTitulo(perguntaNova.getTitulo());
+
+        getMockMvc().perform(put( "/api/perguntas")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(perguntaMapper.toDto(perguntaAntes))))
                 .andExpect(status().isBadRequest());
     }
 
@@ -169,10 +227,7 @@ public class PerguntaRecursoIT extends IntTestComum {
     @Test
     public void deletarTestIdErrado() throws Exception {
 
-        Pergunta pergunta = perguntaBuilder.construir();
-        pergunta.setId(300);
-
-        getMockMvc().perform(delete("/api/perguntas/" + pergunta.getId()))
+        getMockMvc().perform(delete("/api/perguntas/1000" ))
                 .andExpect(status().isBadRequest());
     }
 }

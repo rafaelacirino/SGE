@@ -43,10 +43,10 @@ public class PerguntaRecurso {
         return ResponseEntity.created(new URI("/api/evento")).body(perguntaServico.salvar(perguntaDto));
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<PerguntaDTO> editar(@PathVariable Integer id, @RequestBody PerguntaDTO perguntaDTO){
+    @PutMapping
+    public ResponseEntity<PerguntaDTO> editar( @RequestBody PerguntaDTO perguntaDTO){
 
-        return ResponseEntity.ok(perguntaServico.editar(id, perguntaDTO));
+        return ResponseEntity.ok(perguntaServico.editar(perguntaDTO));
     }
 
     @DeleteMapping("/{id}")
