@@ -6,7 +6,6 @@ import com.basis.sge.service.servico.PerguntaServico;
 import com.basis.sge.service.servico.mapper.PerguntaMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import java.text.ParseException;
 import java.util.Collection;
 

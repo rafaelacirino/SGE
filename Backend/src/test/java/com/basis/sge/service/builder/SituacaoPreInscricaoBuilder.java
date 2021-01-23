@@ -2,18 +2,13 @@ package com.basis.sge.service.builder;
 
 
 import com.basis.sge.service.dominio.SituacaoPreInscricao;
-import com.basis.sge.service.servico.DTO.PreInscricaoDTO;
 import com.basis.sge.service.servico.DTO.SituacaoPreInscricaoDTO;
-import com.basis.sge.service.servico.PreInscricaoServico;
 import com.basis.sge.service.servico.SituacaoPreInscricaoServico;
-import com.basis.sge.service.servico.mapper.PreInscricaoMapper;
 import com.basis.sge.service.servico.mapper.SituacaoPreInscricaoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import java.text.ParseException;
 import java.util.Collection;
-
 
 @Component
 public class SituacaoPreInscricaoBuilder extends ConstrutorDeEntidade<SituacaoPreInscricao> {
@@ -23,7 +18,6 @@ public class SituacaoPreInscricaoBuilder extends ConstrutorDeEntidade<SituacaoPr
 
     @Autowired
     private SituacaoPreInscricaoMapper situacaoPreInscricaoMapper;
-
 
     @Override
     public SituacaoPreInscricao construirEntidade() throws ParseException {

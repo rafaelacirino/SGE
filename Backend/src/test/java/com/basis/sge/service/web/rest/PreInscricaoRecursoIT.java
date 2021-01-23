@@ -46,9 +46,6 @@ public class PreInscricaoRecursoIT extends IntTestComum {
     private UsuarioRepositorio usuarioRepositorio;
 
     @Autowired
-    private UsuarioBuilder usuarioBuilder;
-
-    @Autowired
     private PreInscricaoMapper preInscricaoMapper;
 
     @Autowired

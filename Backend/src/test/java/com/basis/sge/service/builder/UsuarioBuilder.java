@@ -1,4 +1,5 @@
 package com.basis.sge.service.builder;
+
 import com.basis.sge.service.dominio.Usuario;
 import com.basis.sge.service.servico.DTO.UsuarioDTO;
 import com.basis.sge.service.servico.UsuarioServico;
@@ -8,7 +9,6 @@ import org.springframework.stereotype.Component;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.Collection;
-
 
 @Component
 public class UsuarioBuilder extends ConstrutorDeEntidade<Usuario>{
@@ -27,9 +27,6 @@ public class UsuarioBuilder extends ConstrutorDeEntidade<Usuario>{
         usuario.setTelefone("40028922");
         usuario.setNome("Italo");
         usuario.setDataNascimento(LocalDate.of(2012,7,7));
-
-
-
 
         return usuario;
     }

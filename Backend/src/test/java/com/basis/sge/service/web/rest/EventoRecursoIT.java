@@ -2,32 +2,26 @@ package com.basis.sge.service.web.rest;
 
 import com.basis.sge.service.builder.EventoBuilder;
 import com.basis.sge.service.dominio.Evento;
-import com.basis.sge.service.dominio.EventoPergunta;
 import com.basis.sge.service.repositorio.EventoRepositorio;
 import com.basis.sge.service.servico.DTO.EventoDTO;
 import com.basis.sge.service.servico.DTO.EventoPerguntaDTO;
-import com.basis.sge.service.servico.PerguntaServico;
 import com.basis.sge.service.servico.mapper.EventoMapper;
 import com.basis.sge.service.util.IntTestComum;
 import com.basis.sge.service.util.TestUtil;
+import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrlTemplate;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class)
@@ -42,9 +36,6 @@ public class EventoRecursoIT extends IntTestComum {
 
     @Autowired
     private EventoRepositorio eventoRepositorio;
-
-    @Autowired
-    private PerguntaServico perguntaServico;
 
     @BeforeEach
     public void inicializar() {
@@ -80,10 +71,11 @@ public class EventoRecursoIT extends IntTestComum {
         Evento evento = eventoBuilder.construirEntidade();
         evento.setTitulo(null);
 
-        getMockMvc().perform(post( "/api/eventos")
+        String result = getMockMvc().perform(post( "/api/eventos")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(eventoMapper.toDto(evento))))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isBadRequest()).andReturn().getResolvedException().getMessage();
+                Assert.assertEquals("Titulo do evento não pode ser vazio",result);
     }
 
     @Test
@@ -92,10 +84,11 @@ public class EventoRecursoIT extends IntTestComum {
         Evento evento = eventoBuilder.construirEntidade();
         evento.setPeriodoInicio(null);
 
-        getMockMvc().perform(post( "/api/eventos")
+        String result = getMockMvc().perform(post( "/api/eventos")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(eventoMapper.toDto(evento))))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isBadRequest()).andReturn().getResolvedException().getMessage();
+                Assert.assertEquals("Periodo inicio não pode ser vazio",result);
     }
 
     @Test
@@ -104,10 +97,11 @@ public class EventoRecursoIT extends IntTestComum {
         Evento evento = eventoBuilder.construirEntidade();
         evento.setPeriodoFim(null);
 
-        getMockMvc().perform(post( "/api/eventos")
+        String result = getMockMvc().perform(post( "/api/eventos")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(eventoMapper.toDto(evento))))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isBadRequest()).andReturn().getResolvedException().getMessage();
+                Assert.assertEquals("Periodo fim não pode ser vazio",result);
     }
 
     @Test
@@ -116,10 +110,11 @@ public class EventoRecursoIT extends IntTestComum {
         Evento evento = eventoBuilder.construirEntidade();
         evento.setTipoInsc(null);
 
-        getMockMvc().perform(post( "/api/eventos")
+        String result = getMockMvc().perform(post( "/api/eventos")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(eventoMapper.toDto(evento))))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isBadRequest()).andReturn().getResolvedException().getMessage();
+                Assert.assertEquals("Tipo Inscricao não pode ser vazio",result);
     }
 
     @Test
@@ -224,10 +219,11 @@ public class EventoRecursoIT extends IntTestComum {
         Evento evento = eventoBuilder.construirEntidade();
         evento.setTitulo(null);
 
-        getMockMvc().perform(post( "/api/eventos")
+        String result = getMockMvc().perform(post( "/api/eventos")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(eventoMapper.toDto(evento))))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isBadRequest()).andReturn().getResolvedException().getMessage();
+                Assert.assertEquals("Titulo do evento não pode ser vazio",result);;
     }
 
     @Test
@@ -236,10 +232,11 @@ public class EventoRecursoIT extends IntTestComum {
         Evento evento = eventoBuilder.construirEntidade();
         evento.setPeriodoInicio(null);
 
-        getMockMvc().perform(post( "/api/eventos")
+        String result = getMockMvc().perform(post( "/api/eventos")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(eventoMapper.toDto(evento))))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isBadRequest()).andReturn().getResolvedException().getMessage();
+                Assert.assertEquals("Periodo inicio não pode ser vazio",result);
     }
 
     @Test
@@ -248,10 +245,11 @@ public class EventoRecursoIT extends IntTestComum {
         Evento evento = eventoBuilder.construirEntidade();
         evento.setPeriodoFim(null);
 
-        getMockMvc().perform(post( "/api/eventos")
+        String result = getMockMvc().perform(post( "/api/eventos")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(eventoMapper.toDto(evento))))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isBadRequest()).andReturn().getResolvedException().getMessage();
+                Assert.assertEquals("Periodo fim não pode ser vazio",result);
     }
 
     @Test
@@ -260,10 +258,11 @@ public class EventoRecursoIT extends IntTestComum {
         Evento evento = eventoBuilder.construirEntidade();
         evento.setTipoInsc(null);
 
-        getMockMvc().perform(post( "/api/eventos")
+        String result = getMockMvc().perform(post( "/api/eventos")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(eventoMapper.toDto(evento))))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isBadRequest()).andReturn().getResolvedException().getMessage();
+                Assert.assertEquals("Tipo Inscricao não pode ser vazio",result);
     }
 
 
@@ -273,10 +272,11 @@ public class EventoRecursoIT extends IntTestComum {
         Evento evento = eventoBuilder.construirEntidade();
         evento.setTipoEvento(null);
 
-        getMockMvc().perform(post( "/api/eventos")
+        String result = getMockMvc().perform(post( "/api/eventos")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(eventoMapper.toDto(evento))))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isBadRequest()).andReturn().getResolvedException().getMessage();
+                Assert.assertEquals("O tipo do evento não pode ser vazio",result);
     }
 
 
@@ -295,8 +295,8 @@ public class EventoRecursoIT extends IntTestComum {
         Evento evento = eventoBuilder.construir();
         evento.setId(500);
 
-        getMockMvc().perform(delete("/api/eventos/" + evento.getId()))
-                .andExpect(status().isBadRequest());
+        String result = getMockMvc().perform(delete("/api/eventos/" + evento.getId()))
+                .andExpect(status().isBadRequest()).andReturn().getResolvedException().getMessage();
+                Assert.assertEquals("Evento com esse id não existe",result);
     }
-
 }

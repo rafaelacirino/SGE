@@ -9,13 +9,11 @@ import com.basis.sge.service.repositorio.PreInscricaoRepositorio;
 import com.basis.sge.service.repositorio.SituacaoPreInscricaoRepositorio;
 import com.basis.sge.service.repositorio.UsuarioRepositorio;
 import com.basis.sge.service.servico.DTO.CancelarInscricaoDTO;
-import com.basis.sge.service.servico.DTO.InscricaoRespostaDTO;
 import com.basis.sge.service.servico.DTO.PreInscricaoDTO;
 import com.basis.sge.service.servico.mapper.PreInscricaoMapper;
 import com.basis.sge.service.servico.exception.RegraNegocioException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +41,7 @@ public class PreInscricaoServico {
         return preInscricaoMapper.toDto(preInscricao);
     }
 
-    public PreInscricaoDTO salvar (PreInscricaoDTO preInscricaoDTO){
+    public PreInscricaoDTO salvar(PreInscricaoDTO preInscricaoDTO){
         verificaNull(preInscricaoDTO);
         verificaNull(preInscricaoDTO.getIdUsuario());
         verificaNull(preInscricaoDTO.getIdEvento());
@@ -56,7 +54,6 @@ public class PreInscricaoServico {
         inscricaoRespostas.forEach(inscricaoResposta -> {
             inscricaoResposta.setPreInscricao(preInscricao);
         });
-
         inscricaoRespostaRepositorio.saveAll(inscricaoRespostas);
         return preInscricaoMapper.toDto(preInscricao);
     }

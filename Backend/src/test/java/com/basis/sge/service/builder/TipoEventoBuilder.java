@@ -2,13 +2,11 @@ package com.basis.sge.service.builder;
 
 
 import com.basis.sge.service.dominio.TipoEvento;
-import com.basis.sge.service.servico.DTO.PreInscricaoDTO;
 import com.basis.sge.service.servico.DTO.TipoEventoDTO;
 import com.basis.sge.service.servico.TipoEventoServico;
 import com.basis.sge.service.servico.mapper.TipoEventoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import java.text.ParseException;
 import java.util.Collection;
 
@@ -46,6 +44,4 @@ public class TipoEventoBuilder extends ConstrutorDeEntidade<TipoEvento> {
     protected TipoEvento obterPorId(Integer id) {
         return null;
     }
-
-
 }

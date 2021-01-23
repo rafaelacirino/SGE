@@ -1,4 +1,5 @@
 package com.basis.sge.service.web.rest;
+
 import com.basis.sge.service.builder.UsuarioBuilder;
 import com.basis.sge.service.dominio.Usuario;
 import com.basis.sge.service.repositorio.UsuarioRepositorio;
@@ -71,10 +72,7 @@ public class UsuarioRecursoIT extends IntTestComum {
         Assertions.assertEquals("O usuário não foi cadastrado",result);
     }
 
-    /////
 
-
-    //POST
     @Test
     public void salvarTest() throws Exception{
         Usuario usuario = usuarioBuilder.construirEntidade();
@@ -435,10 +433,4 @@ public class UsuarioRecursoIT extends IntTestComum {
                 .andExpect(status().isBadRequest()).andReturn().getResolvedException()).getMessage();
         Assertions.assertEquals("O usuário não foi cadastrado",result);
     }
-
-
-
-
-
-
 }

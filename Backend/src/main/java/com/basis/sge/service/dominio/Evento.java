@@ -1,6 +1,5 @@
 package com.basis.sge.service.dominio;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,7 +18,6 @@ import javax.persistence.Table;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
-
 
 @Entity
 @Table(name="evento")
@@ -59,7 +57,6 @@ public class Evento implements Serializable {
     private String local;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL},  mappedBy = "evento")
-
     private List<EventoPergunta> perguntas;
 
     @ManyToOne(fetch = FetchType.LAZY)

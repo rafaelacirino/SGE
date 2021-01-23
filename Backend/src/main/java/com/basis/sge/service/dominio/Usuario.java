@@ -2,7 +2,6 @@ package com.basis.sge.service.dominio;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,11 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
 
 @Entity
 @Table(name = "usuario")
@@ -47,5 +43,4 @@ public class Usuario implements Serializable {
 
     @Column(name = "dt_nasc")
     private LocalDate dataNascimento;
-
 }

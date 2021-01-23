@@ -8,6 +8,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 public class PerguntaDTO implements Serializable {
+
     private Integer id;
     private String titulo;
     private Boolean obrigatorio;

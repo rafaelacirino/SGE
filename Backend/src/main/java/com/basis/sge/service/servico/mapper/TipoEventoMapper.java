@@ -6,4 +6,5 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring", uses = {})
 public interface TipoEventoMapper extends EntityMapper<TipoEventoDTO,TipoEvento>{
+
 }
