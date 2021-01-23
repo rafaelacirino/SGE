@@ -1,6 +1,6 @@
 package com.basis.sge.service.web.rest;
+
 import com.basis.sge.service.builder.UsuarioBuilder;
-import com.basis.sge.service.dominio.Pergunta;
 import com.basis.sge.service.dominio.Usuario;
 import com.basis.sge.service.repositorio.UsuarioRepositorio;
 import com.basis.sge.service.servico.DTO.UsuarioDTO;
@@ -12,12 +12,8 @@ import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
 import javax.transaction.Transactional;
@@ -437,10 +433,4 @@ public class UsuarioRecursoIT extends IntTestComum {
                 .andExpect(status().isBadRequest()).andReturn().getResolvedException().getMessage();
         Assert.assertEquals("O usuário não foi cadastrado",result);
     }
-
-
-
-
-
-
 }

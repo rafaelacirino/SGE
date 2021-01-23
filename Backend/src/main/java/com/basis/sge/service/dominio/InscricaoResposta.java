@@ -13,13 +13,11 @@ import javax.persistence.MapsId;
 import javax.persistence.Table;
 import java.io.Serializable;
 
-
 @Getter
 @Setter
 @Entity
 @Table(name = "respostas_pergunta_evento")
 public class InscricaoResposta implements Serializable {
-
 
     @EmbeddedId
     private IdInscricaoResposta id;
@@ -41,7 +39,4 @@ public class InscricaoResposta implements Serializable {
 
     @Column(name = "resposta")
     private String resposta;
-
-
-
 }

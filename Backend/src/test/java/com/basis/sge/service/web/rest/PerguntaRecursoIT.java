@@ -9,6 +9,7 @@ import com.basis.sge.service.servico.PerguntaServico;
 import com.basis.sge.service.servico.mapper.PerguntaMapper;
 import com.basis.sge.service.util.IntTestComum;
 import com.basis.sge.service.util.TestUtil;
+import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -57,7 +58,6 @@ public class PerguntaRecursoIT extends IntTestComum {
 
         Pergunta pergunta = perguntaBuilder.construirEntidade();
 
-
         getMockMvc().perform(post( "/api/perguntas")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(perguntaMapper.toDto(pergunta))))
@@ -71,10 +71,11 @@ public class PerguntaRecursoIT extends IntTestComum {
         pergunta.setTitulo(null);
 
 
-        getMockMvc().perform(post( "/api/perguntas")
+        String result = getMockMvc().perform(post( "/api/perguntas")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(perguntaMapper.toDto(pergunta))))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isBadRequest()).andReturn().getResolvedException().getMessage();
+                Assert.assertEquals("A pergunta não possui titulo",result);
     }
 
     @Test
@@ -84,10 +85,11 @@ public class PerguntaRecursoIT extends IntTestComum {
         pergunta.setObrigatorio(null);
 
 
-        getMockMvc().perform(post( "/api/perguntas")
+        String result = getMockMvc().perform(post( "/api/perguntas")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(perguntaMapper.toDto(pergunta))))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isBadRequest()).andReturn().getResolvedException().getMessage();
+                Assert.assertEquals("A obrigatoriedade não existe",result);
     }
 
     @Test
@@ -96,10 +98,12 @@ public class PerguntaRecursoIT extends IntTestComum {
         Pergunta pergunta = perguntaBuilder.construir();
         Pergunta perguntaDuplicada = perguntaBuilder.construirEntidade();
         pergunta.setObrigatorio(false);
-        getMockMvc().perform(post( "/api/perguntas")
+
+        String result = getMockMvc().perform(post( "/api/perguntas")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(perguntaMapper.toDto(perguntaDuplicada))))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isBadRequest()).andReturn().getResolvedException().getMessage();
+                Assert.assertEquals("A pergunta já existe",result);
     }
 
     @Test
@@ -157,6 +161,7 @@ public class PerguntaRecursoIT extends IntTestComum {
                 .andExpect(status().isOk());
     }
 
+    @Test
     public void editarTestTituloNull() throws Exception {
 
         Pergunta perguntaAntiga = perguntaBuilder.construir();
@@ -164,10 +169,11 @@ public class PerguntaRecursoIT extends IntTestComum {
         pergunta.setId(perguntaAntiga.getId());
         pergunta.setTitulo(null);
 
-        getMockMvc().perform(put( "/api/perguntas")
+        String result = getMockMvc().perform(put( "/api/perguntas")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(perguntaMapper.toDto(pergunta))))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isBadRequest()).andReturn().getResolvedException().getMessage();
+                Assert.assertEquals("A pergunta não possui titulo",result);
     }
 
     @Test
@@ -178,41 +184,28 @@ public class PerguntaRecursoIT extends IntTestComum {
         pergunta.setId(perguntaAntiga.getId());
         pergunta.setObrigatorio(null);
 
-        getMockMvc().perform(put( "/api/perguntas")
+        String result = getMockMvc().perform(put( "/api/perguntas")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(perguntaMapper.toDto(pergunta))))
-                .andExpect(status().isBadRequest());
-    }
-
-    @Test
-    public void editarTestNull() throws Exception {
-
-        Pergunta perguntaAntiga = perguntaBuilder.construir();
-        Pergunta pergunta = perguntaBuilder.construirEntidade();
-        pergunta.setId(perguntaAntiga.getId());
-        pergunta.setTitulo(null);
-        pergunta.setObrigatorio(null);
-
-        getMockMvc().perform(put( "/api/perguntas")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(perguntaMapper.toDto(pergunta))))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isBadRequest()).andReturn().getResolvedException().getMessage();
+                Assert.assertEquals("A obrigatoriedade é nula",result);
     }
 
     @Test
     public void editarTituloDuplicadoTest() throws Exception {
         Pergunta perguntaAntes = perguntaBuilder.construir();
-        
+
         Pergunta perguntaNova = perguntaBuilder.construirEntidade();
         perguntaNova.setTitulo("Qual");
         perguntaServico.salvar(perguntaMapper.toDto(perguntaNova));
 
         perguntaAntes.setTitulo(perguntaNova.getTitulo());
 
-        getMockMvc().perform(put( "/api/perguntas")
+        String result = getMockMvc().perform(put( "/api/perguntas")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(perguntaMapper.toDto(perguntaAntes))))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isBadRequest()).andReturn().getResolvedException().getMessage();
+                Assert.assertEquals("Pergunta já existe",result);
     }
 
     @Test
@@ -229,7 +222,8 @@ public class PerguntaRecursoIT extends IntTestComum {
     @Test
     public void deletarTestIdErrado() throws Exception {
 
-        getMockMvc().perform(delete("/api/perguntas/1000" ))
-                .andExpect(status().isBadRequest());
+        String result = getMockMvc().perform(delete("/api/perguntas/1000" ))
+                .andExpect(status().isBadRequest()).andReturn().getResolvedException().getMessage();
+                Assert.assertEquals("Pergunta não existe",result);
     }
 }

@@ -1,12 +1,9 @@
 package com.basis.sge.service.servico;
 
-import com.basis.sge.service.dominio.SituacaoPreInscricao;
 import com.basis.sge.service.dominio.TipoEvento;
 import com.basis.sge.service.repositorio.TipoEventoRepositorio;
-import com.basis.sge.service.servico.DTO.SituacaoPreInscricaoDTO;
 import com.basis.sge.service.servico.DTO.TipoEventoDTO;
 import com.basis.sge.service.servico.mapper.TipoEventoMapper;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -26,11 +23,8 @@ public class TipoEventoServico {
     }
 
     public TipoEventoDTO salvar(TipoEventoDTO tipoEventoDTO){
-
         TipoEvento tipoEvento = tipoEventoRepositorio.save(tipoEventoMapper.toEntity(tipoEventoDTO));
-
         return tipoEventoMapper.toDto(tipoEvento);
-
     }
 
     public TipoEventoDTO buscarPorId(Integer id){

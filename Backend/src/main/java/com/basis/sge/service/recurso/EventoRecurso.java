@@ -47,7 +47,7 @@ public class EventoRecurso {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> remover(@PathVariable Integer id){
-        eventoServico.delete(id);
+        eventoServico.remover(id);
         return ResponseEntity.ok().build();
     }
 }

@@ -24,9 +24,6 @@ public class PreInscricaoBuilder extends ConstrutorDeEntidade<PreInscricao> {
     private PreInscricaoMapper preInscricaoMapper;
 
     @Autowired
-    private PerguntaBuilder perguntaBuilder;
-
-    @Autowired
     private EventoBuilder eventoBuilder;
 
     @Autowired
@@ -34,8 +31,6 @@ public class PreInscricaoBuilder extends ConstrutorDeEntidade<PreInscricao> {
 
     @Autowired
     private SituacaoPreInscricaoBuilder situacaoPreInscricaoBuilder;
-
-
 
     @Override
     public PreInscricao construirEntidade() throws ParseException {
@@ -67,6 +62,4 @@ public class PreInscricaoBuilder extends ConstrutorDeEntidade<PreInscricao> {
     protected PreInscricao obterPorId(Integer id) {
         return preInscricaoMapper.toEntity(preInscricaoServico.buscarPorId(id));
     }
-
-
 }
