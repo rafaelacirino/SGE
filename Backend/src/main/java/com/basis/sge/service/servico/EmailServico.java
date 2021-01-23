@@ -28,6 +28,7 @@ public class EmailServico {
             }
             message.setText(emailDTO.getCorpo(), true);
             javaMailSender.send(mimeMessage);
+
         } catch (MessagingException | UnsupportedEncodingException | javax.mail.MessagingException e) {
             throw new RuntimeException( ERROR_TITLE);
         }

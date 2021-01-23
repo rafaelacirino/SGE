@@ -1,11 +1,13 @@
 package com.basis.sge.service.servico;
 
 import com.basis.sge.service.dominio.Usuario;
+import com.basis.sge.service.repositorio.PreInscricaoRepositorio;
 import com.basis.sge.service.repositorio.UsuarioRepositorio;
 import com.basis.sge.service.servico.DTO.EmailDTO;
 import com.basis.sge.service.servico.DTO.UsuarioDTO;
 import com.basis.sge.service.servico.exception.RegraNegocioException;
 import com.basis.sge.service.servico.mapper.UsuarioMapper;
+import com.basis.sge.service.servico.producer.SgeProducer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
@@ -21,7 +23,9 @@ public class UsuarioServico {
 
     private final UsuarioRepositorio usuarioRepositorio;
     private final UsuarioMapper usuarioMapper;
-    private final EmailServico emailServico;
+    private final SgeProducer sgeProducer;
+    private final PreInscricaoRepositorio preInscricaoRepositorio;
+
 
     public List<UsuarioDTO> listar(){
         return usuarioMapper.toDto(listarTodosUsuarios());
@@ -52,8 +56,8 @@ public class UsuarioServico {
             throw new RegraNegocioException("O usuário não foi cadastrado");
         }
 
-//        preInscricaoMapper.toEntity(preInscricaoServico.listar())
-//                .forEach((preInscricao) -> {if(preInscricao.getUsuario().getId().equals(id)) {preInscricaoServico.remover(preInscricao.getId());}});
+        preInscricaoRepositorio.deleteAllByUsuario(usuarioRepositorio.findById(id).orElseThrow(()
+                -> new RegraNegocioException("O usuário não foi cadastrado")));
 
         Usuario usuario = verificarDelete(id);
         criarEmailUsuarioRemovido(usuario.getEmail());
@@ -67,7 +71,7 @@ public class UsuarioServico {
         emailDTO.setDestinatario(email);
         emailDTO.setCopias(new ArrayList<String>());
         emailDTO.getCopias().add(emailDTO.getDestinatario());
-        emailServico.sendMail(emailDTO);
+        this.sgeProducer.sendMail(emailDTO);
     }
 
     public void criarEmailUsuarioRemovido(String email){
@@ -78,7 +82,7 @@ public class UsuarioServico {
         emailDTO.setDestinatario(email);
         emailDTO.setCopias(new ArrayList<String>());
         emailDTO.getCopias().add(emailDTO.getDestinatario());
-        emailServico.sendMail(emailDTO);
+        this.sgeProducer.sendMail(emailDTO);
     }
 
     public void criarEmailUsuarioEditado(String email){
@@ -89,7 +93,7 @@ public class UsuarioServico {
         emailDTO.setDestinatario(email);
         emailDTO.setCopias(new ArrayList<String>());
         emailDTO.getCopias().add(emailDTO.getDestinatario());
-        emailServico.sendMail(emailDTO);
+        this.sgeProducer.sendMail(emailDTO);
     }
 
     public Usuario verificarUsuarioPorId(Integer id){

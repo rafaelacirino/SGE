@@ -2,8 +2,12 @@ package com.basis.sge.service.servico;
 
 import com.basis.sge.service.dominio.Evento;
 import com.basis.sge.service.dominio.EventoPergunta;
+import com.basis.sge.service.dominio.Pergunta;
+import com.basis.sge.service.dominio.Usuario;
 import com.basis.sge.service.repositorio.EventoPerguntaRepositorio;
 import com.basis.sge.service.repositorio.EventoRepositorio;
+import com.basis.sge.service.repositorio.PerguntaRepositorio;
+import com.basis.sge.service.repositorio.PreInscricaoRepositorio;
 import com.basis.sge.service.servico.DTO.EmailDTO;
 import com.basis.sge.service.servico.DTO.EventoDTO;
 import com.basis.sge.service.servico.DTO.PreInscricaoDTO;
@@ -13,6 +17,7 @@ import com.basis.sge.service.servico.mapper.EventoMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +32,8 @@ public class EventoServico {
     private final PreInscricaoServico preInscricaoServico;
     private final UsuarioServico usuarioServico;
     private final EventoPerguntaRepositorio eventoPerguntaRepositorio;
+    private final PreInscricaoRepositorio preInscricaoRepositorio;
+    private final PerguntaRepositorio perguntaRepositorio;
 
     public List<EventoDTO> listar(){
         List<Evento> eventos = eventoRepositorio.findAll();
@@ -47,7 +54,7 @@ public class EventoServico {
             throw new RegraNegocioException("Periodo inicio não pode ser vazio");
         }
         if(eventoDTO.getPeriodoFim() == null){
-            throw new RegraNegocioException("Periodo inicio não pode ser vazio");
+            throw new RegraNegocioException("Periodo fim não pode ser vazio");
         }
         if(eventoDTO.getTipoInsc() == null){
             throw new RegraNegocioException("Tipo Inscricao não pode ser vazio");
@@ -72,6 +79,33 @@ public class EventoServico {
         if(!eventoRepositorio.existsById(eventoDTO.getId())){
             throw new RegraNegocioException("Evento não existe na base de dados");
         }
+        Evento eventopergunta = eventoRepositorio.findById(eventoDTO.getId()).orElseThrow(()
+                        -> new RegraNegocioException("Evento não encontrado"));
+
+        List<Pergunta> listPergunta = new ArrayList<>();
+        eventopergunta.getPerguntas().forEach(eventoPergunta -> listPergunta.add(perguntaRepositorio.
+                findById(eventoPergunta.getPergunta().getId()).orElseThrow(
+                        () -> new RegraNegocioException("Pergunta não encontrado"))));
+
+        if(eventoDTO.getTitulo() == null){
+            throw new RegraNegocioException("Titulo do evento não pode ser vazio");
+        }
+        if(eventoDTO.getPeriodoInicio() == null){
+            throw new RegraNegocioException("Periodo inicio não pode ser vazio");
+        }
+        if(eventoDTO.getPeriodoFim() == null){
+            throw new RegraNegocioException("Periodo fim não pode ser vazio");
+        }
+        if(eventoDTO.getTipoInsc() == null){
+            throw new RegraNegocioException("Tipo Inscricao não pode ser vazio");
+        }
+        if(eventoDTO.getIdTipoEvento() == null){
+            throw new RegraNegocioException("O tipo do evento não pode ser vazio");
+        }
+        if(!listPergunta.isEmpty()){
+            throw new RegraNegocioException("A pergunta já existe");
+        }
+
         Evento evento = eventoRepositorio.save(eventoMapper.toEntity(eventoDTO));
         List<PreInscricaoDTO> preInscricaoDTOS = preInscricaoServico.buscarPreinscricaoPorIdEvento(eventoDTO.getId());
         List<UsuarioDTO> usuariosDtos = new ArrayList<>();
@@ -88,6 +122,9 @@ public class EventoServico {
         if(!eventoRepositorio.existsById(id)){
             throw new RegraNegocioException("Evento com esse id não existe");
         }
+
+        preInscricaoRepositorio.deleteAllByEvento(eventoRepositorio.findById(id).orElseThrow(()
+                -> new RegraNegocioException("O evento não foi cadastrado")));
         eventoRepositorio.deleteById(id);
     }
 
