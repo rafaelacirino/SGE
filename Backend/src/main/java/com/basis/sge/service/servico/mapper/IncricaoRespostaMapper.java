@@ -7,16 +7,15 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring", uses = {})
 public interface IncricaoRespostaMapper extends EntityMapper<InscricaoRespostaDTO, InscricaoResposta>{
+
     @Override
     @Mapping(source = "idEvento", target = "evento.id")
     @Mapping(source = "idPergunta", target = "pergunta.id")
     @Mapping(source = "idInscricao", target = "preInscricao.id")
-
     @Mapping(source = "idPergunta", target = "id.idPergunta")
     @Mapping(source = "idEvento", target = "id.idEvento")
     @Mapping(source = "idInscricao", target = "id.idInscricao")
     InscricaoResposta toEntity(InscricaoRespostaDTO inscricaoRespostaDTO);
-
 
     @Override
     @Mapping(source = "evento.id", target = "idEvento")

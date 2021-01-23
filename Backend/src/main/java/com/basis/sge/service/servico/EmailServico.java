@@ -1,13 +1,11 @@
 package com.basis.sge.service.servico;
 
-
 import com.basis.sge.service.servico.DTO.EmailDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.messaging.MessagingException;
 import org.springframework.stereotype.Service;
-
 import javax.mail.internet.MimeMessage;
 import java.io.UnsupportedEncodingException;
 
@@ -16,7 +14,6 @@ import java.io.UnsupportedEncodingException;
 public class EmailServico {
 
     private static final String ERROR_TITLE = "error.title";
-
     private final JavaMailSender javaMailSender;
 
     public void sendMail(EmailDTO emailDTO) {
@@ -35,6 +32,5 @@ public class EmailServico {
             throw new RuntimeException( ERROR_TITLE);
         }
     }
-
 }
 

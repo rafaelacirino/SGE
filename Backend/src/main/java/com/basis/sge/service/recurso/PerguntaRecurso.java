@@ -25,7 +25,6 @@ public class PerguntaRecurso {
 
     private final PerguntaServico perguntaServico;
 
-
     @GetMapping
     public ResponseEntity<List<PerguntaDTO>> listar()
     {

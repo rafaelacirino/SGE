@@ -12,7 +12,6 @@ import com.basis.sge.service.servico.exception.RegraNegocioException;
 import com.basis.sge.service.servico.mapper.EventoMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
@@ -70,7 +69,6 @@ public class EventoServico {
     }
 
     public EventoDTO atualizar(EventoDTO eventoDTO){
-
         if(!eventoRepositorio.existsById(eventoDTO.getId())){
             throw new RegraNegocioException("Evento não existe na base de dados");
         }
@@ -83,11 +81,10 @@ public class EventoServico {
         }
 
         enviarEmail(usuariosDtos, eventoDTO.getTitulo());
-
         return eventoMapper.toDto(evento);
     }
 
-    public void delete(Integer id){
+    public void remover(Integer id){
         if(!eventoRepositorio.existsById(id)){
             throw new RegraNegocioException("Evento com esse id não existe");
         }

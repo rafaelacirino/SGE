@@ -21,5 +21,4 @@ public class SituacaoPreInscricao implements Serializable {
 
     @Column(name = "descricao")
     private String descricao;
-
 }

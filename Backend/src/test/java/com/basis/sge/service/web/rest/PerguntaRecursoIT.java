@@ -57,7 +57,6 @@ public class PerguntaRecursoIT extends IntTestComum {
 
         Pergunta pergunta = perguntaBuilder.construirEntidade();
 
-
         getMockMvc().perform(post( "/api/perguntas")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(perguntaMapper.toDto(pergunta))))

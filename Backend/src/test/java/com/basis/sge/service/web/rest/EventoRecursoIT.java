@@ -43,9 +43,6 @@ public class EventoRecursoIT extends IntTestComum {
     @Autowired
     private EventoRepositorio eventoRepositorio;
 
-    @Autowired
-    private PerguntaServico perguntaServico;
-
     @BeforeEach
     public void inicializar() {
         eventoRepositorio.deleteAll();
@@ -298,5 +295,4 @@ public class EventoRecursoIT extends IntTestComum {
         getMockMvc().perform(delete("/api/eventos/" + evento.getId()))
                 .andExpect(status().isBadRequest());
     }
-
 }

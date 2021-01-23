@@ -7,6 +7,7 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring", uses = {})
 public interface EventoPerguntaMapper extends EntityMapper<EventoPerguntaDTO, EventoPergunta>{
+
     @Override
     @Mapping(source = "idPergunta", target = "pergunta.id")
     @Mapping(source = "idEvento", target = "evento.id")
@@ -18,5 +19,4 @@ public interface EventoPerguntaMapper extends EntityMapper<EventoPerguntaDTO, Ev
     @Mapping(source = "pergunta.id", target = "idPergunta")
     @Mapping(source = "evento.id", target = "idEvento")
     EventoPerguntaDTO toDto(EventoPergunta eventoPergunta);
-
 }
