@@ -72,7 +72,7 @@ public class UsuarioServico {
         }
 
         if(!usuarioRepositorio.existsById(id)){
-            throw new RegraNegocioException("Evento com esse id não existe");
+            throw new RegraNegocioException("O usuário não foi cadastrado");
         }
 
         preInscricaoMapper.toEntity(preInscricaoServico.listar())
