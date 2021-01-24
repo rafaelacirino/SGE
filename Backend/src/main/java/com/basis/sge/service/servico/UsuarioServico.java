@@ -23,14 +23,11 @@ public class UsuarioServico {
 
     private final UsuarioRepositorio usuarioRepositorio;
     private final UsuarioMapper usuarioMapper;
-<<<<<<< HEAD
     private final EmailServico emailServico;
     private static final LocalDate DIA_DE_HOJE = LocalDate.now();
-
-=======
     private final SgeProducer sgeProducer;
     private final PreInscricaoRepositorio preInscricaoRepositorio;
->>>>>>> 17879469ff1d4f0475ee24fada285684336326ff
+
 
 
     public List<UsuarioDTO> listar(){
@@ -147,13 +144,10 @@ public class UsuarioServico {
              throw new RegraNegocioException("Cpf já cadastrado");
          }
 
-<<<<<<< HEAD
+
 
         //EXCEPTION CPF INVALIDO
         if (usuarioDTO.getCpf().length() != 11){
-=======
-        if (usuarioDTO.getCpf().length() < 11 || usuarioDTO.getCpf().length() > 11){
->>>>>>> 17879469ff1d4f0475ee24fada285684336326ff
             throw new RegraNegocioException("CPF invalido");
         }
 
@@ -161,16 +155,13 @@ public class UsuarioServico {
             throw new RegraNegocioException("Numero invalido");
         }
 
-<<<<<<< HEAD
+
         /////
 
         //EXCEPTION IDADE ERRADA (OBS: EVENTUALMENTE MUDAR PARA LOCALDATE)
 
         if (usuarioDTO.getDataNascimento().isAfter(DIA_DE_HOJE)){
-=======
-        LocalDate date = LocalDate.now();
-        if (usuarioDTO.getDataNascimento().isAfter(date)){
->>>>>>> 17879469ff1d4f0475ee24fada285684336326ff
+
             throw new RegraNegocioException("Data de nascimento invalida");
         }
 
@@ -180,12 +171,7 @@ public class UsuarioServico {
 
     }
 
-<<<<<<< HEAD
-
-
     // VERIFICAR EDIÇÃO
-=======
->>>>>>> 17879469ff1d4f0475ee24fada285684336326ff
     public Usuario verificarPut (UsuarioDTO usuarioDTO){
 
         // VERIFICAR ID NULL
@@ -203,18 +189,16 @@ public class UsuarioServico {
         listaCpf.remove(usuario);
         listaEmail.remove(usuario);
 
-<<<<<<< HEAD
+
 
         //SET
 
 
         // VERIFICAR CPF NULL
-=======
         if(usuarioDTO.getId() == null){
             throw new RegraNegocioException("ID Nulo");
         }
 
->>>>>>> 17879469ff1d4f0475ee24fada285684336326ff
         if(usuarioDTO.getCpf() == null){
             throw new RegraNegocioException("CPF Nulo");
         }
@@ -239,7 +223,7 @@ public class UsuarioServico {
             throw new RegraNegocioException("CPF já cadastrado");
         }
 
-<<<<<<< HEAD
+
         // EXCEPTION CPF INVALIDO
         if (usuarioDTO.getCpf().length() != 11){
             throw new RegraNegocioException("CPF invalido");
@@ -249,13 +233,6 @@ public class UsuarioServico {
         //EXCEPTION IDADE ERRADA
 
         if (usuarioDTO.getDataNascimento().isAfter(DIA_DE_HOJE)){
-=======
-        if (usuarioDTO.getCpf().length() > 11 || usuarioDTO.getCpf().length() < 11){
-            throw new RegraNegocioException("CPF invalido");
-        }
-
-        if (usuarioDTO.getDataNascimento().isAfter(date)){
->>>>>>> 17879469ff1d4f0475ee24fada285684336326ff
             throw new RegraNegocioException("Data de nascimento invalida.");
         }
 
