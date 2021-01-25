@@ -14,6 +14,7 @@ import com.basis.sge.service.servico.DTO.PreInscricaoDTO;
 import com.basis.sge.service.servico.DTO.UsuarioDTO;
 import com.basis.sge.service.servico.exception.RegraNegocioException;
 import com.basis.sge.service.servico.mapper.EventoMapper;
+import com.basis.sge.service.servico.producer.SgeProducer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
@@ -34,6 +35,7 @@ public class EventoServico {
     private final EventoPerguntaRepositorio eventoPerguntaRepositorio;
     private final PreInscricaoRepositorio preInscricaoRepositorio;
     private final PerguntaRepositorio perguntaRepositorio;
+    private final SgeProducer sgeProducer;
 
     public List<EventoDTO> listar(){
         List<Evento> eventos = eventoRepositorio.findAll();
@@ -136,18 +138,7 @@ public class EventoServico {
 
         for (UsuarioDTO usuarioDTO: usuarioDTOS) {
             emailDTO.setDestinatario(usuarioDTO.getEmail());
-            emailServico.sendMail(emailDTO);
+            this.sgeProducer.sendMail(emailDTO);
         }
     }
-
-    /*public void criarEmailEventoEditar(String email, Evento evento){
-
-        EmailDTO emailDTO = new EmailDTO();
-        emailDTO.setAssunto("Alteração do Evento");
-        emailDTO.setCorpo("O Evento " + evento.getTitulo() + "sofreu alteração, confira demais informações no sistema.");
-        emailDTO.setDestinatario(email);
-        emailDTO.setCopias(new ArrayList<>());
-        emailDTO.getCopias().add(emailDTO.getDestinatario());
-        emailServico.sendMail(emailDTO);
-    }*/
 }
