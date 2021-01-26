@@ -9,9 +9,12 @@ import com.basis.sge.service.repositorio.PreInscricaoRepositorio;
 import com.basis.sge.service.repositorio.SituacaoPreInscricaoRepositorio;
 import com.basis.sge.service.repositorio.UsuarioRepositorio;
 import com.basis.sge.service.servico.DTO.CancelarInscricaoDTO;
+import com.basis.sge.service.servico.DTO.EmailDTO;
 import com.basis.sge.service.servico.DTO.PreInscricaoDTO;
+import com.basis.sge.service.servico.DTO.UsuarioDTO;
 import com.basis.sge.service.servico.mapper.PreInscricaoMapper;
 import com.basis.sge.service.servico.exception.RegraNegocioException;
+import com.basis.sge.service.servico.producer.SgeProducer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
@@ -28,6 +31,7 @@ public class PreInscricaoServico {
     private final InscricaoRespostaRepositorio inscricaoRespostaRepositorio;
     private final UsuarioRepositorio usuarioRepositorio;
     private final SituacaoPreInscricaoRepositorio situacaoPreInscricaoRepositorio;
+    private final SgeProducer sgeProducer;
     private static final Integer ID_SITUACAO_INSCRICAO_CANCELADA = 4;
 
     public List<PreInscricaoDTO> listar(){
@@ -67,8 +71,13 @@ public class PreInscricaoServico {
             throw new RegraNegocioException("Só poderá ser editada a situação na Inscrição");
         }
 
+
         verificaNull(preInscricaoDTO);
         verificaNull(preInscricaoDTO.getIdSituacaoPreInscricao());
+
+        if(preInscricaoDTO.getIdSituacaoPreInscricao() != preInscricao.getSituacaoPreInscricao().getId()){
+
+        }
 
         preInscricaoRepositorio.save(preInscricaoMapper.toEntity(preInscricaoDTO));
 
@@ -113,5 +122,16 @@ public class PreInscricaoServico {
         preInscricao.setSituacaoPreInscricao(situacaoPreInscricaoRepositorio
                 .findById(ID_SITUACAO_INSCRICAO_CANCELADA).orElse(new SituacaoPreInscricao()));
         preInscricaoRepositorio.save(preInscricao);
+    }
+    private void enviarEmail(List<UsuarioDTO> usuarioDTOS, String titulo){
+        EmailDTO emailDTO = new EmailDTO();
+        emailDTO.setAssunto("Sua inscrição foi avaliada!");
+        emailDTO.setCorpo("O evento "+ titulo +" foi editado");
+        emailDTO.setCopias(new ArrayList<>());
+
+        for (UsuarioDTO usuarioDTO: usuarioDTOS) {
+            emailDTO.setDestinatario(usuarioDTO.getEmail());
+            this.sgeProducer.sendMail(emailDTO);
+        }
     }
 }
