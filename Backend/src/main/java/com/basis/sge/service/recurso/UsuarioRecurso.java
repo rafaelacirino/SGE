@@ -1,5 +1,6 @@
 package com.basis.sge.service.recurso;
 
+import com.basis.sge.service.servico.DTO.ChaveUsuarioDTO;
 import com.basis.sge.service.servico.DTO.UsuarioDTO;
 import com.basis.sge.service.servico.UsuarioServico;
 import lombok.RequiredArgsConstructor;
@@ -34,6 +35,11 @@ public class UsuarioRecurso {
     @GetMapping("/{id}")
     public ResponseEntity<UsuarioDTO>obterPorID(@PathVariable Integer id){
         return ResponseEntity.ok(usuarioServico.obterPorID(id));
+    }
+
+    @GetMapping("/usuario")
+    public ResponseEntity<UsuarioDTO>obterPorChave(@RequestBody ChaveUsuarioDTO chaveUsuarioDTO){
+        return ResponseEntity.ok(usuarioServico.obterUsuarioPorChave(chaveUsuarioDTO));
     }
     @SneakyThrows
     @PostMapping

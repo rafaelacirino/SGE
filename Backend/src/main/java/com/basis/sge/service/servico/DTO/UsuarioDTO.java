@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -16,5 +17,6 @@ public class UsuarioDTO implements Serializable {
     private String email;
     private String telefone;
     private LocalDate dataNascimento;
+    private List<EventoUsuarioDTO> eventos;
 
 }

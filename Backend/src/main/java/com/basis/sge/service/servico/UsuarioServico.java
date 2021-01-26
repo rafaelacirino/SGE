@@ -3,6 +3,7 @@ package com.basis.sge.service.servico;
 import com.basis.sge.service.dominio.Usuario;
 import com.basis.sge.service.repositorio.PreInscricaoRepositorio;
 import com.basis.sge.service.repositorio.UsuarioRepositorio;
+import com.basis.sge.service.servico.DTO.ChaveUsuarioDTO;
 import com.basis.sge.service.servico.DTO.EmailDTO;
 import com.basis.sge.service.servico.DTO.UsuarioDTO;
 import com.basis.sge.service.servico.exception.RegraNegocioException;
@@ -23,15 +24,20 @@ public class UsuarioServico {
 
     private final UsuarioRepositorio usuarioRepositorio;
     private final UsuarioMapper usuarioMapper;
-    private final EmailServico emailServico;
     private static final LocalDate DIA_DE_HOJE = LocalDate.now();
     private final SgeProducer sgeProducer;
     private final PreInscricaoRepositorio preInscricaoRepositorio;
 
-
-
     public List<UsuarioDTO> listar(){
-        return usuarioMapper.toDto(listarTodosUsuarios());
+        return usuarioMapper.toDto(usuarioRepositorio.findAll());
+    }
+
+    public UsuarioDTO obterUsuarioPorChave(ChaveUsuarioDTO chaveUsuarioDTO){
+        Usuario usuario = usuarioRepositorio.findByChaveUnica(chaveUsuarioDTO.getChave());
+        if(usuario == null){
+            throw  new RegraNegocioException("Usuario com chave não encontrado");
+        }
+        return usuarioMapper.toDto(usuario);
     }
 
     public UsuarioDTO obterPorID(Integer id){
@@ -103,11 +109,6 @@ public class UsuarioServico {
      usuarioRepositorio.findById(id).orElseThrow(() -> new RegraNegocioException("O usuário não foi cadastrado"));
             return usuarioRepositorio.findById(id).orElseThrow(() -> new RegraNegocioException("O usuário não foi cadastrado"));
 
-    }
-
-    public List<Usuario> listarTodosUsuarios(){
-
-        return usuarioRepositorio.findAll();
     }
 
     public Usuario verificarPost(UsuarioDTO usuarioDTO){
