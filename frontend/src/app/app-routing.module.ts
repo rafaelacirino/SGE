@@ -5,6 +5,7 @@ import { LoginSuccessComponent } from '@nuvem/angular-base';
 import { UsuarioModule } from './modulos/usuario/usuario.module';
 
 const routes: Routes = [
+    
     { 
     path: 'usuarios',
     loadChildren: () => UsuarioModule, 
