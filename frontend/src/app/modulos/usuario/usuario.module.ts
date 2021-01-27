@@ -6,16 +6,22 @@ import { FormularioComponent } from './components/formulario/formulario.componen
 import { ListagemComponent } from './components/listagem/listagem.component';
 import { CardComponent } from '../../shared/components/card/card.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { UsuarioService } from './services/usuario.service';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
 
   exports:[CardComponent],
   declarations: [FormularioComponent, ListagemComponent],
+  providers:[
+    UsuarioService
+  ],
   imports: [
     CommonModule,
     UsuarioRoutingModule,
-    SharedModule
+    SharedModule,
+    HttpClientModule
   ]
 })
 export class UsuarioModule { }

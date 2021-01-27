@@ -1,2 +1,18 @@
-<p>listagem works!</p>
+<p>
+    <span class="material-icons">
+        add_shopping_cart
+        </span>
+    
+    listagem works!
+</p>
+
+<ul>
+    <li *ngFor ="let nome of usuarios">{{nome}}</li>
+</ul>
+
+<div *ngIf="usuarios.length > 1">
+    contem usuarios lll
+</div>
+
 <app-card></app-card>
+
