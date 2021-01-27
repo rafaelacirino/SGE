@@ -1,2 +1,10 @@
 <p>listagem works!</p>
 <app-card></app-card>
+
+<ul>
+    <li *ngFor="let nome of usuarios"> {{ nome}} </li>
+</ul>
+
+<div *ngIf= "usuarios.length > 1" >
+    Contém usuários
+</div>
