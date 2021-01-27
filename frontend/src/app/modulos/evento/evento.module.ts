@@ -4,16 +4,19 @@ import { CommonModule } from '@angular/common';
 import { EventoRoutingModule } from './evento-routing.module';
 import { FormularioComponent } from './components/formulario/formulario.component';
 import { ListagemComponent } from './components/listagem/listagem.component';
-import { CardComponent } from '../../shared/components/card/card.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { HttpClientModule } from '@angular/common/http';
+import { EventoService } from './services/evento.service';
 
 
 @NgModule({
   declarations: [FormularioComponent, ListagemComponent],
+  providers: [EventoService],
   imports: [
     CommonModule,
     EventoRoutingModule,
-    SharedModule
+    SharedModule,
+    HttpClientModule
   ]
 })
 export class EventoModule { }
