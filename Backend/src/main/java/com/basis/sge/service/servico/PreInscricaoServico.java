@@ -76,7 +76,7 @@ public class PreInscricaoServico {
         verificaNull(preInscricaoDTO.getIdSituacaoPreInscricao());
 
         if(preInscricaoDTO.getIdSituacaoPreInscricao() != preInscricao.getSituacaoPreInscricao().getId()){
-
+            criarEmailInscricaoEditada(preInscricaoDTO);
         }
 
         preInscricaoRepositorio.save(preInscricaoMapper.toEntity(preInscricaoDTO));
@@ -89,6 +89,7 @@ public class PreInscricaoServico {
             throw new RegraNegocioException("A inscricao com esse id não existe");
         }
         preInscricaoRepositorio.deleteById(id);
+        criarEmailInscricaoCancelada(preInscricaoMapper.toDto(preInscricaoRepositorio.findById(id).orElseThrow(()-> new RegraNegocioException("Inscricao invalida"))));
     }
 
     public List<PreInscricaoDTO> buscarPreinscricaoPorIdEvento(Integer id){
@@ -123,15 +124,27 @@ public class PreInscricaoServico {
                 .findById(ID_SITUACAO_INSCRICAO_CANCELADA).orElse(new SituacaoPreInscricao()));
         preInscricaoRepositorio.save(preInscricao);
     }
-    private void enviarEmail(List<UsuarioDTO> usuarioDTOS, String titulo){
-        EmailDTO emailDTO = new EmailDTO();
-        emailDTO.setAssunto("Sua inscrição foi avaliada!");
-        emailDTO.setCorpo("O evento "+ titulo +" foi editado");
-        emailDTO.setCopias(new ArrayList<>());
+    public void criarEmailInscricaoEditada(PreInscricaoDTO preInscricaoDTO){
+        PreInscricao preInscricao = preInscricaoMapper.toEntity(preInscricaoDTO);
 
-        for (UsuarioDTO usuarioDTO: usuarioDTOS) {
-            emailDTO.setDestinatario(usuarioDTO.getEmail());
-            this.sgeProducer.sendMail(emailDTO);
-        }
+        EmailDTO emailDTO = new EmailDTO();
+        emailDTO.setAssunto("Alteração de inscrição no evento " + preInscricao.getEvento().getTitulo());
+        emailDTO.setCorpo("Sua inscrição foi avaliada, sua situação é: " + preInscricao.getSituacaoPreInscricao());
+        emailDTO.setDestinatario(preInscricao.getUsuario().getEmail());
+        emailDTO.setCopias(new ArrayList< >());
+        emailDTO.getCopias().add(emailDTO.getDestinatario());
+        this.sgeProducer.sendMail(emailDTO);
+    }
+
+    public void criarEmailInscricaoCancelada(PreInscricaoDTO preInscricaoDTO){
+        PreInscricao preInscricao = preInscricaoMapper.toEntity(preInscricaoDTO);
+
+        EmailDTO emailDTO = new EmailDTO();
+        emailDTO.setAssunto("Cancelamento de inscrição no evento " + preInscricao.getEvento().getTitulo());
+        emailDTO.setCorpo("Sua inscrição foi cancelada");
+        emailDTO.setDestinatario(preInscricao.getUsuario().getEmail());
+        emailDTO.setCopias(new ArrayList< >());
+        emailDTO.getCopias().add(emailDTO.getDestinatario());
+        this.sgeProducer.sendMail(emailDTO);
     }
 }
