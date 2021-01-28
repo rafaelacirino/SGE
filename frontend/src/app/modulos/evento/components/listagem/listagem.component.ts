@@ -10,25 +10,17 @@ import { EventoService } from '../../services/evento.service';
 export class ListagemComponent implements OnInit {
 
   eventos: Evento[] = [];
-
-  constructor(
-    public servico: EventoService
-  ) { }
+  constructor(private servico: EventoService) { }
 
   ngOnInit(): void {
-
     this.buscarEventos();
   }
 
   private buscarEventos(){
-    
-    this.servico.getEventos()
-      .subscribe((eventos: Evento[]) => {
-        console.log('subscribe')
-        this.eventos = eventos;
-      });
-  
-    }
+    this.servico.getEventos().subscribe((eventos: Evento[]) => {
+      this.eventos = eventos;
+    })
+  }
   
 
 }

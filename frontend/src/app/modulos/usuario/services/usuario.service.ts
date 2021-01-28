@@ -17,5 +17,8 @@ export class UsuarioService {
     return this.http.get<Usuario[]>(`${this.url}/usuarios`);
   }
 
+  salvarUsuario(usuario: Usuario): Observable<Usuario>{
+    return this.http.post<Usuario>(`${this.url}/usuarios`, usuario);
+  }
 
 }

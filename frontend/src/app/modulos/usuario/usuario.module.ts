@@ -8,6 +8,7 @@ import { CardComponent } from '../../shared/components/card/card.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { UsuarioService } from './services/usuario.service';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -19,7 +20,9 @@ import { HttpClientModule } from '@angular/common/http';
     CommonModule,
     UsuarioRoutingModule,
     SharedModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule
   ]
 })
 export class UsuarioModule { }

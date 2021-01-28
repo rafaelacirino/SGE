@@ -4,16 +4,15 @@ import { Observable } from 'rxjs';
 import { Evento } from 'src/app/dominios/Evento';
 import { environment } from 'src/environments/environment';
 
-
 @Injectable()
 export class EventoService {
 
-  url = environment.apiUrl;
+  url = environment.apiUrl
 
   constructor(private http: HttpClient) { }
 
-  getEventos(): Observable<Evento[]> {
-    
-    return this.http.get<Evento[]>(`${this.url}/eventos`);
+  getEventos(): Observable<Evento[]>{
+
+    return this.http.get<Evento[]>(`${this.url}/eventos`)
   }
 }
