@@ -4,7 +4,7 @@ export class Usuario{
     cpf: String;
     email: String;
     telefone: String;
-    dtNasc: Date;
+    dataNascimento: Date;
 
     constructor(){}
 

@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -47,8 +48,4 @@ public class Usuario implements Serializable {
 
     @Column(name = "dt_nasc")
     private LocalDate dataNascimento;
-
-    @OneToMany
-    @JoinColumn(name = "id_usuario")
-    private List<Evento> eventos;
 }

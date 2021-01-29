@@ -17,6 +17,5 @@ public class UsuarioDTO implements Serializable {
     private String email;
     private String telefone;
     private LocalDate dataNascimento;
-    private List<EventoUsuarioDTO> eventos;
 
 }

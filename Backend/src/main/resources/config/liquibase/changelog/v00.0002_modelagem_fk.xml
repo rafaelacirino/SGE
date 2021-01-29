@@ -27,7 +27,6 @@
             <column name="id_tipo_evento" type="NUMBER" remarks="Criacao da coluna id_tipo_evento"/>
             <column name="valor" type="DOUBLE" remarks="Criacao da coluna valor"/>
             <column name="local" type="VARCHAR(255)"  remarks="Criacao da coluna local"/>
-            <column name="id_usuario" type="NUMBER" remarks="Criação da coluna id_usuario"/>
 
         </createTable>
 
@@ -37,9 +36,6 @@
         <addForeignKeyConstraint baseTableName="evento" baseColumnNames="id_tipo_evento"
                                  constraintName="fk_tipo_evento" referencedTableName="tipo_evento"
                                  referencedColumnNames="id_tipo"/>
-        <addForeignKeyConstraint baseTableName="evento" baseColumnNames="id_usuario"
-                                 constraintName="fk_id_usuario" referencedTableName="usuario"
-                                 referencedColumnNames="id_usuario"/>
     </changeSet>
 
     <changeSet id="6" author="matheus.rodrigues">

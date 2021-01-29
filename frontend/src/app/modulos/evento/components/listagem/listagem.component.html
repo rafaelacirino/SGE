@@ -1,14 +1,32 @@
+<app-card [titulo]="'Lista de eventos'">
 <p-table [value]="eventos">
     <ng-template pTemplate="header">
         <tr>
-            <th>Nome</th>
-            <th>Data de Nascimento</th>
+            <th>Titulo</th>
+            <th>Descricao</th>
+            <th>Inicio</th>
+            <th>Fim</th>
+            <th>Tipo</th>
+            <th>Vagas</th>
+            <th>Tipo Evento</th>
+            <th>Valor</th>
+            <th>Local</th>
+            <th>Perguntas</th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-evento>
         <tr>
             <td>{{evento.titulo}}</td>
-            <td>{{evento.descricao }}</td>
+            <td>{{evento.descricao}}</td>
+            <td>{{evento.periodoInicio | date: 'dd/MM/yyy'}}</td>
+            <td>{{evento.periodoFim | date: 'dd/MM/yyy'}}</td>
+            <td>{{evento.tipoInsc}}</td>
+            <td>{{evento.qtdVagas}}</td>
+            <td>{{evento.idTipoEvento}}</td>
+            <td>{{evento.valor}}</td>
+            <td>{{evento.local}}</td>
+            <td>{{evento.perguntas[0]}}</td>
         </tr>
     </ng-template>
-  </p-table>
+</p-table>
+</app-card>
