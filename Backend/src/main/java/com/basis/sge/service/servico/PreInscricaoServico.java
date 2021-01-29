@@ -85,11 +85,10 @@ public class PreInscricaoServico {
     }
 
     public void remover(Integer id){
-        if(!preInscricaoRepositorio.existsById(id)){
-            throw new RegraNegocioException("A inscricao com esse id não existe");
-        }
+        PreInscricao preInscricao = preInscricaoRepositorio.findById(id).orElseThrow(()-> new RegraNegocioException("Inscricao invalida"));
+
+        criarEmailInscricaoCancelada(preInscricaoMapper.toDto(preInscricao));
         preInscricaoRepositorio.deleteById(id);
-        criarEmailInscricaoCancelada(preInscricaoMapper.toDto(preInscricaoRepositorio.findById(id).orElseThrow(()-> new RegraNegocioException("Inscricao invalida"))));
     }
 
     public List<PreInscricaoDTO> buscarPreinscricaoPorIdEvento(Integer id){
@@ -123,6 +122,7 @@ public class PreInscricaoServico {
         preInscricao.setSituacaoPreInscricao(situacaoPreInscricaoRepositorio
                 .findById(ID_SITUACAO_INSCRICAO_CANCELADA).orElse(new SituacaoPreInscricao()));
         preInscricaoRepositorio.save(preInscricao);
+        criarEmailInscricaoCancelada(preInscricaoMapper.toDto(preInscricao));
     }
     public void criarEmailInscricaoEditada(PreInscricaoDTO preInscricaoDTO){
         PreInscricao preInscricao = preInscricaoMapper.toEntity(preInscricaoDTO);

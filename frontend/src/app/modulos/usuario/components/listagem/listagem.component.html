@@ -1,7 +1,7 @@
 <app-card [titulo]="'Lista de usuários'">
 
     <div class="p-d-flex p-jc-end">
-        <button routerLink="formulario" pButton type="button" label="Cadastrar Usuário" ></button>
+        <button routerLink="/usuarios/formulario" pButton type="button" label="Cadastrar Usuário" ></button>
     </div>
 
     <p-table [value]="usuarios">
@@ -17,7 +17,7 @@
               <td>{{usuario.nome}}</td>
               <td>{{usuario.dataNascimento | date: 'dd/MM/yyyy'}}</td>
               <td class="p-d-flex p-jc-center">
-                <button [routerLink]="['formulario', usuario.id]" pButton type="button" icon="pi pi-pencil"></button>
+                <button [routerLink]="['/usuarios/formulario', usuario.id]" pButton type="button" icon="pi pi-pencil"></button>
                 <button (click)="deletarUsuario(usuario.id)" class="p-ml-2" pButton type="button" icon="pi pi-trash"></button>
               </td>
           </tr>
