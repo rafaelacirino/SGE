@@ -14,6 +14,10 @@ const routes: Routes = [
     path:'formulario',
     component: FormularioComponent
   },
+  {
+    path:'formulario/:id',
+    component: FormularioComponent
+  }
   
 ];
 
