@@ -1,4 +1,4 @@
-<app-card [titulo]="'Lista de usuários'">
+<app-card [titulo]="'Lista de usuários'" *ngIf ="admin" >
 
     <div class="p-d-flex p-jc-end">
         <button routerLink="/usuarios/formulario" pButton type="button" label="Cadastrar Usuário" ></button>
@@ -25,3 +25,48 @@
     </p-table>
 
 </app-card>
+
+<h1>Seu Perfil</h1>
+
+<div class="p-d-flex p-jc-start">
+
+    
+    <p-card header="Italo Felipe" styleClass = "conteudo" >
+        <p> <i class="pi pi-envelope"></i>
+             italo.galdino@maisunifacisa.com.br</p>
+      
+        <p> <i class="pi pi-phone"></i>
+             (83)9999-9999</p>
+        
+        <p> <i class="pi pi-id-card"></i>
+             CPF: 12345678901</p>
+        
+        <p> <i class="pi pi-calendar" styleClass="pisize"></i>
+             Data de nascimento: 12/12/2012</p>
+      
+        <p></p>
+      </p-card>
+</div>
+
+
+<div class="p-d-flex p-jc-end">
+
+    <p-card header="Italo Felipe" styleClass = "conteudo" >
+        <p> <i class="pi pi-envelope"></i>
+             italo.galdino@maisunifacisa.com.br</p>
+      
+        <p> <i class="pi pi-phone"></i>
+             (83)9999-9999</p>
+        
+        <p> <i class="pi pi-id-card"></i>
+             CPF: 12345678901</p>
+        
+        <p> <i class="pi pi-calendar" styleClass="pisize"></i>
+             Data de nascimento: 12/12/2012</p>
+      
+        <p></p>
+      </p-card>
+    
+</div>
+
+

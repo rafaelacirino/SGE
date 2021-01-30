@@ -5,7 +5,7 @@ import {CardComponent} from './components/card/card.component';
 @NgModule({
     declarations: [CardComponent], 
     imports: [
-        PRIMENG_IMPORTS,
+        PRIMENG_IMPORTS
     ],
     providers: [],
     exports: [

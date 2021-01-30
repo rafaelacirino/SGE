@@ -47,9 +47,9 @@ public class UsuarioRecurso {
         return ResponseEntity.created(new URI("/api/usuarios")).body(usuarioServico.salvar(usuarioDTO));
     }
 
-    @PutMapping
-    public ResponseEntity<UsuarioDTO> editar(@RequestBody UsuarioDTO usuarioDTO ){
-        return ResponseEntity.ok(usuarioServico.editar(usuarioDTO));
+    @PutMapping("/{id}")
+    public ResponseEntity<UsuarioDTO> editar(@PathVariable Integer id ,@RequestBody UsuarioDTO usuarioDTO ){
+        return ResponseEntity.ok(usuarioServico.editar(id,usuarioDTO));
     }
 
     @DeleteMapping("/{id}")

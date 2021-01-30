@@ -50,8 +50,8 @@ public class UsuarioServico {
         return usuarioMapper.toDto(usuario);
     }
 
-    public UsuarioDTO editar( UsuarioDTO usuarioDTO){
-        Usuario usuario = usuarioRepositorio.save(verificarPut(usuarioDTO));
+    public UsuarioDTO editar(Integer id, UsuarioDTO usuarioDTO){
+        Usuario usuario = usuarioRepositorio.save(verificarPut(id,usuarioDTO));
         criarEmailUsuarioEditado(usuario.getEmail());
         return usuarioMapper.toDto(usuario);
     }
@@ -173,14 +173,14 @@ public class UsuarioServico {
     }
 
     // VERIFICAR EDIÇÃO
-    public Usuario verificarPut (UsuarioDTO usuarioDTO){
+    public Usuario verificarPut (Integer id,UsuarioDTO usuarioDTO){
 
         // VERIFICAR ID NULL
-        if(usuarioDTO.getId() == null){
+        if( id == null){
             throw new RegraNegocioException("ID Nulo");
         }
 
-        Usuario usuario = usuarioRepositorio.findById(usuarioDTO.getId())
+        Usuario usuario = usuarioRepositorio.findById(id)
                 .orElseThrow(()-> new RegraNegocioException("Usuario não existe"));
 
         //CRIA LISTAS ONDE INSTANCIAS COM O MESMO CPF OU EMAIL DO DTO, REMOVENDO O USUARIO QUE VAI SER MODIFICADO//
@@ -196,9 +196,6 @@ public class UsuarioServico {
 
 
         // VERIFICAR CPF NULL
-        if(usuarioDTO.getId() == null){
-            throw new RegraNegocioException("ID Nulo");
-        }
 
         if(usuarioDTO.getCpf() == null){
             throw new RegraNegocioException("CPF Nulo");

@@ -1,3 +1,4 @@
+import { ViewEncapsulation } from '@angular/core';
 import { Component, Input, OnInit } from '@angular/core';
 import { Usuario } from 'src/app/dominios/Usuario';
 import { UsuarioService } from '../../services/usuario.service';
@@ -5,12 +6,14 @@ import { UsuarioService } from '../../services/usuario.service';
 @Component({
   selector: 'app-listagem',
   templateUrl: './listagem.component.html',
-  styleUrls: ['./listagem.component.css']
+  styleUrls: ['./listagem.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class ListagemComponent implements OnInit {
 
   usuario: Usuario
   usuarios: Usuario[] = [];
+  admin = false;
 
   constructor(
     public servico: UsuarioService
