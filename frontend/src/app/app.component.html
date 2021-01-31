@@ -1,4 +1,4 @@
-<block-ui>
+<block-ui *ngIf ="usuarioLogado != null">
     <div class="layout-wrapper"
     [ngClass]="{ 'layout-compact': layoutCompact }"
     (click)="onLayoutClick()">
@@ -33,3 +33,8 @@
     </div>
 </div>
 </block-ui>
+
+<div *ngIf="usuarioLogado == null">
+    <app-login></app-login>
+</div>
+

@@ -43,6 +43,13 @@ export class ListagemComponent implements OnInit {
         err => alert(err));
     }
 
+    buscarUsuarioPorId(id: number){
+      this.servico.buscarUsuarioPorId(id).subscribe((usuario: Usuario) => {
+      this.usuario = usuario
+      },
+      err=> alert(err))
+    }
+
     
   
 

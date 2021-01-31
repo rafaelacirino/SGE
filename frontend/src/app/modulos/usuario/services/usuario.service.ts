@@ -7,6 +7,7 @@ import { environment } from 'src/environments/environment';
 @Injectable()
 export class UsuarioService {
 
+
   url = environment.apiUrl;
 
   constructor(private http: HttpClient) { }
