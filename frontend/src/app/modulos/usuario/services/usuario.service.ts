@@ -5,7 +5,6 @@ import { Usuario } from 'src/app/dominios/Usuario';
 import { environment } from 'src/environments/environment';
 
 @Injectable()
-
 export class UsuarioService {
 
   url = environment.apiUrl;
@@ -13,7 +12,7 @@ export class UsuarioService {
   constructor(private http: HttpClient) { }
 
   buscarUsuarioPorId(id: number): Observable<Usuario> {
-    return this.http.get<Usuario>(`${this.url}/${id}`);
+    return this.http.get<Usuario>(`${this.url}/usuarios/${id}`);
   }
 
 
@@ -27,11 +26,11 @@ export class UsuarioService {
   }
 
   editarUsuario(usuario: Usuario): Observable<Usuario> {
-    return this.http.put<Usuario>(this.url, usuario);
+    return this.http.put<Usuario>(`${this.url}/usuarios`, usuario);
   }
 
   deletarUsuario(id: number): Observable<any> {
-    return this.http.delete(`${this.url}/${id}`);
+    return this.http.delete(`${this.url}/usuarios/${id}`);
   }
 
 }

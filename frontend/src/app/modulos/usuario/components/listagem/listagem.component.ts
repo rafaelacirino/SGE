@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Usuario } from 'src/app/dominios/Usuario';
 import { UsuarioService } from '../../services/usuario.service';
 
@@ -9,6 +9,7 @@ import { UsuarioService } from '../../services/usuario.service';
 })
 export class ListagemComponent implements OnInit {
 
+  usuario: Usuario
   usuarios: Usuario[] = [];
 
   constructor(
@@ -38,6 +39,8 @@ export class ListagemComponent implements OnInit {
         },
         err => alert(err));
     }
+
+    
   
 
 }

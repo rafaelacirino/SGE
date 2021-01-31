@@ -1,5 +1,5 @@
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Usuario } from 'src/app/dominios/Usuario';
@@ -13,7 +13,7 @@ import { UsuarioService } from '../../services/usuario.service';
 export class FormularioComponent implements OnInit {
   edicao = false
   formUsuario: FormGroup
-  usuario = new Usuario();
+  @Input() usuario = new Usuario();
 
   constructor(
     private fb: FormBuilder,
@@ -28,6 +28,7 @@ export class FormularioComponent implements OnInit {
     this.route.params.subscribe(params =>{
       if (params.id){
         this.edicao = true;
+        this.buscarUsuario(params.id)
       }
       
     })
@@ -72,8 +73,13 @@ export class FormularioComponent implements OnInit {
       });
       
     }
-        
-    
+  }
+
+  buscarUsuarioPorId(id: number){
+    this.usuarioService.buscarUsuarioPorId(id).subscribe(usuario => {
+      this.usuario = usuario
+      console.log(this.usuario)
+    });
   }
 
 }
