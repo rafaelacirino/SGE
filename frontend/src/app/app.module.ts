@@ -15,6 +15,7 @@ import { DiarioErrosComponent } from './components/diario-erros/diario-erros.com
 import { BlockUIModule } from 'ng-block-ui';
 import { UsuarioService } from './modulos/usuario/services/usuario.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LoginComponent } from './shared/components/login/login.component';
 
 
 @NgModule({
@@ -46,7 +47,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy, },
-        UsuarioService
+        UsuarioService, LoginComponent
     ],
     bootstrap: [AppComponent]
 })

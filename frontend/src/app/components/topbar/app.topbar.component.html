@@ -23,8 +23,8 @@
                             <span>Diário de Erros</span>
                         </a>
                     </li>
-                    <li role="menuitem">
-                        <a logout>
+                    <li role="menuitem"  (click)="logout()">
+                        <a >
                             <i class="material-icons">power_settings_new</i>
                             <span>Sair</span>
                         </a>
@@ -39,7 +39,8 @@
                 <ul class="ultima-menu animated fadeInDown">
                     <li role="menuitem">
                         <a>
-                            <span user><strong>Usuário: </strong></span>
+                            <span  ><strong>Usuário:  </strong></span>
+                            <!--<span  ><strong>Usuário: {{buscarNome()}} </strong></span>-->
                         </a>
                     </li>
                 </ul>

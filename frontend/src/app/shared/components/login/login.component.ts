@@ -36,8 +36,6 @@ export class LoginComponent implements OnInit {
   }
 
   logarUsuario(chaveInput: string){
-    console.log(chaveInput)
-    console.log(this.chave)
     this.chave.chave = chaveInput
     this.servico.buscarUsuarioPorChave(this.chave).subscribe((usuario :Usuario)=>{
       this.emitUsuario.emit(usuario);
@@ -46,5 +44,9 @@ export class LoginComponent implements OnInit {
     
   }
 
+  logout(){
+    localStorage.clear()
+    location.reload()
+  }
 
 }

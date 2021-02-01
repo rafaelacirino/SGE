@@ -1,9 +1,9 @@
 export class Usuario{
     id: number
-    nome: String;
-    cpf: String;
-    email: String;
-    telefone: String;
+    nome: string;
+    cpf: string;
+    email: string;
+    telefone: string;
     dataNascimento: Date;
 
     constructor(){}

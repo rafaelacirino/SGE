@@ -15,6 +15,7 @@ export class ListagemComponent implements OnInit {
   usuarios: Usuario[] = [];
   admin = false;
 
+
   constructor(
     public servico: UsuarioService
   ) { }
@@ -22,6 +23,10 @@ export class ListagemComponent implements OnInit {
   ngOnInit(): void {
 
     this.buscarUsuarios();
+
+    this.usuario = JSON.parse(localStorage.getItem('usuario'));
+
+    console.log(this.usuario)
   }
 
   private buscarUsuarios(){
