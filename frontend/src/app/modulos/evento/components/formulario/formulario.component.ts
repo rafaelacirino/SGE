@@ -20,6 +20,7 @@ export class FormularioComponent implements OnInit {
   tipoEventos: TipoEvento[] = []
   tipoInsc: boolean = false
   perguntas: Perguntas[] = []
+  pergunta: Perguntas
 
   tipoEvento: TipoEvento
 

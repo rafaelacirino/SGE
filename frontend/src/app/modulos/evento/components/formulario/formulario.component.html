@@ -25,6 +25,8 @@
         <input class="input" type="number"  [(ngModel)]="evento.valor" placeholder="Valor de inscrição do evento: R$" formControlName="valor" pInputText *ngIf="tipoInsc == true"/>
         <input class="input" type="number"  [(ngModel)]="evento.qtdVagas" placeholder="Vagas desse evento:" formControlName="qtdVagas" pInputText/>
         
+        <p-multiSelect [options]="perguntas" [(ngModel)]="pergunta" optionLabel="name"></p-multiSelect>
+ 
 
         </div>
 </form>
