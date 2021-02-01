@@ -25,7 +25,7 @@
             <breadcrumb></breadcrumb>
             <div class="layout-content">
                 <div *ngIf="usuarioLogado ">
-                    <router-outlet></router-outlet>
+                    <router-outlet [user]= "usuarioLogado"></router-outlet>
                 </div>
                 
                 <div *ngIf="!usuarioLogado">

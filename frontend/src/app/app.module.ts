@@ -14,6 +14,7 @@ import { SecurityModule, VersionTagModule } from '@nuvem/angular-base';
 import { DiarioErrosComponent } from './components/diario-erros/diario-erros.component';
 import { BlockUIModule } from 'ng-block-ui';
 import { UsuarioService } from './modulos/usuario/services/usuario.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -39,6 +40,8 @@ import { UsuarioService } from './modulos/usuario/services/usuario.service';
         VersionTagModule,
         SecurityModule.forRoot(environment.auth),
         MenuModule,
+        ReactiveFormsModule,
+        FormsModule
         
     ],
     providers: [

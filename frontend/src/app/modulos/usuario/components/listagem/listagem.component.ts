@@ -11,7 +11,7 @@ import { UsuarioService } from '../../services/usuario.service';
 })
 export class ListagemComponent implements OnInit {
 
-  usuario: Usuario
+  @Input() usuario: Usuario
   usuarios: Usuario[] = [];
   admin = false;
 

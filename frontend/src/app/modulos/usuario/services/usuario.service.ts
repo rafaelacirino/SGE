@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { Chave } from 'src/app/dominios/Chave';
 import { Usuario } from 'src/app/dominios/Usuario';
 import { environment } from 'src/environments/environment';
 
@@ -12,8 +13,8 @@ export class UsuarioService {
 
   constructor(private http: HttpClient) { }
 
-  buscarUsuarioPorChave(chave: string){
-    return this.http.get<Usuario>(`${this.url}/usuarios`);
+  buscarUsuarioPorChave(chave: Chave){
+    return this.http.post<Usuario>(`${this.url}/usuarios/login`, chave);
   }
 
   buscarUsuarioPorId(id: number): Observable<Usuario> {

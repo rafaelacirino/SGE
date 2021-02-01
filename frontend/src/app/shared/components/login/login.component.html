@@ -1,5 +1,5 @@
 <div class="p-d-flex p-jc-center">
-    <p-card>
+    <p-card styleClass="home">
         <h1>
             Bem-vindo ao SGE
         </h1>
@@ -10,13 +10,12 @@
 
 <div class="p-d-flex p-jc-center" >
     <p-card styleClass="login" header="Login" >
-        <i class="pi pi-key"></i><input [(ngModel)] ="chave" type="text" pInputText placeholder="Insira sua chave de inscrição" />
+    <i class="pi pi-key"></i><input [(ngModel)]="chaveInput" type="text" pInputText placeholder="Insira sua chave de inscrição" />
+    <button pButton (click)="logarUsuario(chaveInput)" type="button" label="Entrar" class="p-button-sm" styleClass="loginbutton" ></button>
+    <br>
+    Não está cadastrado?
+    <br>
+    <button pButton type="button" label="Cadastre-se" class="p-button-sm" styleClass="loginbutton" ></button>
     
-        <button pButton (click)="logarUsuario(chave)" type="button" label="Entrar" class="p-button-sm" styleClass="loginbutton" ></button>
-        <br>
-        Não está cadastrado?
-        <br>
-        <button pButton type="button" label="Cadastre-se" class="p-button-sm" styleClass="loginbutton" ></button>
-        
     </p-card>
 </div>
