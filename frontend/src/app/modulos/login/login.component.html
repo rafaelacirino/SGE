@@ -1,0 +1,10 @@
+<form [formGroup]="formLogin" novalidate>
+    
+    <div  class="p-grid p-dir-col">
+    
+        <input class="input" type="email" [(ngModel)]="usuario.email" placeholder="Email:" formControlName="email" pInputText/>
+    
+    </div>
+</form>
+
+<button (click)="login()" pButton type="button"  class="botao"></button>
