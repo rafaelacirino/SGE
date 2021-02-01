@@ -1,17 +1,14 @@
-body{
-    background-image: linear-gradient(to bottom right, #f9f7f7,#bbbfca);
-}
 
-h1{
+.home h1{
     color: #f9f7f7;
     text-align: center;
 }
-h3{
+.home h3{
     color: #f9f7f7;
     text-align: center;
 }
 
-.ui-card{
+.home.ui-card{
     margin-top: 5%;
     background-image: linear-gradient(to bottom right, #333456,#060930);
     width: 1300px;

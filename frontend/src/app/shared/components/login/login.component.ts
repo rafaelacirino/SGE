@@ -19,11 +19,18 @@ export class LoginComponent implements OnInit {
   constructor(public servico: UsuarioService) { }
 
   ngOnInit(): void {
+    this.pegarUsuarioLocalStorage();
+  }
+
+  pegarUsuarioLocalStorage() {
+    const usuario = JSON.parse(window.localStorage.getItem("usuario")); 
+    this.emitUsuario.emit(usuario);
   }
 
   logarUsuario(chave: string){
     this.servico.buscarUsuarioPorChave(chave).subscribe((usuario :Usuario)=>{
       this.emitUsuario.emit(usuario);
+      localStorage.setItem("usuario", JSON.stringify(usuario));
     })
     
   }
