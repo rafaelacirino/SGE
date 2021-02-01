@@ -65,6 +65,10 @@ export class AppComponent implements AfterViewInit, OnDestroy, OnInit {
         ];
     }
 
+    logarUsuario(usuario){
+        this.usuarioLogado = usuario;
+    }
+
     bindRipple() {
         this.rippleInitListener = this.init.bind(this);
         document.addEventListener('DOMContentLoaded', this.rippleInitListener);
@@ -177,11 +181,6 @@ export class AppComponent implements AfterViewInit, OnDestroy, OnInit {
         this.layoutContainer = this.layourContainerViewChild.nativeElement as HTMLDivElement;
         const time = 100;
         setTimeout(() => { this.layoutMenuScrollerViewChild.moveBar(); }, time);
-
-        setTimeout(() => {
-            this.usuarioLogado = this.login.usuario;
-            console.log(this.usuarioLogado)
-          }, 4000);
        
     }
 

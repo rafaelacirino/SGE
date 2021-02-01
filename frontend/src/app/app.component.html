@@ -24,12 +24,12 @@
         <div class="layout-main">
             <breadcrumb></breadcrumb>
             <div class="layout-content">
-                <div *ngIf="usuarioLogado != null">
+                <div *ngIf="usuarioLogado ">
                     <router-outlet></router-outlet>
                 </div>
                 
-                <div *ngIf="usuarioLogado == null">
-                    <app-login></app-login>
+                <div *ngIf="!usuarioLogado">
+                    <app-login (emitUsuario) = "logarUsuario($event)"></app-login>
                 </div>
                 
                 <app-footer></app-footer>

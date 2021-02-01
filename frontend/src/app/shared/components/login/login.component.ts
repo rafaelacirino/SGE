@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation, } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewEncapsulation, } from '@angular/core';
 import { Usuario } from 'src/app/dominios/Usuario';
 import {UsuarioService} from '../../../modulos/usuario/services/usuario.service'
 
@@ -12,7 +12,7 @@ import {UsuarioService} from '../../../modulos/usuario/services/usuario.service'
 })
 export class LoginComponent implements OnInit {
 
-  usuario: Usuario;
+  @Output() emitUsuario: EventEmitter<Usuario> = new EventEmitter;
 
   chave: string;
 
@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
 
   logarUsuario(chave: string){
     this.servico.buscarUsuarioPorChave(chave).subscribe((usuario :Usuario)=>{
-      this.usuario = usuario
+      this.emitUsuario.emit(usuario);
     })
     
   }
