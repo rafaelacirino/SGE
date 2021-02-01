@@ -1,4 +1,11 @@
-<app-card [titulo]="'Lista de eventos'">
+
+<app-card [titulo]="'Lista de eventos'" >
+
+<div class="p-d-flex p-jc-end">
+    <button id="button-criar" routerLink="/eventos/formulario" pButton type="button" label="Criar Evento" ></button>
+</div>
+<br/>
+
 <p-table [value]="eventos">
     <ng-template pTemplate="header">
         <tr>
@@ -6,27 +13,24 @@
             <th>Descricao</th>
             <th>Inicio</th>
             <th>Fim</th>
-            <th>Tipo</th>
             <th>Vagas</th>
             <th>Tipo Evento</th>
             <th>Valor</th>
             <th>Local</th>
-            <th>Perguntas</th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-evento>
         <tr>
             <td>{{evento.titulo}}</td>
             <td>{{evento.descricao}}</td>
-            <td>{{evento.periodoInicio | date: 'dd/MM/yyy'}}</td>
-            <td>{{evento.periodoFim | date: 'dd/MM/yyy'}}</td>
-            <td>{{evento.tipoInsc}}</td>
+            <td>{{evento.periodoInicio | date: 'dd/MM/yyy HH:mm'}}</td>
+            <td>{{evento.periodoFim | date: 'dd/MM/yyy HH:mm'}}</td>
             <td>{{evento.qtdVagas}}</td>
             <td>{{evento.idTipoEvento}}</td>
             <td>{{evento.valor}}</td>
             <td>{{evento.local}}</td>
-            <td>{{evento.perguntas[0]}}</td>
         </tr>
     </ng-template>
 </p-table>
+
 </app-card>
