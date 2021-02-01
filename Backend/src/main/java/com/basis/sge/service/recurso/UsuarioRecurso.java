@@ -37,7 +37,7 @@ public class UsuarioRecurso {
         return ResponseEntity.ok(usuarioServico.obterPorID(id));
     }
 
-    @GetMapping("/usuario")
+    @PostMapping("/login")
     public ResponseEntity<UsuarioDTO>obterPorChave(@RequestBody ChaveUsuarioDTO chaveUsuarioDTO){
         return ResponseEntity.ok(usuarioServico.obterUsuarioPorChave(chaveUsuarioDTO));
     }

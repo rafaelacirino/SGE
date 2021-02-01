@@ -1,4 +1,6 @@
 import { Component, EventEmitter, OnInit, Output, ViewEncapsulation, } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { Chave } from 'src/app/dominios/Chave';
 import { Usuario } from 'src/app/dominios/Usuario';
 import {UsuarioService} from '../../../modulos/usuario/services/usuario.service'
 
@@ -14,12 +16,18 @@ export class LoginComponent implements OnInit {
 
   @Output() emitUsuario: EventEmitter<Usuario> = new EventEmitter;
 
-  chave: string;
+  chaveInput: string
+  formChave: FormGroup
+  chave = new Chave();
 
-  constructor(public servico: UsuarioService) { }
+  constructor(public servico: UsuarioService,private fbuilder: FormBuilder) { }
 
   ngOnInit(): void {
     this.pegarUsuarioLocalStorage();
+
+    this.formChave = this.fbuilder.group({
+      chave: ''
+    })
   }
 
   pegarUsuarioLocalStorage() {
@@ -27,15 +35,16 @@ export class LoginComponent implements OnInit {
     this.emitUsuario.emit(usuario);
   }
 
-  logarUsuario(chave: string){
-    this.servico.buscarUsuarioPorChave(chave).subscribe((usuario :Usuario)=>{
+  logarUsuario(chaveInput: string){
+    console.log(chaveInput)
+    console.log(this.chave)
+    this.chave.chave = chaveInput
+    this.servico.buscarUsuarioPorChave(this.chave).subscribe((usuario :Usuario)=>{
       this.emitUsuario.emit(usuario);
       localStorage.setItem("usuario", JSON.stringify(usuario));
     })
     
   }
-  onSubmit() {
-    return this.chave;
-  }
+
 
 }
