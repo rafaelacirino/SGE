@@ -7,6 +7,7 @@ import { ListagemComponent } from './components/listagem/listagem.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { EventoService } from './services/evento.service';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -16,7 +17,9 @@ import { HttpClientModule } from '@angular/common/http';
     CommonModule,
     EventoRoutingModule,
     SharedModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule
   ]
 })
 export class EventoModule { }
