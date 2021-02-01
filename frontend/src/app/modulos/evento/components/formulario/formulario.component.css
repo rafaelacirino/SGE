@@ -1,0 +1,19 @@
+.tipo-insc{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    height: 15px;
+}
+
+.input, p-dropdown, .tipo-insc{
+    margin-left: 2%;
+    margin-bottom: 1.5%;
+    width: 400px;
+}
+
+
+.botao{
+    display: flex;
+    margin: 10px;
+    align-items: center;
+}

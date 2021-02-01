@@ -1,8 +1,13 @@
-
+.box{
+    background: #223333;
+    width: 450px;
+    padding: 50px;
+    border-radius: 10px;
+}
 .input{
     margin-left: 2%;
     margin-bottom: 1.5%;
-    width: 300px;
+    width: 350px;
 }
 
 .botao{

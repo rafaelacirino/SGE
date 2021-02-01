@@ -1,0 +1,8 @@
+tr{
+    text-align: center;
+}
+
+#button-criar{
+    display: flex;
+    align-items: center;
+}
