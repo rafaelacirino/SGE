@@ -1,0 +1,32 @@
+body{
+    background-image: linear-gradient(to bottom right, #f9f7f7,#bbbfca);
+}
+
+h1{
+    color: #f9f7f7;
+    text-align: center;
+}
+h3{
+    color: #f9f7f7;
+    text-align: center;
+}
+
+.ui-card{
+    margin-top: 5%;
+    background-image: linear-gradient(to bottom right, #333456,#060930);
+    width: 1300px;
+}
+
+.login.ui-card{
+    margin-top: 30px;
+    background-color: #f9f7f7;
+    background-image: none;
+    width: 400px;
+    text-align: center;
+}
+
+button.p-button-sm{
+    margin-left: 10px;
+    background-image: linear-gradient(to bottom right, #333456,#060930);
+    color: #f9f7f7;
+}

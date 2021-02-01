@@ -2,12 +2,18 @@ import { Component, AfterViewInit, ElementRef, Renderer2, ViewChild, OnDestroy, 
 import { ScrollPanel } from 'primeng';
 import { MenusService, MenuOrientation } from '@nuvem/primeng-components';
 import { RouterLink } from '@angular/router';
+import { Usuario } from './dominios/Usuario';
+import { LoginComponent } from './shared/components/login/login.component';
 
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html'
 })
 export class AppComponent implements AfterViewInit, OnDestroy, OnInit {
+
+    usuarioLogado : Usuario ;
+
+    @ViewChild(LoginComponent) login;
 
     layoutCompact = true;
 
@@ -44,6 +50,7 @@ export class AppComponent implements AfterViewInit, OnDestroy, OnInit {
     rippleInitListener: EventListenerOrEventListenerObject;
 
     rippleMouseDownListener: EventListenerOrEventListenerObject;
+  title: any;
 
     constructor(public renderer2: Renderer2, public zone: NgZone, public menuService: MenusService) { }
 
@@ -56,6 +63,10 @@ export class AppComponent implements AfterViewInit, OnDestroy, OnInit {
             {label: 'Usuarios', icon: 'perm_identity', routerLink:['/usuarios/listagem']},
             {label: 'Eventos', icon: 'bookmark_border', routerLink:['/eventos/listagem']}
         ];
+    }
+
+    logarUsuario(usuario){
+        this.usuarioLogado = usuario;
     }
 
     bindRipple() {
@@ -170,6 +181,7 @@ export class AppComponent implements AfterViewInit, OnDestroy, OnInit {
         this.layoutContainer = this.layourContainerViewChild.nativeElement as HTMLDivElement;
         const time = 100;
         setTimeout(() => { this.layoutMenuScrollerViewChild.moveBar(); }, time);
+       
     }
 
     onLayoutClick() {

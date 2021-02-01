@@ -7,9 +7,14 @@ import { environment } from 'src/environments/environment';
 @Injectable()
 export class UsuarioService {
 
+
   url = environment.apiUrl;
 
   constructor(private http: HttpClient) { }
+
+  buscarUsuarioPorChave(chave: string){
+    return this.http.get<Usuario>(`${this.url}/usuarios`);
+  }
 
   buscarUsuarioPorId(id: number): Observable<Usuario> {
     return this.http.get<Usuario>(`${this.url}/usuarios/${id}`);

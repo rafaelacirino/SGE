@@ -13,7 +13,8 @@ import { PageNotificationModule, BreadcrumbModule, MenuModule, ErrorStackModule 
 import { SecurityModule, VersionTagModule } from '@nuvem/angular-base';
 import { DiarioErrosComponent } from './components/diario-erros/diario-erros.component';
 import { BlockUIModule } from 'ng-block-ui';
-import { LoginComponent } from './modulos/login/login.component';
+import { UsuarioService } from './modulos/usuario/services/usuario.service';
+
 
 @NgModule({
     declarations: [
@@ -21,7 +22,7 @@ import { LoginComponent } from './modulos/login/login.component';
         AppTopbarComponent,
         AppFooterComponent,
         DiarioErrosComponent,
-        LoginComponent
+       
     ],
     imports: [
         BlockUIModule.forRoot({
@@ -37,10 +38,12 @@ import { LoginComponent } from './modulos/login/login.component';
         ErrorStackModule,
         VersionTagModule,
         SecurityModule.forRoot(environment.auth),
-        MenuModule
+        MenuModule,
+        
     ],
     providers: [
-        { provide: LocationStrategy, useClass: HashLocationStrategy }
+        { provide: LocationStrategy, useClass: HashLocationStrategy, },
+        UsuarioService
     ],
     bootstrap: [AppComponent]
 })
