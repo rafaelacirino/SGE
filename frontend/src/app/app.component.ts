@@ -3,6 +3,7 @@ import { ScrollPanel } from 'primeng';
 import { MenusService, MenuOrientation } from '@nuvem/primeng-components';
 import { RouterLink } from '@angular/router';
 import { Usuario } from './dominios/Usuario';
+import { LoginComponent } from './shared/components/login/login.component';
 
 @Component({
     selector: 'app-root',
@@ -10,7 +11,9 @@ import { Usuario } from './dominios/Usuario';
 })
 export class AppComponent implements AfterViewInit, OnDestroy, OnInit {
 
-    usuarioLogado : Usuario;
+    usuarioLogado : Usuario ;
+
+    @ViewChild(LoginComponent) login;
 
     layoutCompact = true;
 
@@ -174,6 +177,12 @@ export class AppComponent implements AfterViewInit, OnDestroy, OnInit {
         this.layoutContainer = this.layourContainerViewChild.nativeElement as HTMLDivElement;
         const time = 100;
         setTimeout(() => { this.layoutMenuScrollerViewChild.moveBar(); }, time);
+
+        setTimeout(() => {
+            this.usuarioLogado = this.login.usuario;
+            console.log(this.usuarioLogado)
+          }, 4000);
+       
     }
 
     onLayoutClick() {

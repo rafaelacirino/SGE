@@ -26,7 +26,7 @@ h3{
 }
 
 button.p-button-sm{
-    margin-top: 10px;
-    background-color: #313131;
+    margin-left: 10px;
+    background-image: linear-gradient(to bottom right, #333456,#060930);
     color: #f9f7f7;
 }

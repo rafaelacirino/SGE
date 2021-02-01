@@ -10,10 +10,13 @@
 
 <div class="p-d-flex p-jc-center" >
     <p-card styleClass="login" header="Login" >
-        <i class="pi pi-key"></i><input type="text" pInputText placeholder="Insira sua chave de inscrição" />
-        <br>
+        <i class="pi pi-key"></i><input [(ngModel)] ="chave" type="text" pInputText placeholder="Insira sua chave de inscrição" />
+    
         <button pButton type="button" label="Entrar" class="p-button-sm" styleClass="loginbutton" ></button>
         <br>
         Não está cadastrado?
+        <br>
+        <button (click)="logarUsuario(onSubmit())" pButton type="button" label="Cadastre-se" class="p-button-sm" styleClass="loginbutton" ></button>
+        
     </p-card>
 </div>
