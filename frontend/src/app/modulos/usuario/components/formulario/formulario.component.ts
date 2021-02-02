@@ -39,7 +39,7 @@ export class FormularioComponent implements OnInit {
       cpf: ['', [Validators.maxLength(11), Validators.minLength(11)]],
       email: ['', Validators.email],
       telefone: '',
-      dataNascimento: '' 
+      dataNascimento: ''
     })
   }
 

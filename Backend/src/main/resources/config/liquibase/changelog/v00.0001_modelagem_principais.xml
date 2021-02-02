@@ -27,6 +27,9 @@
             <column name="dt_nasc" type="DATE" remarks="Criacao da coluna dt_nasc" >
                 <constraints nullable="false" />
             </column>
+            <column name="admin" type="BOOLEAN" remarks="Criacao da coluna de admin" >
+                <constraints nullable="false" />
+            </column>
         </createTable>
 
         <addPrimaryKey tableName="usuario" columnNames="id_usuario" constraintName="pk_usuario"/>

@@ -48,4 +48,7 @@ public class Usuario implements Serializable {
 
     @Column(name = "dt_nasc")
     private LocalDate dataNascimento;
+
+    @Column(name = "admin")
+    private boolean admin;
 }

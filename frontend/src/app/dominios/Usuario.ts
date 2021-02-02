@@ -5,6 +5,7 @@ export class Usuario{
     email: string;
     telefone: string;
     dataNascimento: Date;
+    admin: boolean;
 
     constructor(){}
 

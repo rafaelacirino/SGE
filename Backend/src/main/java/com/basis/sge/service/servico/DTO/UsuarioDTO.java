@@ -17,5 +17,6 @@ public class UsuarioDTO implements Serializable {
     private String email;
     private String telefone;
     private LocalDate dataNascimento;
+    private Boolean admin;
 
 }
