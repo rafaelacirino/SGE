@@ -32,7 +32,7 @@
 </app-card>
 
 
-<app-card *ngIf="!usuario.admin">
+<div *ngIf="!usuario.admin">
 <h1>Seu Perfil</h1>
 
 <div class="p-d-flex p-jc-start">
@@ -51,8 +51,13 @@
         <p> <i class="pi pi-calendar" styleClass="pisize"></i>
              Data de nascimento: {{usuario.dataNascimento}}</p>
       
-        <p></p>
+            <button (click)="confirm(usuario.id)" class="p-ml-2" pButton type="button" icon="pi pi-trash"></button>
+            <button   (click)="showDialog()"  pButton type="button" icon="pi pi-pencil"></button>
       </p-card>
+      <p-dialog header="Editar Usuario" [(visible)]="display">
+        <app-formulario></app-formulario>
+     </p-dialog>
+     <p-confirmDialog header="Remover conta" icon="pi pi-exclamation-triangle"></p-confirmDialog>
 </div>
 
 
@@ -86,6 +91,6 @@
         </p-card>
     </div>
 </div>
-</app-card>
+</div>
 
 
