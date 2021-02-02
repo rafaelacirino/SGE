@@ -25,6 +25,13 @@ p{
     background-color: rgb(177, 177, 177);
     
 } */
+.tabela{
+    margin: auto;
+    margin-block-end: 25px;
+}
+.botao_apagar{
+    border-radius: 5px;
+}
 
 
 

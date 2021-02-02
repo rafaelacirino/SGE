@@ -1,5 +1,6 @@
-import { ViewEncapsulation } from '@angular/core';
+import { EventEmitter, Output, ViewEncapsulation } from '@angular/core';
 import { Component, Input, OnInit } from '@angular/core';
+import { ConfirmationService } from 'primeng';
 import { Usuario } from 'src/app/dominios/Usuario';
 import { UsuarioService } from '../../services/usuario.service';
 
@@ -10,14 +11,18 @@ import { UsuarioService } from '../../services/usuario.service';
   encapsulation: ViewEncapsulation.None
 })
 export class ListagemComponent implements OnInit {
-
+  @Output() emitUsuario: EventEmitter<Usuario> = new EventEmitter;
   @Input() usuario: Usuario
   usuarios: Usuario[] = [];
+  admin = false;
+  display: boolean = false;
 
+  
 
 
   constructor(
-    public servico: UsuarioService
+    public servico: UsuarioService,
+    private confirmationService: ConfirmationService
   ) { }
 
   ngOnInit(): void {
@@ -48,12 +53,41 @@ export class ListagemComponent implements OnInit {
         err => alert(err));
     }
 
+    deletarUsuarioLogado(id: number) {
+      this.servico.deletarUsuario(id)
+        .subscribe(() => {
+          alert('Usuário deletado');
+          this.buscarUsuarios();
+          localStorage.removeItem("usuario")
+          location.reload()
+        },
+        err => alert(err));
+    }
+
     buscarUsuarioPorId(id: number){
       this.servico.buscarUsuarioPorId(id).subscribe((usuario: Usuario) => {
       this.usuario = usuario
       },
       err=> alert(err))
     }
+    
+    showDialog() {
+      this.display = true;
+    }
+
+    confirm(id: number) {
+      this.confirmationService.confirm({
+          message: 'Deseja mesmo remover sua conta?',
+          accept: () => {
+              this.deletarUsuarioLogado(id)
+              localStorage.removeItem("usuario")
+              
+          }
+      });
+  }
+
+    
+    
 
     
   
