@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Evento } from 'src/app/dominios/Evento';
+import { Perguntas } from 'src/app/dominios/Perguntas';
 import { TipoEvento } from 'src/app/dominios/TipoEvento';
 import { environment } from 'src/environments/environment';
 

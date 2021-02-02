@@ -2,34 +2,67 @@
 <br>
 <form [formGroup]="formEvento" >
     
-    <div  class="p-grid p-dir-col">
+    <div  class="p-fluid p-formgrid p-grid">
     
-        <input class="input" type="text"  [(ngModel)]="evento.titulo" placeholder="Titulo do evento:" formControlName="titulo" pInputText/>
-        <input class="input" type="text"  [(ngModel)]="evento.descricao" placeholder="Descrição do evento:" formControlName="descricao" pInputText/>
-        <input class="input" type="text"  [(ngModel)]="evento.local" placeholder="Digite o local do evento:" formControlName="local" pInputText/>
-        <input class="input" type="number"  [(ngModel)]="evento.qtdVagas" placeholder="Vagas desse evento:" formControlName="qtdVagas" pInputText/>
-        
-        <p-dropdown [options]="tipoEventos" placeholder="Selecione o Tipo do Evento" 
-        [(ngModel)]="tipoEvento" formControlName="idTipoEvento"
-        optionLabel="descricao" optionValue="id"></p-dropdown>
-
-        <p class="input">Data inicial do evento</p>
-        <input class="input" type="datetime-local"  [(ngModel)]="evento.periodoInicio" placeholder="Data e hora do inicio do evento:" formControlName="periodoInicio" pInputText/>
-        <p class="input">Data Fim do evento</p>
-        <input class="input" type="datetime-local"  [(ngModel)]="evento.periodoFim" placeholder="Data e hora do fim do evento:" formControlName="periodoFim" pInputText/>
-        <div class="tipo-insc">
-            <p>Selecione se o tipo da inscrição é paga</p>
-            <p-inputSwitch [(ngModel)]="tipoInsc" formControlName="tipoInsc" placeholder="jhagsdjas"></p-inputSwitch>
+        <div class="p-field p-col-12 p-md-6">
+            <input class="input" type="text"  [(ngModel)]="evento.titulo" placeholder="Titulo do evento:" formControlName="titulo" pInputText/>
+        </div>
+        <div class="p-field p-col-12 p-md-6">
+            <input class="input" type="text"  [(ngModel)]="evento.descricao" placeholder="Descrição do evento:" formControlName="descricao" pInputText/>
+        </div>
+        <div class="p-field p-col-12 p-md-6">
+            <input class="input" type="text"  [(ngModel)]="evento.local" placeholder="Digite o local do evento:" formControlName="local" pInputText/>
+        </div>
+        <div class="p-field p-col-12 p-md-6">
+            <input class="input" type="number"  [(ngModel)]="evento.qtdVagas" placeholder="Vagas desse evento:" formControlName="qtdVagas" pInputText/>
         </div>
         
-        <input class="input" type="number"  [(ngModel)]="evento.valor" placeholder="Valor de inscrição do evento: R$" formControlName="valor" pInputText *ngIf="tipoInsc == true"/>
-        <input class="input" type="number"  [(ngModel)]="evento.qtdVagas" placeholder="Vagas desse evento:" formControlName="qtdVagas" pInputText/>
-        
-        <p-multiSelect [options]="perguntas" [(ngModel)]="pergunta" optionLabel="name"></p-multiSelect>
- 
-
+        <div class="p-field p-col-12 p-md-6">
+            <p class="input">Data inicial do evento</p>
+            <input class="input" type="datetime-local"  [(ngModel)]="evento.periodoInicio" placeholder="Data e hora do inicio do evento:" formControlName="periodoInicio" pInputText/>
         </div>
+        <div class="p-field p-col-12 p-md-6">
+                <p class="input">Data Fim do evento</p>
+                <input class="input" type="datetime-local"  [(ngModel)]="evento.periodoFim" placeholder="Data e hora do fim do evento:" formControlName="periodoFim" pInputText/>
+        </div>   
+        
+        <div class=" p-field p-col-12 p-md-6">
+            <p class="input">Selecione se o tipo da inscrição é paga</p>
+            <p-inputSwitch class="input" [(ngModel)]="tipoInsc" formControlName="tipoInsc" ></p-inputSwitch>
+        </div>
+        <div class=" p-field p-col-12 p-md-6">
+            <input class="input" type="number"  [(ngModel)]="evento.valor" placeholder="Valor de inscrição do evento: R$" formControlName="valor" pInputText *ngIf="tipoInsc == true"/>
+        </div>
+        <div class="p-field p-col-12 p-md-6">
+            <p-dropdown [options]="tipoEventos" placeholder="Selecione o Tipo do Evento" 
+            [(ngModel)]="tipoEvento" formControlName="idTipoEvento"
+            optionLabel="descricao" optionValue="id"></p-dropdown>
+        </div>
+         
+        
+        
+        <div class=" p-field p-col-12 p-md-6">
+            <p class="input">Selecione as perguntas</p>
+            <p-multiSelect class="input" (click)="buscarPerguntas()" formControlName="eventoPerguntas" [options]="perguntas"  [virtualScroll]="true" itemSize="40"
+            [(ngModel)]="perguntaEscolhidas" optionLabel="titulo"></p-multiSelect>
+        </div>
+    </div>
+
+    <p-toolbar>
+        <p>Crie uma nova pergunta caso queira: </p>
+        <div class="p-toolbar-group-center">
+            
+            <p-button (click)="adicionarPerguntas()" label="Novo" icon="pi pi-plus" ></p-button>
+            
+            <input class="input" type="text"  [(ngModel)]="pergunta.titulo" formControlName="pergunta"  placeholder="Digite o titulo da pergunta: " formControlName="pergunta" pInputText *ngIf="adicionarPergunta"/>
+            <i class="pi pi-bars"></i>
+            <p-checkbox  [(ngModel)]="pergunta.obrigatorio" [binary]="true" *ngIf="adicionarPergunta" formControlName="pergunta"></p-checkbox>
+            <i class="pi pi-bars"></i>
+            <p-button  (click)="salvarPergunta(pergunta)" label="Save" icon="pi pi-check" styleClass="p-button-warning" *ngIf="adicionarPergunta"></p-button>
+        </div>
+    </p-toolbar>
 </form>
-    
-<button (click)="salvar()" pButton type="button" [label]="edicao ?'Editar' : 'Cadastrar' " class="botao"></button>
+
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+<button (click)="confirm()" pButton icon="pi pi-check"  [label]="edicao ?'Editar' : 'Cadastrar' " class="botao"></button>
 </app-card>

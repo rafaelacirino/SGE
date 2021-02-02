@@ -12,5 +12,7 @@ export class Evento {
     idTipoEvento: number;
     valor: number;
     local: string;
-    perguntas: EventoPergunta [] = [];
+    perguntas: EventoPergunta[] = [];
+
+    constructor(){}
 }

@@ -10,7 +10,9 @@
     margin-bottom: 1.5%;
     width: 400px;
 }
-
+p{
+    color: black;
+}
 
 .botao{
     display: flex;
