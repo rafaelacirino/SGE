@@ -2,13 +2,14 @@ import { NgModule } from '@angular/core';
 import { PRIMENG_IMPORTS } from './primeng-imports';
 import {CardComponent} from './components/card/card.component';
 import { LoginComponent } from './components/login/login.component';
+import { ConfirmationService } from 'primeng';
 
 @NgModule({
     declarations: [CardComponent, LoginComponent,], 
     imports: [
         PRIMENG_IMPORTS
     ],
-    providers: [],
+    providers: [ConfirmationService],
     exports: [
         PRIMENG_IMPORTS,CardComponent,LoginComponent
     ]

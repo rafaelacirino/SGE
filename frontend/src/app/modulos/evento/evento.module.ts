@@ -8,11 +8,12 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { EventoService } from './services/evento.service';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PerguntaService } from '../pergunta/servicos/pergunta.service';
 
 
 @NgModule({
   declarations: [FormularioComponent, ListagemComponent],
-  providers:[EventoService],
+  providers:[EventoService, PerguntaService],
   imports: [
     CommonModule,
     EventoRoutingModule,

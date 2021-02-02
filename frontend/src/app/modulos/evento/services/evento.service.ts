@@ -21,10 +21,6 @@ export class EventoService {
     return this.http.get<TipoEvento[]>(`${this.url}/tipoevento`)
   }
 
-  getPerguntas(): Observable<Perguntas[]>{
-    return this.http.get<Perguntas[]>(`${this.url}/perguntas`)
-  }
-
   salvarEvento(evento: Evento): Observable<Evento>{
     return this.http.post<Evento>(`${this.url}/eventos`, evento)
   }
