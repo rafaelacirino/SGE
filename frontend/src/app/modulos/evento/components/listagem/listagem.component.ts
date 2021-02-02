@@ -11,11 +11,12 @@ import { EventoService } from '../../services/evento.service';
 export class ListagemComponent implements OnInit {
 
   eventos: Evento[] = [];
-  usuario: Usuario[] = [];
+  usuario: Usuario;
   constructor(private servico: EventoService) { }
 
   ngOnInit(): void {
     this.buscarEventos();
+    this.pegarUsuarioLocalStorage();
   }
 
   private buscarEventos(){
@@ -24,5 +25,9 @@ export class ListagemComponent implements OnInit {
     })
   }
   
+  pegarUsuarioLocalStorage() {
+    const usuario = JSON.parse(window.localStorage.getItem("usuario")); 
+    this.usuario = usuario;
+  }
 
 }

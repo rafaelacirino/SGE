@@ -45,6 +45,7 @@ public class UsuarioServico {
     }
 
     public UsuarioDTO salvar(UsuarioDTO usuarioDTO){
+        usuarioDTO.setAdmin(false);
         Usuario usuario = usuarioRepositorio.save(verificarPost(usuarioDTO));
         criarEmailCadastro(usuario.getEmail(),usuario.getChaveUnica());
         return usuarioMapper.toDto(usuario);

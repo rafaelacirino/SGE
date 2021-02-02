@@ -1,5 +1,5 @@
 
-<app-card [titulo]="'Lista de eventos'" *ngIf = "usuario.admin == true; then thenBlock else elseBlock">
+<app-card [titulo]="'Lista de eventos'" *ngIf = "usuario.admin">
 
 <div class="p-d-flex p-jc-end">
     <button id="button-criar" routerLink="/eventos/formulario" pButton type="button" label="Criar Evento" ></button>
@@ -35,7 +35,7 @@
 
 </app-card>
 
-<app-card [titulo]="'Lista de eventos'" #elseBlock>
+<app-card [titulo]="'Lista de eventos'" *ngIf = "!usuario.admin">
     
     <p-table [value]="eventos">
         <ng-template pTemplate="header">
