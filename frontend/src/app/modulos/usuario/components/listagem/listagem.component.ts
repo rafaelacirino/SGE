@@ -13,7 +13,7 @@ export class ListagemComponent implements OnInit {
 
   @Input() usuario: Usuario
   usuarios: Usuario[] = [];
-  admin = false;
+
 
 
   constructor(
