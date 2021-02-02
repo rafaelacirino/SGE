@@ -14,6 +14,7 @@ export class FormularioComponent implements OnInit {
   edicao = false
   formUsuario: FormGroup
   @Input() usuario = new Usuario();
+  logado = JSON.parse(localStorage.getItem('usuario'));
 
   constructor(
     private fb: FormBuilder,
@@ -24,7 +25,10 @@ export class FormularioComponent implements OnInit {
   
 
   ngOnInit(): void {
-
+    if(this.logado){
+      this.usuario = this.logado
+      this.edicao = true
+    }
     this.route.params.subscribe(params =>{
       if (params.id){
         this.edicao = true;
