@@ -5,7 +5,6 @@ import { Usuario } from 'src/app/dominios/Usuario';
 import {UsuarioService} from '../../../modulos/usuario/services/usuario.service'
 
 
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -16,6 +15,7 @@ export class LoginComponent implements OnInit {
 
   @Output() emitUsuario: EventEmitter<Usuario> = new EventEmitter;
 
+  display: boolean = false;
   chaveInput: string
   formChave: FormGroup
   chave = new Chave();
@@ -42,6 +42,11 @@ export class LoginComponent implements OnInit {
       localStorage.setItem("usuario", JSON.stringify(usuario));
     })
     
+  }
+ 
+
+  showDialog() {
+      this.display = true;
   }
 
   logout(){

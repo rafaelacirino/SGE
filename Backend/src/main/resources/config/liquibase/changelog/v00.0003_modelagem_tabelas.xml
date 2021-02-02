@@ -42,4 +42,17 @@
         </insert>
     </changeSet>
 
+    <changeSet id="11" author="matheus.rodrigues">
+        <insert tableName="usuario">
+            <column name="id_usuario">1</column>
+            <column name="chave_unica">admin</column>
+            <column name="cpf">11111111111</column>
+            <column name="nome">admin</column>
+            <column name="email">admin@admin.com</column>
+            <column name="telefone">11111111111111</column>
+            <column name="dt_nasc">2021-02-02</column>
+            <column name="admin">true</column>
+        </insert>
+    </changeSet>
+
 </databaseChangeLog>

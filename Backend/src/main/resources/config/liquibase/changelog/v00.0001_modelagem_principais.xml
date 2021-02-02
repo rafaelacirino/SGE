@@ -33,7 +33,7 @@
         </createTable>
 
         <addPrimaryKey tableName="usuario" columnNames="id_usuario" constraintName="pk_usuario"/>
-        <createSequence sequenceName="sq_usuario" incrementBy="1" startValue="1"/>
+        <createSequence sequenceName="sq_usuario" incrementBy="1" startValue="2"/>
 
     </changeSet>
 

@@ -1,4 +1,4 @@
-<app-card [titulo]="'Lista de usuários'" *ngIf ="admin" >
+<app-card [titulo]="'Lista de usuários'" *ngIf="usuario.admin" >
 
     <div class="p-d-flex p-jc-end">
         <button routerLink="/usuarios/formulario" pButton type="button" label="Cadastrar Usuário" ></button>
@@ -26,6 +26,8 @@
 
 </app-card>
 
+
+<app-card *ngIf="!usuario.admin">
 <h1>Seu Perfil</h1>
 
 <div class="p-d-flex p-jc-start">
@@ -50,7 +52,7 @@
 
 
 
-<div class="p-d-flex">
+<div class="p-d-flex" >
   
     <div >
         <p-card styleClass ="preinsc-container" class="ui-card-container" header="Suas Inscrições">
@@ -79,6 +81,6 @@
         </p-card>
     </div>
 </div>
-
+</app-card>
 
 

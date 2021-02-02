@@ -15,7 +15,11 @@
     <br>
     Não está cadastrado?
     <br>
-    <button pButton type="button" label="Cadastre-se" class="p-button-sm" styleClass="loginbutton" ></button>
+    <button pButton type="button" (click)="showDialog()" label="Cadastre-se" class="p-button-sm" styleClass="loginbutton" ></button>
     
+
+    <p-dialog header="Title" [(visible)]="display">
+       <app-formulario></app-formulario>
+    </p-dialog>
     </p-card>
 </div>
