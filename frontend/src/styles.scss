@@ -32,17 +32,13 @@ body{
     color: #060930;
 }
 
-.login.ui-button-rounded{
-    color: black;
+.login button{
+    color: #060930;
     background-color: #F1F1F2;
     border-color: #C0C0C0;
+    text-align: center;
 }
-.login.ui-button-text{
-    color: #060930;
-    text-align: center;    
-}
-
-.login.ui-button-rounded:hover{
+.login button:hover{
     background-color: #C0C0C0;
     transition: 0.5s;
     opacity: 0.6;
