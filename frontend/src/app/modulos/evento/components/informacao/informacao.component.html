@@ -1,0 +1,60 @@
+<app-card [titulo]="evento.titulo" styleClass="informacao-evento">
+   <table class="table">
+    <tbody>
+      <tr>
+        <div class="informacao-eventos ">
+        <div class="atributo p-shadow-1">
+            <h3>Descrição</h3>
+            <td>{{ evento.descricao }}</td>
+        </div>
+        <div class="atributo p-shadow-1">
+            <h3>Inicio do evento</h3>
+            <td>{{ evento.periodoInicio | date: 'dd/MM/yyy HH:mm'}}</td>
+        </div>
+        <div class="atributo p-shadow-1">
+            <h3>Fim do evento</h3>
+            <td>{{ evento.periodoFim | date: 'dd/MM/yyy HH:mm'}}</td>
+        </div>
+        <div class="atributo p-shadow-1">
+            <h3>Local do evento</h3>
+            <td>{{ evento.local }}</td>
+        </div>
+        <div class="atributo p-shadow-1">
+            <h3>Vagas</h3>
+            <td>{{ evento.qtdVagas }}</td>
+        </div>
+        <div class="atributo p-shadow-1">
+            <h3>Valor da inscrição</h3>
+            <td>{{ evento.valor | currency:"BRL"}}</td>
+        </div>
+        <div class="atributo p-shadow-1">
+            <h3>Tipo do Evento</h3>
+            <td>{{ tipoEvento }}</td>
+        </div>
+        <div>
+            <p-table [value]="perguntas" [scrollable]="true" scrollHeight="200px">
+                
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Perguntas do evento</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-pergunta>
+                    <tr>
+                        <td>{{pergunta.titulo}}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+        </div>
+      </tr>
+      <tr>
+    </tbody>
+  </table>
+
+  <div class="p-d-flex p-jc-end">
+    <button  pButton type="button" icon="pi pi-pencil" [routerLink]="['/eventos/formulario' , evento.id ]"></button>
+    <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+    <button  pButton type="button" icon="pi pi-trash" (click)="confirm(evento.id)"></button>
+  </div>
+</app-card>

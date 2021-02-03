@@ -104,9 +104,6 @@ public class EventoServico {
         if(eventoDTO.getIdTipoEvento() == null){
             throw new RegraNegocioException("O tipo do evento não pode ser vazio");
         }
-        if(!listPergunta.isEmpty()){
-            throw new RegraNegocioException("A pergunta já existe");
-        }
 
         Evento evento = eventoRepositorio.save(eventoMapper.toEntity(eventoDTO));
         List<PreInscricaoDTO> preInscricaoDTOS = preInscricaoServico.buscarPreinscricaoPorIdEvento(eventoDTO.getId());
