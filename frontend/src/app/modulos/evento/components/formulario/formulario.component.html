@@ -52,9 +52,9 @@
             
             <p-button (click)="adicionarPerguntas()" label="Novo" icon="pi pi-plus" ></p-button>
             
-            <input class="input" type="text"  [(ngModel)]="pergunta.titulo" formControlName="pergunta"  placeholder="Digite o titulo da pergunta: " formControlName="pergunta" pInputText *ngIf="adicionarPergunta"/>
+            <input class="input" type="text"  [(ngModel)]="pergunta.titulo"  placeholder="Digite o titulo da pergunta: " formControlName="pergunta" pInputText *ngIf="adicionarPergunta"/>
             <i class="pi pi-bars"></i>
-            <p-checkbox  [(ngModel)]="pergunta.obrigatorio" [binary]="true" *ngIf="adicionarPergunta" formControlName="pergunta"></p-checkbox>
+            <p-checkbox  [(ngModel)]="pergunta.obrigatorio" [binary]="true" *ngIf="adicionarPergunta" formControlName="obrigatorio"></p-checkbox>
             <i class="pi pi-bars"></i>
             <p-button  (click)="salvarPergunta(pergunta)" label="Save" icon="pi pi-check" styleClass="p-button-warning" *ngIf="adicionarPergunta"></p-button>
         </div>
