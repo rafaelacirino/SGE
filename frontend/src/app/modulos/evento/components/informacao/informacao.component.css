@@ -1,0 +1,15 @@
+.informacao-eventos{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.informacao-eventos .atributo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: 5px;
+    padding: 10px;
+}

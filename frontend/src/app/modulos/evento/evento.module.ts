@@ -9,10 +9,11 @@ import { EventoService } from './services/evento.service';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PerguntaService } from '../pergunta/servicos/pergunta.service';
+import { InformacaoComponent } from './components/informacao/informacao.component';
 
 
 @NgModule({
-  declarations: [FormularioComponent, ListagemComponent],
+  declarations: [FormularioComponent, ListagemComponent, InformacaoComponent],
   providers:[EventoService, PerguntaService],
   imports: [
     CommonModule,
