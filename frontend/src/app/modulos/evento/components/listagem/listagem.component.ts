@@ -33,7 +33,7 @@ export class ListagemComponent implements OnInit {
     })  
     
   }
-  private buscarEventos(){
+  buscarEventos(){
     this.servico.getEventos().subscribe((eventos: Evento[]) => {
       this.eventos = eventos;
     })

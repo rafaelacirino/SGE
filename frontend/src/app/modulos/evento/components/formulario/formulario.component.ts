@@ -81,13 +81,11 @@ export class FormularioComponent implements OnInit {
         message: 'Deseja salvar mesmo esse evento?',
         accept: () => {
             this.salvar()
-            this.router.navigate(['/eventos/listagem'])
         }
     });
   }
 
   salvar(){
-    console.log(this.evento.id)
     this.evento.idTipoEvento = this.tipoEvento.id
     this.evento.tipoInsc = this.tipoInsc
    
@@ -107,6 +105,7 @@ export class FormularioComponent implements OnInit {
       this.eventoService.editarEvento(this.evento).subscribe(
         evento => {
           alert('Evento editado')
+          this.router.navigate(['/eventos/listagem'])
       }, (erro : HttpErrorResponse) => {
         alert(erro.error.message)
       });
