@@ -1,4 +1,4 @@
-import { EventEmitter, Output, ViewEncapsulation } from '@angular/core';
+import { EventEmitter, Output, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { Component, Input, OnInit } from '@angular/core';
 import { ConfirmationService } from 'primeng';
 import { Usuario } from 'src/app/dominios/Usuario';
@@ -33,7 +33,6 @@ export class ListagemComponent implements OnInit {
 
     console.log(this.usuario)
   }
-
   private buscarUsuarios(){
     
     this.servico.getUsuarios()
@@ -84,12 +83,12 @@ export class ListagemComponent implements OnInit {
               
           }
       });
+    
   }
-
-    
-    
-
-    
-  
-
+  receberEdicao(usuarioEditado: Usuario){
+    this.display = false
+    localStorage.removeItem('usuario');
+    localStorage.setItem("usuario", JSON.stringify(usuarioEditado));
+    location.reload()
+  }
 }

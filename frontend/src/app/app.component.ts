@@ -11,7 +11,7 @@ import { LoginComponent } from './shared/components/login/login.component';
 })
 export class AppComponent implements AfterViewInit, OnDestroy, OnInit {
 
-    usuarioLogado : Usuario ;
+    usuarioLogado : Usuario;
 
     @ViewChild(LoginComponent) login;
 
@@ -59,9 +59,8 @@ export class AppComponent implements AfterViewInit, OnDestroy, OnInit {
 
         this.menuService.itens = [
             
-            { label: 'Principal', icon: 'home', routerLink: ['/'] },
+            { label: 'Principal', icon: 'home', routerLink: ['/eventos/listagem'] },
             {label: 'Usuarios', icon: 'perm_identity', routerLink:['/usuarios/listagem']},
-            {label: 'Eventos', icon: 'bookmark_border', routerLink:['/eventos/listagem']}
         ];
     }
 
