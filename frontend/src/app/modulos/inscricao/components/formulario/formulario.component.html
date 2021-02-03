@@ -1,0 +1,18 @@
+<form [formGroup]="formInscricao" >
+    
+    <div  class="p-fluid p-formgrid p-grid">
+
+        <div class=" p-field p-col-12 p-md-6">
+            <!-- <p-multiSelect class="input" (click)="buscarPerguntas()" formControlName="eventoPerguntas" [options]="perguntas"  [virtualScroll]="true" itemSize="40" -->
+            <!-- [(ngModel)]="perguntaEscolhidas" optionLabel="titulo"></p-multiSelect> -->
+        </div>
+
+        <div class="p-field p-col-12 p-md-6">
+            <input class="input" type="text"  [(ngModel)]="inscricao" placeholder="Resposta:" formControlName="resposta" pInputText/>
+        </div>
+
+    </div>
+
+</form>
+    
+<button (click)="salvar()" pButton type="button" class="botao">Cadastrar</button>

@@ -5,7 +5,7 @@ import { LoginSuccessComponent } from '@nuvem/angular-base';
 import { UsuarioModule } from './modulos/usuario/usuario.module';
 import { EventoModule } from './modulos/evento/evento.module';
 import { ListagemComponent } from './modulos/evento/components/listagem/listagem.component';
-
+import { InscricaoModule } from './modulos/inscricao/inscricao.module';
 
 const routes: Routes = [
     { 
@@ -19,6 +19,10 @@ const routes: Routes = [
     { 
       path: 'eventos',
       loadChildren: () => EventoModule, 
+    },
+    { 
+      path: 'inscricao',
+      loadChildren: () => InscricaoModule, 
     },
       
     { path: 'diario-erros', component: DiarioErrosComponent, data: { breadcrumb: 'Diário de Erros'} },

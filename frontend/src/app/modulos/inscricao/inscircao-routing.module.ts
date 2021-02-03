@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { FormularioComponent } from '../evento/components/formulario/formulario.component';
-import { ListagemComponent } from '../evento/components/listagem/listagem.component';
+import { FormularioComponent } from '../inscricao/components/formulario/formulario.component';
+import { ListagemComponent } from '../inscricao/components/listagem/listagem.component';
 
 
 const routes: Routes = [
@@ -12,10 +12,6 @@ const routes: Routes = [
   {
     path: 'formulario',
     component: FormularioComponent
-  },
-  {
-    path: 'formulario/:id',
-    component: FormularioComponent
   }
 ];
 
@@ -23,4 +19,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class EventoRoutingModule { }
+export class InscricaoRoutingModule { }
