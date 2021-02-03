@@ -26,6 +26,7 @@ p{
     
 } */
 .tabela{
+    border: 1px solid;
     margin: auto;
     margin-block-end: 25px;
 }
