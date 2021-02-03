@@ -1,6 +1,6 @@
 <app-card [titulo]="'Lista de inscricao'" *ngIf = "usuario.admin">
    
-    <p-table [value]="inscricao">
+    <p-table [value]="inscricoes">
         <ng-template pTemplate="header">
             <tr>
                 <th>Pré Inscrição</th>
@@ -9,7 +9,7 @@
         </ng-template>
         <ng-template pTemplate="body" let-inscricao>
             <tr>
-                <td>{{inscricao}}</td>
+                <td>{{inscricao.resposta}}</td>
                 
                 <td>
                     <div class="p-d-flex p-jc-end">
@@ -24,7 +24,7 @@
     
     <app-card [titulo]="'Lista de inscricao'" *ngIf = "!usuario.admin">
         
-        <p-table [value]="inscricao">
+        <p-table [value]="inscricoes">
             <ng-template pTemplate="header">
                 <tr>
                     <th>Pré inscrição</th>
