@@ -21,7 +21,6 @@ export class ListagemComponent implements OnInit {
 
   private buscarInscricao(){
     this.servico.getInscricao().subscribe((inscricoes: Inscricao[]) => {
-      console.log(inscricoes)
       this.inscricoes = inscricoes;
     })
   }

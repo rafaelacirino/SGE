@@ -91,13 +91,4 @@ export class FormularioComponent implements OnInit {
       this.perguntas.push(pergunta)
     })
   }
-
-  salvar(){
-    if (this.formInscricao.invalid){
-      alert("Formulario Invalido")
-      return
-    }
-  }
-
-
 }
