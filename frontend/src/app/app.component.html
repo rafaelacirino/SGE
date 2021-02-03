@@ -29,7 +29,7 @@
                         <router-outlet  [user]= "usuarioLogado"></router-outlet>
                     </div>
                     <div *ngIf="!usuarioLogado">
-                        <app-login (emitUsuario) = "logarUsuario($event)"></app-login>
+                        <app-login (emitUsuario) = "logarUsuario($event)" styleClass="login"></app-login>
                     </div>
                     
                     <app-footer></app-footer>

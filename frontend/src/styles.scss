@@ -1,4 +1,51 @@
 /* You can add global styles to this file, and also import other style files */
 body{
-
+    background-image: linear-gradient(#ffffff,#afafaf);
 }
+
+
+// CLASSE LOGIN
+.login.ui-card-body{
+    margin-top: 30px;
+    background-color: #f9f7f7;
+    background-image: none;
+    width: 400px;
+    text-align: center;
+    height: 250;
+}
+.login.ui-card{
+    text-align: center;
+    justify-content: center;
+}
+
+.login.ui-card-body{
+    margin-top: 100px;
+    margin-left: 100px;
+    height: 250px;
+    width: 300px;
+}
+.login.ui-card-body-content{
+    justify-content: center;
+    text-align: center;
+}
+.login.ui-card-title{
+    color: #060930;
+}
+
+.login.ui-button-rounded{
+    color: black;
+    background-color: #F1F1F2;
+    border-color: #C0C0C0;
+}
+.login.ui-button-text{
+    color: #060930;
+    text-align: center;    
+}
+
+.login.ui-button-rounded:hover{
+    background-color: #C0C0C0;
+    transition: 0.5s;
+    opacity: 0.6;
+    color: #060930;
+}
+//
