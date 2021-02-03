@@ -10,18 +10,20 @@
     <ng-template pTemplate="header">
         <tr>
             <th>Titulo</th>
-            <th>Vagas</th>
             <th>Valor</th>
-            <th>Local</th>
+            <th>Vagas</th>
+            <th>Data de inicio</th>
+            <th>Data fim</th>
             <th>Ações</th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-evento>
         <tr>
             <td>{{evento.titulo}}</td>
-            <td>{{evento.qtdVagas}}</td>
             <td>{{evento.valor | currency:"BRL"}}</td>
-            <td>{{evento.local}}</td>
+            <td>{{evento.qtdVagas}}</td>
+            <td>{{evento.periodoInicio | date: "dd/MM/yyyy HH:MM"}}</td>
+            <td>{{evento.periodoFim | date: "dd/MM/yyyy HH:MM"}}</td>
             <td>
                 <button class="p-ml-2" (click)="showDialog(evento.id)" pButton type="button" icon="pi pi-info-circle"></button>
             </td>
@@ -59,7 +61,7 @@
                 <td>{{evento.local}}</td>
                 <td>
                     <div class="p-d-flex p-jc-end">
-                        <button id="button-criar"  routerLink="/eventos/preinscricao" pButton type="button" label="Inscrever-se" ></button>
+                        <button id="button-criar"  [routerLink]="['/inscricao/formulario', evento.id]" pButton type="button" label="Inscrever-se" ></button>
                    
                     </div>
                 </td>

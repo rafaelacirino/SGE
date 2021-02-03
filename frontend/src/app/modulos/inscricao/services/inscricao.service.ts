@@ -14,15 +14,15 @@ export class InscricaoService {
   constructor(private http: HttpClient) { }
 
   getInscricao(): Observable<Inscricao[]>{
-    return this.http.get<Inscricao[]>(`${this.url}/inscricaos`)
+    return this.http.get<Inscricao[]>(`${this.url}/preinscricao`)
   }
 
 
-  salvarEvento(inscricao: Inscricao): Observable<Inscricao>{
-    return this.http.post<Inscricao>(`${this.url}/inscricaos`, inscricao)
+  salvarInscricao(inscricao: Inscricao): Observable<Inscricao>{
+    return this.http.post<Inscricao>(`${this.url}/preinscricao`, inscricao)
   }
 
   deletarInscricaoChave(chave: Chave): Observable<any> {
-    return this.http.delete(`${this.url}/usuarios/${chave}`);
+    return this.http.delete(`${this.url}/preinscricao/${chave}`);
   }
 }
