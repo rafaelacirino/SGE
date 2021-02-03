@@ -1,4 +1,4 @@
-<div *ngIf="usuarioLogado">
+<div>
     <block-ui >
         <div class="layout-wrapper"
         [ngClass]="{ 'layout-compact': layoutCompact }"
@@ -16,7 +16,7 @@
             }">
             <app-topbar></app-topbar>
     
-            <div class="layout-menu" [ngClass]="{ 'layout-menu-dark': darkMenu }" (click)="onMenuClick($event)">
+            <div *ngIf="usuarioLogado"class="layout-menu" [ngClass]="{ 'layout-menu-dark': darkMenu }" (click)="onMenuClick($event)">
                 <p-scrollPanel  #scrollPanel [style]="{ height: '100%' }">
                     <app-menu></app-menu>
                 </p-scrollPanel>
@@ -25,11 +25,13 @@
             <div class="layout-main">
                 <breadcrumb></breadcrumb>
                 <div class="layout-content">
-                    <div>
-                        <router-outlet [user]= "usuarioLogado"></router-outlet>
+                    <div *ngIf="usuarioLogado">
+                        <router-outlet  [user]= "usuarioLogado"></router-outlet>
+                    </div>
+                    <div *ngIf="!usuarioLogado">
+                        <app-login (emitUsuario) = "logarUsuario($event)"></app-login>
                     </div>
                     
-                   
                     <app-footer></app-footer>
                 </div>
             </div>
@@ -41,10 +43,6 @@
 
 </div>
 
-<div *ngIf="!usuarioLogado">
-    <app-login (emitUsuario) = "logarUsuario($event)"></app-login>
-    
-</div>
 
 
 

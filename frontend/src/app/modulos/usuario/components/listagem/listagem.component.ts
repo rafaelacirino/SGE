@@ -8,7 +8,6 @@ import { UsuarioService } from '../../services/usuario.service';
   selector: 'app-listagem',
   templateUrl: './listagem.component.html',
   styleUrls: ['./listagem.component.css'],
-  encapsulation: ViewEncapsulation.None
 })
 export class ListagemComponent implements OnInit {
   @Output() emitUsuario: EventEmitter<Usuario> = new EventEmitter;
