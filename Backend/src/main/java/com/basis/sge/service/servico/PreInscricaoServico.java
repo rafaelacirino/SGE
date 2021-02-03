@@ -1,17 +1,22 @@
 package com.basis.sge.service.servico;
 
+import com.basis.sge.service.dominio.Evento;
 import com.basis.sge.service.dominio.InscricaoResposta;
 import com.basis.sge.service.dominio.PreInscricao;
 import com.basis.sge.service.dominio.SituacaoPreInscricao;
 import com.basis.sge.service.dominio.Usuario;
+import com.basis.sge.service.repositorio.EventoPerguntaRepositorio;
+import com.basis.sge.service.repositorio.EventoRepositorio;
 import com.basis.sge.service.repositorio.InscricaoRespostaRepositorio;
 import com.basis.sge.service.repositorio.PreInscricaoRepositorio;
 import com.basis.sge.service.repositorio.SituacaoPreInscricaoRepositorio;
 import com.basis.sge.service.repositorio.UsuarioRepositorio;
 import com.basis.sge.service.servico.DTO.CancelarInscricaoDTO;
 import com.basis.sge.service.servico.DTO.EmailDTO;
+import com.basis.sge.service.servico.DTO.EventoDTO;
 import com.basis.sge.service.servico.DTO.PreInscricaoDTO;
 import com.basis.sge.service.servico.DTO.UsuarioDTO;
+import com.basis.sge.service.servico.mapper.EventoMapper;
 import com.basis.sge.service.servico.mapper.PreInscricaoMapper;
 import com.basis.sge.service.servico.exception.RegraNegocioException;
 import com.basis.sge.service.servico.producer.SgeProducer;
@@ -27,7 +32,9 @@ import java.util.List;
 public class PreInscricaoServico {
 
     private final PreInscricaoRepositorio preInscricaoRepositorio;
+    private final EventoRepositorio eventoRepositorio;
     private final PreInscricaoMapper preInscricaoMapper;
+    private final EventoMapper eventoMapper;
     private final InscricaoRespostaRepositorio inscricaoRespostaRepositorio;
     private final UsuarioRepositorio usuarioRepositorio;
     private final SituacaoPreInscricaoRepositorio situacaoPreInscricaoRepositorio;
@@ -146,5 +153,13 @@ public class PreInscricaoServico {
         emailDTO.setCopias(new ArrayList< >());
         emailDTO.getCopias().add(emailDTO.getDestinatario());
         this.sgeProducer.sendMail(emailDTO);
+    }
+
+    public List<PreInscricaoDTO> buscarPreIncricoesPoEvento(Integer id){
+
+        Evento evento = eventoRepositorio.findById(id)
+                .orElseThrow(() -> new RegraNegocioException("Evento com id não encontrado"));
+        List<PreInscricao> preInscricaos = preInscricaoRepositorio.findByEvento(evento);
+        return preInscricaoMapper.toDto(preInscricaos);
     }
 }

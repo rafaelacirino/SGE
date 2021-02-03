@@ -57,4 +57,9 @@ public class PreInscricaoRecurso {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("/inscricoes/{id}")
+    public ResponseEntity<List<PreInscricaoDTO>> buscarPreInscricaoPorEvento(@PathVariable Integer id){
+        return ResponseEntity.ok(preInscricaoServico.buscarPreIncricoesPoEvento(id));
+    }
+
 }
