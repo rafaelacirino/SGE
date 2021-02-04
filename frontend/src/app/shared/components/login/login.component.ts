@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Chave } from 'src/app/dominios/Chave';
 import { Usuario } from 'src/app/dominios/Usuario';
 import {UsuarioService} from '../../../modulos/usuario/services/usuario.service'
+import { Router } from "@angular/router"
 
 
 @Component({
@@ -20,7 +21,10 @@ export class LoginComponent implements OnInit {
   formChave: FormGroup
   chave = new Chave();
 
-  constructor(public servico: UsuarioService,private fbuilder: FormBuilder) { }
+  constructor(
+    private router: Router,
+    public servico: UsuarioService,
+    private fbuilder: FormBuilder) { }
 
   ngOnInit(): void {
     this.pegarUsuarioLocalStorage();
@@ -36,6 +40,7 @@ export class LoginComponent implements OnInit {
   }
 
   logarUsuario(chaveInput: string){
+    this.router.navigate(['/eventos/listagem'])
     this.chave.chave = chaveInput
     this.servico.buscarUsuarioPorChave(this.chave).subscribe((usuario :Usuario)=>{
       this.emitUsuario.emit(usuario);
