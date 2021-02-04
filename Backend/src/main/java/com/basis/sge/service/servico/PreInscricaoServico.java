@@ -101,6 +101,16 @@ public class PreInscricaoServico {
         }
         return preInscricoesPorIdEvento;
     }
+    public List<PreInscricaoDTO> buscarPreinscricaoPorIdUsuario(Integer id){
+        List<PreInscricaoDTO> preInscricoesPorIdUsuario = new ArrayList<>();
+        List<PreInscricaoDTO> preInscricoes = preInscricaoMapper.toDto(preInscricaoRepositorio.findAll());
+        for (PreInscricaoDTO preInscricao: preInscricoes) {
+            if(preInscricao.getIdUsuario().equals(id)){
+                preInscricoesPorIdUsuario.add(preInscricao);
+            }
+        }
+        return preInscricoesPorIdUsuario;
+    }
 
     private void verificaNull(Object object){
         if(object == null){

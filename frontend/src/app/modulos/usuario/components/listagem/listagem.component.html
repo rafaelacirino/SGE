@@ -49,7 +49,7 @@
              CPF: {{usuario.cpf}}</p>
         
         <p> <i class="pi pi-calendar" styleClass="pisize"></i>
-             Data de nascimento: {{usuario.dataNascimento}}</p>
+             Data de nascimento: {{usuario.dataNascimento | date: 'dd/MM/yyyy'}}</p>
       
             <button (click)="confirm(usuario.id)" class="p-ml-2" pButton type="button" icon="pi pi-trash"></button>
             <button   (click)="showDialog()"  pButton type="button" icon="pi pi-pencil"></button>
