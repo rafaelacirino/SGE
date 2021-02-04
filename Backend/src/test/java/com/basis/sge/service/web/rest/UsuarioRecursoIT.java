@@ -3,7 +3,7 @@ package com.basis.sge.service.web.rest;
 import com.basis.sge.service.builder.UsuarioBuilder;
 import com.basis.sge.service.dominio.Usuario;
 import com.basis.sge.service.repositorio.UsuarioRepositorio;
-import com.basis.sge.service.servico.DTO.UsuarioDTO;
+import com.basis.sge.service.servico.dto.UsuarioDTO;
 import com.basis.sge.service.servico.UsuarioServico;
 import com.basis.sge.service.servico.mapper.UsuarioMapper;
 import com.basis.sge.service.util.IntTestComum;
@@ -29,7 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @ExtendWith(SpringExtension.class)
 @Transactional
-public class UsuarioRecursoIT extends IntTestComum {
+class UsuarioRecursoIT extends IntTestComum {
 
     @Autowired
     private UsuarioBuilder usuarioBuilder;
@@ -44,14 +44,14 @@ public class UsuarioRecursoIT extends IntTestComum {
     private UsuarioServico usuarioServico;
 
     @BeforeEach
-    public void incializar(){
+    void incializar(){
         usuarioRepositorio.deleteAll();
     }
 
 
     //GET
     @Test
-    public void listarTest() throws Exception {
+    void listarTest() throws Exception {
         usuarioBuilder.construir();
         getMockMvc().perform(get( "/api/usuarios"))
                 .andExpect(status().isOk());
@@ -59,14 +59,14 @@ public class UsuarioRecursoIT extends IntTestComum {
     }
 
     @Test
-    public void obterPorIdTest() throws Exception {
+    void obterPorIdTest() throws Exception {
         Usuario usuario = usuarioBuilder.construir();
         getMockMvc().perform(get( "/api/usuarios/" + usuario.getId()))
                 .andExpect(status().isOk());
 
     }
     @Test
-    public void obterPorIdInexistenteTest() throws Exception{
+    void obterPorIdInexistenteTest() throws Exception{
         String result = Objects.requireNonNull(getMockMvc().perform(get("/api/usuarios/20"))
                 .andExpect(status().isBadRequest()).andReturn().getResolvedException()).getMessage();
         Assertions.assertEquals("O usuário não foi cadastrado",result);
@@ -74,7 +74,7 @@ public class UsuarioRecursoIT extends IntTestComum {
 
 
     @Test
-    public void salvarTest() throws Exception{
+    void salvarTest() throws Exception{
         Usuario usuario = usuarioBuilder.construirEntidade();
         usuario.setEmail("batotow@gmail.com");
         usuario.setCpf("12345678902");
@@ -85,19 +85,16 @@ public class UsuarioRecursoIT extends IntTestComum {
                 .andExpect(status().isCreated());
     }
     @Test
-    public void salvarObjetoNuloTest() throws Exception{
+    void salvarObjetoNuloTest() throws Exception{
 
-        Usuario usuario;
-        usuario = null;
-
-       String result = Objects.requireNonNull(getMockMvc().perform(post("/api/usuarios")
+        String result = Objects.requireNonNull(getMockMvc().perform(post("/api/usuarios")
                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-               .content(TestUtil.convertObjectToJsonBytes(usuarioMapper.toDto(usuario))))
+               .content(TestUtil.convertObjectToJsonBytes(usuarioMapper.toDto((Usuario) null))))
                .andExpect(status().isBadRequest()).andReturn().getResolvedException()).getMessage();
-       Assertions.assertEquals("Required request body is missing: public org.springframework.http.ResponseEntity<com.basis.sge.service.servico.DTO.UsuarioDTO> com.basis.sge.service.recurso.UsuarioRecurso.salvar(com.basis.sge.service.servico.DTO.UsuarioDTO)",result);
+       Assertions.assertEquals("Required request body is missing: public org.springframework.http.ResponseEntity<com.basis.sge.service.servico.dto.UsuarioDTO> com.basis.sge.service.recurso.UsuarioRecurso.salvar(com.basis.sge.service.servico.dto.UsuarioDTO)",result);
     }
     @Test
-    public void salvarCPFNuloTest() throws Exception {
+    void salvarCPFNuloTest() throws Exception {
         Usuario usuario = usuarioBuilder.construirEntidade();
         usuario.setCpf(null);
         String result = Objects.requireNonNull(getMockMvc().perform(post("/api/usuarios")
@@ -108,7 +105,7 @@ public class UsuarioRecursoIT extends IntTestComum {
 
     }
     @Test
-    public void salvarEmailNuloTest() throws Exception{
+    void salvarEmailNuloTest() throws Exception{
 
         Usuario usuario = usuarioBuilder.construirEntidade();
         usuario.setEmail(null);
@@ -121,7 +118,7 @@ public class UsuarioRecursoIT extends IntTestComum {
 
     }
     @Test
-    public void salvarNomeNuloTest() throws Exception{
+    void salvarNomeNuloTest() throws Exception{
 
         Usuario usuario = usuarioBuilder.construirEntidade();
         usuario.setNome(null);
@@ -133,7 +130,7 @@ public class UsuarioRecursoIT extends IntTestComum {
     }
 
     @Test
-    public void salvarDtNascNuloTest() throws Exception{
+    void salvarDtNascNuloTest() throws Exception{
 
         Usuario usuario = usuarioBuilder.construirEntidade();
         usuario.setDataNascimento(null);
@@ -145,7 +142,7 @@ public class UsuarioRecursoIT extends IntTestComum {
 
     }
     @Test
-    public void salvarTelefoneNullTest() throws Exception{
+    void salvarTelefoneNullTest() throws Exception{
 
         Usuario usuario = usuarioBuilder.construirEntidade();
         usuario.setTelefone(null);
@@ -157,7 +154,7 @@ public class UsuarioRecursoIT extends IntTestComum {
     }
 
     @Test
-    public void salvarTelefoneInvalidoTest() throws Exception{
+    void salvarTelefoneInvalidoTest() throws Exception{
 
         Usuario usuario = usuarioBuilder.construirEntidade();
         usuario.setTelefone("123456789012344");
@@ -168,7 +165,7 @@ public class UsuarioRecursoIT extends IntTestComum {
         Assertions.assertEquals("Numero invalido",result);
     }
     @Test
-    public void salvarDtNascInvalidaTest() throws Exception{
+    void salvarDtNascInvalidaTest() throws Exception{
 
         Usuario usuario = usuarioBuilder.construirEntidade();
         LocalDate date = LocalDate.of(2022,2,12);
@@ -182,7 +179,7 @@ public class UsuarioRecursoIT extends IntTestComum {
     }
 
     @Test
-    public void salvarCPFDuplicadoTest() throws Exception{
+    void salvarCPFDuplicadoTest() throws Exception{
         usuarioBuilder.construir();
         Usuario usuarioCpfDuplicado = usuarioBuilder.construirEntidade();
         usuarioCpfDuplicado.setEmail("batotow@gmail.com");
@@ -195,7 +192,7 @@ public class UsuarioRecursoIT extends IntTestComum {
     }
 
     @Test
-    public void salvarEmailDuplicadoTest() throws Exception{
+    void salvarEmailDuplicadoTest() throws Exception{
 
         Usuario usuario = usuarioBuilder.construir();
         Usuario usuarioEmailDuplicado = usuarioBuilder.construirEntidade();
@@ -213,7 +210,7 @@ public class UsuarioRecursoIT extends IntTestComum {
     //PUT
 
     @Test
-    public void editarTodosCamposTest() throws Exception {
+    void editarTodosCamposTest() throws Exception {
         Usuario usuarioAntigo = usuarioBuilder.construir();
         Usuario usuario = usuarioBuilder.construirEntidade();
         usuario.setId(usuarioAntigo.getId());
@@ -229,7 +226,7 @@ public class UsuarioRecursoIT extends IntTestComum {
                 .andExpect(status().isOk());
     }
     @Test
-    public void editarCPFNuloTest() throws Exception {
+    void editarCPFNuloTest() throws Exception {
         Usuario usuarioAntigo = usuarioBuilder.construir();
         Usuario usuario = usuarioBuilder.construirEntidade();
         usuario.setId(usuarioAntigo.getId());
@@ -246,7 +243,7 @@ public class UsuarioRecursoIT extends IntTestComum {
         Assertions.assertEquals("CPF Nulo",result);
     }
     @Test
-    public void editarIdInexistenteTest() throws Exception {
+    void editarIdInexistenteTest() throws Exception {
         Usuario usuarioAntigo = usuarioBuilder.construir();
         Usuario usuario = usuarioBuilder.construirEntidade();
         usuario.setNome("CARLOS");
@@ -263,7 +260,7 @@ public class UsuarioRecursoIT extends IntTestComum {
     }
 
     @Test
-    public void editarEmailNuloTest() throws Exception {
+    void editarEmailNuloTest() throws Exception {
         Usuario usuarioAntigo = usuarioBuilder.construir();
         Usuario usuario = usuarioBuilder.construirEntidade();
         usuario.setId(usuarioAntigo.getId());
@@ -280,7 +277,7 @@ public class UsuarioRecursoIT extends IntTestComum {
         Assertions.assertEquals("Email nulo",result);
     }
     @Test
-    public void editarNomeNuloTest() throws Exception {
+    void editarNomeNuloTest() throws Exception {
         Usuario usuarioAntigo = usuarioBuilder.construir();
         Usuario usuario = usuarioBuilder.construirEntidade();
         usuario.setId(usuarioAntigo.getId());
@@ -297,7 +294,7 @@ public class UsuarioRecursoIT extends IntTestComum {
         Assertions.assertEquals("Nome nulo",result);
     }
     @Test
-    public void editarDtaNascNuloTest() throws Exception {
+    void editarDtaNascNuloTest() throws Exception {
         Usuario usuarioAntigo = usuarioBuilder.construir();
         Usuario usuario = usuarioBuilder.construirEntidade();
         usuario.setId(usuarioAntigo.getId());
@@ -315,7 +312,7 @@ public class UsuarioRecursoIT extends IntTestComum {
     }
 
     @Test
-    public void editarCPFDuplicadoTest() throws Exception {
+    void editarCPFDuplicadoTest() throws Exception {
         usuarioBuilder.construir();
         Usuario usuarioAntigo2 = usuarioBuilder.construirEntidade();
 
@@ -337,7 +334,7 @@ public class UsuarioRecursoIT extends IntTestComum {
     }
 
     @Test
-    public void editarEmailDuplicadoTest() throws Exception {
+    void editarEmailDuplicadoTest() throws Exception {
         usuarioBuilder.construir();
         Usuario usuarioAntigo2 = usuarioBuilder.construirEntidade();
 
@@ -358,7 +355,7 @@ public class UsuarioRecursoIT extends IntTestComum {
     }
 
     @Test
-    public void editarTelefoneInvalidoTest() throws Exception {
+    void editarTelefoneInvalidoTest() throws Exception {
         Usuario usuarioAntigo = usuarioBuilder.construir();
         Usuario usuario = usuarioBuilder.construirEntidade();
         usuario.setId(usuarioAntigo.getId());
@@ -382,7 +379,7 @@ public class UsuarioRecursoIT extends IntTestComum {
     }
 
     @Test
-    public void editarCPFInvalidoTest() throws Exception {
+    void editarCPFInvalidoTest() throws Exception {
         Usuario usuarioAntigo = usuarioBuilder.construir();
         Usuario usuario = usuarioBuilder.construirEntidade();
         usuario.setId(usuarioAntigo.getId());
@@ -400,7 +397,7 @@ public class UsuarioRecursoIT extends IntTestComum {
     }
 
     @Test
-    public void editarDtaNascInvalidaTest() throws Exception {
+    void editarDtaNascInvalidaTest() throws Exception {
         Usuario usuarioAntigo = usuarioBuilder.construir();
         Usuario usuario = usuarioBuilder.construirEntidade();
         usuario.setId(usuarioAntigo.getId());
@@ -420,14 +417,14 @@ public class UsuarioRecursoIT extends IntTestComum {
     // TESTE REMOVER
 
     @Test
-    public void removerTest() throws Exception {
+    void removerTest() throws Exception {
         Usuario usuario = usuarioBuilder.construir();
 
         getMockMvc().perform(delete("/api/usuarios/" + usuario.getId()))
                 .andExpect(status().isOk());
     }
     @Test
-    public void removerUsuarioInexistenteTest() throws Exception {
+    void removerUsuarioInexistenteTest() throws Exception {
 
         String result = Objects.requireNonNull(getMockMvc().perform(delete("/api/usuarios/200"))
                 .andExpect(status().isBadRequest()).andReturn().getResolvedException()).getMessage();

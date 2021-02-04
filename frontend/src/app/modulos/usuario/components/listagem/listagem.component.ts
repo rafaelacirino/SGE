@@ -30,13 +30,11 @@ export class ListagemComponent implements OnInit {
 
     this.usuario = JSON.parse(localStorage.getItem('usuario'));
 
-    console.log(this.usuario)
   }
   private buscarUsuarios(){
     
     this.servico.getUsuarios()
       .subscribe((usuarios: Usuario[]) => {
-        console.log('subscribe')
         this.usuarios = usuarios;
       });
   

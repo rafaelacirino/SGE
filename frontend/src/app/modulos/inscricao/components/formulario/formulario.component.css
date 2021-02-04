@@ -1,0 +1,5 @@
+.botao{
+    display: flex;
+    margin: 10px;
+    align-items: center;
+}

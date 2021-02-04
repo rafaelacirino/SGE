@@ -1,7 +1,7 @@
 package com.basis.sge.service.servico.mapper;
 
 import com.basis.sge.service.dominio.PreInscricao;
-import com.basis.sge.service.servico.DTO.PreInscricaoDTO;
+import com.basis.sge.service.servico.dto.PreInscricaoDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

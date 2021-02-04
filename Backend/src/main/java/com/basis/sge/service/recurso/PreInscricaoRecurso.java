@@ -1,9 +1,10 @@
 package com.basis.sge.service.recurso;
 
-import com.basis.sge.service.servico.DTO.CancelarInscricaoDTO;
-import com.basis.sge.service.servico.DTO.PreInscricaoDTO;
+import com.basis.sge.service.servico.dto.CancelarInscricaoDTO;
+import com.basis.sge.service.servico.dto.PreInscricaoDTO;
 import com.basis.sge.service.servico.PreInscricaoServico;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,8 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.net.URI;
-import java.net.URISyntaxException;
+
 import java.util.List;
 
 @RestController
@@ -36,8 +36,8 @@ public class PreInscricaoRecurso {
     }
 
     @PostMapping
-    public ResponseEntity<PreInscricaoDTO> salvar(@RequestBody PreInscricaoDTO preInscricaoDTO) throws URISyntaxException {
-        return ResponseEntity.created( new URI("/api/preinscricao")).body(preInscricaoServico.salvar(preInscricaoDTO));
+    public ResponseEntity<PreInscricaoDTO> salvar(@RequestBody PreInscricaoDTO preInscricaoDTO)  {
+        return ResponseEntity.status(HttpStatus.CREATED).body(preInscricaoServico.salvar(preInscricaoDTO));
     }
 
     @PutMapping
@@ -55,6 +55,11 @@ public class PreInscricaoRecurso {
     public ResponseEntity<Void> cancelarIncricao(@RequestBody CancelarInscricaoDTO cancelarInscricaoDTO){
         preInscricaoServico.editarInscricaoCancelada(cancelarInscricaoDTO);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/inscricoes/{id}")
+    public ResponseEntity<List<PreInscricaoDTO>> buscarPreInscricaoPorEvento(@PathVariable Integer id){
+        return ResponseEntity.ok(preInscricaoServico.buscarPreIncricoesPoEvento(id));
     }
 
 }

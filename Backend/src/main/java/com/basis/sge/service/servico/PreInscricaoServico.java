@@ -1,17 +1,18 @@
 package com.basis.sge.service.servico;
 
+import com.basis.sge.service.dominio.Evento;
 import com.basis.sge.service.dominio.InscricaoResposta;
 import com.basis.sge.service.dominio.PreInscricao;
 import com.basis.sge.service.dominio.SituacaoPreInscricao;
 import com.basis.sge.service.dominio.Usuario;
+import com.basis.sge.service.repositorio.EventoRepositorio;
 import com.basis.sge.service.repositorio.InscricaoRespostaRepositorio;
 import com.basis.sge.service.repositorio.PreInscricaoRepositorio;
 import com.basis.sge.service.repositorio.SituacaoPreInscricaoRepositorio;
 import com.basis.sge.service.repositorio.UsuarioRepositorio;
-import com.basis.sge.service.servico.DTO.CancelarInscricaoDTO;
-import com.basis.sge.service.servico.DTO.EmailDTO;
-import com.basis.sge.service.servico.DTO.PreInscricaoDTO;
-import com.basis.sge.service.servico.DTO.UsuarioDTO;
+import com.basis.sge.service.servico.dto.CancelarInscricaoDTO;
+import com.basis.sge.service.servico.dto.EmailDTO;
+import com.basis.sge.service.servico.dto.PreInscricaoDTO;
 import com.basis.sge.service.servico.mapper.PreInscricaoMapper;
 import com.basis.sge.service.servico.exception.RegraNegocioException;
 import com.basis.sge.service.servico.producer.SgeProducer;
@@ -27,6 +28,7 @@ import java.util.List;
 public class PreInscricaoServico {
 
     private final PreInscricaoRepositorio preInscricaoRepositorio;
+    private final EventoRepositorio eventoRepositorio;
     private final PreInscricaoMapper preInscricaoMapper;
     private final InscricaoRespostaRepositorio inscricaoRespostaRepositorio;
     private final UsuarioRepositorio usuarioRepositorio;
@@ -55,9 +57,7 @@ public class PreInscricaoServico {
         List<InscricaoResposta> inscricaoRespostas = preInscricao.getInscricaoRespostas();
         preInscricao.setInscricaoRespostas(new ArrayList<>());
         preInscricaoRepositorio.save(preInscricao);
-        inscricaoRespostas.forEach(inscricaoResposta -> {
-            inscricaoResposta.setPreInscricao(preInscricao);
-        });
+        inscricaoRespostas.forEach(inscricaoResposta -> inscricaoResposta.setPreInscricao(preInscricao));
         inscricaoRespostaRepositorio.saveAll(inscricaoRespostas);
         return preInscricaoMapper.toDto(preInscricao);
     }
@@ -66,8 +66,8 @@ public class PreInscricaoServico {
         PreInscricao preInscricao = preInscricaoRepositorio.findById(preInscricaoDTO.getId())
                 .orElseThrow(() -> new RegraNegocioException("A pre inscrição não existe"));
 
-        if(preInscricao.getEvento().getId() != preInscricaoDTO.getIdEvento()
-                || preInscricao.getUsuario().getId() != preInscricaoDTO.getIdUsuario()){
+        if(!preInscricao.getEvento().getId().equals(preInscricaoDTO.getIdEvento())
+                || !preInscricao.getUsuario().getId().equals(preInscricaoDTO.getIdUsuario())){
             throw new RegraNegocioException("Só poderá ser editada a situação na Inscrição");
         }
 
@@ -75,7 +75,7 @@ public class PreInscricaoServico {
         verificaNull(preInscricaoDTO);
         verificaNull(preInscricaoDTO.getIdSituacaoPreInscricao());
 
-        if(preInscricaoDTO.getIdSituacaoPreInscricao() != preInscricao.getSituacaoPreInscricao().getId()){
+        if(!preInscricaoDTO.getIdSituacaoPreInscricao().equals(preInscricao.getSituacaoPreInscricao().getId())){
             criarEmailInscricaoEditada(preInscricaoDTO);
         }
 
@@ -92,10 +92,10 @@ public class PreInscricaoServico {
     }
 
     public List<PreInscricaoDTO> buscarPreinscricaoPorIdEvento(Integer id){
-        List<PreInscricaoDTO> preInscricoesPorIdEvento = new ArrayList<PreInscricaoDTO>();
+        List<PreInscricaoDTO> preInscricoesPorIdEvento = new ArrayList<>();
         List<PreInscricaoDTO> preInscricoes = preInscricaoMapper.toDto(preInscricaoRepositorio.findAll());
         for (PreInscricaoDTO preInscricao: preInscricoes) {
-            if(preInscricao.getIdEvento() == id){
+            if(preInscricao.getIdEvento().equals(id)){
                 preInscricoesPorIdEvento.add(preInscricao);
             }
         }
@@ -115,7 +115,7 @@ public class PreInscricaoServico {
         PreInscricao preInscricao = preInscricaoRepositorio.findById(cancelarInscricaoDTO.getId())
                 .orElseThrow(() -> new RegraNegocioException("Não existe inscrição com esse id"));
 
-        if(preInscricao.getUsuario().getId() != usuario.getId()){
+        if(!preInscricao.getUsuario().getId().equals(usuario.getId())){
             throw new RegraNegocioException("Essa Inscricao não é desse ususario");
         }
 
@@ -146,5 +146,13 @@ public class PreInscricaoServico {
         emailDTO.setCopias(new ArrayList< >());
         emailDTO.getCopias().add(emailDTO.getDestinatario());
         this.sgeProducer.sendMail(emailDTO);
+    }
+
+    public List<PreInscricaoDTO> buscarPreIncricoesPoEvento(Integer id){
+
+        Evento evento = eventoRepositorio.findById(id)
+                .orElseThrow(() -> new RegraNegocioException("Evento com id não encontrado"));
+        List<PreInscricao> preInscricaos = preInscricaoRepositorio.findByEvento(evento);
+        return preInscricaoMapper.toDto(preInscricaos);
     }
 }

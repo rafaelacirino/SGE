@@ -2,9 +2,7 @@ package com.basis.sge.service.web.rest;
 
 import com.basis.sge.service.builder.PerguntaBuilder;
 import com.basis.sge.service.dominio.Pergunta;
-import com.basis.sge.service.dominio.Usuario;
 import com.basis.sge.service.repositorio.PerguntaRepositorio;
-import com.basis.sge.service.servico.DTO.PerguntaDTO;
 import com.basis.sge.service.servico.PerguntaServico;
 import com.basis.sge.service.servico.mapper.PerguntaMapper;
 import com.basis.sge.service.util.IntTestComum;
@@ -13,10 +11,8 @@ import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
@@ -27,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @ExtendWith(SpringExtension.class)
 @Transactional
-public class PerguntaRecursoIT extends IntTestComum {
+class PerguntaRecursoIT extends IntTestComum {
 
     @Autowired
     private PerguntaBuilder perguntaBuilder;
@@ -42,19 +38,19 @@ public class PerguntaRecursoIT extends IntTestComum {
     private PerguntaServico perguntaServico;
 
     @BeforeEach
-    public void inicializar() {
+    void inicializar() {
         perguntaRepositorio.deleteAll();
     }
 
     @Test
-    public void listarTest() throws Exception {
+    void listarTest() throws Exception {
         perguntaBuilder.construir();
         getMockMvc().perform(get( "/api/perguntas"))
                 .andExpect(status().isOk());
     }
 
     @Test
-    public void salvarTest() throws Exception {
+    void salvarTest() throws Exception {
 
         Pergunta pergunta = perguntaBuilder.construirEntidade();
 
@@ -65,7 +61,7 @@ public class PerguntaRecursoIT extends IntTestComum {
     }
 
     @Test
-    public void salvarTestTituloNull() throws Exception {
+    void salvarTestTituloNull() throws Exception {
 
         Pergunta pergunta = perguntaBuilder.construirEntidade();
         pergunta.setTitulo(null);
@@ -79,7 +75,7 @@ public class PerguntaRecursoIT extends IntTestComum {
     }
 
     @Test
-    public void salvarTestObrigatoriedadeNull() throws Exception {
+    void salvarTestObrigatoriedadeNull() throws Exception {
 
         Pergunta pergunta = perguntaBuilder.construirEntidade();
         pergunta.setObrigatorio(null);
@@ -93,7 +89,7 @@ public class PerguntaRecursoIT extends IntTestComum {
     }
 
     @Test
-    public void salvarTituloDuplicadoTest() throws Exception{
+    void salvarTituloDuplicadoTest() throws Exception{
 
         Pergunta pergunta = perguntaBuilder.construir();
         Pergunta perguntaDuplicada = perguntaBuilder.construirEntidade();
@@ -107,7 +103,7 @@ public class PerguntaRecursoIT extends IntTestComum {
     }
 
     @Test
-    public void salvarObrigatorioDuplicadoTest() throws Exception{
+    void salvarObrigatorioDuplicadoTest() throws Exception{
 
         Pergunta pergunta = perguntaBuilder.construir();
         Pergunta perguntaDuplicada = perguntaBuilder.construirEntidade();
@@ -119,7 +115,7 @@ public class PerguntaRecursoIT extends IntTestComum {
     }
 
     @Test
-    public void editarTestTitulo() throws Exception {
+    void editarTestTitulo() throws Exception {
 
         Pergunta perguntaAntiga = perguntaBuilder.construir();
         Pergunta pergunta = perguntaBuilder.construirEntidade();
@@ -133,7 +129,7 @@ public class PerguntaRecursoIT extends IntTestComum {
     }
 
     @Test
-    public void editarTestObrigatoriedade() throws Exception {
+    void editarTestObrigatoriedade() throws Exception {
 
         Pergunta perguntaAntiga = perguntaBuilder.construir();
         Pergunta pergunta = perguntaBuilder.construirEntidade();
@@ -147,7 +143,7 @@ public class PerguntaRecursoIT extends IntTestComum {
     }
 
     @Test
-    public void editarTest() throws Exception {
+    void editarTest() throws Exception {
 
         Pergunta perguntaAntiga = perguntaBuilder.construir();
         Pergunta pergunta = perguntaBuilder.construirEntidade();
@@ -162,7 +158,7 @@ public class PerguntaRecursoIT extends IntTestComum {
     }
 
     @Test
-    public void editarTestTituloNull() throws Exception {
+    void editarTestTituloNull() throws Exception {
 
         Pergunta perguntaAntiga = perguntaBuilder.construir();
         Pergunta pergunta = perguntaBuilder.construirEntidade();
@@ -177,7 +173,7 @@ public class PerguntaRecursoIT extends IntTestComum {
     }
 
     @Test
-    public void editarTestObrigatoriedadeNull() throws Exception {
+    void editarTestObrigatoriedadeNull() throws Exception {
 
         Pergunta perguntaAntiga = perguntaBuilder.construir();
         Pergunta pergunta = perguntaBuilder.construirEntidade();
@@ -192,7 +188,7 @@ public class PerguntaRecursoIT extends IntTestComum {
     }
 
     @Test
-    public void editarTituloDuplicadoTest() throws Exception {
+    void editarTituloDuplicadoTest() throws Exception {
         Pergunta perguntaAntes = perguntaBuilder.construir();
 
         Pergunta perguntaNova = perguntaBuilder.construirEntidade();
@@ -209,7 +205,7 @@ public class PerguntaRecursoIT extends IntTestComum {
     }
 
     @Test
-    public void deletarTest() throws Exception {
+    void deletarTest() throws Exception {
         Pergunta pergunta = perguntaBuilder.construir();
 
         getMockMvc().perform(delete("/api/perguntas/" + pergunta.getId()))
@@ -220,7 +216,7 @@ public class PerguntaRecursoIT extends IntTestComum {
     }
 
     @Test
-    public void deletarTestIdErrado() throws Exception {
+    void deletarTestIdErrado() throws Exception {
 
         String result = getMockMvc().perform(delete("/api/perguntas/1000" ))
                 .andExpect(status().isBadRequest()).andReturn().getResolvedException().getMessage();

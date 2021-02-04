@@ -10,7 +10,7 @@ import { InscricaoService } from '../../services/inscricao.service';
 })
 export class ListagemComponent implements OnInit {
 
-  inscricao: Inscricao[] = [];
+  inscricoes: Inscricao[] = [];
   usuario: Usuario;
   constructor(private servico: InscricaoService) { }
 
@@ -20,8 +20,8 @@ export class ListagemComponent implements OnInit {
   }
 
   private buscarInscricao(){
-    this.servico.getInscricao().subscribe((inscricao: Inscricao[]) => {
-      this.inscricao = inscricao;
+    this.servico.getInscricao().subscribe((inscricoes: Inscricao[]) => {
+      this.inscricoes = inscricoes;
     })
   }
 

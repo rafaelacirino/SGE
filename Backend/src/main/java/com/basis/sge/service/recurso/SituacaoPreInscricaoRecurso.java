@@ -1,6 +1,6 @@
 package com.basis.sge.service.recurso;
 
-import com.basis.sge.service.servico.DTO.SituacaoPreInscricaoDTO;
+import com.basis.sge.service.servico.dto.SituacaoPreInscricaoDTO;
 import com.basis.sge.service.servico.SituacaoPreInscricaoServico;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

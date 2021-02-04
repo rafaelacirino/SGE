@@ -3,8 +3,8 @@ package com.basis.sge.service.web.rest;
 import com.basis.sge.service.builder.EventoBuilder;
 import com.basis.sge.service.dominio.Evento;
 import com.basis.sge.service.repositorio.EventoRepositorio;
-import com.basis.sge.service.servico.DTO.EventoDTO;
-import com.basis.sge.service.servico.DTO.EventoPerguntaDTO;
+import com.basis.sge.service.servico.dto.EventoDTO;
+import com.basis.sge.service.servico.dto.EventoPerguntaDTO;
 import com.basis.sge.service.servico.mapper.EventoMapper;
 import com.basis.sge.service.util.IntTestComum;
 import com.basis.sge.service.util.TestUtil;
@@ -26,7 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @ExtendWith(SpringExtension.class)
 @Transactional
-public class EventoRecursoIT extends IntTestComum {
+class EventoRecursoIT extends IntTestComum {
 
     @Autowired
     private EventoBuilder eventoBuilder;
@@ -38,19 +38,19 @@ public class EventoRecursoIT extends IntTestComum {
     private EventoRepositorio eventoRepositorio;
 
     @BeforeEach
-    public void inicializar() {
+    void inicializar() {
         eventoRepositorio.deleteAll();
     }
 
     @Test
-    public void listarTest() throws Exception {
+    void listarTest() throws Exception {
         eventoBuilder.construir();
         getMockMvc().perform(get( "/api/eventos"))
                 .andExpect(status().isOk());
     }
 
     @Test
-    public void salvarTest() throws Exception {
+    void salvarTest() throws Exception {
 
         Evento evento = eventoBuilder.construirEntidade();
         EventoDTO eventoDTO = eventoMapper.toDto(evento);
@@ -66,7 +66,7 @@ public class EventoRecursoIT extends IntTestComum {
     }
 
     @Test
-    public void salvarTesteTituloNull() throws Exception {
+    void salvarTesteTituloNull() throws Exception {
 
         Evento evento = eventoBuilder.construirEntidade();
         evento.setTitulo(null);
@@ -79,7 +79,7 @@ public class EventoRecursoIT extends IntTestComum {
     }
 
     @Test
-    public void salvarTestePeriodiInicioNull() throws Exception {
+    void salvarTestePeriodiInicioNull() throws Exception {
 
         Evento evento = eventoBuilder.construirEntidade();
         evento.setPeriodoInicio(null);
@@ -92,7 +92,7 @@ public class EventoRecursoIT extends IntTestComum {
     }
 
     @Test
-    public void salvarTestePeriodiFimNull() throws Exception {
+    void salvarTestePeriodiFimNull() throws Exception {
 
         Evento evento = eventoBuilder.construirEntidade();
         evento.setPeriodoFim(null);
@@ -105,7 +105,7 @@ public class EventoRecursoIT extends IntTestComum {
     }
 
     @Test
-    public void salvarTesteTipoInscNull() throws Exception {
+    void salvarTesteTipoInscNull() throws Exception {
 
         Evento evento = eventoBuilder.construirEntidade();
         evento.setTipoInsc(null);
@@ -118,7 +118,7 @@ public class EventoRecursoIT extends IntTestComum {
     }
 
     @Test
-    public void editarTestTituloCerto() throws Exception {
+    void editarTestTituloCerto() throws Exception {
 
         Evento evento = eventoBuilder.construir();
         evento.setTitulo("Alterando o título do Evento");
@@ -130,7 +130,7 @@ public class EventoRecursoIT extends IntTestComum {
     }
 
     @Test
-    public void editarTestPeriodoInicioCerto() throws Exception {
+    void editarTestPeriodoInicioCerto() throws Exception {
 
         Evento evento = eventoBuilder.construir();
         evento.setPeriodoInicio(LocalDateTime.now());
@@ -142,7 +142,7 @@ public class EventoRecursoIT extends IntTestComum {
     }
 
     @Test
-    public void editarTestPeriodoFimCerto() throws Exception {
+    void editarTestPeriodoFimCerto() throws Exception {
 
         Evento evento = eventoBuilder.construir();
         evento.setPeriodoFim(LocalDateTime.now());
@@ -154,7 +154,7 @@ public class EventoRecursoIT extends IntTestComum {
     }
 
     @Test
-    public void editarTestTipoInscCerto() throws Exception {
+    void editarTestTipoInscCerto() throws Exception {
 
         Evento evento = eventoBuilder.construir();
         evento.setTipoInsc(false);
@@ -166,7 +166,7 @@ public class EventoRecursoIT extends IntTestComum {
     }
 
     @Test
-    public void editarDescricaoCerto() throws Exception {
+    void editarDescricaoCerto() throws Exception {
 
         Evento evento = eventoBuilder.construir();
         evento.setDescricao("Alterando a descrição do Evento");
@@ -178,7 +178,7 @@ public class EventoRecursoIT extends IntTestComum {
     }
 
     @Test
-    public void editarQtdVagasCerto() throws Exception {
+    void editarQtdVagasCerto() throws Exception {
 
         Evento evento = eventoBuilder.construir();
         evento.setQtdVagas(500);
@@ -190,7 +190,7 @@ public class EventoRecursoIT extends IntTestComum {
     }
 
     @Test
-    public void editarValorCerto() throws Exception {
+    void editarValorCerto() throws Exception {
 
         Evento evento = eventoBuilder.construir();
         evento.setValor(137.90);
@@ -202,7 +202,7 @@ public class EventoRecursoIT extends IntTestComum {
     }
 
     @Test
-    public void editarLocalCerto() throws Exception {
+    void editarLocalCerto() throws Exception {
 
         Evento evento = eventoBuilder.construir();
         evento.setLocal("Campina Grande - PB");
@@ -214,7 +214,7 @@ public class EventoRecursoIT extends IntTestComum {
     }
 
     @Test
-    public void editarTituloNull() throws Exception {
+    void editarTituloNull() throws Exception {
 
         Evento evento = eventoBuilder.construirEntidade();
         evento.setTitulo(null);
@@ -227,7 +227,7 @@ public class EventoRecursoIT extends IntTestComum {
     }
 
     @Test
-    public void editarPeriodoInicioNull() throws Exception {
+    void editarPeriodoInicioNull() throws Exception {
 
         Evento evento = eventoBuilder.construirEntidade();
         evento.setPeriodoInicio(null);
@@ -240,7 +240,7 @@ public class EventoRecursoIT extends IntTestComum {
     }
 
     @Test
-    public void editarPeriodoFimNull() throws Exception {
+    void editarPeriodoFimNull() throws Exception {
 
         Evento evento = eventoBuilder.construirEntidade();
         evento.setPeriodoFim(null);
@@ -253,7 +253,7 @@ public class EventoRecursoIT extends IntTestComum {
     }
 
     @Test
-    public void editarTipoInscNull() throws Exception {
+    void editarTipoInscNull() throws Exception {
 
         Evento evento = eventoBuilder.construirEntidade();
         evento.setTipoInsc(null);
@@ -267,7 +267,7 @@ public class EventoRecursoIT extends IntTestComum {
 
 
     @Test
-    public void editarTipoEventoNull() throws Exception {
+    void editarTipoEventoNull() throws Exception {
 
         Evento evento = eventoBuilder.construirEntidade();
         evento.setTipoEvento(null);
@@ -281,7 +281,7 @@ public class EventoRecursoIT extends IntTestComum {
 
 
     @Test
-    public void deletarTest() throws Exception {
+    void deletarTest() throws Exception {
 
         Evento evento = eventoBuilder.construir();
 
@@ -290,7 +290,7 @@ public class EventoRecursoIT extends IntTestComum {
     }
 
     @Test
-    public void deletarTestIdErrado() throws Exception{
+    void deletarTestIdErrado() throws Exception{
 
         Evento evento = eventoBuilder.construir();
         evento.setId(500);

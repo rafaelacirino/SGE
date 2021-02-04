@@ -8,29 +8,14 @@
             <td>{{ evento.descricao }}</td>
         </div>
         <div class="atributo p-shadow-1">
-            <h3>Inicio do evento</h3>
-            <td>{{ evento.periodoInicio | date: 'dd/MM/yyy HH:mm'}}</td>
-        </div>
-        <div class="atributo p-shadow-1">
-            <h3>Fim do evento</h3>
-            <td>{{ evento.periodoFim | date: 'dd/MM/yyy HH:mm'}}</td>
-        </div>
-        <div class="atributo p-shadow-1">
             <h3>Local do evento</h3>
             <td>{{ evento.local }}</td>
         </div>
         <div class="atributo p-shadow-1">
-            <h3>Vagas</h3>
-            <td>{{ evento.qtdVagas }}</td>
-        </div>
-        <div class="atributo p-shadow-1">
-            <h3>Valor da inscrição</h3>
-            <td>{{ evento.valor | currency:"BRL"}}</td>
-        </div>
-        <div class="atributo p-shadow-1">
-            <h3>Tipo do Evento</h3>
+            <h3>Tipo do evento</h3>
             <td>{{ tipoEvento }}</td>
         </div>
+       
         <div>
             <p-table [value]="perguntas" [scrollable]="true" scrollHeight="200px">
                 

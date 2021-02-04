@@ -2,7 +2,7 @@ package com.basis.sge.service.builder;
 
 import com.basis.sge.service.dominio.Evento;
 import com.basis.sge.service.dominio.EventoPergunta;
-import com.basis.sge.service.servico.DTO.EventoDTO;
+import com.basis.sge.service.servico.dto.EventoDTO;
 import com.basis.sge.service.servico.EventoServico;
 import com.basis.sge.service.servico.mapper.EventoMapper;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -141,8 +141,7 @@ export class FormularioComponent implements OnInit {
     }
     this.perguntaService.salvarPergunta(pergunta).subscribe(
       pergunta => {
-        alert('Pergunta salva')    
-        console.log(pergunta)
+        alert('Pergunta salva')  
         this.adicionarPergunta = false  
       }, (erro : HttpErrorResponse) => {
         alert(erro.error.message)
