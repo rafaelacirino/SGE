@@ -1,7 +1,9 @@
 import { EventEmitter, Output, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { Component, Input, OnInit } from '@angular/core';
 import { ConfirmationService } from 'primeng';
+import { Inscricao } from 'src/app/dominios/Inscricao';
 import { Usuario } from 'src/app/dominios/Usuario';
+import { InscricaoService } from 'src/app/modulos/inscricao/services/inscricao.service';
 import { UsuarioService } from '../../services/usuario.service';
 
 @Component({
@@ -15,20 +17,23 @@ export class ListagemComponent implements OnInit {
   usuarios: Usuario[] = [];
   admin = false;
   display: boolean = false;
+  eventos: Inscricao[] =[]
 
   
 
 
   constructor(
     public servico: UsuarioService,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    public servicoInscricao: InscricaoService
   ) { }
 
   ngOnInit(): void {
 
     this.buscarUsuarios();
-
     this.usuario = JSON.parse(localStorage.getItem('usuario'));
+    this.buscarEventos();
+    console.log(this.eventos)
 
   }
   private buscarUsuarios(){
@@ -36,7 +41,8 @@ export class ListagemComponent implements OnInit {
     this.servico.getUsuarios()
       .subscribe((usuarios: Usuario[]) => {
         this.usuarios = usuarios;
-      });
+      },
+      err => alert(err));
   
     }
 
@@ -65,6 +71,12 @@ export class ListagemComponent implements OnInit {
       this.usuario = usuario
       },
       err=> alert(err))
+    }
+    
+    buscarEventos(){
+      this.servicoInscricao.getInscricaoUsuario(this.usuario.id).subscribe((eventos)=>{
+        this.eventos = eventos
+      });
     }
     
     showDialog() {

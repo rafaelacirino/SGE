@@ -25,4 +25,7 @@ export class InscricaoService {
   deletarInscricaoChave(chave: Chave): Observable<any> {
     return this.http.delete(`${this.url}/preinscricao/${chave}`);
   }
+  getInscricaoUsuario(id : number): Observable<Inscricao[]>{
+    return this.http.get<Inscricao[]>(`${this.url}/preinscricao/inscricoes/${id}`)
+  }
 }
