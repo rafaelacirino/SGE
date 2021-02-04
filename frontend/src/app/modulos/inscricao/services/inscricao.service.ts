@@ -17,6 +17,9 @@ export class InscricaoService {
     return this.http.get<Inscricao[]>(`${this.url}/preinscricao`)
   }
 
+  getInscricoesPorIdEvento(id: number): Observable<Inscricao[]>{
+    return this.http.get<Inscricao[]>(`${this.url}/preinscricao/inscricao/${id}`)
+  }
 
   salvarInscricao(inscricao: Inscricao): Observable<Inscricao>{
     return this.http.post<Inscricao>(`${this.url}/preinscricao`, inscricao)
