@@ -4,9 +4,12 @@
         <tr>
             <td>{{pergunta.titulo}}</td>
             <td>
-                <textarea [rows]="7" [cols]="40" [(ngModel)]="pergunta.resposta" pInputTextarea></textarea>
+                <textarea [rows]="7" [cols]="40" [(ngModel)]="pergunta.resposta" *ngIf = "pergunta.obrigatorio" placeholder = 'Resposta Obrigatoria' pInputTextarea></textarea>
+                <textarea [rows]="7" [cols]="40" [(ngModel)]="pergunta.resposta" *ngIf = "!pergunta.obrigatorio" placeholder = 'Resposta Não Obrigatoria' pInputTextarea></textarea>
             </td>
         </tr>
+
+
     </ng-template>
 </p-table>
 <button (click)="salvarResposta()"  pButton type="button" class="botao">Inscreva-se</button>

@@ -100,7 +100,7 @@
                 <constraints nullable="false"/>
             </column>
             <column name="resposta" type="text" remarks="Criacao da coluna resposta">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
             </column>
         </createTable>
 

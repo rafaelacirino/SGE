@@ -88,6 +88,7 @@ export class FormularioComponent implements OnInit {
 
   buscarPerguntaDoEvento(id: number){
     this.perguntaServico.getPergunta(id).subscribe((pergunta: Perguntas) =>{
+
       this.perguntas.push(pergunta)
     })
   }
