@@ -64,7 +64,6 @@ export class ListagemComponent implements OnInit {
   }
 
   fecharDialog(usuarioSalvo: Usuario) {
-    console.log(usuarioSalvo);
     this.display = false;
     this.buscarEventos();
   }
