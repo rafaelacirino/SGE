@@ -2,7 +2,7 @@ package com.basis.sge.service.servico;
 
 import com.basis.sge.service.dominio.Pergunta;
 import com.basis.sge.service.repositorio.PerguntaRepositorio;
-import com.basis.sge.service.servico.DTO.PerguntaDTO;
+import com.basis.sge.service.servico.dto.PerguntaDTO;
 import com.basis.sge.service.servico.exception.RegraNegocioException;
 import com.basis.sge.service.servico.mapper.PerguntaMapper;
 import lombok.RequiredArgsConstructor;
@@ -55,10 +55,6 @@ public class PerguntaServico {
         Pergunta pergunta = perguntaRepositorio.findById(perguntaDto.getId())
                 .orElseThrow(()-> new RegraNegocioException("Pergunta não encontrada"));
 
-        if(perguntaDto == null){
-            throw new RegraNegocioException("A pergunta é nula");
-        }
-
         List<Pergunta> list = perguntaRepositorio.findByTitulo(perguntaDto.getTitulo());
         list.remove(pergunta);
 
@@ -66,7 +62,7 @@ public class PerguntaServico {
             throw new RegraNegocioException("A pergunta não possui titulo");
         }
 
-        else if(list.isEmpty() != true){
+        else if(!list.isEmpty()){
             throw new RegraNegocioException("Pergunta já existe");
         }
 

@@ -1,6 +1,6 @@
 package com.basis.sge.service.servico.producer;
 
-import com.basis.sge.service.servico.DTO.EmailDTO;
+import com.basis.sge.service.servico.dto.EmailDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.integration.support.MessageBuilder;

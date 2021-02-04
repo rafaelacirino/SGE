@@ -1,9 +1,8 @@
 package com.basis.sge.service.builder;
 
 import com.basis.sge.service.dominio.Evento;
-import com.basis.sge.service.dominio.InscricaoResposta;
 import com.basis.sge.service.dominio.PreInscricao;
-import com.basis.sge.service.servico.DTO.PreInscricaoDTO;
+import com.basis.sge.service.servico.dto.PreInscricaoDTO;
 import com.basis.sge.service.servico.PreInscricaoServico;
 import com.basis.sge.service.servico.mapper.PreInscricaoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Component;
 
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 @Component

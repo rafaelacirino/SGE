@@ -1,11 +1,12 @@
 package com.basis.sge.service.recurso;
 
-import com.basis.sge.service.servico.DTO.ChaveUsuarioDTO;
-import com.basis.sge.service.servico.DTO.UsuarioDTO;
+import com.basis.sge.service.servico.dto.ChaveUsuarioDTO;
+import com.basis.sge.service.servico.dto.UsuarioDTO;
 import com.basis.sge.service.servico.UsuarioServico;
 import lombok.RequiredArgsConstructor;
 
 import lombok.SneakyThrows;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -27,7 +27,7 @@ public class UsuarioRecurso {
     private final UsuarioServico usuarioServico;
 
     @GetMapping
-    private ResponseEntity<List<UsuarioDTO>> listar(){
+    public ResponseEntity<List<UsuarioDTO>> listar(){
 
         return ResponseEntity.ok( usuarioServico.listar());
     }
@@ -44,7 +44,7 @@ public class UsuarioRecurso {
     @SneakyThrows
     @PostMapping
     public ResponseEntity<UsuarioDTO>salvar(@RequestBody UsuarioDTO usuarioDTO) {
-        return ResponseEntity.created(new URI("/api/usuarios")).body(usuarioServico.salvar(usuarioDTO));
+        return ResponseEntity.status(HttpStatus.CREATED).body(usuarioServico.salvar(usuarioDTO));
     }
 
     @PutMapping

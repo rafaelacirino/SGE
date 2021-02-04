@@ -4,15 +4,12 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.io.Serializable;
@@ -27,7 +24,7 @@ public class RespostaPerguntaEvento implements Serializable {
     @Id
     @Column(name = "id_reposta")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "resposta")
-    @SequenceGenerator(name = "resposta", sequenceName = "sq_resposta", allocationSize = 1,initialValue = 1)
+    @SequenceGenerator(name = "resposta", sequenceName = "sq_resposta", allocationSize = 1)
     private Integer id;
 
     @ManyToOne

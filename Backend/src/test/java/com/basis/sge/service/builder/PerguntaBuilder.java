@@ -1,7 +1,7 @@
 package com.basis.sge.service.builder;
 
 import com.basis.sge.service.dominio.Pergunta;
-import com.basis.sge.service.servico.DTO.PerguntaDTO;
+import com.basis.sge.service.servico.dto.PerguntaDTO;
 import com.basis.sge.service.servico.PerguntaServico;
 import com.basis.sge.service.servico.mapper.PerguntaMapper;
 import org.springframework.beans.factory.annotation.Autowired;
