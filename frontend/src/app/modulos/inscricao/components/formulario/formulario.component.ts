@@ -10,6 +10,8 @@ import { PerguntaService } from 'src/app/modulos/pergunta/servicos/pergunta.serv
 import { Usuario } from 'src/app/dominios/Usuario';
 import { InscricaoService } from '../../services/inscricao.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from "@angular/router"
+
 
 @Component({
   selector: 'app-formulario',
@@ -31,6 +33,7 @@ export class FormularioComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private fb: FormBuilder,
     private eventoServico: EventoService,
     private perguntaServico: PerguntaService,
@@ -52,13 +55,16 @@ export class FormularioComponent implements OnInit {
   salvarResposta(){
     this.usuario = JSON.parse(window.localStorage.getItem("usuario")); 
 
+    
+
     let cond = true;
 
     this.perguntas.forEach(pergunta => {
       console.log(pergunta.resposta)
       if (!pergunta.resposta && pergunta.obrigatorio){
         cond = false;
-        return alert ("Tá errado")
+        alert ("Você não respondeu uma pergunta obrigatoria")
+        location.reload();
       
       }
       
@@ -86,8 +92,16 @@ export class FormularioComponent implements OnInit {
         }, (erro : HttpErrorResponse) => {
           alert(erro.error.message)
         })
-        
+      setTimeout(() => {
+        this.router.navigate(['/eventos/listagem'])
+      }, 3000);
+      
+
     }
+
+  
+  
+
     
   }
 
