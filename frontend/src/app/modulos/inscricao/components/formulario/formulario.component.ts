@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Evento } from 'src/app/dominios/Evento';
 import { Inscricao } from 'src/app/dominios/Inscricao';
@@ -28,6 +28,7 @@ export class FormularioComponent implements OnInit {
   inscricaoRespostas: InscricaoResposta[] = [] 
 
 
+
   constructor(
     private route: ActivatedRoute,
     private fb: FormBuilder,
@@ -43,12 +44,24 @@ export class FormularioComponent implements OnInit {
     this.route.params.subscribe(params =>{
         this.buscarEvento(params.id)
     })
+    
   }
+
+  
 
   salvarResposta(){
     this.usuario = JSON.parse(window.localStorage.getItem("usuario")); 
 
+    let cond = true;
+
     this.perguntas.forEach(pergunta => {
+      console.log(pergunta.resposta)
+      if (!pergunta.resposta && pergunta.obrigatorio){
+        cond = false;
+        return alert ("Tá errado")
+      
+      }
+      
       this.inscricaoResposta = new InscricaoResposta
       this.inscricaoResposta.idEvento = this.evento.id
       this.inscricaoResposta.idPergunta = pergunta.id
@@ -58,20 +71,24 @@ export class FormularioComponent implements OnInit {
       this.inscricaoRespostas.push(this.inscricaoResposta)
     });
 
-    this.inscricao.idEvento = this.evento.id
-    this.inscricao.idUsuario = this.usuario.id
-    this.inscricao.idSituacaoPreInscricao = 1
-    this.inscricaoRespostas.forEach(resposta => {
-      this.inscricao.inscricaoRespostas.push(resposta)
-    });
+    if (cond){
 
+      this.inscricao.idEvento = this.evento.id
+      this.inscricao.idUsuario = this.usuario.id
+      this.inscricao.idSituacaoPreInscricao = 1
+      this.inscricaoRespostas.forEach(resposta => {
+        this.inscricao.inscricaoRespostas.push(resposta)
+      });
 
-    this.inscricaoServico.salvarInscricao(this.inscricao).subscribe(
-      inscricao => {
-        alert('Inscrição salva')    
-      }, (erro : HttpErrorResponse) => {
-        alert(erro.error.message)
-      })
+      this.inscricaoServico.salvarInscricao(this.inscricao).subscribe(
+        inscricao => {
+          alert('Inscrição salva')    
+        }, (erro : HttpErrorResponse) => {
+          alert(erro.error.message)
+        })
+        
+    }
+    
   }
 
   buscarEvento(id: number){
