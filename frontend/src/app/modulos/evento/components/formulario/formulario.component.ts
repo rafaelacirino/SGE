@@ -118,6 +118,10 @@ export class FormularioComponent implements OnInit {
       }
     )
   }
+  setTimeout(() => {
+    this.router.navigate(['/eventos/listagem'])
+  }, 1500)
+
   }
 
   buscarEvento(id: number) {

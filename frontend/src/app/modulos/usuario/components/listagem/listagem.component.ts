@@ -42,12 +42,18 @@ export class ListagemComponent implements OnInit {
     }
 
     deletarUsuario(id: number) {
-      this.servico.deletarUsuario(id)
+      if (id == 1){
+        alert ("Admin não pode ser excluido")
+      }
+
+      if (id != 1){
+        this.servico.deletarUsuario(id)
         .subscribe(() => {
           alert('Usuário deletado');
           this.buscarUsuarios();
         },
         err => alert(err));
+      }   
     }
 
     deletarUsuarioLogado(id: number) {

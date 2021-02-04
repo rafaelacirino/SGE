@@ -94,9 +94,8 @@ export class FormularioComponent implements OnInit {
         })
       setTimeout(() => {
         this.router.navigate(['/eventos/listagem'])
-      }, 3000);
+      }, 1500);
       
-
     }
 
   
