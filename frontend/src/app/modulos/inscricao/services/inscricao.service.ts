@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Chave } from 'src/app/dominios/Chave';
 import { Inscricao } from 'src/app/dominios/Inscricao';
+import { ListagemInscricoes } from 'src/app/dominios/ListagemInscricoes';
 import { environment } from 'src/environments/environment';
 
 @Injectable()
@@ -17,12 +18,20 @@ export class InscricaoService {
     return this.http.get<Inscricao[]>(`${this.url}/preinscricao`)
   }
 
-  getInscricoesPorIdEvento(id: number): Observable<Inscricao[]>{
-    return this.http.get<Inscricao[]>(`${this.url}/preinscricao/inscricao/${id}`)
+  getInscricaoPorId(id: number): Observable<Inscricao>{
+    return this.http.get<Inscricao>(`${this.url}/preinscricao/${id}`)
+  }
+
+  getInscricoesPorIdEvento(id: number): Observable<ListagemInscricoes[]>{
+    return this.http.get<ListagemInscricoes[]>(`${this.url}/preinscricao/eventoinscricoes/${id}`)
   }
 
   salvarInscricao(inscricao: Inscricao): Observable<Inscricao>{
     return this.http.post<Inscricao>(`${this.url}/preinscricao`, inscricao)
+  }
+
+  editarInscricao(inscricao: Inscricao): Observable<Inscricao>{
+    return this.http.put<Inscricao>(`${this.url}/preinscricao`, inscricao)
   }
 
   deletarInscricaoChave(chave: Chave): Observable<any> {
