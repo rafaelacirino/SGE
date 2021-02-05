@@ -175,7 +175,7 @@ public class UsuarioServico {
 
 
         //EXCEPTION CPF INVALIDO
-        if (usuarioDTO.getCpf().length() != 11){
+        if (usuarioDTO.getCpf().length() != 14){
             throw new RegraNegocioException("CPF invalido");
         }
 
@@ -250,7 +250,7 @@ public class UsuarioServico {
 
 
         // EXCEPTION CPF INVALIDO
-        if (usuarioDTO.getCpf().length() != 11){
+        if (usuarioDTO.getCpf().length() != 14){
             throw new RegraNegocioException("CPF invalido");
         }
 

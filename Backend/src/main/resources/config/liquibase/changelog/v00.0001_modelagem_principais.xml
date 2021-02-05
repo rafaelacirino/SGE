@@ -12,7 +12,7 @@
             <column name="chave_unica" type="VARCHAR(255)" remarks="Criacao da coluna chave_unica" >
                 <constraints nullable="false"/>
             </column>
-            <column name="cpf" type="VARCHAR(11)" remarks="Criacao da coluna cpf" >
+            <column name="cpf" type="VARCHAR(14)" remarks="Criacao da coluna cpf" >
                 <constraints nullable="false" unique="true"/>
             </column>
             <column name="nome" type="VARCHAR(255)" remarks="Criacao da coluna nome" >
