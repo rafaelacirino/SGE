@@ -4,6 +4,7 @@ import com.basis.sge.service.servico.dto.CancelarInscricaoDTO;
 import com.basis.sge.service.servico.dto.ListagemInscricoesDTO;
 import com.basis.sge.service.servico.dto.PreInscricaoDTO;
 import com.basis.sge.service.servico.PreInscricaoServico;
+import com.basis.sge.service.servico.dto.PreinscricaoUsuarioDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -64,8 +65,9 @@ public class PreInscricaoRecurso {
     }
 
     @GetMapping("/usuarioinscricoes/{id}")
-    public ResponseEntity<List<PreInscricaoDTO>> buscarPreInscricaoPorUsuario(@PathVariable Integer id){
+    public ResponseEntity<List<PreinscricaoUsuarioDTO>> buscarPreInscricaoPorUsuario(@PathVariable Integer id){
         return ResponseEntity.ok(preInscricaoServico.buscarPreinscricaoPorIdUsuario(id));
     }
+
 
 }
