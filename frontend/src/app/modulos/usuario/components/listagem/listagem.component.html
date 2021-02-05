@@ -64,23 +64,23 @@
 
 <div class="p-d-flex" >
   
-    <div >
-        <p-card styleClass ="preinsc-container" class="ui-card-container" header="Suas Inscrições">
+    <div *ngFor="let preinsc of eventos" >
+        <p-card class="ui-card-container" header="Suas Inscrições">
             
-            <div  >
+            <div >
                 <p-card styleClass =insc header="inscricao" >
                     <p> <i class="pi pi-pi-ticket"></i>
-                         Descrição:  </p>
+                         Descrição: {{preinsc.descricao}} </p>
 
                     <p> <i class="pi pi-check-square "></i>
-                         Situação: Aceito</p>
+                         Situação: {{preinsc.situacao}}</p>
                     
                     <p> <i class="pi pi-calendar" styleClass="pisize"></i>
-                         Inicio: 12/12/2012
+                         Inicio: {{preinsc.periodoInicio}}
                     </p>
 
                     <p> <i class="pi pi-calendar" styleClass="pisize"></i>
-                        Fim: 12/12/2012
+                        Fim: {{preinsc.periodoFim}}
                    </p>
                   
                   </p-card>
