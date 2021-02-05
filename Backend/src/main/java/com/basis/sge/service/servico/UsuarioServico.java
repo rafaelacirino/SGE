@@ -108,7 +108,7 @@ public class UsuarioServico {
 
         EmailDTO emailDTO = new EmailDTO();
         emailDTO.setAssunto("Cadastro SGE");
-        emailDTO.setCorpo("Parabéns você se cadastrou no SGE com SUCESSO! Sua chave e " + chave +".");
+        emailDTO.setCorpo("Parabéns você se cadastrou no SGE com SUCESSO! Sua chave é " + chave);
         emailDTO.setDestinatario(email);
         emailDTO.setCopias(new ArrayList<>());
         emailDTO.getCopias().add(emailDTO.getDestinatario());
