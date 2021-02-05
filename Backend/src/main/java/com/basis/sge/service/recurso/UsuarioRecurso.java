@@ -1,6 +1,7 @@
 package com.basis.sge.service.recurso;
 
 import com.basis.sge.service.servico.dto.ChaveUsuarioDTO;
+import com.basis.sge.service.servico.dto.PreinscricaoUsuarioDTO;
 import com.basis.sge.service.servico.dto.UsuarioDTO;
 import com.basis.sge.service.servico.UsuarioServico;
 import lombok.RequiredArgsConstructor;
@@ -36,6 +37,10 @@ public class UsuarioRecurso {
     public ResponseEntity<UsuarioDTO>obterPorID(@PathVariable Integer id){
         return ResponseEntity.ok(usuarioServico.obterPorID(id));
     }
+    @GetMapping("/preinscricao/{id}")
+    public ResponseEntity<List<PreinscricaoUsuarioDTO>> obterEventos (@PathVariable Integer id){
+        return ResponseEntity.ok(usuarioServico.obterEventos(id));
+    }
 
     @PostMapping("/login")
     public ResponseEntity<UsuarioDTO>obterPorChave(@RequestBody ChaveUsuarioDTO chaveUsuarioDTO){
@@ -57,4 +62,6 @@ public class UsuarioRecurso {
         usuarioServico.remover(id);
         return ResponseEntity.ok().build();
     }
+
+
 }
