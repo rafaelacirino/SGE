@@ -1,11 +1,11 @@
 package com.basis.sge.service.servico.mapper;
 
 import com.basis.sge.service.dominio.InscricaoResposta;
-import com.basis.sge.service.servico.DTO.InscricaoRespostaDTO;
+import com.basis.sge.service.servico.dto.InscricaoRespostaDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(componentModel = "spring", uses = {})
+@Mapper(componentModel = "spring")
 public interface IncricaoRespostaMapper extends EntityMapper<InscricaoRespostaDTO, InscricaoResposta>{
 
     @Override

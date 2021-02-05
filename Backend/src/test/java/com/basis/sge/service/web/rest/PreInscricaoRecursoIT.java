@@ -2,30 +2,24 @@ package com.basis.sge.service.web.rest;
 
 import com.basis.sge.service.builder.PreInscricaoBuilder;
 import com.basis.sge.service.builder.SituacaoPreInscricaoBuilder;
-import com.basis.sge.service.builder.UsuarioBuilder;
 import com.basis.sge.service.dominio.PreInscricao;
 import com.basis.sge.service.dominio.SituacaoPreInscricao;
 import com.basis.sge.service.dominio.Usuario;
 import com.basis.sge.service.repositorio.PreInscricaoRepositorio;
 import com.basis.sge.service.repositorio.UsuarioRepositorio;
-import com.basis.sge.service.servico.DTO.CancelarInscricaoDTO;
-import com.basis.sge.service.servico.DTO.InscricaoRespostaDTO;
-import com.basis.sge.service.servico.DTO.PreInscricaoDTO;
-import com.basis.sge.service.servico.UsuarioServico;
+import com.basis.sge.service.servico.dto.CancelarInscricaoDTO;
+import com.basis.sge.service.servico.dto.InscricaoRespostaDTO;
+import com.basis.sge.service.servico.dto.PreInscricaoDTO;
 import com.basis.sge.service.servico.mapper.PreInscricaoMapper;
 import com.basis.sge.service.util.IntTestComum;
 import com.basis.sge.service.util.TestUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.IOException;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @ExtendWith(SpringExtension.class)
 @Transactional
-public class PreInscricaoRecursoIT extends IntTestComum {
+class PreInscricaoRecursoIT extends IntTestComum {
 
     @Autowired
     private PreInscricaoBuilder preInscricaoBuilder;
@@ -55,19 +49,19 @@ public class PreInscricaoRecursoIT extends IntTestComum {
     private SituacaoPreInscricaoBuilder situacaoPreInscricaoBuilder;
 
     @BeforeEach
-    public void inicializar() {
+    void inicializar() {
         preInscricaoRepositorio.deleteAll();
     }
 
     @Test
-    public void listarTest() throws Exception {
+    void listarTest() throws Exception {
         preInscricaoBuilder.construir();
         getMockMvc().perform(get( "/api/preinscricao"))
                 .andExpect(status().isOk());
     }
 
     @Test
-    public void salvarTest() throws Exception {
+    void salvarTest() throws Exception {
 
         PreInscricao preInscricao = preInscricaoBuilder.construirEntidade();
         PreInscricaoDTO preInscricaoDTO = preInscricaoMapper.toDto(preInscricao);
@@ -82,7 +76,7 @@ public class PreInscricaoRecursoIT extends IntTestComum {
     }
 
     @Test
-    public void editarTest() throws Exception {
+    void editarTest() throws Exception {
         PreInscricao preInscricao = preInscricaoBuilder.construir();
         SituacaoPreInscricao situacaoPreInscricao = situacaoPreInscricaoBuilder.construir();
         preInscricao.setSituacaoPreInscricao(situacaoPreInscricao);
@@ -94,7 +88,7 @@ public class PreInscricaoRecursoIT extends IntTestComum {
     }
 
     @Test
-    public void cancelarTest() throws Exception {
+    void cancelarTest() throws Exception {
         PreInscricao preInscricao = preInscricaoBuilder.construir();
 
         Usuario usuario = usuarioRepositorio.findById(preInscricao.getUsuario().getId()).get();
@@ -109,7 +103,7 @@ public class PreInscricaoRecursoIT extends IntTestComum {
     }
 
     @Test
-    public void cancelarComChaveErradaTest() throws Exception {
+    void cancelarComChaveErradaTest() throws Exception {
         PreInscricao preInscricao = preInscricaoBuilder.construir();
 
         CancelarInscricaoDTO cancelarInscricaoDTO = new CancelarInscricaoDTO();
@@ -123,7 +117,7 @@ public class PreInscricaoRecursoIT extends IntTestComum {
     }
 
     @Test
-    public void deletarTest() throws Exception {
+    void deletarTest() throws Exception {
         PreInscricao preInscricao = preInscricaoBuilder.construir();
 
         getMockMvc().perform(delete("/api/preinscricao/" + preInscricao.getId()))

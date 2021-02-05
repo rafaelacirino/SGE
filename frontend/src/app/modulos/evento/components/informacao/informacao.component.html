@@ -1,0 +1,48 @@
+<app-card [titulo]="evento.titulo" styleClass="informacao-evento">
+   <table class="table">
+    <tbody>
+      <tr>
+        <div class="informacao-eventos ">
+        <div class="atributo p-shadow-1">
+            <h3>Descrição</h3>
+            <td>{{ evento.descricao }}</td>
+        </div>
+        <div class="atributo p-shadow-1">
+            <h3>Local do evento</h3>
+            <td>{{ evento.local }}</td>
+        </div>
+        <div class="atributo p-shadow-1">
+            <h3>Tipo do evento</h3>
+            <td>{{ tipoEvento }}</td>
+        </div>
+       
+        <div>
+            <p-table [value]="perguntas" [scrollable]="true" scrollHeight="200px">
+                
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Perguntas do evento</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-pergunta>
+                    <tr>
+                        <td>{{pergunta.titulo}}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+        </div>
+      </tr>
+      <tr>
+    </tbody>
+  </table>
+  
+    <div class="p-d-flex p-jc-left">
+    <p-button  label="Inscrições" icon="pi pi-check" styleClass="p-button-warning" [routerLink]="['/inscricao/listagem' , evento.id ]"></p-button>
+    </div>
+  <div class="p-d-flex p-jc-end">
+    <button  pButton type="button" icon="pi pi-pencil" [routerLink]="['/eventos/formulario' , evento.id ]"></button>
+    <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+    <button  pButton type="button" icon="pi pi-trash" (click)="confirm(evento.id)"></button>
+  </div>
+</app-card>

@@ -1,26 +1,24 @@
-<app-card class="cadastro-usuario">
 <br>
 <br>
 <div class="box">
-<form [formGroup]="formUsuario" novalidate>
-    
-    <div  class="p-grid p-dir-col">
-    
-        <input class="input"type="text"  [(ngModel)]="usuario.nome" placeholder="Nome Completo:" formControlName="nome" pInputText/>
-    
-        <div *ngIf="formUsuario.get('nome').invalid">Nome inválido</div>
-    
-        <input class="input" type="text" maxlength="11" minlength="11" [(ngModel)]="usuario.cpf" placeholder="CPF:" formControlName="cpf" pInputText/>
-    
-        <input class="input" type="email" [(ngModel)]="usuario.email" placeholder="Email:" formControlName="email" pInputText/>
-    
-        <input class="input" type="date" [(ngModel)]="usuario.dataNascimento" placeholder="Data de Nascimento" formControlName="dataNascimento" pInputText/>
+    <form [formGroup]="formUsuario" novalidate>        
+        
+        <div  class="p-grid p-dir-col">
+        
+            <input class="input"type="text"  [(ngModel)]="usuario.nome" placeholder="Nome Completo:" formControlName="nome" pInputText/>
+        
+            <div *ngIf="formUsuario.get('nome').invalid">Nome inválido</div>
+        
+            <p-inputMask class="input" type="text"  [(ngModel)]="usuario.cpf" placeholder="CPF:" formControlName="cpf" mask="99999999999"></p-inputMask>
+        
+            <input class="input" type="email" [(ngModel)]="usuario.email" placeholder="Email:" formControlName="email" pInputText/>
+        
+            <input class="input" type="date" [(ngModel)]="usuario.dataNascimento" placeholder="Data de Nascimento" formControlName="dataNascimento" pInputText/>
 
-        <p-inputMask [(ngModel)]="usuario.telefone" placeholder="Telefone" class="input" formControlName="telefone"  mask="(99)99999-9999"></p-inputMask>
-    
+            <p-inputMask [(ngModel)]="usuario.telefone" placeholder="Telefone" class="input" formControlName="telefone"  mask="(99)99999-9999"></p-inputMask>
+        </div>
+    </form>
+    <div class="botao_cadastrar">
+        <button (click)="salvar()" pButton type="button" [label]="edicao ?'Editar' : 'Enviar' " class="ui-button-rounded"></button>
     </div>
-</form>
-
-<button (click)="salvar()" pButton type="button" [label]="edicao ?'Editar' : 'Cadastrar' " class="ui-button-rounded"></button>
 </div>
-</app-card>

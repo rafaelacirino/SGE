@@ -1,5 +1,5 @@
 import { HttpErrorResponse} from '@angular/common/http';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Usuario } from 'src/app/dominios/Usuario';
@@ -14,6 +14,10 @@ export class FormularioComponent implements OnInit {
   edicao = false
   formUsuario: FormGroup
   @Input() usuario = new Usuario();
+  logado = JSON.parse(localStorage.getItem('usuario'));
+  @Output() emitDisplay : EventEmitter<boolean> = new EventEmitter
+  @Output() emitEdicao : EventEmitter<Usuario> = new EventEmitter
+
 
   constructor(
     private fb: FormBuilder,
@@ -24,7 +28,10 @@ export class FormularioComponent implements OnInit {
   
 
   ngOnInit(): void {
-
+    if(this.logado){
+      this.usuario = this.logado
+      this.edicao = true
+    }
     this.route.params.subscribe(params =>{
       if (params.id){
         this.edicao = true;
@@ -36,7 +43,7 @@ export class FormularioComponent implements OnInit {
 
     this.formUsuario = this.fb.group({
       nome: ['',Validators.minLength(3)],
-      cpf: ['', [Validators.maxLength(11), Validators.minLength(11)]],
+      cpf: '', 
       email: ['', Validators.email],
       telefone: '',
       dataNascimento: ''
@@ -62,7 +69,8 @@ export class FormularioComponent implements OnInit {
           alert('Usuário Editado')
         }, (erro: HttpErrorResponse) => {
           alert(erro.error.message);
-        });
+        })
+        this.emitEdicao.emit(this.usuario);
       } else {
       this.usuarioService.salvarUsuario(this.usuario)
         .subscribe(usuario => {

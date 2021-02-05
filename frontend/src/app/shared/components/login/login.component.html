@@ -2,18 +2,22 @@
     <div class="p-col-6">
         <div styleClass="cadastro_container">
             <div class="cadastrar">
-                <p-card styleClass="login" header="Login">
-                <br>
-                <br> 
-                <i class="pi pi-key"></i><input [(ngModel)]="chaveInput" type="text" pInputText placeholder="Insira sua chave de inscrição" />
-                <br>
-                <br>
-                <button pButton (click)="logarUsuario(chaveInput)" type="button" label="Entrar" class="ui-button-rounded" styleClass="loginbutton" ></button>
-                <button pButton type="button" (click)="showDialog()" label="Cadastre-se" class="ui-button-rounded" styleClass="loginbutton" ></button> 
+                <p-card styleClass="login" header="Não está cadastrado?">  
+                    <button pButton type="button" (click)="showDialog()" label="Cadastre-se" class="ui-button-rounded" styleClass="loginbutton" ></button>                    
                     <p-dialog header="Cadastro de Usuários" [(visible)]="display">
                         <app-formulario></app-formulario>
-                    </p-dialog> 
-                </p-card> 
+                     </p-dialog>
+                </p-card>
+            </div>
+        </div>
+    </div>
+    <div class="p-col-6">
+        <div styleClass="login_container">
+            <div styleClass="entrar" >
+                <p-card styleClass="login" header="Login" >                    
+                    <i class="pi pi-key"></i><input [(ngModel)]="chaveInput" type="text" pInputText placeholder="Insira sua chave de inscrição" />
+                    <button pButton (click)="logarUsuario(chaveInput)" type="button" label="Entrar" class="ui-button-rounded" styleClass="loginbutton" ></button>                    
+                </p-card>
             </div>
         </div>
     </div>

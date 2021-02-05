@@ -1,7 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
+import { templateJitUrl } from '@angular/compiler';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ConfirmationService } from 'primeng';
 import { Evento } from 'src/app/dominios/Evento';
 import { EventoPergunta } from 'src/app/dominios/EventoPergunta';
@@ -35,12 +36,21 @@ export class FormularioComponent implements OnInit {
     private perguntaService: PerguntaService,
     private fbuilder: FormBuilder,
     private route: ActivatedRoute,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private router: Router  
     ) { 
       
     }
 
   ngOnInit(): void {
+
+    this.route.params.subscribe(params =>{
+      if (params.id){
+        this.edicao = true;
+        this.buscarEvento(params.id)
+      }
+      
+    })
 
     this.buscarTipoEventos()
     this.buscarPerguntas()
@@ -56,7 +66,8 @@ export class FormularioComponent implements OnInit {
       valor: '',
       local: '',
       eventoPerguntas: '',
-      pergunta: ''
+      pergunta: '',
+      obrigatorio: ''
     })
 
   }
@@ -78,6 +89,10 @@ export class FormularioComponent implements OnInit {
     this.evento.idTipoEvento = this.tipoEvento.id
     this.evento.tipoInsc = this.tipoInsc
    
+    if(this.evento.valor == null){
+      this.evento.valor = 0
+    }
+
     this.perguntaEscolhidas.forEach(pergunta => {
       this.eventoPergunta = new EventoPergunta
       this.eventoPergunta.idEvento = null
@@ -86,20 +101,51 @@ export class FormularioComponent implements OnInit {
       this.evento.perguntas.push(this.eventoPergunta)
     });
 
-    this.eventoService.salvarEvento(this.evento).subscribe(
-      evento => {
-        alert('Evento salvo')
-    }, (erro : HttpErrorResponse) => {
-      alert(erro.error.message)
-    }
+    if(this.edicao){
+      this.eventoService.editarEvento(this.evento).subscribe(
+        evento => {
+          alert('Evento editado')
+          this.router.navigate(['/eventos/listagem'])
+      }, (erro : HttpErrorResponse) => {
+        alert(erro.error.message)
+      });
+    } else {
+      this.eventoService.salvarEvento(this.evento).subscribe(
+        evento => {
+          alert('Evento salvo')
+      }, (erro : HttpErrorResponse) => {
+        alert(erro.error.message)
+      }
     )
+  }
+  setTimeout(() => {
+    this.router.navigate(['/eventos/listagem'])
+  }, 1500)
+
+  }
+
+  buscarEvento(id: number) {
+    this.eventoService.getEvento(id)
+      .subscribe((evento: Evento) => {
+        this.buscarTipoEvento(evento.idTipoEvento)
+        this.evento = evento,
+        this.tipoInsc = evento.tipoInsc
+
+        // this.evento.perguntas.forEach(perguntaEvento => {
+        //   this.buscarPerguntaPorId(perguntaEvento.idPergunta)
+        //   this.perguntaEscolhidas.push(this.pergunta)
+        // })
+        ;
+      }); 
   }
 
   salvarPergunta(pergunta: Perguntas){
-    
+    if(pergunta.obrigatorio == null){
+      pergunta.obrigatorio = false
+    }
     this.perguntaService.salvarPergunta(pergunta).subscribe(
       pergunta => {
-        alert('Pergunta salva')    
+        alert('Pergunta salva')  
         this.adicionarPergunta = false  
       }, (erro : HttpErrorResponse) => {
         alert(erro.error.message)
@@ -113,9 +159,21 @@ export class FormularioComponent implements OnInit {
     })
   }
 
+  buscarTipoEvento(id: number){
+    this.eventoService.getTipoEvento(id).subscribe(tipoEvento => 
+      this.tipoEvento = tipoEvento
+      )
+  }
+
   buscarPerguntas(){
     this.perguntaService.getPerguntas().subscribe((perguntas: Perguntas[]) =>{
       this.perguntas = perguntas
+    })
+  }
+
+  buscarPerguntaPorId(id: number){
+    this.perguntaService.getPergunta(id).subscribe((pergunta: Perguntas) =>{
+      this.pergunta = pergunta;
     })
   }
 

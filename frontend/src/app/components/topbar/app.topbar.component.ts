@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { AppComponent } from '../../app.component';
 import { Authentication, User } from '@nuvem/angular-base';
-import { UsuarioService } from 'src/app/modulos/usuario/services/usuario.service';
 import { LoginComponent } from 'src/app/shared/components/login/login.component';
 import { Usuario } from 'src/app/dominios/Usuario';
 
@@ -14,8 +13,8 @@ export class AppTopbarComponent {
     user = new Usuario()
     constructor(
         public app: AppComponent,
-         private readonly _authentication: Authentication<User>,
-         private loginComponent: LoginComponent) {
+        private readonly _authentication: Authentication<User>,
+        private loginComponent: LoginComponent) {
     }
 
     buscarNome(){
@@ -34,7 +33,6 @@ export class AppTopbarComponent {
 
 
     logout(){
-        
         this.loginComponent.logout()
         
     }

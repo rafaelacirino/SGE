@@ -2,7 +2,7 @@ package com.basis.sge.service.builder;
 
 
 import com.basis.sge.service.dominio.SituacaoPreInscricao;
-import com.basis.sge.service.servico.DTO.SituacaoPreInscricaoDTO;
+import com.basis.sge.service.servico.dto.SituacaoPreInscricaoDTO;
 import com.basis.sge.service.servico.SituacaoPreInscricaoServico;
 import com.basis.sge.service.servico.mapper.SituacaoPreInscricaoMapper;
 import org.springframework.beans.factory.annotation.Autowired;

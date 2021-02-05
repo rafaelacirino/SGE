@@ -1,14 +1,14 @@
-<app-card [titulo]="'Lista de usuários'" *ngIf="usuario.admin" >    
+<app-card [titulo]="'Lista de usuários'" *ngIf="usuario.admin" class="listagem-usuario-admin">    
 
     <div style Class="tabela">
         <p-table [value]="usuarios">
         <ng-template pTemplate="header">
             <tr>
                 <th>Nome</th>
-                <th>CPF</th>
+                <th id="cpf">CPF</th>
                 <th>Email</th>
-                <th>Telefone</th>
-                <th>Data de Nascimento</th>
+                <th id="telefone">Telefone</th>
+                <th id="nascimento">Nascimento</th>
                 <th style="width: 80px;">Ações</th>
             </tr>
         </ng-template>
@@ -32,7 +32,7 @@
 </app-card>
 
 
-<app-card *ngIf="!usuario.admin">
+<div *ngIf="!usuario.admin">
 <h1>Seu Perfil</h1>
 
 <div class="p-d-flex p-jc-start">
@@ -49,10 +49,15 @@
              CPF: {{usuario.cpf}}</p>
         
         <p> <i class="pi pi-calendar" styleClass="pisize"></i>
-             Data de nascimento: {{usuario.dataNascimento}}</p>
+             Data de nascimento: {{usuario.dataNascimento | date: 'dd/MM/yyyy'}}</p>
       
-        <p></p>
+            <button (click)="confirm(usuario.id)" class="p-ml-2" pButton type="button" icon="pi pi-trash"></button>
+            <button   (click)="showDialog()"  pButton type="button" icon="pi pi-pencil"></button>
       </p-card>
+      <p-dialog header="Editar Usuario" [(visible)]="display">
+        <app-formulario (emitEdicao) = "receberEdicao($event)"></app-formulario>
+     </p-dialog>
+     <p-confirmDialog header="Remover conta" icon="pi pi-exclamation-triangle"></p-confirmDialog>
 </div>
 
 
@@ -60,22 +65,22 @@
 <div class="p-d-flex" >
   
     <div >
-        <p-card styleClass ="preinsc-container" class="ui-card-container" header="Suas Inscrições">
+        <p-card class="ui-card-container" header="Suas Inscrições">
             
-            <div  >
-                <p-card styleClass =insc header="Evento" >
+            <div *ngFor="let preinsc of eventos" >
+                <p-card styleClass =insc header="inscricao" >
                     <p> <i class="pi pi-pi-ticket"></i>
-                         Descrição: Um evento feito no SGE</p>
+                         Descrição: {{preinsc.descricao}} </p>
 
                     <p> <i class="pi pi-check-square "></i>
-                         Situação: Aceito</p>
+                         Situação: {{preinsc.situacao}}</p>
                     
                     <p> <i class="pi pi-calendar" styleClass="pisize"></i>
-                         Inicio: 12/12/2012
+                         Inicio: {{preinsc.periodoInicio}}
                     </p>
 
                     <p> <i class="pi pi-calendar" styleClass="pisize"></i>
-                        Fim: 12/12/2012
+                        Fim: {{preinsc.periodoFim}}
                    </p>
                   
                   </p-card>
@@ -86,6 +91,6 @@
         </p-card>
     </div>
 </div>
-</app-card>
+</div>
 
 

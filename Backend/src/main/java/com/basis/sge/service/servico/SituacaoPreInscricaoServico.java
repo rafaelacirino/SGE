@@ -2,7 +2,7 @@ package com.basis.sge.service.servico;
 
 import com.basis.sge.service.dominio.SituacaoPreInscricao;
 import com.basis.sge.service.repositorio.SituacaoPreInscricaoRepositorio;
-import com.basis.sge.service.servico.DTO.SituacaoPreInscricaoDTO;
+import com.basis.sge.service.servico.dto.SituacaoPreInscricaoDTO;
 import com.basis.sge.service.servico.mapper.SituacaoPreInscricaoMapper;
 import com.basis.sge.service.servico.exception.RegraNegocioException;
 import lombok.RequiredArgsConstructor;
@@ -19,8 +19,7 @@ public class SituacaoPreInscricaoServico {
 
     public List<SituacaoPreInscricaoDTO> listar(){
         List<SituacaoPreInscricao> situacaoPreInscricaos = situacaoPreInscricaoRepositorio.findAll();
-        List<SituacaoPreInscricaoDTO> situacaoPreInscricaoDTO = situacaoPreInscricaoMapper.toDto(situacaoPreInscricaos);
-        return situacaoPreInscricaoDTO;
+        return situacaoPreInscricaoMapper.toDto(situacaoPreInscricaos);
     }
 
     public SituacaoPreInscricaoDTO salvar(SituacaoPreInscricaoDTO situacaoPreInscricaoDTO){

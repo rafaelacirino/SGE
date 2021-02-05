@@ -1,12 +1,18 @@
 package com.basis.sge.service.servico;
 
+import com.basis.sge.service.dominio.Evento;
+import com.basis.sge.service.dominio.PreInscricao;
 import com.basis.sge.service.dominio.Usuario;
+import com.basis.sge.service.repositorio.EventoRepositorio;
 import com.basis.sge.service.repositorio.PreInscricaoRepositorio;
 import com.basis.sge.service.repositorio.UsuarioRepositorio;
-import com.basis.sge.service.servico.DTO.ChaveUsuarioDTO;
-import com.basis.sge.service.servico.DTO.EmailDTO;
-import com.basis.sge.service.servico.DTO.UsuarioDTO;
+import com.basis.sge.service.servico.dto.ChaveUsuarioDTO;
+import com.basis.sge.service.servico.dto.EmailDTO;
+import com.basis.sge.service.servico.dto.EventoDTO;
+import com.basis.sge.service.servico.dto.PreinscricaoUsuarioDTO;
+import com.basis.sge.service.servico.dto.UsuarioDTO;
 import com.basis.sge.service.servico.exception.RegraNegocioException;
+import com.basis.sge.service.servico.mapper.PreInscricaoMapper;
 import com.basis.sge.service.servico.mapper.UsuarioMapper;
 import com.basis.sge.service.servico.producer.SgeProducer;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +33,8 @@ public class UsuarioServico {
     private static final LocalDate DIA_DE_HOJE = LocalDate.now();
     private final SgeProducer sgeProducer;
     private final PreInscricaoRepositorio preInscricaoRepositorio;
+    private final PreInscricaoServico preInscricaoServico;
+    private final PreInscricaoMapper preInscricaoMapper;
 
     public List<UsuarioDTO> listar(){
         return usuarioMapper.toDto(usuarioRepositorio.findAll());
@@ -51,8 +59,8 @@ public class UsuarioServico {
         return usuarioMapper.toDto(usuario);
     }
 
-    public UsuarioDTO editar(Integer id, UsuarioDTO usuarioDTO){
-        Usuario usuario = usuarioRepositorio.save(verificarPut(id,usuarioDTO));
+    public UsuarioDTO editar(UsuarioDTO usuarioDTO){
+        Usuario usuario = usuarioRepositorio.save(verificarPut(usuarioDTO));
         criarEmailUsuarioEditado(usuario.getEmail());
         return usuarioMapper.toDto(usuario);
     }
@@ -72,12 +80,29 @@ public class UsuarioServico {
         Usuario usuario = verificarDelete(id);
         criarEmailUsuarioRemovido(usuario.getEmail());
     }
+    public List<PreInscricao> obterPreinscricao(UsuarioDTO usuarioDTO){
+        return preInscricaoRepositorio.findByUsuario(usuarioRepositorio.findById(usuarioDTO.getId()).orElseThrow(()->new RegraNegocioException("usuario não encontrado")));
+    }
+
+    public List<PreinscricaoUsuarioDTO> obterEventos(int id){
+        List<PreinscricaoUsuarioDTO> preInscricoes = new ArrayList<PreinscricaoUsuarioDTO>();
+        List<PreInscricao> inscricoes =  preInscricaoMapper.toEntity(preInscricaoServico.buscarPreinscricaoPorIdUsuario(id));
+
+        for (int i = 0; i < inscricoes.size(); i++){
+            PreinscricaoUsuarioDTO preInsc = new PreinscricaoUsuarioDTO(inscricoes.get(i).getEvento().getTitulo(),inscricoes.get(i).getEvento().getPeriodoInicio(),inscricoes.get(i).getEvento().getPeriodoFim(),inscricoes.get(i).getEvento().getDescricao(),inscricoes.get(i).getSituacaoPreInscricao().getDescricao());
+            preInscricoes.add(preInsc);
+                }
+       return preInscricoes;
+    }
+
+
+
 
     public void criarEmailCadastro(String email,String chave){
 
         EmailDTO emailDTO = new EmailDTO();
         emailDTO.setAssunto("Cadastro SGE");
-        emailDTO.setCorpo("Parabéns você se cadastrou no SGE com SUCESSO! Sua chave e " + chave +".");
+        emailDTO.setCorpo("Parabéns você se cadastrou no SGE com SUCESSO! Sua chave é " + chave);
         emailDTO.setDestinatario(email);
         emailDTO.setCopias(new ArrayList<>());
         emailDTO.getCopias().add(emailDTO.getDestinatario());
@@ -149,7 +174,7 @@ public class UsuarioServico {
 
 
         //EXCEPTION CPF INVALIDO
-        if (usuarioDTO.getCpf().length() != 11){
+        if (usuarioDTO.getCpf().length() != 14){
             throw new RegraNegocioException("CPF invalido");
         }
 
@@ -174,14 +199,14 @@ public class UsuarioServico {
     }
 
     // VERIFICAR EDIÇÃO
-    public Usuario verificarPut (Integer id,UsuarioDTO usuarioDTO){
+    public Usuario verificarPut (UsuarioDTO usuarioDTO){
 
         // VERIFICAR ID NULL
-        if( id == null){
+        if( usuarioDTO.getId() == null){
             throw new RegraNegocioException("ID Nulo");
         }
 
-        Usuario usuario = usuarioRepositorio.findById(id)
+        Usuario usuario = usuarioRepositorio.findById(usuarioDTO.getId())
                 .orElseThrow(()-> new RegraNegocioException("Usuario não existe"));
 
         //CRIA LISTAS ONDE INSTANCIAS COM O MESMO CPF OU EMAIL DO DTO, REMOVENDO O USUARIO QUE VAI SER MODIFICADO//
@@ -224,7 +249,7 @@ public class UsuarioServico {
 
 
         // EXCEPTION CPF INVALIDO
-        if (usuarioDTO.getCpf().length() != 11){
+        if (usuarioDTO.getCpf().length() != 14){
             throw new RegraNegocioException("CPF invalido");
         }
 

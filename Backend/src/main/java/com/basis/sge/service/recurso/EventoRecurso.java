@@ -1,9 +1,10 @@
 package com.basis.sge.service.recurso;
 
-import com.basis.sge.service.servico.DTO.EventoDTO;
+import com.basis.sge.service.servico.dto.EventoDTO;
 import com.basis.sge.service.servico.EventoServico;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -37,7 +37,7 @@ public class EventoRecurso {
     @SneakyThrows
     @PostMapping
     public ResponseEntity<EventoDTO> salvar(@RequestBody EventoDTO eventoDTO){
-        return ResponseEntity.created(new URI("/api/evento")).body(eventoServico.salvar(eventoDTO));
+        return ResponseEntity.status(HttpStatus.CREATED).body(eventoServico.salvar(eventoDTO));
     }
 
     @PutMapping

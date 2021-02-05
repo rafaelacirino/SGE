@@ -15,6 +15,10 @@ export class PerguntaService {
     return this.http.get<Perguntas[]>(`${this.url}/perguntas`)
   }
 
+  getPergunta(id: number): Observable<Perguntas>{
+    return this.http.get<Perguntas>(`${this.url}/perguntas/${id}`)
+  }
+
   salvarPergunta(pergunta: Perguntas): Observable<Perguntas>{
     return this.http.post<Perguntas>(`${this.url}/perguntas`, pergunta)
   }

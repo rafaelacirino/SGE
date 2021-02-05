@@ -1,6 +1,6 @@
 package com.basis.sge.service.recurso;
 
-import com.basis.sge.service.servico.DTO.TipoEventoDTO;
+import com.basis.sge.service.servico.dto.TipoEventoDTO;
 import com.basis.sge.service.servico.TipoEventoServico;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
