@@ -6,6 +6,8 @@ import com.basis.sge.service.repositorio.PreInscricaoRepositorio;
 import com.basis.sge.service.repositorio.UsuarioRepositorio;
 import com.basis.sge.service.servico.dto.ChaveUsuarioDTO;
 import com.basis.sge.service.servico.dto.EmailDTO;
+import com.basis.sge.service.servico.dto.EventoDTO;
+import com.basis.sge.service.servico.dto.PreInscricaoDTO;
 import com.basis.sge.service.servico.dto.PreinscricaoUsuarioDTO;
 import com.basis.sge.service.servico.dto.UsuarioDTO;
 import com.basis.sge.service.servico.exception.RegraNegocioException;
@@ -51,9 +53,12 @@ public class UsuarioServico {
 
     public UsuarioDTO salvar(UsuarioDTO usuarioDTO){
         usuarioDTO.setAdmin(false);
-        Usuario usuario = usuarioRepositorio.save(verificarPost(usuarioDTO));
+        Usuario usuario = verificarPost(usuarioDTO);
+
+        usuario = usuarioRepositorio.save(usuario);
         criarEmailCadastro(usuario.getEmail(),usuario.getChaveUnica());
         return usuarioMapper.toDto(usuario);
+
     }
 
     public UsuarioDTO editar(UsuarioDTO usuarioDTO){
@@ -80,20 +85,6 @@ public class UsuarioServico {
     public List<PreInscricao> obterPreinscricao(UsuarioDTO usuarioDTO){
         return preInscricaoRepositorio.findByUsuario(usuarioRepositorio.findById(usuarioDTO.getId()).orElseThrow(()->new RegraNegocioException("usuario não encontrado")));
     }
-
-    public List<PreinscricaoUsuarioDTO> obterEventos(int id){
-        List<PreinscricaoUsuarioDTO> preInscricoes = new ArrayList<PreinscricaoUsuarioDTO>();
-        List<PreInscricao> inscricoes =  preInscricaoMapper.toEntity(preInscricaoServico.buscarPreinscricaoPorIdUsuario(id));
-
-        for (int i = 0; i < inscricoes.size(); i++){
-            PreinscricaoUsuarioDTO preInsc = new PreinscricaoUsuarioDTO(inscricoes.get(i).getEvento().getTitulo(),inscricoes.get(i).getEvento().getPeriodoInicio(),inscricoes.get(i).getEvento().getPeriodoFim(),inscricoes.get(i).getEvento().getDescricao(),inscricoes.get(i).getSituacaoPreInscricao().getDescricao());
-            preInscricoes.add(preInsc);
-                }
-       return preInscricoes;
-    }
-
-
-
 
     public void criarEmailCadastro(String email,String chave){
 
