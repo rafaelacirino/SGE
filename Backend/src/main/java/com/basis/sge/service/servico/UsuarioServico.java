@@ -1,14 +1,11 @@
 package com.basis.sge.service.servico;
 
-import com.basis.sge.service.dominio.Evento;
 import com.basis.sge.service.dominio.PreInscricao;
 import com.basis.sge.service.dominio.Usuario;
-import com.basis.sge.service.repositorio.EventoRepositorio;
 import com.basis.sge.service.repositorio.PreInscricaoRepositorio;
 import com.basis.sge.service.repositorio.UsuarioRepositorio;
 import com.basis.sge.service.servico.dto.ChaveUsuarioDTO;
 import com.basis.sge.service.servico.dto.EmailDTO;
-import com.basis.sge.service.servico.dto.EventoDTO;
 import com.basis.sge.service.servico.dto.PreinscricaoUsuarioDTO;
 import com.basis.sge.service.servico.dto.UsuarioDTO;
 import com.basis.sge.service.servico.exception.RegraNegocioException;
@@ -33,7 +30,6 @@ public class UsuarioServico {
     private static final LocalDate DIA_DE_HOJE = LocalDate.now();
     private final SgeProducer sgeProducer;
     private final PreInscricaoRepositorio preInscricaoRepositorio;
-    private final EventoServico eventoServico;
     private final PreInscricaoServico preInscricaoServico;
     private final PreInscricaoMapper preInscricaoMapper;
 
