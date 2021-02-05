@@ -10,6 +10,10 @@ const routes: Routes = [
     component: ListagemComponent
   },
   {
+    path: 'listagem/:id',
+    component: ListagemComponent
+  },
+  {
     path: 'formulario',
     component: FormularioComponent
   },
@@ -17,6 +21,7 @@ const routes: Routes = [
     path: 'formulario/:id',
     component: FormularioComponent
   }
+  
 ];
 
 @NgModule({

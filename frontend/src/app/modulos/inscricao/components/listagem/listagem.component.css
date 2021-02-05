@@ -1,0 +1,16 @@
+.listagem-inscricao-admin .box-principal{
+    display: flex;
+    
+    flex-wrap: wrap;
+    background-color: rgb(167, 163, 163);
+    margin-top: 20px;
+
+}
+
+.listagem-inscricao-admin .box-principal .box{
+    background-color: blue;
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    width: 300px;
+}
