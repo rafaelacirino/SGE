@@ -19,3 +19,14 @@ body .ui-widget-overlay {
     transition: 0.5s;
     opacity: 0.6;
 }
+
+.perfil.ui-card{
+    text-align: center;
+    align-items: flex-start;
+    height: 300px;
+    width: 300px;   
+}
+button{
+    background-image: linear-gradient(#414141,#313131);
+    border-color: none;
+}
