@@ -2,6 +2,7 @@ import { EventEmitter, Output, SimpleChanges, ViewEncapsulation } from '@angular
 import { Component, Input, OnInit } from '@angular/core';
 import { ConfirmationService } from 'primeng';
 import { Inscricao } from 'src/app/dominios/Inscricao';
+import { PreinscricaoUsuario } from 'src/app/dominios/PreinscricaoUsuario';
 import { Usuario } from 'src/app/dominios/Usuario';
 import { InscricaoService } from 'src/app/modulos/inscricao/services/inscricao.service';
 import { UsuarioService } from '../../services/usuario.service';
@@ -17,7 +18,7 @@ export class ListagemComponent implements OnInit {
   usuarios: Usuario[] = [];
   admin = false;
   display: boolean = false;
-  eventos: Inscricao[] =[]
+  eventos: PreinscricaoUsuario[] =[]
 
   
 
@@ -80,9 +81,9 @@ export class ListagemComponent implements OnInit {
     }
     
     buscarEventos(){
-      this.servicoInscricao.getInscricaoUsuario(this.usuario.id).subscribe((eventos)=>{
-        this.eventos = eventos
-      });
+     this.servico.buscarPreinscricoes(this.usuario.id).subscribe((preinscricoes: PreinscricaoUsuario[]) =>{
+       this.eventos = preinscricoes
+     })
     }
     
     showDialog() {
