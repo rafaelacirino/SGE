@@ -1,25 +1,20 @@
-<div class="p-d-flex p-jc-center">
-    <p-card styleClass="home">
-        <h1>
-            Bem-vindo ao SGE
-        </h1>
-        <h3>Sua plataforma de gerenciamento de eventos, produzida pela Basis</h3>
-    </p-card>
-</div>
-
-
-<div class="p-d-flex p-jc-center" >
-    <p-card styleClass="login" header="Login" >
-    <i class="pi pi-key"></i><input [(ngModel)]="chaveInput" type="text" pInputText placeholder="Insira sua chave de inscrição" />
-    <button pButton (click)="logarUsuario(chaveInput)" type="button" label="Entrar" class="p-button-sm" styleClass="loginbutton" ></button>
-    <br>
-    Não está cadastrado?
-    <br>
-    <button pButton type="button" (click)="showDialog()" label="Cadastre-se" class="p-button-sm" styleClass="loginbutton" ></button>
-    
-
-    <p-dialog header="Title" [(visible)]="display">
-       <app-formulario></app-formulario>
-    </p-dialog>
-    </p-card>
+<div styleClass = "login" class="p-d-flex p-jc-center">
+    <div class="p-col-6">
+        <div styleClass="cadastro_container">
+            <div class="cadastrar">
+                <p-card styleClass="login" header="Login">
+                <br>
+                <br> 
+                <i class="pi pi-key"></i><input [(ngModel)]="chaveInput" type="text" pInputText placeholder="Insira sua chave de inscrição" />
+                <br>
+                <br>
+                <button pButton (click)="logarUsuario(chaveInput)" type="button" label="Entrar" class="ui-button-rounded" styleClass="loginbutton" ></button>
+                <button pButton type="button" (click)="showDialog()" label="Cadastre-se" class="ui-button-rounded" styleClass="loginbutton" ></button> 
+                    <p-dialog header="Cadastro de Usuários" [(visible)]="display">
+                        <app-formulario></app-formulario>
+                    </p-dialog> 
+                </p-card> 
+            </div>
+        </div>
+    </div>
 </div>

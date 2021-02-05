@@ -1,5 +1,5 @@
 .box{
-    background: #223333;
+    background: #C0C0C0;
     width: 450px;
     padding: 50px;
     border-radius: 10px;
@@ -17,6 +17,4 @@
 }
 .botao div{
     margin-top: 1px;
-
 }
-
