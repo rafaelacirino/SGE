@@ -20,7 +20,7 @@ public class ListagemInscricoesDTO implements Serializable {
 
     private String situacaoDescricao;
 
-    private Integer idSituação;
+    private Integer idSituacao;
 
     private List<PerguntaDTO> perguntas;
 

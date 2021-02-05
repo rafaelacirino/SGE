@@ -88,7 +88,7 @@ public class UsuarioServico {
     public List<PreinscricaoUsuarioDTO> obterEventos(int id){
         List<PreinscricaoUsuarioDTO> preInscricoes = new ArrayList<PreinscricaoUsuarioDTO>();
         List<Evento> eventos = eventoRepositorio.findAll();
-        List<PreInscricao> inscricoes =  preInscricaoMapper.toEntity(preInscricaoServico.buscarPreinscricaoPorIdEvento(id));
+        List<PreInscricao> inscricoes =  preInscricaoMapper.toEntity(preInscricaoServico.buscarPreinscricaoPorIdUsuario(id));
 
         for (int i = 0; i < eventos.size(); i++){
            for (int f = 0; f < inscricoes.size(); i++){

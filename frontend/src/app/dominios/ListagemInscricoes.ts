@@ -6,7 +6,7 @@ export class ListagemInscricoes{
     nomeUsuario: string
     emailUsuario: string
     situacaoDescricao:string
-    idSituação:number
+    idSituacao:number
     perguntas: Perguntas[] = []
     inscricoesResposta: InscricaoResposta[] = []
 

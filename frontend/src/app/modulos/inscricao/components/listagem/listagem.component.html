@@ -32,8 +32,8 @@
                     <hr>
                     <div class="botoes">
 
-                    <button pButton type="button" (click)="editarInscricaoAprovado(inscricao.id)" id="botao-aprovado" label="Aprovado"  class="p-button-outlined"></button>
-                    <button pButton type="button" (click)="editarInscricaoReprovada(inscricao.id)" id="botao-recusado" label="Recusado" class="p-button-outlined"></button>
+                    <button *ngIf="inscricao.idSituacao == 1" pButton type="button" (click)="editarInscricaoAprovado(inscricao.id)" id="botao-aprovado" label="Aprovado"  class="p-button-outlined"></button>
+                    <button *ngIf="inscricao.idSituacao == 1" pButton type="button" (click)="editarInscricaoReprovada(inscricao.id)" id="botao-recusado" label="Recusado" class="p-button-outlined"></button>
                     </div>
                 </td>
 
