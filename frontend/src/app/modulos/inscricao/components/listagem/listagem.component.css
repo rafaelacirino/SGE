@@ -27,3 +27,13 @@
     align-items: center;
     justify-content: center;
 }
+
+.listagem-inscricao-admin .botao-cancelado{
+    background-color: rgb(241, 13, 13);
+    border: none;
+    margin-bottom: 10px;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}

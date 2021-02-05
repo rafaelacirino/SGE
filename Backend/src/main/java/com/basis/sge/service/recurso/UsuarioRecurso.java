@@ -37,10 +37,6 @@ public class UsuarioRecurso {
     public ResponseEntity<UsuarioDTO>obterPorID(@PathVariable Integer id){
         return ResponseEntity.ok(usuarioServico.obterPorID(id));
     }
-    @GetMapping("/preinscricao/{id}")
-    public ResponseEntity<List<PreinscricaoUsuarioDTO>> obterEventos (@PathVariable Integer id){
-        return ResponseEntity.ok(usuarioServico.obterEventos(id));
-    }
 
     @PostMapping("/login")
     public ResponseEntity<UsuarioDTO>obterPorChave(@RequestBody ChaveUsuarioDTO chaveUsuarioDTO){

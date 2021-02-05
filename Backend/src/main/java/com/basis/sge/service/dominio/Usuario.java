@@ -2,6 +2,7 @@ package com.basis.sge.service.dominio;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -29,6 +30,7 @@ public class Usuario implements Serializable {
     @Column(name = "chave_unica")
     private String chaveUnica;
 
+    @CPF(message = "CPF inválido")
     @Column(name = "cpf")
     private String cpf;
 

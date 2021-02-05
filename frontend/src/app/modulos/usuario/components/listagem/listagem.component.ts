@@ -17,7 +17,6 @@ export class ListagemComponent implements OnInit {
   usuarios: Usuario[] = [];
   admin = false;
   display: boolean = false;
-  eventos: PreinscricaoUsuario[] =[]
 
   
 
@@ -32,8 +31,7 @@ export class ListagemComponent implements OnInit {
 
     this.buscarUsuarios();
     this.usuario = JSON.parse(localStorage.getItem('usuario'));
-    this.buscarEventos();
-    console.log(this.eventos)
+    
 
   }
   private buscarUsuarios(){
@@ -79,11 +77,7 @@ export class ListagemComponent implements OnInit {
       err=> alert(err))
     }
     
-    buscarEventos(){
-     this.servico.buscarPreinscricoes(this.usuario.id).subscribe((preinscricoes: PreinscricaoUsuario[]) =>{
-       this.eventos = preinscricoes
-     })
-    }
+    
     
     showDialog() {
       this.display = true;

@@ -3,10 +3,9 @@ import { ActivatedRoute } from '@angular/router';
 import { Evento } from 'src/app/dominios/Evento';
 import { Inscricao } from 'src/app/dominios/Inscricao';
 import { ListagemInscricoes } from 'src/app/dominios/ListagemInscricoes';
-import { Perguntas } from 'src/app/dominios/Perguntas';
+import { PreinscricaoUsuario } from 'src/app/dominios/PreinscricaoUsuario';
 import { Usuario } from 'src/app/dominios/Usuario';
 import { EventoService } from 'src/app/modulos/evento/services/evento.service';
-import { UsuarioService } from 'src/app/modulos/usuario/services/usuario.service';
 import { InscricaoService } from '../../services/inscricao.service';
 
 @Component({
@@ -17,6 +16,7 @@ import { InscricaoService } from '../../services/inscricao.service';
 export class ListagemComponent implements OnInit {
 
   inscricoes: ListagemInscricoes[] = [];
+  inscricoesUsuario: PreinscricaoUsuario[] = [];
   usuario = new Usuario;
   inscricao = new Inscricao;
   @Input() evento = new Evento
@@ -28,19 +28,41 @@ export class ListagemComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    this.route.params.subscribe(params =>{
-      this.buscarInscricoesPorEvento(params.id)
-      this.buscarEvento(params.id)
-    })
-    
-
     this.pegarUsuarioLocalStorage();
+
+    if(this.usuario.admin){
+      this.route.params.subscribe(params =>{
+        this.buscarInscricoesPorEvento(params.id)
+        this.buscarEvento(params.id)
+      })
+    }else{
+      this.buscarInscricoesPorUsuario()
+      
+    }
+    
+  }
+  buscarInscricoesPorUsuario(){
+    this.servico.getInscricoesPorIdUsuario(this.usuario.id).subscribe((inscricoes: PreinscricaoUsuario[]) => {
+      this.inscricoesUsuario = inscricoes
+    })
   }
 
   buscarInscricoesPorEvento(idEvento: number){
     this.servico.getInscricoesPorIdEvento(idEvento).subscribe((inscricoes: ListagemInscricoes[]) => {
       this.inscricoes = inscricoes
+     
     })
+  }
+
+  editarInscricaoCancelada(idInscricao: number){
+    this.servico.getInscricaoPorId(idInscricao).subscribe((inscricao: Inscricao) => {
+      inscricao.idSituacaoPreInscricao = 4
+      
+      this.servico.editarInscricao(inscricao).subscribe(() => {
+        alert("Inscrição cancelada")
+      });
+      location.reload()
+    });
   }
 
 
