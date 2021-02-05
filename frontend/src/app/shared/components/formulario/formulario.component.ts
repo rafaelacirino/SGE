@@ -43,7 +43,7 @@ export class FormularioComponent implements OnInit {
 
     this.formUsuario = this.fb.group({
       nome: ['',Validators.minLength(3)],
-      cpf: ['', ],
+      cpf: '', 
       email: ['', Validators.email],
       telefone: '',
       dataNascimento: ''
