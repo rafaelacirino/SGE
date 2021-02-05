@@ -33,7 +33,7 @@ public class UsuarioServico {
     private static final LocalDate DIA_DE_HOJE = LocalDate.now();
     private final SgeProducer sgeProducer;
     private final PreInscricaoRepositorio preInscricaoRepositorio;
-    private final EventoRepositorio eventoRepositorio;
+    private final EventoServico eventoServico;
     private final PreInscricaoServico preInscricaoServico;
     private final PreInscricaoMapper preInscricaoMapper;
 
@@ -87,17 +87,12 @@ public class UsuarioServico {
 
     public List<PreinscricaoUsuarioDTO> obterEventos(int id){
         List<PreinscricaoUsuarioDTO> preInscricoes = new ArrayList<PreinscricaoUsuarioDTO>();
-        List<Evento> eventos = eventoRepositorio.findAll();
-        List<PreInscricao> inscricoes =  preInscricaoMapper.toEntity(preInscricaoServico.buscarPreinscricaoPorIdEvento(id));
+        List<PreInscricao> inscricoes =  preInscricaoMapper.toEntity(preInscricaoServico.buscarPreinscricaoPorIdUsuario(id));
 
-        for (int i = 0; i < eventos.size(); i++){
-           for (int f = 0; f < inscricoes.size(); i++){
-               if (eventos.get(i).getId() == inscricoes.get(f).getEvento().getId()){
-                   PreinscricaoUsuarioDTO preInsc = new PreinscricaoUsuarioDTO(eventos.get(i).getTitulo(),eventos.get(i).getPeriodoInicio(),eventos.get(i).getPeriodoFim(),eventos.get(i).getDescricao(),inscricoes.get(f).getSituacaoPreInscricao().getDescricao());
-                   preInscricoes.add(preInsc);
-               }
-           }
-       }
+        for (int i = 0; i < inscricoes.size(); i++){
+            PreinscricaoUsuarioDTO preInsc = new PreinscricaoUsuarioDTO(inscricoes.get(i).getEvento().getTitulo(),inscricoes.get(i).getEvento().getPeriodoInicio(),inscricoes.get(i).getEvento().getPeriodoFim(),inscricoes.get(i).getEvento().getDescricao(),inscricoes.get(i).getSituacaoPreInscricao().getDescricao());
+            preInscricoes.add(preInsc);
+                }
        return preInscricoes;
     }
 
