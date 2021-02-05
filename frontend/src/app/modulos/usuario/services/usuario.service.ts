@@ -40,7 +40,7 @@ export class UsuarioService {
     return this.http.delete(`${this.url}/usuarios/${id}`);
   }
   buscarPreinscricoes(id: number): Observable<PreinscricaoUsuario[]> {
-    return this.http.get<PreinscricaoUsuario[]>(`${this.url}/usuarios/preinscricao/${id}`);
+    return this.http.get<PreinscricaoUsuario[]>(`${this.url}/preinscricao/usuarioinscricoes/${id}`);
   }
 
 }

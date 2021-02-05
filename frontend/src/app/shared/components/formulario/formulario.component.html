@@ -10,7 +10,7 @@
         
             <div *ngIf="formUsuario.get('nome').invalid">Nome inválido</div>
         
-            <p-inputMask class="input" type="text"  [(ngModel)]="usuario.cpf" placeholder="CPF:" formControlName="cpf" mask="99999999999"></p-inputMask>
+            <p-inputMask class="input" type="text"  [(ngModel)]="usuario.cpf" placeholder="CPF:" formControlName="cpf" mask="999.999.999-99"></p-inputMask>
         
             <input class="input" type="email" [(ngModel)]="usuario.email" placeholder="Email:" formControlName="email" pInputText/>
         

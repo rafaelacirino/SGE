@@ -74,7 +74,7 @@ export class FormularioComponent implements OnInit {
       } else {
       this.usuarioService.salvarUsuario(this.usuario)
         .subscribe(usuario => {
-          alert('Usuario salvo')
+          alert('Cadastro realizado com sucesso! Chave de acesso enviada. Verifique seu email')
       }, (erro : HttpErrorResponse) => {
         alert(erro.error.message);
       

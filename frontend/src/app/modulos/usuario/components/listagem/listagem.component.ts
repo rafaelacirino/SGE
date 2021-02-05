@@ -33,7 +33,7 @@ export class ListagemComponent implements OnInit {
     this.buscarUsuarios();
     this.usuario = JSON.parse(localStorage.getItem('usuario'));
     this.buscarEventos();
-    console.log(this.eventos)
+    
 
   }
   private buscarUsuarios(){
@@ -82,6 +82,7 @@ export class ListagemComponent implements OnInit {
     buscarEventos(){
      this.servico.buscarPreinscricoes(this.usuario.id).subscribe((preinscricoes: PreinscricaoUsuario[]) =>{
        this.eventos = preinscricoes
+       console.log(this.eventos)
      })
     }
     

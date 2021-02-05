@@ -16,6 +16,7 @@ import com.basis.sge.service.servico.dto.CancelarInscricaoDTO;
 import com.basis.sge.service.servico.dto.EmailDTO;
 import com.basis.sge.service.servico.dto.ListagemInscricoesDTO;
 import com.basis.sge.service.servico.dto.PreInscricaoDTO;
+import com.basis.sge.service.servico.dto.PreinscricaoUsuarioDTO;
 import com.basis.sge.service.servico.mapper.IncricaoRespostaMapper;
 import com.basis.sge.service.servico.mapper.PerguntaMapper;
 import com.basis.sge.service.servico.mapper.PreInscricaoMapper;
@@ -116,16 +117,6 @@ public class PreInscricaoServico {
         }
         return preInscricoesPorIdEvento;
     }
-    public List<PreInscricaoDTO> buscarPreinscricaoPorIdUsuario(Integer id){
-        List<PreInscricaoDTO> preInscricoesPorIdUsuario = new ArrayList<>();
-        List<PreInscricaoDTO> preInscricoes = preInscricaoMapper.toDto(preInscricaoRepositorio.findAll());
-        for (PreInscricaoDTO preInscricao: preInscricoes) {
-            if(preInscricao.getIdUsuario().equals(id)){
-                preInscricoesPorIdUsuario.add(preInscricao);
-            }
-        }
-        return preInscricoesPorIdUsuario;
-    }
 
     private void verificaNull(Object object){
         if(object == null){
@@ -203,5 +194,23 @@ public class PreInscricaoServico {
         }
 
         return listagemInscricoesDTOS;
+    }
+
+    public List<PreinscricaoUsuarioDTO> buscarPreinscricaoPorIdUsuario(Integer id){
+        List<PreinscricaoUsuarioDTO> preInscricoesPorIdUsuario = new ArrayList<>();
+        Usuario usuario = usuarioRepositorio.findById(id).orElseThrow(() -> new RegraNegocioException("Usuario não encontrado"));
+        List<PreInscricao> preInscricoesDoUsuario = preInscricaoRepositorio.findByUsuario(usuario);
+
+
+        for (PreInscricao inscricoes: preInscricoesDoUsuario) {
+            PreinscricaoUsuarioDTO inscricao = new PreinscricaoUsuarioDTO(
+                    inscricoes.getEvento().getTitulo(),
+                    inscricoes.getEvento().getPeriodoInicio(),
+                    inscricoes.getEvento().getPeriodoFim(),
+                    inscricoes.getEvento().getDescricao(),
+                    inscricoes.getSituacaoPreInscricao().getDescricao());
+            preInscricoesPorIdUsuario.add(inscricao);
+        }
+        return preInscricoesPorIdUsuario;
     }
 }
