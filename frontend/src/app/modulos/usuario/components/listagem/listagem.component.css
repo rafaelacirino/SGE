@@ -13,13 +13,12 @@
 .botao_apagar{
     border-radius: 5px;
 }
-
-
-
-
-
-
-.perfil.ui-card-body{
-    height: 300px;
-    width: 300px;
+.cor{
+    background-color: blue;
 }
+
+
+
+
+
+

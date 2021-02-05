@@ -33,12 +33,13 @@
 
 <!--View do usuario-->
 <div *ngIf="!usuario.admin">
+
 <h1>Seu Perfil</h1>
 
-<div class="p-d-flex-column p-jc-start">
+<div  class="p-d-flex-column">
 
     
-    <p-card styleClass = "perfil" header={{usuario.nome}} >
+    <p-card [style]="{width:'300px'}" styleClass = "perfil" header={{usuario.nome}} >
         <p> <i class="pi pi-envelope"></i>
              {{usuario.email}}</p>
       
@@ -51,8 +52,10 @@
         <p> <i class="pi pi-calendar" styleClass="pisize"></i>
              Data de nascimento: {{usuario.dataNascimento | date: 'dd/MM/yyyy'}}</p>
       </p-card>
-      <button (click)="confirm(usuario.id)" class="p-ml-2" pButton type="button" icon="pi pi-trash"></button>
-            <button   (click)="showDialog()"  pButton type="button" icon="pi pi-pencil"></button>
+
+
+      <button styleClass = "perfil" (click)="confirm(usuario.id)" class="p-ml-2" pButton type="button" icon="pi pi-trash"></button>
+      <button styleClass = "perfil" (click)="showDialog()"  pButton type="button" icon="pi pi-pencil"></button>
       <p-dialog header="Editar Usuario" [(visible)]="display">
         <app-formulario (emitEdicao) = "receberEdicao($event)"></app-formulario>
      </p-dialog>
@@ -91,5 +94,4 @@
     </div>
 </div>
 </div>
-
 

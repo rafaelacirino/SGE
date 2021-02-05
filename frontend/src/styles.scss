@@ -2,6 +2,7 @@ body .ui-widget-overlay {
     background: rgba(0, 0, 0, .25);
     opacity: 1;
 }
+
 .login button{
     color: #0f0f10;
     background-color: #C0C0C0;
@@ -24,21 +25,29 @@ body .ui-widget-overlay {
     transition: 0.5s;
     opacity: 0.6;
 }
-
-.perfil.ui-card{
-    text-align: center;
-    align-items: flex-start;
-    height: 300px;
-    width: 300px;   
-}
-button{
-    background-image: linear-gradient(#414141,#313131);
-    border-color: none;
-    
 .login.ui-card-content{
     align-items: center;
 }
     
 .login.ui-card{
     text-align: center;
+}
+
+
+// PERFIL 
+.tamanho{
+    height: 300px;
+    width: 300px;
+}
+.perfil.ui-widget *{
+    size: 9px;
+    height: 35px;
+    box-sizing: initial;
+    display: inline-block
+}
+.perfil.ui-card{
+    text-align: center;
+    align-items: flex-start;
+    height: 300px;
+    width: 300px;   
 }
