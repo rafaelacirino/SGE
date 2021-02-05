@@ -1,7 +1,6 @@
 import { EventEmitter, Output, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { Component, Input, OnInit } from '@angular/core';
 import { ConfirmationService } from 'primeng';
-import { Inscricao } from 'src/app/dominios/Inscricao';
 import { PreinscricaoUsuario } from 'src/app/dominios/PreinscricaoUsuario';
 import { Usuario } from 'src/app/dominios/Usuario';
 import { InscricaoService } from 'src/app/modulos/inscricao/services/inscricao.service';
