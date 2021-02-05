@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InscricaoRoutingModule } from './inscircao-routing.module';
 import { EventoService } from '../evento/services/evento.service';
+import { UsuarioService } from '../usuario/services/usuario.service';
 
 
 @NgModule({

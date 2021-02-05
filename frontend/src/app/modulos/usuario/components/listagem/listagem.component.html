@@ -1,14 +1,14 @@
-<app-card [titulo]="'Lista de usuários'" *ngIf="usuario.admin" >    
+<app-card [titulo]="'Lista de usuários'" *ngIf="usuario.admin" class="listagem-usuario-admin">    
 
     <div style Class="tabela">
         <p-table [value]="usuarios">
         <ng-template pTemplate="header">
             <tr>
                 <th>Nome</th>
-                <th>CPF</th>
+                <th id="cpf">CPF</th>
                 <th>Email</th>
-                <th>Telefone</th>
-                <th>Data de Nascimento</th>
+                <th id="telefone">Telefone</th>
+                <th id="nascimento">Nascimento</th>
                 <th style="width: 80px;">Ações</th>
             </tr>
         </ng-template>
@@ -49,7 +49,7 @@
              CPF: {{usuario.cpf}}</p>
         
         <p> <i class="pi pi-calendar" styleClass="pisize"></i>
-             Data de nascimento: {{usuario.dataNascimento}}</p>
+             Data de nascimento: {{usuario.dataNascimento | date: 'dd/MM/yyyy'}}</p>
       
             <button (click)="confirm(usuario.id)" class="p-ml-2" pButton type="button" icon="pi pi-trash"></button>
             <button   (click)="showDialog()"  pButton type="button" icon="pi pi-pencil"></button>

@@ -7,12 +7,13 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { UsuarioService } from './services/usuario.service';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { InscricaoService } from '../inscricao/services/inscricao.service';
 
 
 @NgModule({
 
   declarations: [ ListagemComponent,],
-  providers: [UsuarioService],
+  providers: [UsuarioService, InscricaoService],
   imports: [
     CommonModule,
     UsuarioRoutingModule,

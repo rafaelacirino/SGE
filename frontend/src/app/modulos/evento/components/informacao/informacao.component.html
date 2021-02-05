@@ -36,7 +36,10 @@
       <tr>
     </tbody>
   </table>
-
+  
+    <div class="p-d-flex p-jc-left">
+    <p-button  label="Inscrições" icon="pi pi-check" styleClass="p-button-warning" [routerLink]="['/inscricao/listagem' , evento.id ]"></p-button>
+    </div>
   <div class="p-d-flex p-jc-end">
     <button  pButton type="button" icon="pi pi-pencil" [routerLink]="['/eventos/formulario' , evento.id ]"></button>
     <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
