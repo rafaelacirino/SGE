@@ -1,14 +1,14 @@
-<app-card [titulo]="'Lista de usuários'" *ngIf="usuario.admin" >    
+<app-card [titulo]="'Lista de usuários'" *ngIf="usuario.admin" class="listagem-usuario-admin">    
 
     <div style Class="tabela">
         <p-table [value]="usuarios">
         <ng-template pTemplate="header">
             <tr>
                 <th>Nome</th>
-                <th>CPF</th>
+                <th id="cpf">CPF</th>
                 <th>Email</th>
-                <th>Telefone</th>
-                <th>Data de Nascimento</th>
+                <th id="telefone">Telefone</th>
+                <th id="nascimento">Nascimento</th>
                 <th style="width: 80px;">Ações</th>
             </tr>
         </ng-template>
@@ -65,22 +65,22 @@
 <div class="p-d-flex" >
   
     <div >
-        <p-card styleClass ="preinsc-container" class="ui-card-container" header="Suas Inscrições">
+        <p-card class="ui-card-container" header="Suas Inscrições">
             
-            <div  >
+            <div *ngFor="let preinsc of eventos" >
                 <p-card styleClass =insc header="inscricao" >
                     <p> <i class="pi pi-pi-ticket"></i>
-                         Descrição:  </p>
+                         Descrição: {{preinsc.descricao}} </p>
 
                     <p> <i class="pi pi-check-square "></i>
-                         Situação: Aceito</p>
+                         Situação: {{preinsc.situacao}}</p>
                     
                     <p> <i class="pi pi-calendar" styleClass="pisize"></i>
-                         Inicio: 12/12/2012
+                         Inicio: {{preinsc.periodoInicio}}
                     </p>
 
                     <p> <i class="pi pi-calendar" styleClass="pisize"></i>
-                        Fim: 12/12/2012
+                        Fim: {{preinsc.periodoFim}}
                    </p>
                   
                   </p-card>

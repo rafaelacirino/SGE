@@ -14,5 +14,6 @@ public interface PreInscricaoRepositorio extends JpaRepository<PreInscricao, Int
     void deleteAllByUsuario(Usuario usuario);
     void deleteAllByEvento (Evento evento);
     List<PreInscricao> findByEvento(Evento evento);
+    List<PreInscricao> findByUsuario(Usuario usuario);
 
 }

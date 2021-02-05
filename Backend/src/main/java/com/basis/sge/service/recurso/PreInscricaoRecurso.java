@@ -1,6 +1,7 @@
 package com.basis.sge.service.recurso;
 
 import com.basis.sge.service.servico.dto.CancelarInscricaoDTO;
+import com.basis.sge.service.servico.dto.ListagemInscricoesDTO;
 import com.basis.sge.service.servico.dto.PreInscricaoDTO;
 import com.basis.sge.service.servico.PreInscricaoServico;
 import lombok.RequiredArgsConstructor;
@@ -57,12 +58,12 @@ public class PreInscricaoRecurso {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/inscricoes/{id}")
-    public ResponseEntity<List<PreInscricaoDTO>> buscarPreInscricaoPorEvento(@PathVariable Integer id){
+    @GetMapping("/eventoinscricoes/{id}")
+    public ResponseEntity<List<ListagemInscricoesDTO>> buscarPreInscricaoPorEvento(@PathVariable Integer id){
         return ResponseEntity.ok(preInscricaoServico.buscarPreIncricoesPoEvento(id));
     }
 
-    @GetMapping("/inscricoes/{id}")
+    @GetMapping("/usuarioinscricoes/{id}")
     public ResponseEntity<List<PreInscricaoDTO>> buscarPreInscricaoPorUsuario(@PathVariable Integer id){
         return ResponseEntity.ok(preInscricaoServico.buscarPreinscricaoPorIdUsuario(id));
     }

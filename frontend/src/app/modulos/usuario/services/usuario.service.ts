@@ -4,6 +4,7 @@ import { Observable, of } from 'rxjs';
 import { Chave } from 'src/app/dominios/Chave';
 import { Usuario } from 'src/app/dominios/Usuario';
 import { environment } from 'src/environments/environment';
+import {PreinscricaoUsuario} from 'src/app/dominios/PreinscricaoUsuario' 
 
 @Injectable()
 export class UsuarioService {
@@ -37,6 +38,9 @@ export class UsuarioService {
 
   deletarUsuario(id: number): Observable<any> {
     return this.http.delete(`${this.url}/usuarios/${id}`);
+  }
+  buscarPreinscricoes(id: number): Observable<PreinscricaoUsuario[]> {
+    return this.http.get<PreinscricaoUsuario[]>(`${this.url}/usuarios/preinscricao/${id}`);
   }
 
 }

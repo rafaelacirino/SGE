@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Evento } from 'src/app/dominios/Evento';
 import { Inscricao } from 'src/app/dominios/Inscricao';
+import { ListagemInscricoes } from 'src/app/dominios/ListagemInscricoes';
+import { Perguntas } from 'src/app/dominios/Perguntas';
 import { Usuario } from 'src/app/dominios/Usuario';
+import { EventoService } from 'src/app/modulos/evento/services/evento.service';
 import { UsuarioService } from 'src/app/modulos/usuario/services/usuario.service';
 import { InscricaoService } from '../../services/inscricao.service';
 
@@ -13,43 +16,70 @@ import { InscricaoService } from '../../services/inscricao.service';
 })
 export class ListagemComponent implements OnInit {
 
-  inscricoes: Inscricao[] = [];
-  usuario: Usuario;
-  evento: Evento
+  inscricoes: ListagemInscricoes[] = [];
+  usuario = new Usuario;
+  inscricao = new Inscricao;
+  @Input() evento = new Evento
 
   constructor(
     private route: ActivatedRoute,
     private servico: InscricaoService,
-    private usuarioServico: UsuarioService
+    private eventoService: EventoService
     ) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(params =>{
       this.buscarInscricoesPorEvento(params.id)
-  })
+      this.buscarEvento(params.id)
+    })
+    
+
+    this.pegarUsuarioLocalStorage();
   }
 
   buscarInscricoesPorEvento(idEvento: number){
-    this.servico.getInscricoesPorIdEvento(idEvento).subscribe((inscricoes: Inscricao[]) => {
+    this.servico.getInscricoesPorIdEvento(idEvento).subscribe((inscricoes: ListagemInscricoes[]) => {
       this.inscricoes = inscricoes
     })
   }
 
-  buscarUsuarioDaInscricao(idUsuario: number){
-    this.usuarioServico.buscarUsuarioPorId(idUsuario).subscribe((usuario: Usuario) => {
-      return usuario;
-    })
+
+  editarInscricaoAprovado(idInscricao: number){
+    this.servico.getInscricaoPorId(idInscricao).subscribe((inscricao: Inscricao) => {
+      inscricao.idSituacaoPreInscricao = 2
+      
+      this.servico.editarInscricao(inscricao).subscribe(() => {
+        alert("Inscrição aprovada")
+      });
+      location.reload()
+    });
   }
 
-  private buscarInscricao(){
-    this.servico.getInscricao().subscribe((inscricoes: Inscricao[]) => {
-      this.inscricoes = inscricoes;
-    })
+  editarInscricaoReprovada(idInscricao: number){
+    this.servico.getInscricaoPorId(idInscricao).subscribe((inscricao: Inscricao) => {
+      inscricao.idSituacaoPreInscricao = 3
+      
+      this.servico.editarInscricao(inscricao).subscribe(() => {
+        alert("Inscrição reprovada")
+      });
+      location.reload()
+    });
+  }
+
+  buscarInscricaoPorId(idInscricao: number){
+    this.servico.getInscricaoPorId(idInscricao).subscribe(inscricao => 
+      this.inscricao = inscricao
+    );
   }
 
   pegarUsuarioLocalStorage() {
-    const usuario = JSON.parse(window.localStorage.getItem("usuario")); 
-    this.usuario = usuario; 
+    this.usuario = JSON.parse(window.localStorage.getItem("usuario")); 
   }
 
+  buscarEvento(id: number) {
+    this.eventoService.getEvento(id)
+      .subscribe((evento: Evento) => {
+        this.evento = evento
+      }); 
+  }
 }

@@ -1,34 +1,14 @@
-/* .ui-card-content p{
-    padding-bottom: 2%;
-    position: relative;
-    text-justify:distribute;    
-}
-.ui-card{
-    width: auto;
-    height: auto;
-    text-align: center;
-    margin-bottom: 30px; 
-}
-p{
-    position:absolute;
-    width: auto;
-}
- .preinsc-container.ui-card{
-    width: 1000px;
-    height: auto;
-}
 
-.insc.ui-card {
-    width: 33%;
-    height: 33%;
-    text-align: left;
-    background-color: rgb(177, 177, 177);
-    
-} */
 .tabela{
     border: 1px solid;
     margin: auto;
     margin-block-end: 25px;
+}
+.listagem-usuario-admin #cpf, #nascimento{
+    width: 120px;
+}
+.listagem-usuario-admin #telefone{
+    width: 130px;
 }
 .botao_apagar{
     border-radius: 5px;

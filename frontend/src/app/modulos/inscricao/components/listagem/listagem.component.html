@@ -1,28 +1,50 @@
-<app-card [titulo]="'Lista de inscricao'" *ngIf = "usuario.admin">
-   
+<app-card [titulo]="'Lista de inscricao'" *ngIf="usuario.admin"  class="listagem-inscricao-admin" >
     <p-table [value]="inscricoes">
         <ng-template pTemplate="header">
             <tr>
-                <th>Pré Inscrição</th>
-
+                <th>Usuario</th>
+                <th>Perguntas</th>
+                <th>Situação da Inscrição</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-inscricao>
             <tr>
-                <td>{{buscarUsuarioDaInscricao(inscricao.id)}}</td>
-                
-                <td>
-                    <div class="p-d-flex p-jc-end">
-                    <button id="button-criar" routerLink="" pButton type="button" label="Ação" ></button>
+                <td >
+                    <p><strong>Evento: </strong></p>
+                    <p> {{evento.titulo}}</p>
+                    <br>
+                    <p><strong>Nome: </strong></p>
+                    <p> {{inscricao.nomeUsuario}}</p>
+                    <br>
+                    <p><strong>Email: </strong></p>
+                    <p> {{inscricao.emailUsuario}}</p>
+                </td>
+                <td >
+                    <div *ngFor="let inscricao2 of inscricao.inscricoesResposta; let i = index" class="box">
+                        <hr/>
+                        <p><strong>P: </strong> {{inscricao.perguntas[i].titulo}}</p> 
+                        <p><strong>R: </strong> {{inscricao2.resposta}}</p>
+                         
                     </div>
                 </td>
+                <td  class="box">
+                    <h2>{{inscricao.situacaoDescricao}}</h2>
+                    <hr>
+                    <div class="botoes">
+
+                    <button *ngIf="inscricao.idSituacao == 1" pButton type="button" (click)="editarInscricaoAprovado(inscricao.id)" id="botao-aprovado" label="Aprovado"  class="p-button-outlined"></button>
+                    <button *ngIf="inscricao.idSituacao == 1" pButton type="button" (click)="editarInscricaoReprovada(inscricao.id)" id="botao-recusado" label="Recusado" class="p-button-outlined"></button>
+                    </div>
+                </td>
+
             </tr>
         </ng-template>
     </p-table>
+</app-card>
     
-    </app-card>
-    
-    <app-card [titulo]="'Lista de inscricao'" *ngIf = "!usuario.admin">
+
+    <!--View de usuario-->
+    <app-card [titulo]="'Lista de inscricao'" *ngIf="!usuario.admin">
         
         <p-table [value]="inscricoes">
             <ng-template pTemplate="header">
