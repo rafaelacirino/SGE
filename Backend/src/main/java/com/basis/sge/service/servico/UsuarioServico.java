@@ -1,10 +1,15 @@
 package com.basis.sge.service.servico;
 
+import com.basis.sge.service.dominio.Evento;
+import com.basis.sge.service.dominio.PreInscricao;
 import com.basis.sge.service.dominio.Usuario;
+import com.basis.sge.service.repositorio.EventoRepositorio;
 import com.basis.sge.service.repositorio.PreInscricaoRepositorio;
 import com.basis.sge.service.repositorio.UsuarioRepositorio;
 import com.basis.sge.service.servico.dto.ChaveUsuarioDTO;
 import com.basis.sge.service.servico.dto.EmailDTO;
+import com.basis.sge.service.servico.dto.EventoDTO;
+import com.basis.sge.service.servico.dto.PreinscricaoUsuarioDTO;
 import com.basis.sge.service.servico.dto.UsuarioDTO;
 import com.basis.sge.service.servico.exception.RegraNegocioException;
 import com.basis.sge.service.servico.mapper.UsuarioMapper;
@@ -27,6 +32,7 @@ public class UsuarioServico {
     private static final LocalDate DIA_DE_HOJE = LocalDate.now();
     private final SgeProducer sgeProducer;
     private final PreInscricaoRepositorio preInscricaoRepositorio;
+    private final EventoRepositorio eventoRepositorio;
 
     public List<UsuarioDTO> listar(){
         return usuarioMapper.toDto(usuarioRepositorio.findAll());
@@ -72,6 +78,25 @@ public class UsuarioServico {
         Usuario usuario = verificarDelete(id);
         criarEmailUsuarioRemovido(usuario.getEmail());
     }
+    public List<PreinscricaoUsuarioDTO> obterPreinscricoes(){
+        List<PreinscricaoUsuarioDTO> preInscricoes = new ArrayList<PreinscricaoUsuarioDTO>();
+        List<Evento> eventos = eventoRepositorio.findAll();
+        List<PreInscricao> inscricoes = preInscricaoRepositorio.findAll();
+
+       for (int i = 0; i < eventos.size(); i++){
+           for (int f = 0; f < inscricoes.size(); i++){
+               if (eventos.get(i).getId() == inscricoes.get(f).getEvento().getId()){
+                   PreinscricaoUsuarioDTO preInsc = new PreinscricaoUsuarioDTO(eventos.get(i).getTitulo(),eventos.get(i).getPeriodoInicio(),eventos.get(i).getPeriodoFim(),eventos.get(i).getDescricao(),inscricoes.get(f).getSituacaoPreInscricao().getDescricao());
+                   preInscricoes.add(preInsc);
+
+               }
+           }
+       }
+       return preInscricoes;
+
+
+    }
+
 
     public void criarEmailCadastro(String email,String chave){
 
