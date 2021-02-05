@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Evento } from 'src/app/dominios/Evento';
 import { Inscricao } from 'src/app/dominios/Inscricao';
 import { ListagemInscricoes } from 'src/app/dominios/ListagemInscricoes';
 import { Perguntas } from 'src/app/dominios/Perguntas';
 import { Usuario } from 'src/app/dominios/Usuario';
+import { EventoService } from 'src/app/modulos/evento/services/evento.service';
 import { UsuarioService } from 'src/app/modulos/usuario/services/usuario.service';
 import { InscricaoService } from '../../services/inscricao.service';
 
@@ -18,19 +19,21 @@ export class ListagemComponent implements OnInit {
   inscricoes: ListagemInscricoes[] = [];
   usuario = new Usuario;
   inscricao = new Inscricao;
-  evento: Evento
+  @Input() evento = new Evento
 
   constructor(
     private route: ActivatedRoute,
     private servico: InscricaoService,
-    private usuarioServico: UsuarioService
+    private eventoService: EventoService
     ) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(params =>{
       this.buscarInscricoesPorEvento(params.id)
-      
+      this.buscarEvento(params.id)
     })
+
+
     this.pegarUsuarioLocalStorage();
   }
 
@@ -41,11 +44,6 @@ export class ListagemComponent implements OnInit {
     })
   }
 
-  buscarUsuarioDaInscricao(idUsuario: number){
-    this.usuarioServico.buscarUsuarioPorId(idUsuario).subscribe((usuario: Usuario) => {
-      return usuario;
-    })
-  }
 
   editarInscricaoAprovado(idInscricao: number){
     this.servico.getInscricaoPorId(idInscricao).subscribe((inscricao: Inscricao) => {
@@ -79,4 +77,10 @@ export class ListagemComponent implements OnInit {
     this.usuario = JSON.parse(window.localStorage.getItem("usuario")); 
   }
 
+  buscarEvento(id: number) {
+    this.eventoService.getEvento(id)
+      .subscribe((evento: Evento) => {
+        this.evento = evento
+      }); 
+  }
 }

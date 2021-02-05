@@ -14,7 +14,7 @@ import { UsuarioService } from '../usuario/services/usuario.service';
 
 @NgModule({
   declarations: [ FormularioComponent, ListagemComponent],
-  providers:[InscricaoService, PerguntaService, EventoService, UsuarioService],
+  providers:[InscricaoService, PerguntaService, EventoService],
   imports: [
     CommonModule,
     SharedModule,

@@ -1,16 +1,29 @@
-.listagem-inscricao-admin .box-principal{
-    display: flex;
-    
-    flex-wrap: wrap;
-    background-color: rgb(167, 163, 163);
-    margin-top: 20px;
-
+.listagem-inscricao-admin .box h2{
+    text-align: center;
+    align-items: center;
 }
-
-.listagem-inscricao-admin .box-principal .box{
-    background-color: blue;
+.listagem-inscricao-admin .botoes{
     display: flex;
     flex-direction: column;
-    margin: 10px;
-    width: 300px;
+    justify-content: space-between;
+}
+
+.listagem-inscricao-admin #botao-recusado{
+    background-color: rgb(233, 12, 12);
+    display: flex;
+    text-align: center;
+    align-items: center;
+   
+    border: none;
+    justify-content: center;
+}
+
+.listagem-inscricao-admin #botao-aprovado{
+    background-color: green;
+    border: none;
+    margin-bottom: 10px;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
 }
