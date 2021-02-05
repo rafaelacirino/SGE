@@ -1,19 +1,24 @@
-/* You can add global styles to this file, and also import other style files */
 body .ui-widget-overlay {
     background: rgba(0, 0, 0, .25);
     opacity: 1;
 }
 .login button{
-    color: #060930;
-    background-color: #F1F1F2;
-    border-color: #C0C0C0;
+    color: #0f0f10;
+    background-color: #C0C0C0;
+    border: none;
     text-align: center;
+    margin: 10px;
 }
 .login.ui-button-text{
     color: #060930;
-    text-align: center;    
+    text-align: center; 
 }
-
+    
+.login.ui-button.ui-button-rounded{
+    align-items: center;
+    margin: 20px; 
+}
+    
 .login button:hover{
     background-color: #C0C0C0;
     transition: 0.5s;
@@ -29,4 +34,11 @@ body .ui-widget-overlay {
 button{
     background-image: linear-gradient(#414141,#313131);
     border-color: none;
+    
+.login.ui-card-content{
+    align-items: center;
+}
+    
+.login.ui-card{
+    text-align: center;
 }
