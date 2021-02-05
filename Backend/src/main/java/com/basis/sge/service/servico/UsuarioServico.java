@@ -33,7 +33,6 @@ public class UsuarioServico {
     private static final LocalDate DIA_DE_HOJE = LocalDate.now();
     private final SgeProducer sgeProducer;
     private final PreInscricaoRepositorio preInscricaoRepositorio;
-    private final EventoServico eventoServico;
     private final PreInscricaoServico preInscricaoServico;
     private final PreInscricaoMapper preInscricaoMapper;
 
