@@ -204,11 +204,13 @@ public class PreInscricaoServico {
 
         for (PreInscricao inscricoes: preInscricoesDoUsuario) {
             PreinscricaoUsuarioDTO inscricao = new PreinscricaoUsuarioDTO(
+                    inscricoes.getId(),
                     inscricoes.getEvento().getTitulo(),
                     inscricoes.getEvento().getPeriodoInicio(),
                     inscricoes.getEvento().getPeriodoFim(),
                     inscricoes.getEvento().getDescricao(),
-                    inscricoes.getSituacaoPreInscricao().getDescricao());
+                    inscricoes.getSituacaoPreInscricao().getDescricao(),
+                    inscricoes.getSituacaoPreInscricao().getId());
             preInscricoesPorIdUsuario.add(inscricao);
         }
         return preInscricoesPorIdUsuario;

@@ -53,44 +53,17 @@
       
             <button (click)="confirm(usuario.id)" class="p-ml-2" pButton type="button" icon="pi pi-trash"></button>
             <button   (click)="showDialog()"  pButton type="button" icon="pi pi-pencil"></button>
-      </p-card>
+            
+            <button pButton type="button" routerLink='/inscricao/listagem' label="Inscrições"  class="p-button-outlined"></button>
+
+        </p-card>
       <p-dialog header="Editar Usuario" [(visible)]="display">
         <app-formulario (emitEdicao) = "receberEdicao($event)"></app-formulario>
      </p-dialog>
      <p-confirmDialog header="Remover conta" icon="pi pi-exclamation-triangle"></p-confirmDialog>
-</div>
 
-
-
-<div class="p-d-flex" >
-  
-    <div >
-        <p-card class="ui-card-container" header="Suas Inscrições">
             
-            <div *ngFor="let preinsc of eventos" >
-                <p-card styleClass =insc header="inscricao" >
-                    <p> <i class="pi pi-pi-ticket"></i>
-                         Descrição: {{preinsc.descricao}} </p>
-
-                    <p> <i class="pi pi-check-square "></i>
-                         Situação: {{preinsc.situacao}}</p>
-                    
-                    <p> <i class="pi pi-calendar" styleClass="pisize"></i>
-                         Inicio: {{preinsc.periodoInicio}}
-                    </p>
-
-                    <p> <i class="pi pi-calendar" styleClass="pisize"></i>
-                        Fim: {{preinsc.periodoFim}}
-                   </p>
-                  
-                  </p-card>
-                
-            </div>
-            
-             
-        </p-card>
-    </div>
 </div>
-</div>
+
 
 

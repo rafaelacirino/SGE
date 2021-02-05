@@ -39,8 +39,6 @@ export class UsuarioService {
   deletarUsuario(id: number): Observable<any> {
     return this.http.delete(`${this.url}/usuarios/${id}`);
   }
-  buscarPreinscricoes(id: number): Observable<PreinscricaoUsuario[]> {
-    return this.http.get<PreinscricaoUsuario[]>(`${this.url}/preinscricao/usuarioinscricoes/${id}`);
-  }
+  
 
 }

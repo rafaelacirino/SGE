@@ -55,9 +55,12 @@ public class UsuarioServico {
 
     public UsuarioDTO salvar(UsuarioDTO usuarioDTO){
         usuarioDTO.setAdmin(false);
-        Usuario usuario = usuarioRepositorio.save(verificarPost(usuarioDTO));
+        Usuario usuario = verificarPost(usuarioDTO);
+
+        usuario = usuarioRepositorio.save(usuario);
         criarEmailCadastro(usuario.getEmail(),usuario.getChaveUnica());
         return usuarioMapper.toDto(usuario);
+
     }
 
     public UsuarioDTO editar(UsuarioDTO usuarioDTO){
@@ -84,9 +87,6 @@ public class UsuarioServico {
     public List<PreInscricao> obterPreinscricao(UsuarioDTO usuarioDTO){
         return preInscricaoRepositorio.findByUsuario(usuarioRepositorio.findById(usuarioDTO.getId()).orElseThrow(()->new RegraNegocioException("usuario não encontrado")));
     }
-
-
-
 
     public void criarEmailCadastro(String email,String chave){
 
