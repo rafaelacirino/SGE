@@ -32,7 +32,7 @@ export class ListagemComponent implements OnInit {
       this.buscarInscricoesPorEvento(params.id)
       this.buscarEvento(params.id)
     })
-
+    
 
     this.pegarUsuarioLocalStorage();
   }
@@ -40,7 +40,6 @@ export class ListagemComponent implements OnInit {
   buscarInscricoesPorEvento(idEvento: number){
     this.servico.getInscricoesPorIdEvento(idEvento).subscribe((inscricoes: ListagemInscricoes[]) => {
       this.inscricoes = inscricoes
-      console.log(this.inscricoes)
     })
   }
 

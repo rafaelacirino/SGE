@@ -60,8 +60,15 @@ public class PreInscricaoServico {
         verificaNull(preInscricaoDTO.getIdUsuario());
         verificaNull(preInscricaoDTO.getIdEvento());
         verificaNull(preInscricaoDTO.getIdSituacaoPreInscricao());
-
         PreInscricao preInscricao = preInscricaoMapper.toEntity(preInscricaoDTO);
+
+        List<PreInscricao> preInscricaosDoUsuario = preInscricaoRepositorio.findByUsuario(preInscricao.getUsuario());
+        for (PreInscricao preInscricaoUsuario: preInscricaosDoUsuario) {
+            if(preInscricaoUsuario.getEvento().getId() == preInscricaoDTO.getIdEvento()){
+                throw new RegraNegocioException("Inscrição inválida, usuário já inscrito neste evento.");
+            }
+        }
+
         List<InscricaoResposta> inscricaoRespostas = preInscricao.getInscricaoRespostas();
         preInscricao.setInscricaoRespostas(new ArrayList<>());
         preInscricaoRepositorio.save(preInscricao);
@@ -181,7 +188,7 @@ public class PreInscricaoServico {
             listagemInscricoesDTO.setNomeUsuario(preInscricao.getUsuario().getNome());
             listagemInscricoesDTO.setEmailUsuario(preInscricao.getUsuario().getEmail());
             listagemInscricoesDTO.setInscricoesResposta(incricaoRespostaMapper.toDto(preInscricao.getInscricaoRespostas()));
-            listagemInscricoesDTO.setIdSituação(preInscricao.getSituacaoPreInscricao().getId());
+            listagemInscricoesDTO.setIdSituacao(preInscricao.getSituacaoPreInscricao().getId());
             listagemInscricoesDTO.setSituacaoDescricao(preInscricao.getSituacaoPreInscricao().getDescricao());
 
             for (InscricaoResposta inscricaoResposta: preInscricao.getInscricaoRespostas()) {
