@@ -99,7 +99,7 @@ public class PreInscricaoServico {
         preInscricaoRepositorio.deleteById(id);
     }
 
-    public List<PreInscricaoDTO> buscarPreinscricaoPorIdEvento(Integer id){
+    public List<PreInscricaoDTO>        buscarPreinscricaoPorIdEvento(Integer id){
         List<PreInscricaoDTO> preInscricoesPorIdEvento = new ArrayList<>();
         List<PreInscricaoDTO> preInscricoes = preInscricaoMapper.toDto(preInscricaoRepositorio.findAll());
         for (PreInscricaoDTO preInscricao: preInscricoes) {
