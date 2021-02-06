@@ -78,18 +78,18 @@ export class FormularioComponent implements OnInit {
     if (this.edicao) {
       this.usuarioService.editarUsuario(this.usuario)
         .subscribe(usuario => {
-          this.addSingle("success", "Usuário Editado", "Deu Certo")
-        }, (erro: HttpErrorResponse) => {
-          this.addSingle('warn', erro.error.message, erro.error.erros)
+          this.addSingle("success", "Usuário Editado", "")
+        }, erro => {
+          this.addSingle('warn', "Dados Invalidos", erro.error.message)
           
         })
         this.emitEdicao.emit(this.usuario);
       } else {
       this.usuarioService.salvarUsuario(this.usuario)
         .subscribe(usuario => {
-          this.addSingle("success", "Usuário Criado", "Verifique seu Email")
-      }, (erro : HttpErrorResponse) => {
-        this.addSingle('warn', "Verifique os Campos", "Descobrir como passar o erro")
+          this.addSingle("success", "Usuário Salvo", "Verifique seu email")
+      }, erro => {
+        this.addSingle('warn', "Dados Invalidos", erro.error.message)
       
       });
       

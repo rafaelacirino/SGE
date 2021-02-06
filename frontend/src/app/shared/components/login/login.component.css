@@ -16,14 +16,15 @@
     align-items: center;
     justify-content: space-between;
     padding: 40px 20px;
-    background-color: #3e464c;
-    width: 35%;
+    background-color: #3E464C;
+    width: 50%;
+    border-radius: 10px;
 }
 
 #img_logo{
     width: 20vw !important;
     height: auto;
-    margin-left: 32%;
+    margin-left: 23%;
     
 }
 
