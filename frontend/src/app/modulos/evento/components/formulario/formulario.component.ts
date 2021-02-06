@@ -10,6 +10,8 @@ import { Perguntas } from 'src/app/dominios/Perguntas';
 import { TipoEvento } from 'src/app/dominios/TipoEvento';
 import { PerguntaService } from 'src/app/modulos/pergunta/servicos/pergunta.service';
 import { EventoService } from '../../services/evento.service';
+import {MessageService} from 'primeng/api';
+
 
 @Component({
   selector: 'app-formulario',
@@ -37,10 +39,16 @@ export class FormularioComponent implements OnInit {
     private fbuilder: FormBuilder,
     private route: ActivatedRoute,
     private confirmationService: ConfirmationService,
-    private router: Router  
+    private router: Router,
+    private messageService: MessageService  
     ) { 
       
     }
+
+  
+  addSingle(error, titulo, corpo ) {
+    this.messageService.add({severity:error, summary:titulo, detail:corpo});
+  }
 
   ngOnInit(): void {
 
@@ -104,23 +112,25 @@ export class FormularioComponent implements OnInit {
     if(this.edicao){
       this.eventoService.editarEvento(this.evento).subscribe(
         evento => {
-          alert('Evento editado')
+          this.addSingle("success", "Evento editado", "")
           setTimeout(() => {
             this.router.navigate(['/eventos/listagem'])
           }, 1500)
           this.router.navigate(['/eventos/listagem'])
-      }, (erro : HttpErrorResponse) => {
-        alert(erro.error.message)
+      }, erro => {
+        this.addSingle("warn", "Dados invalidos", erro.error.message)
+
       });
     } else {
       this.eventoService.salvarEvento(this.evento).subscribe(
         evento => {
-          alert('Evento salvo')
+          this.addSingle("success", "Evento salvo", "")
           setTimeout(() => {
             this.router.navigate(['/eventos/listagem'])
           }, 1500)
-      }, (erro : HttpErrorResponse) => {
-        alert(erro.error.message)
+      }, erro => {
+        this.addSingle("warn", "Dados invalidos", erro.error.message)
+
       }
     )
   }
@@ -147,12 +157,17 @@ export class FormularioComponent implements OnInit {
     if(pergunta.obrigatorio == null){
       pergunta.obrigatorio = false
     }
+
+    if (pergunta.obrigatorio){
+      pergunta.titulo = this.pergunta.titulo + " *";
+    }
     this.perguntaService.salvarPergunta(pergunta).subscribe(
       pergunta => {
-        alert('Pergunta salva')  
+        this.addSingle("success", "Pergunta salva", "")
         this.adicionarPergunta = false  
-      }, (erro : HttpErrorResponse) => {
-        alert(erro.error.message)
+      }, erro => {
+        this.addSingle("warn", "Dados invalidos", erro.error.message)
+
       }
     )
   }

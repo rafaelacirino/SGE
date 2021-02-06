@@ -5,7 +5,6 @@ import { ActivatedRoute } from '@angular/router';
 import { Usuario } from 'src/app/dominios/Usuario';
 import { UsuarioService } from 'src/app/modulos/usuario/services/usuario.service';
 import {MessageService} from 'primeng/api';
-import {PageNotificationService} from "@nuvem/primeng-components";
 
 @Component({
   selector: 'app-formulario',
@@ -22,7 +21,6 @@ export class FormularioComponent implements OnInit {
 
 
   constructor(
-    private pageNotificationService: PageNotificationService,
     private messageService: MessageService,
     private fb: FormBuilder,
     private usuarioService: UsuarioService,
@@ -33,12 +31,6 @@ export class FormularioComponent implements OnInit {
   addSingle(error, titulo, corpo ) {
     this.messageService.add({severity:error, summary:titulo, detail:corpo});
   }
-
-
-  clear() {
-    this.messageService.clear();
-  }
-  
 
   ngOnInit(): void {
     if(this.logado){

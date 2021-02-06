@@ -9,8 +9,9 @@ import { EventoService } from 'src/app/modulos/evento/services/evento.service';
 import { PerguntaService } from 'src/app/modulos/pergunta/servicos/pergunta.service';
 import { Usuario } from 'src/app/dominios/Usuario';
 import { InscricaoService } from '../../services/inscricao.service';
-import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from "@angular/router"
+import {MessageService} from 'primeng/api';
+
 
 
 @Component({
@@ -37,9 +38,15 @@ export class FormularioComponent implements OnInit {
     private fb: FormBuilder,
     private eventoServico: EventoService,
     private perguntaServico: PerguntaService,
-    private inscricaoServico: InscricaoService
+    private inscricaoServico: InscricaoService,
+    private messageService: MessageService
+
   ) { 
 
+  }
+
+  addSingle(error, titulo, corpo ) {
+    this.messageService.add({severity:error, summary:titulo, detail:corpo});
   }
 
   ngOnInit(): void {
@@ -60,8 +67,11 @@ export class FormularioComponent implements OnInit {
       console.log(pergunta.resposta)
       if (!pergunta.resposta && pergunta.obrigatorio){
         cond = false;
-        alert ("Você não respondeu uma pergunta obrigatoria")
-        location.reload();
+        this.addSingle("warn", "Você não respondeu uma pergunta obrigatoria", "")
+        
+        setTimeout(() => {
+          location.reload();
+        }, 1500);
       
       }
       
@@ -85,20 +95,16 @@ export class FormularioComponent implements OnInit {
 
       this.inscricaoServico.salvarInscricao(this.inscricao).subscribe(
         inscricao => {
-          alert('Inscrição salva')    
-        }, (erro : HttpErrorResponse) => {
-          alert(erro.error.message)
+          this.addSingle("success", "Inscrição salva", "")
+   
+        }, erro => {
+          this.addSingle("warn", "Dados invalidos", erro.error.message)
         })
       setTimeout(() => {
         this.router.navigate(['/eventos/listagem'])
       }, 1500);
       
-    }
-
-  
-  
-
-    
+    }    
   }
 
   buscarEvento(id: number){

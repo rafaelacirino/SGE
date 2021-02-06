@@ -1,10 +1,11 @@
 import { EventEmitter, Output, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { Component, Input, OnInit } from '@angular/core';
 import { ConfirmationService } from 'primeng';
-import { PreinscricaoUsuario } from 'src/app/dominios/PreinscricaoUsuario';
 import { Usuario } from 'src/app/dominios/Usuario';
 import { InscricaoService } from 'src/app/modulos/inscricao/services/inscricao.service';
 import { UsuarioService } from '../../services/usuario.service';
+import {MessageService} from 'primeng/api';
+
 
 @Component({
   selector: 'app-listagem',
@@ -19,13 +20,19 @@ export class ListagemComponent implements OnInit {
   display: boolean = false;
 
   
-
+  
 
   constructor(
     public servico: UsuarioService,
     private confirmationService: ConfirmationService,
-    public servicoInscricao: InscricaoService
+    public servicoInscricao: InscricaoService,
+    private messageService: MessageService
+
   ) { }
+
+  addSingle(error, titulo, corpo ) {
+    this.messageService.add({severity:error, summary:titulo, detail:corpo});
+  }
 
   ngOnInit(): void {
 
@@ -46,13 +53,13 @@ export class ListagemComponent implements OnInit {
 
     deletarUsuario(id: number) {
       if (id == 1){
-        alert ("Admin não pode ser excluido")
+        this.addSingle("error", "Admin não pode ser excluido", "")
       }
 
       if (id != 1){
         this.servico.deletarUsuario(id)
         .subscribe(() => {
-          alert('Usuário deletado');
+          this.addSingle("success", "Usuario excluido", "")
           this.buscarUsuarios();
         },
         err => alert(err));
@@ -62,7 +69,7 @@ export class ListagemComponent implements OnInit {
     deletarUsuarioLogado(id: number) {
       this.servico.deletarUsuario(id)
         .subscribe(() => {
-          alert('Usuário deletado');
+          this.addSingle("success", "Usuario excluido", "")
           this.buscarUsuarios();
           localStorage.removeItem("usuario")
           location.reload()
