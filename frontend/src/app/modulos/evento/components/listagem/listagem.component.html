@@ -1,5 +1,5 @@
 
-<app-card [titulo]="'Lista de eventos'" *ngIf="usuario.admin">
+<app-card [titulo]="'Lista de eventos'" *ngIf="usuario.admin" class="listagem-eventos">
 
 <div class="p-d-flex p-jc-end">
     <button id="button-criar" routerLink="/eventos/formulario" pButton type="button" label="Criar Evento" ></button>
@@ -10,11 +10,11 @@
     <ng-template pTemplate="header">
         <tr>
             <th>Titulo</th>
-            <th>Valor</th>
-            <th>Vagas</th>
-            <th>Data de inicio</th>
-            <th>Data fim</th>
-            <th>Ações</th>
+            <th id="valor">Valor</th>
+            <th id="vagas">Vagas</th>
+            <th id="data-inicio">Data de inicio</th>
+            <th id="data-fim">Data fim</th>
+            <th id="acoes">Ações</th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-evento>
@@ -25,7 +25,7 @@
             <td>{{evento.periodoInicio | date: "dd/MM/yyyy HH:MM"}}</td>
             <td>{{evento.periodoFim | date: "dd/MM/yyyy HH:MM"}}</td>
             <td>
-                <button class="p-ml-2" (click)="showDialog(evento.id)" pButton type="button" icon="pi pi-info-circle"></button>
+                <button id="botao-info" class="p-ml-2" (click)="showDialog(evento.id)" pButton type="button" icon="pi pi-info-circle"></button>
             </td>
         </tr>
     </ng-template>

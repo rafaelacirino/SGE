@@ -26,7 +26,7 @@ export class FormularioComponent implements OnInit {
   perguntas: Perguntas[] = []
   perguntaEscolhidas: Perguntas[] = []
   eventoPergunta: EventoPergunta
-  adicionarPergunta: boolean
+  adicionarPergunta: boolean = false
   pergunta = new Perguntas
 
   tipoEvento: TipoEvento
@@ -105,6 +105,9 @@ export class FormularioComponent implements OnInit {
       this.eventoService.editarEvento(this.evento).subscribe(
         evento => {
           alert('Evento editado')
+          setTimeout(() => {
+            this.router.navigate(['/eventos/listagem'])
+          }, 1500)
           this.router.navigate(['/eventos/listagem'])
       }, (erro : HttpErrorResponse) => {
         alert(erro.error.message)
@@ -113,14 +116,15 @@ export class FormularioComponent implements OnInit {
       this.eventoService.salvarEvento(this.evento).subscribe(
         evento => {
           alert('Evento salvo')
+          setTimeout(() => {
+            this.router.navigate(['/eventos/listagem'])
+          }, 1500)
       }, (erro : HttpErrorResponse) => {
         alert(erro.error.message)
       }
     )
   }
-  setTimeout(() => {
-    this.router.navigate(['/eventos/listagem'])
-  }, 1500)
+  
 
   }
 

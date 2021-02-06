@@ -19,6 +19,7 @@ import com.basis.sge.service.servico.producer.SgeProducer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -56,7 +57,6 @@ public class UsuarioServico {
     public UsuarioDTO salvar(UsuarioDTO usuarioDTO){
         usuarioDTO.setAdmin(false);
         Usuario usuario = verificarPost(usuarioDTO);
-
         usuario = usuarioRepositorio.save(usuario);
         criarEmailCadastro(usuario.getEmail(),usuario.getChaveUnica());
         return usuarioMapper.toDto(usuario);
@@ -129,30 +129,6 @@ public class UsuarioServico {
 
     public Usuario verificarPost(UsuarioDTO usuarioDTO){
 
-        if (usuarioDTO == null){
-            throw new RegraNegocioException("O usuario é nulo");
-        }
-
-        if(usuarioDTO.getEmail() == null){
-            throw new RegraNegocioException("O usuario não possui email");
-        }
-
-        if(usuarioDTO.getCpf() == null){
-            throw new RegraNegocioException("O usuario não possui cpf");
-        }
-
-        if (usuarioDTO.getNome() == null){
-            throw new RegraNegocioException("O usuario não possui nome");
-        }
-
-        if (usuarioDTO.getDataNascimento() == null){
-            throw new RegraNegocioException("O usuario não possui data de nascimento");
-        }
-
-        if (usuarioDTO.getTelefone() == null){
-            throw new RegraNegocioException("Telefone nulo");
-        }
-
          if( !usuarioRepositorio.findByEmail(usuarioDTO.getEmail()).isEmpty() ){
             throw new RegraNegocioException("O email já foi cadastrado");
          }
@@ -161,31 +137,14 @@ public class UsuarioServico {
              throw new RegraNegocioException("Cpf já cadastrado");
          }
 
-
-
-        //EXCEPTION CPF INVALIDO
-        if (usuarioDTO.getCpf().length() != 14){
-            throw new RegraNegocioException("CPF invalido");
-        }
-
-        if (usuarioDTO.getTelefone().length() > 14){
-            throw new RegraNegocioException("Numero invalido");
-        }
-
-
-        /////
-
         //EXCEPTION IDADE ERRADA (OBS: EVENTUALMENTE MUDAR PARA LOCALDATE)
-
         if (usuarioDTO.getDataNascimento().isAfter(DIA_DE_HOJE)){
-
             throw new RegraNegocioException("Data de nascimento invalida");
         }
 
         Usuario usuario = usuarioMapper.toEntity(usuarioDTO);
         usuario.setChaveUnica(UUID.randomUUID().toString());
         return usuario;
-
     }
 
     // VERIFICAR EDIÇÃO

@@ -4,8 +4,13 @@
     margin: auto;
     margin-block-end: 25px;
 }
-.listagem-usuario-admin #cpf, #nascimento{
+.listagem-usuario-admin #nascimento{
     width: 120px;
+    text-align: center;
+}
+.listagem-usuario-admin #cpf{
+    width: 130px;
+    text-align: center;
 }
 .listagem-usuario-admin #telefone{
     width: 130px;

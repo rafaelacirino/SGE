@@ -69,6 +69,7 @@ export class FormularioComponent implements OnInit {
           alert('Usuário Editado')
         }, (erro: HttpErrorResponse) => {
           alert(erro.error.message);
+          alert(erro.error.erros)
         })
         this.emitEdicao.emit(this.usuario);
       } else {
