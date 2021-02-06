@@ -80,8 +80,8 @@ export class FormularioComponent implements OnInit {
         .subscribe(usuario => {
           this.addSingle("success", "Usuário Editado", "Deu Certo")
         }, (erro: HttpErrorResponse) => {
-          alert(erro.error.message);
-          alert(erro.error.erros)
+          this.addSingle('warn', erro.error.message, erro.error.erros)
+          
         })
         this.emitEdicao.emit(this.usuario);
       } else {
@@ -89,7 +89,7 @@ export class FormularioComponent implements OnInit {
         .subscribe(usuario => {
           this.addSingle("success", "Usuário Criado", "Verifique seu Email")
       }, (erro : HttpErrorResponse) => {
-        alert(erro.error.message);
+        this.addSingle('warn', "Verifique os Campos", "Descobrir como passar o erro")
       
       });
       
