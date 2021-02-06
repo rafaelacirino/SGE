@@ -15,10 +15,10 @@
         <ng-template pTemplate="body" let-usuario>
             <tr>
                 <td>{{usuario.nome}}</td>
-                <td>{{usuario.cpf}}</td>
+                <td id="cpf">{{usuario.cpf}}</td>
                 <td>{{usuario.email}}</td>
                 <td>{{usuario.telefone}}</td>
-                <td>{{usuario.dataNascimento | date: 'dd/MM/yyyy'}}</td>
+                <td id="nascimento">{{usuario.dataNascimento | date: 'dd/MM/yyyy'}}</td>
                 <td class="p-d-flex p-jc-center">
                     <div style class="botao_apagar">
                         <button (click)="deletarUsuario(usuario.id)" class="p-ml-2" pButton type="button" icon="pi pi-trash"></button>
