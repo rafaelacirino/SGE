@@ -57,10 +57,6 @@ public class PreInscricaoServico {
     }
 
     public PreInscricaoDTO salvar(PreInscricaoDTO preInscricaoDTO){
-        verificaNull(preInscricaoDTO);
-        verificaNull(preInscricaoDTO.getIdUsuario());
-        verificaNull(preInscricaoDTO.getIdEvento());
-        verificaNull(preInscricaoDTO.getIdSituacaoPreInscricao());
         PreInscricao preInscricao = preInscricaoMapper.toEntity(preInscricaoDTO);
 
         List<PreInscricao> preInscricaosDoUsuario = preInscricaoRepositorio.findByUsuario(preInscricao.getUsuario());
@@ -86,10 +82,6 @@ public class PreInscricaoServico {
                 || !preInscricao.getUsuario().getId().equals(preInscricaoDTO.getIdUsuario())){
             throw new RegraNegocioException("Só poderá ser editada a situação na Inscrição");
         }
-
-
-        verificaNull(preInscricaoDTO);
-        verificaNull(preInscricaoDTO.getIdSituacaoPreInscricao());
 
         if(!preInscricaoDTO.getIdSituacaoPreInscricao().equals(preInscricao.getSituacaoPreInscricao().getId())){
             criarEmailInscricaoEditada(preInscricaoDTO);
@@ -118,21 +110,15 @@ public class PreInscricaoServico {
         return preInscricoesPorIdEvento;
     }
 
-    private void verificaNull(Object object){
-        if(object == null){
-            throw new RegraNegocioException("Foi passado algum parametro null que não pode ser nulo");
-        }
-    }
 
     public void editarInscricaoCancelada(CancelarInscricaoDTO cancelarInscricaoDTO) {
         Usuario usuario = usuarioRepositorio.findByChaveUnica(cancelarInscricaoDTO.getChave());
 
-        verificaNull(usuario);
         PreInscricao preInscricao = preInscricaoRepositorio.findById(cancelarInscricaoDTO.getId())
                 .orElseThrow(() -> new RegraNegocioException("Não existe inscrição com esse id"));
 
         if(!preInscricao.getUsuario().getId().equals(usuario.getId())){
-            throw new RegraNegocioException("Essa Inscricao não é desse ususario");
+            throw new RegraNegocioException("Essa Inscricao não é desse usuario");
         }
 
         preInscricao.setSituacaoPreInscricao(situacaoPreInscricaoRepositorio
@@ -204,11 +190,13 @@ public class PreInscricaoServico {
 
         for (PreInscricao inscricoes: preInscricoesDoUsuario) {
             PreinscricaoUsuarioDTO inscricao = new PreinscricaoUsuarioDTO(
+                    inscricoes.getId(),
                     inscricoes.getEvento().getTitulo(),
                     inscricoes.getEvento().getPeriodoInicio(),
                     inscricoes.getEvento().getPeriodoFim(),
                     inscricoes.getEvento().getDescricao(),
-                    inscricoes.getSituacaoPreInscricao().getDescricao());
+                    inscricoes.getSituacaoPreInscricao().getDescricao(),
+                    inscricoes.getSituacaoPreInscricao().getId());
             preInscricoesPorIdUsuario.add(inscricao);
         }
         return preInscricoesPorIdUsuario;

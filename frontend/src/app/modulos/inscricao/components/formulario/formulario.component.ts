@@ -54,9 +54,6 @@ export class FormularioComponent implements OnInit {
 
   salvarResposta(){
     this.usuario = JSON.parse(window.localStorage.getItem("usuario")); 
-
-    
-
     let cond = true;
 
     this.perguntas.forEach(pergunta => {

@@ -1,10 +1,24 @@
 tr{
     text-align: center;
 }
+.listagem-eventos #botao-info{
+    background-color: #212121;
+    border-color: #212121;
+}
 
-#button-criar{
+.listagem-eventos #button-criar{
     display: flex;
     align-items: center;
+    background: #212121;
+    border-color: #212121;
+}
+
+.listagem-eventos #acoes, #vagas, #valor{
+    width: 70px;
+}
+
+.listagem-eventos #data-inicio, #data-fim{
+    width: 140px;
 }
 
 .mydialog {

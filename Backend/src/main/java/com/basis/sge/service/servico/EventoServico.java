@@ -17,6 +17,7 @@ import com.basis.sge.service.servico.producer.SgeProducer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,11 +47,14 @@ public class EventoServico {
     }
 
     public EventoDTO salvar(EventoDTO eventoDTO){
-        testesNull(eventoDTO);
 
         Evento evento = eventoMapper.toEntity(eventoDTO);
         List<EventoPergunta> perguntas = evento.getPerguntas();
 
+        if (eventoDTO.getPeriodoFim().isBefore(eventoDTO.getPeriodoInicio())
+                || eventoDTO.getPeriodoInicio().isBefore(LocalDateTime.now())){
+            throw new RegraNegocioException("Data do evento inválida");
+        }
         evento.setPerguntas(new ArrayList<>());
         eventoRepositorio.save(evento);
 
@@ -64,6 +68,7 @@ public class EventoServico {
         if(!eventoRepositorio.existsById(eventoDTO.getId())){
             throw new RegraNegocioException("Evento não existe na base de dados");
         }
+
         Evento eventopergunta = eventoRepositorio.findById(eventoDTO.getId()).orElseThrow(()
                         -> new RegraNegocioException("Evento não encontrado"));
 
@@ -72,36 +77,20 @@ public class EventoServico {
                 findById(eventoPergunta.getPergunta().getId()).orElseThrow(
                         () -> new RegraNegocioException("Pergunta não encontrado"))));
 
-        testesNull(eventoDTO);
-
         Evento evento = eventoRepositorio.save(eventoMapper.toEntity(eventoDTO));
         List<PreInscricaoDTO> preInscricaoDTOS = preInscricaoServico.buscarPreinscricaoPorIdEvento(eventoDTO.getId());
         List<UsuarioDTO> usuariosDtos = new ArrayList<>();
 
+        if (eventoDTO.getPeriodoFim().isBefore(eventoDTO.getPeriodoInicio())
+                || eventoDTO.getPeriodoInicio().isBefore(LocalDateTime.now())){
+            throw new RegraNegocioException("Data do evento inválida");
+        }
         for (PreInscricaoDTO preInscricao: preInscricaoDTOS) {
             usuariosDtos.add(usuarioServico.obterPorID(preInscricao.getIdUsuario()));
         }
 
         enviarEmail(usuariosDtos, eventoDTO.getTitulo());
         return eventoMapper.toDto(evento);
-    }
-
-    private void testesNull(EventoDTO eventoDTO) {
-        if(eventoDTO.getTitulo() == null){
-            throw new RegraNegocioException("Titulo do evento não pode ser vazio");
-        }
-        if(eventoDTO.getPeriodoInicio() == null){
-            throw new RegraNegocioException("Periodo inicio não pode ser vazio");
-        }
-        if(eventoDTO.getPeriodoFim() == null){
-            throw new RegraNegocioException("Periodo fim não pode ser vazio");
-        }
-        if(eventoDTO.getTipoInsc() == null){
-            throw new RegraNegocioException("Tipo Inscricao não pode ser vazio");
-        }
-        if(eventoDTO.getIdTipoEvento() == null){
-            throw new RegraNegocioException("O tipo do evento não pode ser vazio");
-        }
     }
 
     public void remover(Integer id){

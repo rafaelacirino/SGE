@@ -1,40 +1,26 @@
-.box{
-    background: #e5eded;
+
+.formulario-usuario .input, p-dropdown, label{
+    margin-left: 30px;
+    width: 400px;
+}
+.formulario-usuario .asterisco{
+    color: red;
+}
+
+.formulario-usuario .botao_cadastrar{
+    display: flex;
+    align-items: center;
+    background: #212121;
+    border-color: #212121;
+    color: white;
+    border-radius: 20px;
+}
+
+.formulario-usuario{
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     width: 450px;
-    padding: 50px;
-    border-radius: 10px;
-}
-.input{
-    margin-left: 2%;
-    margin-bottom: 1.5%;
-    width: 350px;
-}
-
-.botao{
-    margin-left: 2%;
-    padding-bottom: 2%;
-    font: size 1.5em;;
-}
-.botao div{
-    margin-top: 1px;
-
-}
-input.ui-inputtext.ui-corner-all{
-    margin: 0px 0px 5.48438px 7.3125px;
-    padding: 6.006px;
-}
-
-.botao_cadastrar.ui-button-rounded{
-    background-color: #F1F1F2;
-    border-color: #C0C0C0;
-}
-.botao_cadastrar.ui-button-text{
-    color: #060930;
-    text-align: center;    
-}
-.botao_cadastrar.ui-button-rounded:hover{
-    background-color: #C0C0C0;
-    transition: 0.5s;
-    opacity: 0.6;
-    color: #060930;
 }

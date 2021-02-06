@@ -1,21 +1,24 @@
-.tipo-insc{
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    height: 15px;
-}
 
-.input, p-dropdown, .tipo-insc{
+.cadastro-eventos .input, p-dropdown, .tipo-insc{
     margin-left: 2%;
     margin-bottom: 1.5%;
     width: 400px;
 }
-p{
+.cadastro-eventos p{
     color: black;
 }
 
-.botao{
+.cadastro-eventos .botao, .p-button-warning{
     display: flex;
     margin: 10px;
     align-items: center;
+    background: #212121;
+    border-color: #212121;
+}
+
+.cadastro-eventos #float-input{
+    vertical-align: inherit;
+}
+.cadastro-eventos .label{
+    margin-left: 20px;
 }

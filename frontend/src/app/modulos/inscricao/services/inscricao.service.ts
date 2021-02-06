@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Chave } from 'src/app/dominios/Chave';
 import { Inscricao } from 'src/app/dominios/Inscricao';
 import { ListagemInscricoes } from 'src/app/dominios/ListagemInscricoes';
+import { PreinscricaoUsuario } from 'src/app/dominios/PreinscricaoUsuario';
 import { environment } from 'src/environments/environment';
 
 @Injectable()
@@ -24,6 +25,10 @@ export class InscricaoService {
 
   getInscricoesPorIdEvento(id: number): Observable<ListagemInscricoes[]>{
     return this.http.get<ListagemInscricoes[]>(`${this.url}/preinscricao/eventoinscricoes/${id}`)
+  }
+
+  getInscricoesPorIdUsuario(id: number): Observable<PreinscricaoUsuario[]> {
+    return this.http.get<PreinscricaoUsuario[]>(`${this.url}/preinscricao/usuarioinscricoes/${id}`);
   }
 
   salvarInscricao(inscricao: Inscricao): Observable<Inscricao>{

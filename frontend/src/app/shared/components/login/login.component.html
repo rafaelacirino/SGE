@@ -1,16 +1,21 @@
-<div styleClass = "login" class="p-d-flex p-jc-center">
-    <div class="p-col-6">
-        <p-card  header="Login">
-                <br>
-                <br> 
-                <i class="pi pi-key"></i><input [(ngModel)]="chaveInput" type="text" pInputText placeholder="Insira sua chave de inscrição" />
-                <br>
-                <br>
-                <button pButton (click)="logarUsuario(chaveInput)" type="button" label="Entrar" class="ui-button-rounded" styleClass="login" ></button>
-                <button pButton type="button" (click)="showDialog()" label="Cadastre-se" class="ui-button-rounded" styleClass="login" ></button> 
-                <p-dialog header="Cadastro de Usuários" [(visible)]="display">
+<div id = "backPlate-login">
+        <div class = "card" id="form" >
+            <img id = "img_logo" src="../../../../../assets/layout/images/logoSGE.png"/>
+           
+            <div class = "midllecontent">
+                <h1 class = "sge">Sistema de Gerenciamento de Eventos</h1>
+                <div class = "InputChave">
+                    <i class="pi pi-key"></i>
+                    <input id = "insertkey" [(ngModel)]="chaveInput" type="text" pInputText placeholder="Insira sua chave de inscrição" />    
+                </div>
+            </div>
+
+            <div class = "botoes">
+                <button pButton (click)="logarUsuario(chaveInput)" type="button" label="Entrar" class = "botoes1"></button>   
+                <button pButton type="button" (click)="showDialog()" label="Cadastre-se" class = "botoes1"></button>
+                <p-dialog header="Cadastre-se" [(visible)]="display" >
                     <app-formulario></app-formulario>
-                </p-dialog> 
-        </p-card> 
-    </div>
+                 </p-dialog>                    
+            </div>
+        </div>
 </div>

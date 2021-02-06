@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Usuario } from 'src/app/dominios/Usuario';
 import { UsuarioService } from 'src/app/modulos/usuario/services/usuario.service';
+import {MessageService} from 'primeng/api';
+import {PageNotificationService} from "@nuvem/primeng-components";
 
 @Component({
   selector: 'app-formulario',
@@ -20,11 +22,22 @@ export class FormularioComponent implements OnInit {
 
 
   constructor(
+    private pageNotificationService: PageNotificationService,
+    private messageService: MessageService,
     private fb: FormBuilder,
     private usuarioService: UsuarioService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    
   ) { }
 
+  addSingle(error, titulo, corpo ) {
+    this.messageService.add({severity:error, summary:titulo, detail:corpo});
+  }
+
+
+  clear() {
+    this.messageService.clear();
+  }
   
 
   ngOnInit(): void {
@@ -59,24 +72,24 @@ export class FormularioComponent implements OnInit {
 
   salvar(){
     if(this.formUsuario.invalid){
-      alert("Formulario Invalido")
       return
     }
   
     if (this.edicao) {
       this.usuarioService.editarUsuario(this.usuario)
         .subscribe(usuario => {
-          alert('Usuário Editado')
+          this.addSingle("success", "Usuário Editado", "Deu Certo")
         }, (erro: HttpErrorResponse) => {
-          alert(erro.error.message);
+          this.addSingle('warn', erro.error.message, erro.error.erros)
+          
         })
         this.emitEdicao.emit(this.usuario);
       } else {
       this.usuarioService.salvarUsuario(this.usuario)
         .subscribe(usuario => {
-          alert('Cadastro realizado com sucesso! Chave de acesso enviada. Verifique seu email')
+          this.addSingle("success", "Usuário Criado", "Verifique seu Email")
       }, (erro : HttpErrorResponse) => {
-        alert(erro.error.message);
+        this.addSingle('warn', "Verifique os Campos", "Descobrir como passar o erro")
       
       });
       
@@ -91,3 +104,4 @@ export class FormularioComponent implements OnInit {
   }
 
 }
+
