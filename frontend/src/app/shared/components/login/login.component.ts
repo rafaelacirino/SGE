@@ -14,7 +14,6 @@ import { Router } from "@angular/router"
 export class LoginComponent implements OnInit {
 
   @Output() emitUsuario: EventEmitter<Usuario> = new EventEmitter;
-
   display: boolean = false;
   chaveInput: string
   formChave: FormGroup
