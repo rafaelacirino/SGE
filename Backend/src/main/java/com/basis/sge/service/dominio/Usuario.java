@@ -30,7 +30,6 @@ public class Usuario implements Serializable {
     @Column(name = "chave_unica")
     private String chaveUnica;
 
-    @CPF(message = "CPF inválido")
     @Column(name = "cpf")
     private String cpf;
 
