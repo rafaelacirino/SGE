@@ -1,7 +1,6 @@
 package com.basis.sge.service.recurso;
 
 import com.basis.sge.service.servico.dto.ChaveUsuarioDTO;
-import com.basis.sge.service.servico.dto.PreinscricaoUsuarioDTO;
 import com.basis.sge.service.servico.dto.UsuarioDTO;
 import com.basis.sge.service.servico.UsuarioServico;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -49,7 +49,7 @@ public class UsuarioRecurso {
     }
 
     @PutMapping
-    public ResponseEntity<UsuarioDTO> editar( @RequestBody UsuarioDTO usuarioDTO ){
+    public ResponseEntity<UsuarioDTO> editar(@RequestBody UsuarioDTO usuarioDTO ){
         return ResponseEntity.ok(usuarioServico.editar(usuarioDTO));
     }
 

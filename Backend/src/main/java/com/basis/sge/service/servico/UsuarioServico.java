@@ -17,6 +17,7 @@ import com.basis.sge.service.servico.producer.SgeProducer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +55,6 @@ public class UsuarioServico {
     public UsuarioDTO salvar(UsuarioDTO usuarioDTO){
         usuarioDTO.setAdmin(false);
         Usuario usuario = verificarPost(usuarioDTO);
-
         usuario = usuarioRepositorio.save(usuario);
         criarEmailCadastro(usuario.getEmail(),usuario.getChaveUnica());
         return usuarioMapper.toDto(usuario);

@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Usuario } from 'src/app/dominios/Usuario';
 import { UsuarioService } from 'src/app/modulos/usuario/services/usuario.service';
+import {MessageService} from 'primeng/api';
+import {PageNotificationService} from "@nuvem/primeng-components";
 
 @Component({
   selector: 'app-formulario',
@@ -20,11 +22,22 @@ export class FormularioComponent implements OnInit {
 
 
   constructor(
+    private pageNotificationService: PageNotificationService,
+    private messageService: MessageService,
     private fb: FormBuilder,
     private usuarioService: UsuarioService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    
   ) { }
 
+  addSingle(error, titulo, corpo ) {
+    this.messageService.add({severity:error, summary:titulo, detail:corpo});
+  }
+
+
+  clear() {
+    this.messageService.clear();
+  }
   
 
   ngOnInit(): void {
@@ -58,15 +71,17 @@ export class FormularioComponent implements OnInit {
 
 
   salvar(){
+              this.addSingle("success", "Usuário Editado", "Deu Certo")
+
     if(this.formUsuario.invalid){
-      alert("Formulario Invalido")
       return
     }
   
     if (this.edicao) {
       this.usuarioService.editarUsuario(this.usuario)
         .subscribe(usuario => {
-          alert('Usuário Editado')
+          alert("foi")
+          this.pageNotificationService.addSuccessMessage("Foi")
         }, (erro: HttpErrorResponse) => {
           alert(erro.error.message);
         })
@@ -91,3 +106,4 @@ export class FormularioComponent implements OnInit {
   }
 
 }
+
