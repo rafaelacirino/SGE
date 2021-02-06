@@ -71,8 +71,6 @@ export class FormularioComponent implements OnInit {
 
 
   salvar(){
-              this.addSingle("success", "Usuário Editado", "Deu Certo")
-
     if(this.formUsuario.invalid){
       return
     }
@@ -80,8 +78,7 @@ export class FormularioComponent implements OnInit {
     if (this.edicao) {
       this.usuarioService.editarUsuario(this.usuario)
         .subscribe(usuario => {
-          alert("foi")
-          this.pageNotificationService.addSuccessMessage("Foi")
+          this.addSingle("success", "Usuário Editado", "Deu Certo")
         }, (erro: HttpErrorResponse) => {
           alert(erro.error.message);
           alert(erro.error.erros)
@@ -90,7 +87,7 @@ export class FormularioComponent implements OnInit {
       } else {
       this.usuarioService.salvarUsuario(this.usuario)
         .subscribe(usuario => {
-          alert('Cadastro realizado com sucesso! Chave de acesso enviada. Verifique seu email')
+          this.addSingle("success", "Usuário Criado", "Verifique seu Email")
       }, (erro : HttpErrorResponse) => {
         alert(erro.error.message);
       
