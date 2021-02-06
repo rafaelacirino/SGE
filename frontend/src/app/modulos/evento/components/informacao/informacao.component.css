@@ -1,15 +1,8 @@
-.informacao-eventos{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
+.informacao-evento .table{
+    width: 500px;
 }
-
-.informacao-eventos .atributo {
+.informacao-evento .botao-inscricao{
     display: flex;
     align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    margin: 5px;
-    padding: 10px;
+    margin-top: 10px;
 }
