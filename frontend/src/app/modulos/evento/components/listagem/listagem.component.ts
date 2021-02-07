@@ -25,6 +25,7 @@ export class ListagemComponent implements OnInit {
   ngOnInit(): void {
     this.buscarEventos();
     this.pegarUsuarioLocalStorage();
+    
   }
 
   buscarTipoEvento(id: number){
