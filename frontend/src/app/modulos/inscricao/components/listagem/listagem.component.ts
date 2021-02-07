@@ -40,6 +40,7 @@ export class ListagemComponent implements OnInit {
       this.route.params.subscribe(params =>{
         this.buscarInscricoesPorEvento(params.id)
         this.buscarEvento(params.id)
+        
       })
     }else{
       this.buscarInscricoesPorUsuario()
@@ -61,10 +62,17 @@ export class ListagemComponent implements OnInit {
   }
 
   editarInscricaoCancelada(idInscricao: number){
+    
     this.servico.getInscricaoPorId(idInscricao).subscribe((inscricao: Inscricao) => {
       inscricao.idSituacaoPreInscricao = 4
-      
+
+    this.buscarEvento(inscricao.idEvento) 
+
       this.servico.editarInscricao(inscricao).subscribe(() => {
+        if (this.evento.qtdVagas){
+          this.evento.qtdVagas ++;
+          this.eventoService.editarEvento(this.evento).subscribe();
+        }
         this.addSingle("success", "Inscrição cancelada", "")
       });
       location.reload()
@@ -73,10 +81,18 @@ export class ListagemComponent implements OnInit {
 
 
   editarInscricaoAprovado(idInscricao: number){
+
     this.servico.getInscricaoPorId(idInscricao).subscribe((inscricao: Inscricao) => {
       inscricao.idSituacaoPreInscricao = 2
+    
+      this.buscarEvento(inscricao.idEvento)
       
       this.servico.editarInscricao(inscricao).subscribe(() => {
+        this.buscarEvento(inscricao.idEvento)
+        if (this.evento.qtdVagas){
+          this.evento.qtdVagas --;
+          this.eventoService.editarEvento(this.evento).subscribe();
+        }
         this.addSingle("success", "Inscrição aprovada", "")
       });
       location.reload()
