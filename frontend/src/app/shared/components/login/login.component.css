@@ -22,16 +22,17 @@
 }
 
 #img_logo{
-    width: 20vw !important;
-    height: auto;
-    margin-left: 23%;
+   width: 45px;
+   height: 39px;
+   margin-top: 10px ;
     
 }
 
 .sge{
     color: white;
     white-space: nowrap;
-    margin-top: -10%;
+    margin-bottom: 30px;
+    
 }
 
 .midllecontent{
@@ -72,6 +73,8 @@
     justify-content: center;
     width: 45%;
     white-space: nowrap;
-    background-color: #5180CE;
+    background: #212121;
+    border-color: #212121;
+    border-radius: 30px;
 }
 
