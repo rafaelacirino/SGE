@@ -6,11 +6,12 @@ import { UsuarioModule } from './modulos/usuario/usuario.module';
 import { EventoModule } from './modulos/evento/evento.module';
 import { ListagemComponent } from './modulos/evento/components/listagem/listagem.component';
 import { InscricaoModule } from './modulos/inscricao/inscricao.module';
+import { DashboardComponent } from './shared/components/dashboard/dashboard.component';
 
 const routes: Routes = [
     { 
     path: '',
-    component:ListagemComponent
+    component:DashboardComponent
     },
     { 
     path: 'usuarios',

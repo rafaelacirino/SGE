@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
   }
 
   logarUsuario(chaveInput: string){
-    this.router.navigate(['/eventos/listagem'])
+    this.router.navigate(['/'])
     this.chave.chave = chaveInput
     this.servico.buscarUsuarioPorChave(this.chave).subscribe((usuario :Usuario)=>{
       this.emitUsuario.emit(usuario);

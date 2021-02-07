@@ -5,8 +5,9 @@
     <div #layoutContainer
         class="layout-container"
         [ngClass]="{
-            'menu-layout-static': !menuService.isOverlay(),
-            'menu-layout-overlay': menuService.isOverlay(),
+            
+            'menu-layout-static': !menuService.isOverlay() && usuarioLogado ,
+            'menu-layout-overlay': menuService.isOverlay() && usuarioLogado,
             'layout-menu-overlay-active': menuService.overlayMenuActive,
             'menu-layout-horizontal': menuService.isHorizontal(),
             'menu-layout-slim': menuService.isSlim(),
@@ -15,9 +16,9 @@
         }">
         <app-topbar></app-topbar>
 
-        <div class="layout-menu" [ngClass]="{ 'layout-menu-dark': darkMenu }" (click)="onMenuClick($event)">
-            <p-scrollPanel #scrollPanel [style]="{ height: '100%' }">
-                <app-menu></app-menu>
+        <div class="layout-menu" [ngClass]="{ 'layout-menu-dark': darkMenu }" (click)="onMenuClick($event)" *ngIf="usuarioLogado">
+            <p-scrollPanel #scrollPanel [style]="{ height: '100%' }" >
+                <app-menu ></app-menu>
             </p-scrollPanel>
         </div>
 

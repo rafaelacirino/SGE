@@ -1,0 +1,11 @@
+<app-card *ngIf="usuario.admin" [titulo]="'Status das Inscrições'">
+
+    <p-chart type="polarArea" [data]="dataAdmin" ></p-chart>
+
+</app-card>
+
+<app-card *ngIf="!usuario.admin" [titulo]="'Status das minhas Inscrições'" >
+
+    <p-chart type="pie" [data]="dataUsuario"></p-chart>
+
+</app-card>

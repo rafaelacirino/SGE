@@ -20,11 +20,38 @@ export class ListagemComponent implements OnInit {
   display: boolean = false;
   tipoEvento: string
   perguntas: Perguntas[]
+  data: any;
   constructor(private servico: EventoService, private perguntaService: PerguntaService) { }
 
   ngOnInit(): void {
     this.buscarEventos();
     this.pegarUsuarioLocalStorage();
+    this.data = {
+      datasets: [{
+          data: [
+              11,
+              16,
+              7,
+              3,
+              14
+          ],
+          backgroundColor: [
+              "#FF6384",
+              "#4BC0C0",
+              "#FFCE56",
+              "#E7E9ED",
+              "#36A2EB"
+          ],
+          label: 'My dataset'
+      }],
+      labels: [
+          "Red",
+          "Green",
+          "Yellow",
+          "Grey",
+          "Blue"
+      ]
+  }
   }
 
   buscarTipoEvento(id: number){
