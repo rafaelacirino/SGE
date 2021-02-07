@@ -26,36 +26,7 @@ export class ListagemComponent implements OnInit {
   ngOnInit(): void {
     this.buscarEventos();
     this.pegarUsuarioLocalStorage();
-<<<<<<< HEAD
-    this.data = {
-      datasets: [{
-          data: [
-              11,
-              16,
-              7,
-              3,
-              14
-          ],
-          backgroundColor: [
-              "#FF6384",
-              "#4BC0C0",
-              "#FFCE56",
-              "#E7E9ED",
-              "#36A2EB"
-          ],
-          label: 'My dataset'
-      }],
-      labels: [
-          "Red",
-          "Green",
-          "Yellow",
-          "Grey",
-          "Blue"
-      ]
-  }
-=======
     
->>>>>>> 2e1fc97528044596f23ac943c5b40658fb1fd70b
   }
 
   buscarTipoEvento(id: number){
