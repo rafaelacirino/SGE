@@ -44,6 +44,7 @@ public class PreInscricaoServico {
     private final SituacaoPreInscricaoRepositorio situacaoPreInscricaoRepositorio;
     private final SgeProducer sgeProducer;
     private static final Integer ID_SITUACAO_INSCRICAO_CANCELADA = 4;
+    private static final Integer ID_SITUACAO_INSCRICAO_ACEITA = 2;
 
     public List<PreInscricaoDTO> listar(){
         List<PreInscricao> preInscricaos = preInscricaoRepositorio.findAll();
@@ -61,7 +62,8 @@ public class PreInscricaoServico {
 
         List<PreInscricao> preInscricaosDoUsuario = preInscricaoRepositorio.findByUsuario(preInscricao.getUsuario());
         for (PreInscricao preInscricaoUsuario: preInscricaosDoUsuario) {
-            if(preInscricaoUsuario.getEvento().getId() == preInscricaoDTO.getIdEvento()){
+            if(preInscricaoUsuario.getEvento().getId() == preInscricaoDTO.getIdEvento()
+                && preInscricaoUsuario.getSituacaoPreInscricao().getId() == ID_SITUACAO_INSCRICAO_ACEITA){
                 throw new RegraNegocioException("Inscrição inválida, usuário já inscrito neste evento.");
             }
         }

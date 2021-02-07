@@ -13,7 +13,7 @@ import { Router } from "@angular/router"
 })
 export class LoginComponent implements OnInit {
 
-  @Output() emitUsuario: EventEmitter<Usuario> = new EventEmitter;
+  @Output() emitUsuario = new EventEmitter<Usuario>()
   display: boolean = false;
   chaveInput: string
   formChave: FormGroup
@@ -46,10 +46,13 @@ export class LoginComponent implements OnInit {
     })
     
   }
- 
 
   showDialog() {
       this.display = true;
+  }
+
+  fecharDialog() {
+    this.display = false;
   }
 
   logout(){

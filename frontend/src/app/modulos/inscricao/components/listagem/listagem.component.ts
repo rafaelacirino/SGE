@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { MessageService } from 'primeng';
 import { Evento } from 'src/app/dominios/Evento';
 import { Inscricao } from 'src/app/dominios/Inscricao';
 import { ListagemInscricoes } from 'src/app/dominios/ListagemInscricoes';
@@ -24,8 +25,13 @@ export class ListagemComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private servico: InscricaoService,
-    private eventoService: EventoService
+    private eventoService: EventoService,
+    private messageService: MessageService
     ) { }
+
+    addSingle(error, titulo, corpo ) {
+      this.messageService.add({severity:error, summary:titulo, detail:corpo});
+    }
 
   ngOnInit(): void {
     this.pegarUsuarioLocalStorage();
@@ -59,7 +65,7 @@ export class ListagemComponent implements OnInit {
       inscricao.idSituacaoPreInscricao = 4
       
       this.servico.editarInscricao(inscricao).subscribe(() => {
-        alert("Inscrição cancelada")
+        this.addSingle("success", "Inscrição cancelada", "")
       });
       location.reload()
     });
@@ -71,7 +77,7 @@ export class ListagemComponent implements OnInit {
       inscricao.idSituacaoPreInscricao = 2
       
       this.servico.editarInscricao(inscricao).subscribe(() => {
-        alert("Inscrição aprovada")
+        this.addSingle("success", "Inscrição aprovada", "")
       });
       location.reload()
     });
@@ -82,7 +88,7 @@ export class ListagemComponent implements OnInit {
       inscricao.idSituacaoPreInscricao = 3
       
       this.servico.editarInscricao(inscricao).subscribe(() => {
-        alert("Inscrição reprovada")
+        this.addSingle("success", "Inscrição reprovada", "")
       });
       location.reload()
     });

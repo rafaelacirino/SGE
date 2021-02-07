@@ -1,10 +1,10 @@
 
-    <app-card [titulo]="evento.descricao">
+    <app-card [titulo]="evento.descricao" class="formulario-evento">
     <p-table [value]="perguntas" >
         <ng-template pTemplate="body" let-pergunta>
             
             <tr>
-                <td>{{pergunta.titulo}}</td>
+                <td>{{pergunta.titulo}} <strong *ngIf="pergunta.obrigatorio" id="asterisco">*</strong></td>
                 <td>
                     <textarea [rows]="7" [cols]="40" [(ngModel)]="pergunta.resposta" 
                     *ngIf = "pergunta.obrigatorio" placeholder = 'Resposta Obrigatoria' pInputTextarea></textarea>

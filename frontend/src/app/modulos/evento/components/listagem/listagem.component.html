@@ -1,5 +1,5 @@
 
-
+<!--view do admin-->
 <app-card [titulo]="'Lista de eventos'" *ngIf="usuario.admin" class="listagem-eventos">
 
 <div class="p-d-flex p-jc-end">
@@ -37,12 +37,13 @@
             [tipoEvento]="tipoEvento"
             [perguntas]="perguntas"
             (eventoDeletado)="fecharDialog($event)"
+            
          ></app-informacao>
         </p-dialog>
 </app-card>
 
 <!--view de usuario-->
-<app-card [titulo]="'Lista de eventos'" *ngIf = "!usuario.admin">
+<app-card [titulo]="'Lista de eventos'" *ngIf = "!usuario.admin" class="listagem-eventos">
     
     <p-table [value]="eventos">
         <ng-template pTemplate="header">
@@ -62,7 +63,7 @@
                 <td>{{evento.local}}</td>
                 <td>
                     <div class="p-d-flex p-jc-end">
-                        <button id="button-criar"  [routerLink]="['/inscricao/formulario', evento.id]" pButton type="button" label="Inscrever-se" ></button>
+                        <button id="botao-inscrever" [disabled]="evento.qtdVagas == 0" [routerLink]="['/inscricao/formulario', evento.id]" pButton type="button" label="Inscrever-se" ></button>
                    
                     </div>
                 </td>

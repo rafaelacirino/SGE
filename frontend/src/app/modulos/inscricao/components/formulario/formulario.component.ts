@@ -64,7 +64,6 @@ export class FormularioComponent implements OnInit {
     let cond = true;
 
     this.perguntas.forEach(pergunta => {
-      console.log(pergunta.resposta)
       if (!pergunta.resposta && pergunta.obrigatorio){
         cond = false;
         this.addSingle("warn", "Você não respondeu uma pergunta obrigatoria", "")
