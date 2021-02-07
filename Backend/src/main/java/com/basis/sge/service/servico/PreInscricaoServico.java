@@ -87,9 +87,9 @@ public class PreInscricaoServico {
             throw new RegraNegocioException("Só poderá ser editada a situação na Inscrição");
         }
 
-        if(!preInscricaoDTO.getIdSituacaoPreInscricao().equals(preInscricao.getSituacaoPreInscricao().getId())){
-            criarEmailInscricaoEditada(preInscricaoDTO);
-        }
+//       if(!preInscricaoDTO.getIdSituacaoPreInscricao().equals(preInscricao.getSituacaoPreInscricao().getId())){
+//            criarEmailInscricaoEditada(preInscricaoDTO);
+//       }
 
         preInscricaoRepositorio.save(preInscricaoMapper.toEntity(preInscricaoDTO));
 

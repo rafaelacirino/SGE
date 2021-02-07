@@ -73,7 +73,7 @@
                 <h2>{{inscricao.situacao}}</h2>
                 <hr>
                 <div class="botoes">
-                <button *ngIf="inscricao.idSituacao != 4" pButton type="button" (click)="editarInscricaoCancelada(inscricao.id)" id="botao-cancelado" label="Cancelar"  class="p-button-outlined"></button>
+                <button *ngIf="inscricao.idSituacao != 4 && inscricao.idSituacao != 1 && inscricao.idSituacao != 3" pButton type="button" (click)="editarInscricaoCancelada(inscricao.id)" id="botao-cancelado" label="Cancelar"  class="p-button-outlined"></button>
                 </div>
             </td>
         </tr>
