@@ -21,7 +21,8 @@
                 <td id="nascimento">{{usuario.dataNascimento | date: 'dd/MM/yyyy'}}</td>
                 <td class="p-d-flex p-jc-center">
                     <div style class="botao_apagar">
-                        <button (click)="deletarUsuario(usuario.id)" class="p-ml-2" pButton type="button" icon="pi pi-trash"></button>
+                        <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+                        <button (click)="confirm(usuario.id)" class="p-ml-2" pButton type="button" icon="pi pi-trash"></button>
                     </div>
                 </td>
             </tr>
@@ -33,7 +34,7 @@
 
 <!--View do usuario-->
 <div *ngIf="!usuario.admin">
-    <div  id="perfil"class="p-d-flex-column p-jc-center">
+    <div  id="perfil" class="p-d-flex-column p-jc-center">
         <h1 class="titulo">Seu Perfil</h1>
 
         <div id="card">

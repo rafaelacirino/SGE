@@ -48,14 +48,14 @@
             <input  class="input " type="number" pKeyFilter="pnum" [(ngModel)]="evento.valor" size="30" formControlName="valor" placeholder="Valor de inscrição:" pInputText/>
         </div>
 
-        <div class=" p-field p-col-12 p-md-6">
+        <div class=" p-field p-col-12 p-md-6" *ngIf="edicao == false">
             <p class="input">Selecione as perguntas</p>
             <p-multiSelect class="input" (click)="buscarPerguntas()" formControlName="eventoPerguntas" [options]="perguntas"  
             [(ngModel)]="perguntaEscolhidas" optionLabel="titulo"></p-multiSelect> 
         </div>
     </div>
 
-    <p-toolbar>
+    <p-toolbar *ngIf="edicao == false">
         <p>Crie uma nova pergunta caso queira: </p>
         <div class="p-toolbar-group-center">
             

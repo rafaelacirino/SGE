@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Usuario } from 'src/app/dominios/Usuario';
 import { UsuarioService } from 'src/app/modulos/usuario/services/usuario.service';
-import {MessageService} from 'primeng/api';
+import {ConfirmationService, MessageService} from 'primeng/api';
 
 @Component({
   selector: 'app-formulario',
@@ -16,14 +16,16 @@ export class FormularioComponent implements OnInit {
   formUsuario: FormGroup
   @Input() usuario = new Usuario();
   logado = JSON.parse(localStorage.getItem('usuario'));
-  @Output() emitDisplay : EventEmitter<boolean> = new EventEmitter
-  @Output() emitEdicao : EventEmitter<Usuario> = new EventEmitter
+
+  @Output() emitEdicao = new  EventEmitter<Usuario>() 
+  @Output() emitCadastro = new EventEmitter<Usuario>()
 
 
   constructor(
     private messageService: MessageService,
     private fb: FormBuilder,
     private usuarioService: UsuarioService,
+    private confirmationService: ConfirmationService,
     private route: ActivatedRoute,
     
   ) { }
@@ -60,7 +62,14 @@ export class FormularioComponent implements OnInit {
       .subscribe(usuario => this.usuario = usuario); 
   }
 
-
+  confirm() {
+    this.confirmationService.confirm({
+        message: 'Deseja mesmo se cadastrar?',
+        accept: () => {
+            this.salvar()
+        }
+    });
+  }
 
   salvar(){
     if(this.formUsuario.invalid){
@@ -73,17 +82,17 @@ export class FormularioComponent implements OnInit {
           this.addSingle("success", "Usuário Editado", "")
         }, erro => {
           this.addSingle('warn', "Dados Invalidos", erro.error.message)
-          
         })
         this.emitEdicao.emit(this.usuario);
       } else {
-      this.usuarioService.salvarUsuario(this.usuario)
-        .subscribe(usuario => {
-          this.addSingle("success", "Usuário Salvo", "Verifique seu email")
-      }, erro => {
-        this.addSingle('warn', "Dados Invalidos", erro.error.message)
-      
-      });
+        this.usuarioService.salvarUsuario(this.usuario)
+          .subscribe(usuario => {
+            this.addSingle("success", "Cadastro com Sucesso!", "Verifique seu email")
+       }, erro => {
+          this.addSingle('warn', "Dados Invalidos", erro.error.message)
+        }
+      );
+       this.emitCadastro.emit(this.usuario);
       
     }
   }

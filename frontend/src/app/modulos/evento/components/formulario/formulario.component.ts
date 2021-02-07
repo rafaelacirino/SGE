@@ -95,7 +95,7 @@ export class FormularioComponent implements OnInit {
 
   salvar(){
     this.evento.idTipoEvento = this.tipoEvento.id
-    this.evento.tipoInsc = this.tipoInsc
+    this.evento.tipoInsc = this.tipoInsc 
    
     if(this.evento.valor == null){
       this.evento.valor = 0
@@ -116,7 +116,6 @@ export class FormularioComponent implements OnInit {
           setTimeout(() => {
             this.router.navigate(['/eventos/listagem'])
           }, 1500)
-          this.router.navigate(['/eventos/listagem'])
       }, erro => {
         this.addSingle("warn", "Dados invalidos", erro.error.message)
 
@@ -144,12 +143,7 @@ export class FormularioComponent implements OnInit {
         this.buscarTipoEvento(evento.idTipoEvento)
         this.evento = evento,
         this.tipoInsc = evento.tipoInsc
-
-        // this.evento.perguntas.forEach(perguntaEvento => {
-        //   this.buscarPerguntaPorId(perguntaEvento.idPergunta)
-        //   this.perguntaEscolhidas.push(this.pergunta)
-        // })
-        ;
+        
       }); 
   }
 

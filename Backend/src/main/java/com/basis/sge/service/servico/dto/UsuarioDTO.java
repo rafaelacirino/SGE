@@ -5,6 +5,7 @@ import lombok.Setter;
 import org.hibernate.validator.constraints.br.CPF;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -26,6 +27,7 @@ public class UsuarioDTO implements Serializable {
     private String email;
 
     @NotNull(message = "Telefone não pode ser nulo")
+    @NotBlank(message = "Coloque um telefone")
     private String telefone;
 
     @NotNull(message = "Data de nascimento não pode ser nulo")

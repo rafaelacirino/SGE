@@ -6,7 +6,7 @@ tr{
     border-color: #212121;
 }
 
-.listagem-eventos #button-criar{
+.listagem-eventos #button-criar, #botao-inscrever{
     display: flex;
     align-items: center;
     background: #212121;

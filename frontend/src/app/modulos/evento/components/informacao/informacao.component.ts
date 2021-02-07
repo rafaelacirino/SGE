@@ -1,7 +1,7 @@
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ConfirmationService } from 'primeng';
+import { ConfirmationService, MessageService } from 'primeng';
 import { Evento } from 'src/app/dominios/Evento';
 import { Perguntas } from 'src/app/dominios/Perguntas';
 import { TipoEvento } from 'src/app/dominios/TipoEvento';
@@ -21,13 +21,17 @@ export class InformacaoComponent implements OnInit {
   @Output() eventoDeletado = new EventEmitter<Evento>();
  
   constructor(
-    private route: ActivatedRoute,
     private eventoServico: EventoService,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService 
   ) { }
 
   ngOnInit(): void {
     
+  }
+
+  addSingle(error, titulo, corpo ) {
+    this.messageService.add({severity:error, summary:titulo, detail:corpo});
   }
 
   confirm(id: number) {
@@ -41,7 +45,7 @@ export class InformacaoComponent implements OnInit {
 
   deletarEvento(id: number){
     this.eventoServico.deletarEvento(id).subscribe(() => {
-      alert('Evento deletado');
+      this.addSingle("success", "Evento deletado", "")
       this.fecharDialog(this.evento)
       
     },

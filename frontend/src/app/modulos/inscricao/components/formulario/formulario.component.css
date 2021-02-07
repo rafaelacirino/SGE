@@ -1,5 +1,10 @@
-.botao{
+.formulario-evento .botao{
     display: flex;
     margin: 10px;
     align-items: center;
+    background: #212121;
+    border-color: #212121;
+}
+.formulario-evento #asterisco{
+    color: red;
 }

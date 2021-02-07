@@ -28,7 +28,7 @@
     justify-content: center;
 }
 
-.listagem-inscricao-admin .botao-cancelado{
+.listagem-inscricao-admin #botao-cancelado{
     background-color: rgb(241, 13, 13);
     border: none;
     margin-bottom: 10px;

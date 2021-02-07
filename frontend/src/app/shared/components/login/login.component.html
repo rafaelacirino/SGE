@@ -14,7 +14,9 @@
                 <button pButton (click)="logarUsuario(chaveInput)" type="button" label="Entrar" class = "botoes1"></button>   
                 <button pButton type="button" (click)="showDialog()" label="Cadastre-se" class = "botoes1"></button>
                 <p-dialog header="Cadastre-se" [(visible)]="display" >
-                    <app-formulario></app-formulario>
+                    <app-formulario (emitCadastro)="fecharDialog($event)">
+                        
+                    </app-formulario>
                  </p-dialog>                    
             </div>
         </div>

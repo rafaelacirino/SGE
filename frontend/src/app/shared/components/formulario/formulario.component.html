@@ -26,6 +26,7 @@
         </div>
     </form>
     <div >
-        <button class="botao_cadastrar" (click)="salvar()" pButton type="button" [label]="edicao ?'Editar' : 'Enviar' " ></button>
+        <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+        <button class="botao_cadastrar" (click)="confirm()" pButton type="button" [label]="edicao ?'Editar' : 'Enviar' " ></button>
     </div>
 </div>

@@ -41,6 +41,8 @@ export class ListagemComponent implements OnInit {
     
 
   }
+
+  // usuario admin
   private buscarUsuarios(){
     
     this.servico.getUsuarios()
@@ -51,6 +53,22 @@ export class ListagemComponent implements OnInit {
   
     }
 
+    confirm(id: number) {
+      this.confirmationService.confirm({
+          message: 'Deseja mesmo esta conta?',
+          accept: () => {
+            if(this.usuario.admin){
+              this.deletarUsuario(id)
+            }else{
+              this.deletarUsuarioLogado(id)
+              localStorage.removeItem("usuario")
+            }
+          }
+      });
+    
+    }
+
+    //se usuario for admin
     deletarUsuario(id: number) {
       if (id == 1){
         this.addSingle("error", "Admin não pode ser excluido", "")
@@ -66,6 +84,7 @@ export class ListagemComponent implements OnInit {
       }   
     }
 
+    //se usuario não for admin
     deletarUsuarioLogado(id: number) {
       this.servico.deletarUsuario(id)
         .subscribe(() => {
@@ -84,27 +103,15 @@ export class ListagemComponent implements OnInit {
       err=> alert(err))
     }
     
-    
-    
     showDialog() {
       this.display = true;
     }
 
-    confirm(id: number) {
-      this.confirmationService.confirm({
-          message: 'Deseja mesmo remover sua conta?',
-          accept: () => {
-              this.deletarUsuarioLogado(id)
-              localStorage.removeItem("usuario")
-              
-          }
-      });
     
-  }
-  receberEdicao(usuarioEditado: Usuario){
-    this.display = false
-    localStorage.removeItem('usuario');
-    localStorage.setItem("usuario", JSON.stringify(usuarioEditado));
-    location.reload()
-  }
+    receberEdicao(usuarioEditado: Usuario){
+      this.display = false
+      localStorage.removeItem('usuario');
+      localStorage.setItem("usuario", JSON.stringify(usuarioEditado));
+      location.reload()
+    }
 }
