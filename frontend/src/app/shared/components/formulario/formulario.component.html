@@ -4,29 +4,29 @@
         <div  class="p-grid p-dir-col">
             <div class="p-field  p-col-12 p-md-6">
                 <label for="field1"  ><strong>Seu nome: <strong class="asterisco">*</strong></strong></label>
-                <input id="field1" class="input"type="text"  [(ngModel)]="usuario.nome" placeholder="Nome Completo:" formControlName="nome" pInputText/>
+                <input id="field1" class="input"type="text"  [(ngModel)]="usuario.nome" placeholder="Nome Completo:" formControlName="nome" required pInputText/>
             </div>
             <div class="p-field p-col-12 p-md-6">
                 <label for="field2"  ><strong>Seu CPF: <strong class="asterisco">*</strong></strong> </label>
-                <p-inputMask id="field2" class="input" type="text"  [(ngModel)]="usuario.cpf" placeholder="CPF:" formControlName="cpf" mask="999.999.999-99"></p-inputMask>
+                <p-inputMask id="field2" class="input" type="text"  [(ngModel)]="usuario.cpf" placeholder="CPF:" formControlName="cpf" required mask="999.999.999-99"></p-inputMask>
             </div>
             <div class="p-field p-col-12 p-md-6">
                 <label for="field3"  ><strong>Seu email: <strong class="asterisco">*</strong></strong></label>
-                <input id="field3" class="input" type="email" [(ngModel)]="usuario.email" placeholder="Email:" formControlName="email" pInputText/>
+                <input id="field3" class="input" type="email" [(ngModel)]="usuario.email" placeholder="Email:" formControlName="email" required pInputText/>
             </div>
             <div class="p-field  p-col-12 p-md-6">
                 <label for="field4"  ><strong>Seu Telefone: <strong class="asterisco">*</strong></strong></label>
-                <p-inputMask id="field4" [(ngModel)]="usuario.telefone" placeholder="Telefone" class="input" formControlName="telefone"  mask="(99)99999-9999"></p-inputMask>
+                <p-inputMask id="field4" [(ngModel)]="usuario.telefone" placeholder="Telefone" class="input" formControlName="telefone" required  mask="(99)99999-9999"></p-inputMask>
             </div>    
             <div class="p-field  p-col-12 p-md-6">
                 <label for="field5" class=""><strong>Sua data de nascimento: <strong class="asterisco">*</strong></strong></label>
-                <input id="field5" class="input" type="date" [(ngModel)]="usuario.dataNascimento" placeholder="Data de Nascimento" formControlName="dataNascimento" pInputText/>
+                <input id="field5" class="input" type="date" [(ngModel)]="usuario.dataNascimento" placeholder="Data de Nascimento" required formControlName="dataNascimento" pInputText/>
             </div>
             
         </div>
     </form>
     <div >
         <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
-        <button class="botao_cadastrar" (click)="confirm()" pButton type="button" [label]="edicao ?'Editar' : 'Enviar' " ></button>
+        <button class="botao_cadastrar" [disabled]="formUsuario.invalid" (click)="confirm()" pButton type="button" [label]="edicao ?'Editar' : 'Enviar' " ></button>
     </div>
 </div>

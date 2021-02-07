@@ -31213,7 +31213,7 @@ body p-multiselect.ng-dirty.ng-invalid > .ui-multiselect,
 body p-spinner.ng-dirty.ng-invalid > .ui-inputtext,
 body p-selectbutton.ng-dirty.ng-invalid .ui-button,
 body p-togglebutton.ng-dirty.ng-invalid .ui-button {
-  background-image: linear-gradient(to bottom, #e62a10, #e62a10), linear-gradient(to bottom, #e62a10, #e62a10);
+  
 }
 
 @media (max-width: 640px) {

@@ -64,15 +64,15 @@ export class FormularioComponent implements OnInit {
     this.buscarPerguntas()
 
     this.formEvento = this.fbuilder.group({
-      titulo : '',
-      periodoInicio: '',
-      periodoFim: '',
-      tipoInsc: '',
-      descricao: '',
+      titulo : ['', Validators.required],
+      periodoInicio: ['', Validators.required],
+      periodoFim: ['', Validators.required],
+      tipoInsc: ['', Validators.required],
+      descricao: ['', Validators.required],
       qtdVagas: '',
-      idTipoEvento: '',
+      idTipoEvento: ['', Validators.required],
       valor: '',
-      local: '',
+      local: ['', Validators.required],
       eventoPerguntas: '',
       pergunta: '',
       obrigatorio: ''

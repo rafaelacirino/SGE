@@ -22,3 +22,7 @@
 .cadastro-eventos .label{
     margin-left: 20px;
 }
+.cadastro-eventos input{
+    height: 30px;
+    border-radius: 5px;
+}

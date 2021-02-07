@@ -6,18 +6,18 @@
     
     <div  class="p-fluid p-formgrid p-grid">
         <div class="p-field p-col-12 p-md-6 ui-float-label" >
-            <input id="float-input"  class="input" type="text"  [(ngModel)]="evento.titulo" formControlName="titulo" pInputText/>   
-            <label for="float-input" class="label">Titulo do evento:</label>
+            <input id="float-input"  class="input" styleClass="p-d-block ui-state-error" type="text" required [(ngModel)]="evento.titulo" formControlName="titulo" pInputText/>   
+            <label for="float-input" class="label">Titulo do evento:*</label>
         </div>
         
         <div class="p-field p-col-12 p-md-6 ui-float-label">
-            <input id="float-input" class="input " type="text"  [(ngModel)]="evento.descricao"  formControlName="descricao" pInputText/>
-            <label for="float-input" class="label">Descrição do evento:</label>
+            <input id="float-input" class="input " type="text" required [(ngModel)]="evento.descricao"  formControlName="descricao" pInputText/>
+            <label for="float-input" class="label">Descrição do evento:*</label>
             
         </div>
         <div class="p-field p-col-12 p-md-6 ui-float-label">
-            <input id="float-input" class="input " type="text"  [(ngModel)]="evento.local" formControlName="local" pInputText/>
-            <label for="float-input" class="label">Digite o local do evento:</label>
+            <input id="float-input" class="input " type="text"  required [(ngModel)]="evento.local" formControlName="local" pInputText/>
+            <label for="float-input" class="label">Digite o local do evento:*</label>
             
         </div>
         <div class="p-field p-col-12 p-md-6 ui-float-label">
@@ -26,12 +26,12 @@
         </div>
         
         <div class="p-field p-col-12 p-md-6">
-            <p class="input">Data inicial do evento</p>
-            <input class="input" type="datetime-local"  [(ngModel)]="evento.periodoInicio" placeholder="Data e hora do inicio do evento:" formControlName="periodoInicio" pInputText/>
+            <p class="input">Data inicial do evento*</p>
+            <input class="input" type="datetime-local" required [(ngModel)]="evento.periodoInicio" placeholder="Data e hora do inicio do evento:" formControlName="periodoInicio" pInputText/>
         </div>
         <div class="p-field p-col-12 p-md-6">
-                <p class="input">Data Fim do evento</p>
-                <input class="input" type="datetime-local"  [(ngModel)]="evento.periodoFim" placeholder="Data e hora do fim do evento:" formControlName="periodoFim" pInputText/>
+                <p class="input">Data Fim do evento*</p>
+                <input class="input" type="datetime-local" required [(ngModel)]="evento.periodoFim" placeholder="Data e hora do fim do evento:" formControlName="periodoFim" pInputText/>
         </div>   
         
         <div class=" p-field p-col-12 p-md-6">
@@ -50,8 +50,11 @@
 
         <div class=" p-field p-col-12 p-md-6" *ngIf="edicao == false">
             <p class="input">Selecione as perguntas</p>
+            
             <p-multiSelect class="input" (click)="buscarPerguntas()" formControlName="eventoPerguntas" [options]="perguntas"  
-            [(ngModel)]="perguntaEscolhidas" optionLabel="titulo"></p-multiSelect> 
+            [(ngModel)]="perguntaEscolhidas" optionLabel="titulo">
+        
+        </p-multiSelect> 
         </div>
     </div>
 
@@ -71,5 +74,5 @@
 </form>
 
 <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
-<button (click)="confirm()"  pButton icon="pi pi-check"  [label]="edicao ?'Editar' : 'Enviar' " class="botao"></button>
+<button (click)="confirm()" [disabled]="!formEvento.valid" pButton icon="pi pi-check"  [label]="edicao ?'Editar' : 'Enviar' " class="botao"></button>
 </app-card>
