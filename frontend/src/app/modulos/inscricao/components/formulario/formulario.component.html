@@ -4,7 +4,7 @@
         <ng-template pTemplate="body" let-pergunta>
             
             <tr>
-                <td>{{pergunta.titulo}} <strong *ngIf="pergunta.obrigatorio" id="asterisco">*</strong></td>
+                <td>{{pergunta.titulo}}</td>
                 <td>
                     <textarea [rows]="7" [cols]="40" [(ngModel)]="pergunta.resposta" 
                     *ngIf = "pergunta.obrigatorio" placeholder = 'Resposta Obrigatoria' pInputTextarea></textarea>
