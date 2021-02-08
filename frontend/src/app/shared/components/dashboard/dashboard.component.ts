@@ -31,10 +31,8 @@ export class DashboardComponent implements OnInit {
 
     if(!this.usuario.admin){
       this.buscarInscricoesUsuario()
-      console.log("Entrou no de usuario")
     }else{
       this.buscarInscricoes()
-      console.log("Entrou no de admin")
     }
 
 
@@ -44,7 +42,6 @@ export class DashboardComponent implements OnInit {
   buscarInscricoesUsuario(){
     this.reiniciarListas()
       this.inscricaoServico.getInscricoesPorIdUsuario(this.usuario.id).subscribe((inscricoes: PreinscricaoUsuario[]) => {
-        console.log(inscricoes)
         inscricoes.forEach(inscricao => {
           if(inscricao.idSituacao === 1){
             this.inscricoesAguardandoAprovacaoUsuario.push(inscricao);

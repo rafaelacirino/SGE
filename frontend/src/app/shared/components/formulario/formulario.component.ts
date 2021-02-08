@@ -100,7 +100,6 @@ export class FormularioComponent implements OnInit {
   buscarUsuarioPorId(id: number){
     this.usuarioService.buscarUsuarioPorId(id).subscribe(usuario => {
       this.usuario = usuario
-      console.log(this.usuario)
     });
   }
 

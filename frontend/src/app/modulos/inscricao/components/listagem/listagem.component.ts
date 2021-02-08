@@ -71,11 +71,13 @@ export class ListagemComponent implements OnInit {
       this.servico.editarInscricao(inscricao).subscribe(() => {
         if (this.evento.qtdVagas){
           this.evento.qtdVagas ++;
-          this.eventoService.editarEvento(this.evento).subscribe();
+          this.eventoService.editarEvento(this.evento).subscribe(() => {
+            location.reload()
+          });
         }
         this.addSingle("success", "Inscrição cancelada", "")
       });
-      location.reload()
+      
     });
   }
 
@@ -88,14 +90,15 @@ export class ListagemComponent implements OnInit {
       this.buscarEvento(inscricao.idEvento)
       
       this.servico.editarInscricao(inscricao).subscribe(() => {
-        this.buscarEvento(inscricao.idEvento)
-        if (this.evento.qtdVagas){
+        if (this.evento.qtdVagas != null){
+          
           this.evento.qtdVagas --;
-          this.eventoService.editarEvento(this.evento).subscribe();
+          this.eventoService.editarEvento(this.evento).subscribe(() => {
+            location.reload()
+          });
         }
         this.addSingle("success", "Inscrição aprovada", "")
       });
-      location.reload()
     });
   }
 

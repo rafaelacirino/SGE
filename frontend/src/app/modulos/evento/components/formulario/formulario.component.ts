@@ -152,9 +152,6 @@ export class FormularioComponent implements OnInit {
       pergunta.obrigatorio = false
     }
 
-    if (pergunta.obrigatorio){
-      pergunta.titulo = this.pergunta.titulo + " *";
-    }
     this.perguntaService.salvarPergunta(pergunta).subscribe(
       pergunta => {
         this.addSingle("success", "Pergunta salva", "")
