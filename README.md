@@ -1,6 +1,6 @@
 # Sistema de Gerenciamento de Eventos
 
-<sub>*Este é um Sistema de Gerenciamento de Eventos desenvolvido durante o Treinamento para a BAsis Tecnologia e que permite cadastro de eventos e gerenciar inscrições. Contém back e frontend</sub>
+<sub>*Este é um Sistema de Gerenciamento de Eventos desenvolvido durante o Treinamento para a Basis Tecnologia e que permite cadastro de eventos e gerenciar inscrições. Contém back e frontend</sub>
 
 <p align="justify"> Esta é uma aplicação Spring elaborada com Angular 9 que tem como função o cadastro de eventos, bem como sua edição, login de usuário ou administrador, e funcionalidades diversas para usuário ou administrador e também conta com o gerenciamento de inscrições.
 Como ide no backend foi usado o Intellij e para o frontend o VSCode. Como repositório, foi usado o Git.
