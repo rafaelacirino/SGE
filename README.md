@@ -7,9 +7,9 @@ Como ide no backend foi usado o Intellij e para o frontend o VSCode. Como reposi
   
 **Backend**:  No backend, a linguagem utilizada foi **Java** e para implementação do sistema e armazenamento de dados foi usado o **JPA**. A integração do sistema foi feita através do **Spring JMS**. Na etapa de **Banco de Dados**, foram usadas as seguintes tecnologias:
 <ul>
-  <li>Gerenciar mudanças: **liquibase**;</li>
-  <li>Manipulação dos dados: **Spring Data**;</li>
-  <li>Gerenciar o banco de dados do tipo relacional: **Postgre SQL**;</li>
+  <li>Gerenciar mudanças: liquibase;</li>
+  <li>Manipulação dos dados: Spring Data;</li>
+  <li>Gerenciar o banco de dados do tipo relacional: Postgre SQL;</li>
 </ul>
 Na etapa de envio e recebimento de emails foi desenvolvido pelo do método assíncrono através do servidor de mensageria **RabbitMQ**.
 
